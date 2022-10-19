@@ -19,7 +19,6 @@ function App() {
   const navigate = useNavigate();
 useEffect(()=>{
   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
-  console.log(userDetails)
    return !userDetails?.access_token? navigate('/login' ) : navigate('/main')    
 },[]);
 
