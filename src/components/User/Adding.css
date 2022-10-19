@@ -1,0 +1,27 @@
+.assetid{ 
+    display:grid;
+    margin-top: 10px;
+    width: 300px; 
+}
+
+.dept {
+   margin-top: 10px;   
+}
+
+.addform {
+   display: grid;
+}
+
+h1{
+    margin-left: 20px;
+}
+
+.adduser{
+    margin-left: 50px;
+}
+
+.add{
+color:rgb(255, 145, 0);
+margin-left: 1100px;
+margin-bottom: 20px;
+}

@@ -1,0 +1,15 @@
+.Add{
+    
+}
+.tabbt{
+    display: flex;
+} 
+.transform{
+    display:block;
+    width: 50%;
+    height: 50%;
+}
+TextField{
+    width:'40vh'; 
+    height:'10vh';
+}
