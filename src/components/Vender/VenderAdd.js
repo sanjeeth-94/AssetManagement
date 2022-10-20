@@ -45,11 +45,16 @@ const VenderAdd = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Addingvendor />
+        <div style={{marginLeft:'85%', marginBottom:'20px'}}>
+        <Addingvendor  />
+        </div>
         <DataTable/>
+        
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <div style={{marginLeft:'50%', marginBottom:'20px'}}>
         <VenderaddType/>
+        </div>
         <DataTableVender />
       </TabPanel>
     </Box>

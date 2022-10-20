@@ -18,10 +18,10 @@ export default function Transferasset() {
             <form>
                 <h2>From</h2>
                 <hr />
-                <div>
+                <div style={{marginLeft:'50px'}}>
                     <label>Department : </label>
                     <Box>
-                        <FormControl fullWidth>
+                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
                             <InputLabel id="demo-simple-select-label" placeholder="Select Department"></InputLabel>
                             <Select 
                             labelId="demo-simple-select-label"
@@ -37,10 +37,10 @@ export default function Transferasset() {
                         </FormControl>
                     </Box>
                 </div>
-                <div>
+                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
                     <label>Section : </label>
                     <Box>
-                        <FormControl fullWidth>
+                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
                             <InputLabel id="demo-simple-select-label" placeholder="Select Department First"></InputLabel>
                             <Select 
                             labelId="demo-simple-select-label"
@@ -55,10 +55,10 @@ export default function Transferasset() {
                         </FormControl>
                     </Box>
                 </div>
-                <div>
+                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
                     <label>Asset Type : </label>
                     <Box>
-                        <FormControl fullWidth>
+                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
                             <InputLabel id="demo-simple-select-label" placeholder="Select Section First"></InputLabel>
                             <Select 
                             labelId="demo-simple-select-label"
@@ -73,10 +73,10 @@ export default function Transferasset() {
                         </FormControl>
                     </Box>    
                 </div>
-                <div>
+                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
                     <label>Asset Name : </label>
                     <Box>
-                        <FormControl fullWidth>
+                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
                             <InputLabel id="demo-simple-select-label"placeholder="Select Asset Type First"></InputLabel>
                             <Select 
                             labelId="demo-simple-select-label"
@@ -91,7 +91,7 @@ export default function Transferasset() {
                         </FormControl>
                     </Box>
                 </div>
-                <div>
+                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
                     <Button variant="contained">Move</Button>
                 </div>
             </form>
@@ -99,10 +99,10 @@ export default function Transferasset() {
                 <form>
                     <h2>To</h2>
                     <hr />
-                    <div>
+                    <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
                         <label>Department : </label>
                         <Box>
-                            <FormControl halfWidth>
+                            <FormControl style={{width:'50vh' ,height: '10vh' }}>
                                 <InputLabel id="demo-simple-select-label"placeholder="Select Asset Type First"></InputLabel>
                                 <Select 
                                 labelId="demo-simple-select-label"
@@ -117,10 +117,10 @@ export default function Transferasset() {
                             </FormControl>
                         </Box>
                     </div>
-                    <div>
+                    <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
                         <label>Asset Type : </label>
                         <Box>
-                            <FormControl>
+                            <FormControl style={{width:'50vh' ,height: '10vh' }}>
                                 <InputLabel id="demo-simple-select-label"placeholder="Select Asset Type First"></InputLabel>
                                 <Select 
                                 labelId="demo-simple-select-label"
