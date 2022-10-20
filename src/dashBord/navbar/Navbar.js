@@ -3,7 +3,7 @@ import "./Navbar.css";
 const Navbar = () => {
     return (
         <nav className="navbar" style={{
-            height: '10vh',width:'187.5vh'
+            height: '10vh',width:'100%'
         }}>
             <div className="nav_icon"> 
             </div>

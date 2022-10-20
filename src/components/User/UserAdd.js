@@ -7,7 +7,8 @@ const useradd = () => {
   return (
     <div>
       <h1>Manage user</h1>
-      <div className='add'>
+      <hr style={{bottom:'solid'}}/>
+      <div style={{marginLeft:'85%', marginBottom:'20px'}}>
         <Adding/>
       </div>    
      <DataTable/>

@@ -8,12 +8,12 @@
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #a5aaad;
+  box-shadow: inset 0 0 5px #1d4236;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #aeb4b1;
+  background: #3d6852;
   border-radius: 10px;
 }
 /* general styling */

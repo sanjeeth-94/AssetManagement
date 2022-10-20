@@ -5,7 +5,7 @@
     padding: 0px;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
-    width: 110px;    
+    
 }
 
 .sidebar__title {
@@ -44,13 +44,11 @@
     width: 20px;
     height: 20px;
     margin-top: 15px;
-    margin-left: 50px;   
+    margin-left: 30px;   
 }
 .icon:hover{
-    background-color:rgb(198, 233, 235)
+    background-color:rgb(195, 210, 211)
  }
-
-
 
 .sidebar__link > a {
     text-decoration: none;

@@ -21,14 +21,14 @@ main {
 
 .main__greeting > h1 {
     font-size: 24px;
-    color: #2e4a66;
+    color: #8f9397;
     margin-bottom: 5px;
 }
 
 .main__greeting > p {
     font-size: 14px;
     font-weight: 700;
-    color: #a5aaad;
+    color: #c5cace;
 }
 
 .main__container {

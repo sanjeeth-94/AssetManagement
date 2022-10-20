@@ -1,17 +1,17 @@
-import * as React from 'react';
+import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import './Adding.css';
 
 const columns = [
-  { field: 'Serial No', headerName: 'Serial No', width: 80 },
-  { field: 'Employee Id', headerName: 'Employee Id', width: 140 },
-  { field: 'Employee Name', headerName: 'Employee Name', width: 140 },
-  { field: 'Department', headerName: 'Department', width: 140 },
-  { field: 'Designation', headerName: 'Designation', width: 140 },
-  { field: 'Mobile', headerName: 'Mobile', width: 140 },
-  { field: 'Email', headerName: 'Email', width: 140 },
-  { field: 'UserName', headerName: 'UserName', width: 140 },
+  { field: 'id', headerName: 'Serial No', width: 80 },
+  { field: 'employee_id', headerName: 'Employee Id', width: 140 },
+  { field: 'employee_name', headerName: 'Employee Name', width: 140 },
+  { field: 'department', headerName: 'Department', width: 140 },
+  { field: 'designation', headerName: 'Designation', width: 140 },
+  { field: 'mobile_number', headerName: 'Mobile', width: 140 },
+  { field: 'email', headerName: 'Email', width: 140 },
+  { field: 'user_name', headerName: 'UserName', width: 140 },
   { field: 'action', headerName: 'Action', width: 250 ,  sortable: false,
       renderCell:(cellValues)=>{
       return(
@@ -38,13 +38,30 @@ const rows = [
 ];
 
 export default function DataTable() {
-  return (
-    <div className='adduser' style={{ height: 400, width: '90%' }}>
+  const [data,setData] = useState([]);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+
+    console.log("hellow worl");
+    fetch("http://192.168.1.174:8000/api/user/showdata",
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+
+    })
+    .then(response => response.json())
+    .then((dataObject) => {
+      setRows(dataObject.data);
+    })
+  }, []);
+
+  return(
+    <div className='adduser' style={{ height: 270, width: '90%' }}>
       <DataGrid
       rows={rows}
-      columns={columns}
-      rowsPerPageOptions={[5]}
-      onRowAdd />
+      columns={columns} />
     </div>
-  );
+  )
 }

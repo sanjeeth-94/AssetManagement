@@ -10,11 +10,11 @@ const DashBoard = () => {
       <Navbar className='navbar'/>   
         <div style={{
           display: 'inline-flex',
-          width: '192vh'
+          width: '100%'
         
         }}>
       <Sidebar className='sidebar'/> 
-        <div style={{height:'100vh', width:'179.5vh',overflow:'auto'}}>
+        <div style={{height:'100vh', width:'100%',overflow:'auto'}}>
         <Outlet/>
         </div>  
       </div>  

@@ -11,15 +11,14 @@ import MaintenanceTab from './components/Maintenance/MaintenanceTab';
 import Check from './components/check/check';
 import AllocationTab from './components/Allocation/AllocationTab';
 import ServiceRequestTab from './components/ServiceRequest/RequestedserviceTab';
-import VenderView from './components/Vender/VenderView';
-import Viewtable from './components/User/Viewtable';
+import VenderAdd from './components/Vender/VenderAdd';
+import UserAdd from './components/User/UserAdd';
 
 
 function App() {
   const navigate = useNavigate();
 useEffect(()=>{
   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
-  console.log(userDetails)
    return !userDetails?.access_token? navigate('/login' ) : navigate('/main')    
 },[]);
 
@@ -37,8 +36,8 @@ useEffect(()=>{
               <Route path='/maintaincestatus' element={<MaintenanceTab/>}/>
               <Route path='/alloction' element={<AllocationTab/>}/>
               <Route path='/servicerequest' element={<ServiceRequestTab/>}/>
-              <Route path='/vender' element={<VenderView/>}/>
-              <Route path='/user' element={<Viewtable/>}/>
+              <Route path='/vender' element={<VenderAdd/>}/>
+              <Route path='/user' element={<UserAdd/>}/>
               <Route path='/logout' element={<MaintenanceTab/>}/>
 
         </Route> 
