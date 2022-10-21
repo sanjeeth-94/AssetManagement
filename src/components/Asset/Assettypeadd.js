@@ -29,7 +29,7 @@ export default function Assetadd() {
     };
 
     return (
-        <div>
+        <div style={{marginLeft:'900px' , marginTop:'20px'}}>
             <Button variant="outlined" onClick={handleClickOpen}>
             <AddIcon className='Add'/>
                 Add

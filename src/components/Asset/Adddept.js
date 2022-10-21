@@ -19,7 +19,7 @@ export default function Adddept() {
     };
 
     return (
-        <div>
+        <div className='addbutton'>
             <Button variant="outlined" onClick={handleClickOpen}>
             <AddIcon className='Add'/>
                 Add
@@ -36,19 +36,19 @@ export default function Adddept() {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <form>
-                                <div>
-                                    <label>Department Name : </label>
-                                    <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                                <div style={{marginTop:'20px',marginLeft:'8px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label>Department Name :  </label>
+                                    <TextField style={{marginLeft:'10px', height:'10px'}} id="outlined-basic" label="Outlined" variant="outlined" />
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px' ,marginLeft:'8px'}}>
                                     <label>Description : </label>
                                     <TextareaAutosize
-                                    aria-label="empty textarea"
-                                    placeholder="Empty"
-                                    style={{ width: 200, heigh:10}}/>
+                                    style={{ width:'100px', height:'100px',marginLeft:'60px'}}
+                                     aria-label="empty textarea"
+                                    placeholder="Empty"/>
                                 </div>
-                                <div>
-                                    <Button variant="contained">Submit</Button>
+                                <div style={{marginTop:'30px'}}>
+                                    <Button variant="contained">ADD</Button>
                                 </div>
                             </form>
 

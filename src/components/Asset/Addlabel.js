@@ -95,10 +95,10 @@ export default function Addlabel() {
                                     </Box>
                                 </div>
                                 <div>
-                                    <label> Asset Type : </label>
+                                    <label>Asset Type : </label>
                                     <Box sx={{ minWidth: 120 }}>
                                         <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Select Section First</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
@@ -110,20 +110,17 @@ export default function Addlabel() {
                                     </Box>
                                 </div>
                                 <div>
-                                <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-      >
-        <FormControlLabel value="Select Asset" control={<Radio />} label="Select Asset" />
-        <FormControlLabel value="Select Asset Id" control={<Radio />} label="Select Asset Id" />
-       </RadioGroup>
-    </FormControl>
-    </div>
-
-                                
+                                    <FormControl>
+                                        <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
+                                        <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group">
+                                            <FormControlLabel value="Select Asset" control={<Radio />} label="Select Asset" />
+                                            <FormControlLabel value="Select Asset Id" control={<Radio />} label="Select Asset Id" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </div>
                                 <div>
                                     <label>Select Asset : </label>
                                     <Box sx={{ minWidth: 120 }}>
@@ -140,19 +137,17 @@ export default function Addlabel() {
                                     </Box>
                                 </div>
                                 <div>
-                                <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group">
-        <FormControlLabel value="BARCODE" control={<Radio />} label="BARCODE" />
-        <FormControlLabel value="QRCODE" control={<Radio />} label="QRCODE" />
-      </RadioGroup>
-    </FormControl>
-
+                                    <FormControl>
+                                    <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
+                                    <RadioGroup
+                                    row
+                                    aria-labelledby="demo-row-radio-buttons-group-label"
+                                    name="row-radio-buttons-group">
+                                        <FormControlLabel value="BARCODE" control={<Radio />} label="BARCODE" />
+                                        <FormControlLabel value="QRCODE" control={<Radio />} label="QRCODE" />
+                                    </RadioGroup>
+                                    </FormControl>
                                 </div>
-                               
                                 <div>
                                     <Button variant="contained">Submit</Button>
                                 </div>

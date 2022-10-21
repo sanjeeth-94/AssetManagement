@@ -12,7 +12,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AddIcon from '@mui/icons-material/Add';
-import './Asset.css'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -22,9 +21,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-
+import './Asset.css'
 
 export default function Assetadd() {
     const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
@@ -32,17 +30,16 @@ export default function Assetadd() {
     const handleChangeDate = (newValue) => {
         setValue(newValue);
     };
-
-
-
     const [age, setAge] = React.useState('');
     const handleChange = (event) => {
         setAge(event.target.value);
     };
+
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -180,8 +177,8 @@ export default function Assetadd() {
                                             aria-labelledby="demo-row-radio-buttons-group-label"
                                             name="row-radio-buttons-group"
                                         >
-                                            <FormControlLabel value="Warranty" control={<Radio />} label="Female" />
-                                            <FormControlLabel value="No Warranty" control={<Radio />} label="Male" />
+                                            <FormControlLabel value="Warranty" control={<Radio />} label="Warranty" />
+                                            <FormControlLabel value="No Warranty" control={<Radio />} label="No Warranty" />
                                         </RadioGroup>
                                     </FormControl>
 
@@ -196,14 +193,10 @@ export default function Assetadd() {
                                                 inputFormat="MM/DD/YYYY"
                                                 value={value}
                                                 onChange={handleChangeDate}
-                                                renderInput={(params) => <TextField {...params} />}
-                                            />
-
+                                                renderInput={(params) => <TextField {...params} />}/>
                                         </Stack>
                                     </LocalizationProvider>
-
-
-                                    <label style={{ marginLeft: '80px' }}>Warranty End Date:</label>
+                                    <label style={{marginLeft:'80px'}}>Warranty End Date:</label>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <Stack style={{ width: '250px' }} spacing={3}>
                                             <DesktopDatePicker
@@ -211,8 +204,7 @@ export default function Assetadd() {
                                                 inputFormat="MM/DD/YYYY"
                                                 value={value}
                                                 onChange={handleChangeDate}
-                                                renderInput={(params) => <TextField {...params} />}
-                                            />
+                                                renderInput={(params) => <TextField {...params} />}/>
 
                                         </Stack>
                                     </LocalizationProvider>
