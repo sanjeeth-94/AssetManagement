@@ -10,10 +10,10 @@ const Serviceduedate = () => {
         <form>
             <div>
             SERVICE DUE DATE
-            <hr style={{bottom:'solid'}}/>
+            <hr style={{bottom:'solid',}}/>
             </div>
-            <div className='search'>
-                <label>Search : </label>
+            <div className='search' style={{display:'flex',}}>
+                <label>Search :</label>
                 <TextField
                 id="outlined-size-small"
                 defaultValue="Search"

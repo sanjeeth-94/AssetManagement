@@ -41,27 +41,30 @@ const AmcTab = () => {
 
   return (
     <div>
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="AMC SERVICE" {...a11yProps(0)} />
-          <Tab label="CERTIFICATE" {...a11yProps(1)} />
-          <Tab label="WARRANTY" {...a11yProps(2)} />
-          <Tab label="INSURANCE" {...a11yProps(3)} />
-        </Tabs>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="AMC SERVICE" {...a11yProps(0)} />
+            <Tab label="CERTIFICATE" {...a11yProps(1)} />
+            <Tab label="WARRANTY" {...a11yProps(2)} />
+            <Tab label="INSURANCE" {...a11yProps(3)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <div style={{ display: 'flex', marginLeft: '70%' }}>
+            <Service />
+            <Servicedue />
+          </div>
+          <AmcServiceadd />
+
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Certificateadd />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <Warranty />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <AmcServiceadd />
-        <Service />   
-        <Servicedue />            
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Certificateadd />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Warranty />
-      </TabPanel>
-    </Box>
     </div>
   )
 }

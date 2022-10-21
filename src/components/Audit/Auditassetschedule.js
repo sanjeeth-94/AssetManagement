@@ -39,7 +39,7 @@ export default function Assetadd() {
     };
 
     return(
-        <div>
+        <div style={{marginLeft:'60px'}}>
             <Button variant="outlined" onClick={handleClickOpen}>
             <CalendarMonthIcon className='Add'/>
              schedule

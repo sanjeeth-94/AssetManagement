@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Auditassetschedule from './Auditassetschedule';
 import Auditsync from './Auditsync';
 import Scheduleview from './Scheduleview';
+import ViewAuditReport from './ViewAuditReport';
 // import Adddept from './Adddept';
 // import Addsection from './Addsection';
 // import Assettypeadd from './Assettypeadd';
@@ -64,13 +65,7 @@ const AuditTab = () => {
       <Auditsync />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {/* <Addsection /> */}
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        {/* <Assettypeadd /> */}
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        {/* <Tagassetadd /> */}
+        <ViewAuditReport/>
       </TabPanel>
     </Box>
     </div>
