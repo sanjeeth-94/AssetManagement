@@ -1,14 +1,14 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
 import './Asset.css'
-import Assetviewtable from './Assetviewtable';
+import Sectionviewtable from './Sectionviewtable';
 
-const Assetview = () => {
+const Sectionview = () => {
     return(
         <div>
             <form>
-                <div style={{marginLeft:'40px'}}>
-                    VIEW ASSET                 
+            <div style={{marginLeft:'40px'}}>
+                    VIEW SECTION                
                 </div>
                 <hr style={{bottom:'solid',
                 background:'whitesmoke' }}/>
@@ -21,9 +21,9 @@ const Assetview = () => {
                 </div>
                 <hr style={{bottom:'solid'}}/>
             </form>
-            <Assetviewtable />
+            <Sectionviewtable />
         </div>
     )
 }
 
-export default Assetview;
+export default Sectionview;

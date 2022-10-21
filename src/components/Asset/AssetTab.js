@@ -9,6 +9,11 @@ import Assettypeadd from './Assettypeadd';
 import Tagassetadd from './Tagassetadd';
 import Transferasset from './Transferasset';
 import Assetview from './Assetview';
+import Deptview from './Deptview';
+import Sectionview from './Sectionview';
+import Assettypeview from './Assettypeview';
+import Scraplog from './Scraplog'
+import Scrapasset from './Scrapasset';
 import './Asset.css'
 
 function TabPanel(props) {
@@ -66,36 +71,37 @@ const AssetTab = () => {
         <div style={{display:'flex'}}>
       <div style={{display:'flex' ,height:'10vh',marginLeft:'650px',}}> 
        <Assetadd  />
-       </div>
-       <div style={{display:'flex' ,height:'10vh',marginLeft:'10px',}}> 
-      
-       <Assetimport />  
-       </div>
-       <div style={{display:'flex' ,height:'10vh',marginLeft:'10px',}}> 
-      
-       <Addlabel /> 
-
-       </div>
       </div>
-       <div>
+      <div style={{display:'flex' ,height:'10vh',marginLeft:'10px',}}> 
+       <Assetimport />  
+      </div>
+      <div style={{display:'flex' ,height:'10vh',marginLeft:'10px',}}> 
+       <Addlabel /> 
+      </div>
+      </div>
+      <div>
         <hr/>
        <Assetview />    
-       </div>   
+      </div>   
       </TabPanel>
       <TabPanel value={value} index={1}>
       <Adddept />
+      <Deptview />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Addsection />
+        <Sectionview />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <Assettypeadd />
+        <Assettypeview />
       </TabPanel>
       <TabPanel value={value} index={4}>
         <Tagassetadd />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        {/* <Tagassetadd /> */}
+        <Scraplog/>
+        <Scrapasset />
       </TabPanel>
       <TabPanel value={value} index={6}>
         <Transferasset />

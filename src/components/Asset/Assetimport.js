@@ -32,10 +32,10 @@ export default function Assetimport() {
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description" >
-                    <DialogTitle id="alert-dialog-title" >
+                    <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
                         {"IMPORT ASSET"}
                     </DialogTitle>
-                    <div style={{background:'whitesmoke', width:'70vh',height:'30vh', }}>
+                    <div style={{width:'70vh',height:'30vh', }}>
                         <div style={{marginTop:'30px', display:'flex', alignItems:'center'}}>
                         <label style={{marginRight:'30px',marginLeft:'20px'}}> Import CSV File : </label>
                         <Stack direction="row" alignItems="center" spacing={2}>

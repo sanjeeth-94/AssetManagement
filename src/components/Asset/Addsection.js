@@ -15,7 +15,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import AddIcon from '@mui/icons-material/Add';
 import './Asset.css'
 
-export default function Assetadd() {
+export default function Assetsection() {
     const [age, setAge] = React.useState('');
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -29,7 +29,7 @@ export default function Assetadd() {
     };
 
     return (
-        <div>
+        <div style={{marginLeft:'900px' , marginTop:'20px'}}>
             <Button variant="outlined" onClick={handleClickOpen}>
             <AddIcon className='Add'/>
                 Add
@@ -43,33 +43,52 @@ export default function Assetadd() {
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ADD SECTION"}
                     </DialogTitle>
-                        <div>
-                            <label>Department : </label>
-                            <Box sx={{ minWidth: 120 }}>
-                                <FormControl fullwith>
-                                    <Select 
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={age}
-                                    label="Select Department"
-                                    onChange={handleChange}>
-                                        <MenuItem value={10}>R & D</MenuItem>
-                                        <MenuItem value={20}>Production</MenuItem>
-                                        <MenuItem value={30}>Testing</MenuItem>
-                                        <MenuItem value={30}>Accounting</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box>
-                        </div>
-                        <div>
-                            <label>Section : </label>
-                            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                        </div>
-                        <div>
-                            <Button variant="contained">Add</Button>
-                        </div>
+                    <div style={{marginTop:'20px',marginLeft:'8px',width:'150vh' ,display:'flex',alignItems:'center'}}>
+                        <label>Department : </label>
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullwidth>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Select Department"
+                                onChange={handleChange}>
+                                    <MenuItem value={10}>R & D</MenuItem>
+                                    <MenuItem value={20}>Production</MenuItem>
+                                    <MenuItem value={30}>Testing</MenuItem>
+                                    <MenuItem value={30}>Accounting</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                    <div>
+                        <label>Section : </label>
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullwidth>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Select Department First"
+                                onChange={handleChange}>
+                                    {/* <MenuItem value={10}>R & D</MenuItem>
+                                    <MenuItem value={20}>Production</MenuItem>
+                                    <MenuItem value={30}>Testing</MenuItem>
+                                    <MenuItem value={30}>Accounting</MenuItem> */}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                    <div>
+                        <label>Asset Type : </label>
+                        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                    </div>
+                    <div>
+                        <Button variant="contained">Add</Button>
+                    </div>
                 </Dialog>
             </div>
         </div>
+
     )
 }
