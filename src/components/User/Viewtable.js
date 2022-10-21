@@ -1,7 +1,7 @@
 import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import './Adding.css';
+
 
 const columns = [
   { field: 'id', headerName: 'Serial No', width: 80 },

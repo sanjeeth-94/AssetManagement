@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import { DialogTitle } from '@mui/material';
 import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import dayjs from 'dayjs';
@@ -46,13 +47,16 @@ export default function Servicedue() {
         <Dialog
         open={open}
         onClose={handleClose}
-        fullScreen>
-          <div>
-            <hr style={{bottom:'solid'}}/>
-            </div>
+        fullWidth
+        maxWidth='lg'>
+          <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
+            {"SERVICE DUE"}
+            </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                <form className='addform'>
+                
+                <form  >
+                  <div style={{marginLeft:'50px',marginBottom:'30px'}}>
                   <div className='assetid'>
                     <label>Service Date From : </label>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -115,7 +119,9 @@ export default function Servicedue() {
                         <div className='view'>
                           <Button variant="contained">View</Button>
                         </div>
+                        </div>
                       </div>
+                      <hr/>
                     </form>
                 <Serviceduedate />
               </DialogContentText>
