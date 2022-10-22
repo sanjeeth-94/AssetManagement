@@ -115,7 +115,7 @@ const Login = () => {
         >
           Sign In
         </Button>
-        <Link to='/register'>Register</Link>
+       
       </form>
     </Paper>
   )
