@@ -44,7 +44,15 @@ export default function DataTableViews() {
       rows={rows}
       columns={columns}
       rowsPerPageOptions={[5]}
-      onRowAdd/>
+      onRowAdd={(newData) =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            setData([...data, newData]);
+
+            resolve();
+          }, 1000);
+        })}
+      />
     </div>
   );
 }

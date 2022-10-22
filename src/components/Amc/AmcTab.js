@@ -34,7 +34,6 @@ function a11yProps(index) {
 
 const AmcTab = () => {
   const [value, setValue] = useState(0);
-
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -56,7 +55,6 @@ const AmcTab = () => {
             <Servicedue />
           </div>
           <AmcServiceadd />
-
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Certificateadd />

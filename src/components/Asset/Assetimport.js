@@ -26,8 +26,7 @@ export default function Assetimport() {
             import
             </Button>
             <div>
-                <Dialog
-                
+                <Dialog                
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
@@ -43,14 +42,12 @@ export default function Assetimport() {
                                 Choose File 
                                 <input hidden accept="image/*" multiple type="file" />
                             </Button >
-                          
                         </Stack>
                     </div>
-        
                     <div  style={{marginLeft:'20px', marginTop:'20px'}}>
                     <Button variant="contained" component="label">
-                                Download Templete
-                            </Button>
+                         Download Templete
+                    </Button>
                     <Button style={{marginLeft:'20px'}} variant="contained">Import</Button>
                     </div>
                     </div>

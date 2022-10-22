@@ -43,52 +43,30 @@ export default function Assetsection() {
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ADD SECTION"}
                     </DialogTitle>
-                    <div style={{marginTop:'20px',marginLeft:'8px',width:'150vh' ,display:'flex',alignItems:'center'}}>
-                        <label>Department : </label>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullwidth>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Department:</label>
+                        <Box>
+                            <FormControl style={{width:'300px' ,marginLeft:'28px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={age}
                                 label="Select Department"
                                 onChange={handleChange}>
-                                    <MenuItem value={10}>R & D</MenuItem>
-                                    <MenuItem value={20}>Production</MenuItem>
-                                    <MenuItem value={30}>Testing</MenuItem>
-                                    <MenuItem value={30}>Accounting</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>
                     </div>
-                    <div>
-                        <label>Section : </label>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullwidth>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={age}
-                                label="Select Department First"
-                                onChange={handleChange}>
-                                    {/* <MenuItem value={10}>R & D</MenuItem>
-                                    <MenuItem value={20}>Production</MenuItem>
-                                    <MenuItem value={30}>Testing</MenuItem>
-                                    <MenuItem value={30}>Accounting</MenuItem> */}
-                                </Select>
-                            </FormControl>
-                        </Box>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'1px'}}>Section:</label>
+                        <TextField style={{marginLeft:'60px', width:'300px'}} id="outlined-basic" label="Outlined" variant="outlined" />
                     </div>
-                    <div>
-                        <label>Asset Type : </label>
-                        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                    </div>
-                    <div>
-                        <Button variant="contained">Add</Button>
+                    <div style={{marginTop:'30px', marginLeft:'200px', marginBottom:'20px'}}>
+                        <Button variant="contained">ADD</Button>
                     </div>
                 </Dialog>
             </div>
         </div>
-
     )
 }

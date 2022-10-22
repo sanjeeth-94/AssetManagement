@@ -40,28 +40,27 @@ const AllocationTab = () => {
 
   return (
     <div>
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="ALLOCATION" {...a11yProps(0)} />
-                    <Tab label="UN-TAG" {...a11yProps(1)} />
-                    <Tab label="RETURN ASSET" {...a11yProps(2)} />
-                    <Tab label="SELF ASSESSMENT" {...a11yProps(3)} />
-                </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-                <Allocationadd />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Untagadd />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              <Selfassessment />
-            </TabPanel>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="ALLOCATION" {...a11yProps(0)} />
+            <Tab label="UN-TAG" {...a11yProps(1)} />
+            <Tab label="RETURN ASSET" {...a11yProps(2)} />
+            <Tab label="SELF ASSESSMENT" {...a11yProps(3)} />
+          </Tabs>
         </Box>
+        <TabPanel value={value} index={0}>
+          <Allocationadd />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Untagadd />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          </TabPanel>
+        <TabPanel value={value} index={3}>
+            <Selfassessment />
+        </TabPanel>
+      </Box>
     </div>
   )
 }

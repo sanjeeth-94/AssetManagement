@@ -79,7 +79,7 @@ export default function Certificateadd() {
                   <div>
                     <label>Phone : </label>
                     <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                </div>
+                  </div>
                 </div>
               </form>
             </DialogContentText>

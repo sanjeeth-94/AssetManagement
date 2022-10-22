@@ -17,38 +17,34 @@ const Warranty = () => {
   return (
     <form>
       <div className='from'>
-      <label>Date From</label>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <Stack spacing={3}>
-      <DesktopDatePicker
-        inputFormat="MM/DD/YYYY"
-        value={value}
-        onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
-      />
-     </Stack>
-    </LocalizationProvider>
-    </div> 
-    <div className='to'>
-      <label>To</label>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={3}>
-        <DesktopDatePicker
-          inputFormat="MM/DD/YYYY"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </Stack>
-      </LocalizationProvider> 
+        <label>Date From</label>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Stack spacing={3}>
+            <DesktopDatePicker
+            inputFormat="MM/DD/YYYY"
+            value={value}
+            onChange={handleChange}
+            renderInput={(params) => <TextField {...params} />}/>
+          </Stack>
+        </LocalizationProvider>
+      </div> 
+      <div className='to'>
+        <label>To</label>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Stack spacing={3}>
+            <DesktopDatePicker
+            inputFormat="MM/DD/YYYY"
+            value={value}
+            onChange={handleChange}
+            renderInput={(params) => <TextField {...params} />}/>
+          </Stack>
+        </LocalizationProvider> 
       </div>
       <div className='view'>
-      <Button variant="contained">View</Button>
-      <Button variant="contained">View Due</Button>
-      </div>
-     
-    </form>   
-    
+        <Button variant="contained">View</Button>
+        <Button variant="contained">View Due</Button>
+      </div> 
+    </form>     
   )
 }
 

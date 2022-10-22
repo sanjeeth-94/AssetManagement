@@ -18,6 +18,8 @@ export default function Adddept() {
         setOpen(false);
     };
 
+    
+
     return (
         <div className='addbutton'>
             <Button variant="outlined" onClick={handleClickOpen}>
@@ -36,22 +38,21 @@ export default function Adddept() {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <form>
-                                <div style={{marginTop:'20px',marginLeft:'8px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label>Department Name :  </label>
-                                    <TextField style={{marginLeft:'10px', height:'10px'}} id="outlined-basic" label="Outlined" variant="outlined" />
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label style={{marginLeft:'1px'}}>Department Name:</label>
+                                    <TextField style={{marginLeft:'20px', width:'250px'}} id="outlined-basic" label="Outlined" variant="outlined" />
                                 </div>
-                                <div style={{marginTop:'20px' ,marginLeft:'8px'}}>
-                                    <label>Description : </label>
+                                <div style={{marginTop:'10px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label>Description:</label>
                                     <TextareaAutosize
-                                    style={{ width:'100px', height:'100px',marginLeft:'60px'}}
+                                    style={{ width:'250px', height:'40px',marginLeft:'70px', marginTop:'20px'}}
                                      aria-label="empty textarea"
                                     placeholder="Empty"/>
                                 </div>
-                                <div style={{marginTop:'30px'}}>
+                                <div style={{marginTop:'30px', marginLeft:'200px'}}>
                                     <Button variant="contained">ADD</Button>
                                 </div>
                             </form>
-
                         </DialogContentText>
                     </DialogContent>
                 </Dialog>

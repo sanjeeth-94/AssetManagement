@@ -13,7 +13,7 @@ const columns = [
   { field: 'email', headerName: 'Email', width: 140 },
   { field: 'user_name', headerName: 'UserName', width: 140 },
   { field: 'action', headerName: 'Action', width: 250 ,  sortable: false,
-      renderCell:(cellValues)=>{
+    renderCell:(cellValues)=>{
       return(
         <div >
         <Button
@@ -33,17 +33,11 @@ const columns = [
   }
 ];
 
-const rows = [
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-];
-
 export default function DataTable() {
-  const [data,setData] = useState([]);
   const [rows, setRows] = useState([]);
   useEffect(() => {
-
     console.log("hellow worl");
-    fetch("http://192.168.1.174:8000/api/user/showdata",
+    fetch("http://192.168.1.174:8000/api/user/showData",
     {
       method: 'GET',
       headers: {
@@ -53,7 +47,7 @@ export default function DataTable() {
     })
     .then(response => response.json())
     .then((dataObject) => {
-      setRows(dataObject.data);
+      setRows(dataObject);
     })
   }, []);
 

@@ -13,6 +13,9 @@ import AllocationTab from './components/Allocation/AllocationTab';
 import ServiceRequestTab from './components/ServiceRequest/RequestedserviceTab';
 import VenderAdd from './components/Vender/VenderAdd';
 import UserAdd from './components/User/UserAdd';
+import Warrantydue from './components/DashboardItems/Warrantydue';
+import Servicedue from './components/DashboardItems/Servicedue';
+import Inceptiondue from './components/DashboardItems/Inceptiondue';
 
 
 function App() {
@@ -39,6 +42,9 @@ useEffect(()=>{
               <Route path='/vender' element={<VenderAdd/>}/>
               <Route path='/user' element={<UserAdd/>}/>
               <Route path='/logout' element={<MaintenanceTab/>}/>
+              <Route path='/warrantydue' element={<Warrantydue/>}/>
+              <Route path='/servicedue' element={<Servicedue/>}/>
+              <Route path='/inceptiondue' element={<Inceptiondue/>}/>
 
         </Route> 
       </Route>
