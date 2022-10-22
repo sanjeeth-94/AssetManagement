@@ -6,24 +6,22 @@ import Servicedueview from './Servicedueview';
 const Serviceduedate = () => {
   return (
     <div>
-        <div >
+      <div >
         <form>
-            <div>
+          <div>
             SERVICE DUE DATE
             <hr style={{bottom:'solid',}}/>
             </div>
             <div className='search' style={{display:'flex',}}>
-                <label>Search :</label>
-                <TextField
-                id="outlined-size-small"
-                defaultValue="Search"
-                size="small"
-              />
-            </div>
-            <hr style={{bottom:'solid'}}/>
+              <label>Search :</label>
+              <TextField
+              id="outlined-size-small"
+              defaultValue="Search"
+              size="small"/>
+          </div>
+          <hr style={{bottom:'solid'}}/>
         </form>
-
-      <Servicedueview />
+         <Servicedueview />
       </div>
     </div>
   )

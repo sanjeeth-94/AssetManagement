@@ -51,12 +51,11 @@ export default function Servicedue() {
         maxWidth='lg'>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {"SERVICE DUE"}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                
-                <form  >
-                  <div style={{marginLeft:'50px',marginBottom:'30px'}}>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              <form>
+                <div style={{marginLeft:'50px',marginBottom:'30px'}}>
                   <div className='assetid'>
                     <label>Service Date From : </label>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -97,37 +96,37 @@ export default function Servicedue() {
                             </Select>
                           </FormControl>
                         </Box>
-                        </div>
-                        <div className='assetid'>
-                          <label>Asset Type : </label>
-                          <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullWidth>
-                              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                              <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={age}
-                              label="Age"
-                              onChange={handleChange}>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </Box>
-                        </div>
-                        <div className='view'>
-                          <Button variant="contained">View</Button>
-                        </div>
-                        </div>
                       </div>
-                      <hr/>
-                    </form>
+                      <div className='assetid'>
+                        <label>Asset Type : </label>
+                        <Box sx={{ minWidth: 120 }}>
+                          <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={age}
+                            label="Age"
+                            onChange={handleChange}>
+                              <MenuItem value={10}>Ten</MenuItem>
+                              <MenuItem value={20}>Twenty</MenuItem>
+                              <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Box>
+                      </div>
+                      <div className='view'>
+                        <Button variant="contained">View</Button>
+                      </div>
+                  </div>
+                </div>
+                  <hr/>
+              </form>
                 <Serviceduedate />
-              </DialogContentText>
-            </DialogContent>
-          </Dialog>
-        </div>
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
       </div>
+    </div>
   );
 }

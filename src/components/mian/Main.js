@@ -23,6 +23,8 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StyleIcon from '@mui/icons-material/Style';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { Link } from "react-router-dom";
+
 
 const Main = () => {
     return (
@@ -132,24 +134,25 @@ const Main = () => {
                     </div>
                 </div>
             </div>
+            
             <div className="blocks wrapper">
                 <div className="block green">
                     <div className="heading">
                       Warranty Due
                     </div>
-                    <SettingsIcon className='icondash' style={{
+                    <Link to='/Warrantydue'><SettingsIcon className='icondash' style={{
                         height: '60px',
                         width: '60px'
-                    }}/> 
+                    }}/> </Link>
                 </div> 
                 <div className="block green">
                     <div className="heading">
                       Service Due
-                      <ReportProblemIcon className='icondash' style={{
+                      <Link to='/Servicedue'><ReportProblemIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/> 
+                    }}/> </Link>
                     </div>
                     <div className="num">0</div>
                 </div> 
@@ -157,11 +160,11 @@ const Main = () => {
                     <div className="heading">
                        Inspection Due
                     </div>
-                    <HandymanIcon className='icondash' style= {{
+                    <Link to='/Inceptiondue'><HandymanIcon className='icondash' style= {{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num"></div>
                 </div> 
                 <div className="block green">

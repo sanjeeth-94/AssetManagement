@@ -4,8 +4,6 @@ import { Button } from 'reactstrap';
 import { DeleteOutlineSharp } from '@mui/icons-material';
 import { json } from 'react-router-dom';
 
-
-
 export default function DataTable() {
 
 
@@ -94,6 +92,7 @@ export default function DataTable() {
       console.log(id)
       })
     })
+
 
   }
 

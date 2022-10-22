@@ -14,6 +14,7 @@ import Sectionview from './Sectionview';
 import Assettypeview from './Assettypeview';
 import Scraplog from './Scraplog'
 import Scrapasset from './Scrapasset';
+import Assetmaster from './Assetmaster'
 import './Asset.css'
 
 function TabPanel(props) {
@@ -105,6 +106,9 @@ const AssetTab = () => {
       </TabPanel>
       <TabPanel value={value} index={6}>
         <Transferasset />
+      </TabPanel>
+      <TabPanel value={value} index={7}>
+        <Assetmaster />
       </TabPanel>
     </Box>
     </div>

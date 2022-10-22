@@ -18,18 +18,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-
-
 export default function AmcServiceadd() {
-
   const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
-
   const handleChangeDate = (newValue) => {
     setValue(newValue);
   };
-
-
-
+  
   const [age, setAge] = React.useState('');
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -51,19 +45,19 @@ export default function AmcServiceadd() {
       </Button>
       <div>
         <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          fullWidth
-          maxWidth='lg'>
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth
+        maxWidth='lg'>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {"ADD ASSET"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <form>
-                <di>
+                <div>
                   <div><h2>VENDER DETAILS</h2> <hr /> </div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name</label>
@@ -71,33 +65,28 @@ export default function AmcServiceadd() {
                       <FormControl style={{ width: '200px' }}>
                         <InputLabel id="demo-simple-select-label">Age</InputLabel>
                         <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={age}
-                          label="Age"
-                          onChange={handleChange}
-                        >
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={age}
+                        label="Age"
+                        onChange={handleChange}>
                           <MenuItem value={10}>Ten</MenuItem>
                           <MenuItem value={20}>Twenty</MenuItem>
                           <MenuItem value={30}>Thirty</MenuItem>
                         </Select>
                       </FormControl>
-
                     </Box>
                     <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail</label>
                     <TextField id="Email" label="Email" variant="outlined" />
                     <label style={{ marginLeft: '60px', marginRight: '30px' }}> Address</label>
                     <TextField id="address" label="Address" variant="outlined" />
-
                   </div>
-
                   <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '20px' }}>
                     <label style={{ marginLeft: '20px', marginRight: '20px' }}> Company</label>
                     <TextField id="address" label="Address" variant="outlined" />
                     <label style={{ marginLeft: '60px', marginRight: '30px' }}> Phone</label>
                     <TextField id="address" label="Address" variant="outlined" />
                   </div>
-
                   <form style={{ border: 'solid' }}>
                     <div style={{ margin: '20px' }}>
                       <h2>SERVICE DETAILS</h2>
@@ -110,12 +99,11 @@ export default function AmcServiceadd() {
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Stack spacing={3}>
                           <DesktopDatePicker
-                            label="Date desktop"
-                            inputFormat="MM/DD/YYYY"
-                            value={value}
-                            onChange={handleChangeDate}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
+                          label="Date desktop"
+                          inputFormat="MM/DD/YYYY"
+                          value={value}
+                          onChange={handleChangeDate}
+                          renderInput={(params) => <TextField {...params} />}/>
                         </Stack>
                       </LocalizationProvider>
                       <label style={{ marginLeft: '20px', marginRight: '80px' }}>
@@ -124,15 +112,13 @@ export default function AmcServiceadd() {
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Stack spacing={3}>
                           <DesktopDatePicker
-                            label="Date desktop"
-                            inputFormat="MM/DD/YYYY"
-                            value={value}
-                            onChange={handleChangeDate}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
+                          label="Date desktop"
+                          inputFormat="MM/DD/YYYY"
+                          value={value}
+                          onChange={handleChangeDate}
+                          renderInput={(params) => <TextField {...params} />}/>
                         </Stack>
                       </LocalizationProvider>
-
                     </div>
                     <div style={{ display: 'flex', marginLeft: '40px', marginTop: '20px', alignItems: 'center' }}>
                       <label style={{ marginRight: '90px' }}>Premium Cost</label>
@@ -145,19 +131,17 @@ export default function AmcServiceadd() {
                         </Button>
                       </Stack>
                     </div>
-
                     <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center' }}>
                       <label style={{ marginRight: '80px' }}>Service Pattern :</label>
-                      <Box >
+                      <Box>
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label">Age</InputLabel>
                           <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                          >
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={age}
+                          label="Age"
+                          onChange={handleChange}>
                             <MenuItem value={10}>Ten</MenuItem>
                             <MenuItem value={20}>Twenty</MenuItem>
                             <MenuItem value={30}>Thirty</MenuItem>
@@ -165,16 +149,15 @@ export default function AmcServiceadd() {
                         </FormControl>
                       </Box>
                       <label style={{ marginRight: '10px', marginLeft: '30px' }}>Department :</label>
-                      <Box >
+                      <Box>
                         <FormControl style={{ width: '260px' }} >
                           <InputLabel id="demo-simple-select-label">Age</InputLabel>
                           <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                          >
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={age}
+                          label="Age"
+                          onChange={handleChange}>
                             <MenuItem value={10}>Ten</MenuItem>
                             <MenuItem value={20}>Twenty</MenuItem>
                             <MenuItem value={30}>Thirty</MenuItem>
@@ -182,20 +165,17 @@ export default function AmcServiceadd() {
                         </FormControl>
                       </Box>
                     </div>
-
-
                     <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center' }}>
                       <label style={{ marginRight: '140px' }}>Section:</label>
-                      <Box >
+                      <Box>
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label">Age</InputLabel>
                           <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                          >
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={age}
+                          label="Age"
+                          onChange={handleChange}>
                             <MenuItem value={10}>Ten</MenuItem>
                             <MenuItem value={20}>Twenty</MenuItem>
                             <MenuItem value={30}>Thirty</MenuItem>
@@ -203,49 +183,43 @@ export default function AmcServiceadd() {
                         </FormControl>
                       </Box>
                       <label style={{ marginRight: '10px', marginLeft: '30px' }}>Asset Type :</label>
-                      <Box >
-                        <FormControl style={{ width: '260px' }} >
-                          <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                          >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Box>
-                    </div>
-
-                    <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center', marginBottom: '30px' }}>
-                      <label style={{ marginRight: '100px' }}>Asset Name :</label>
-                      <Box >
+                      <Box>
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label">Age</InputLabel>
                           <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                          >
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={age}
+                          label="Age"
+                          onChange={handleChange}>
                             <MenuItem value={10}>Ten</MenuItem>
                             <MenuItem value={20}>Twenty</MenuItem>
                             <MenuItem value={30}>Thirty</MenuItem>
                           </Select>
                         </FormControl>
                       </Box>
-
                     </div>
-
+                    <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center', marginBottom: '30px' }}>
+                      <label style={{ marginRight: '100px' }}>Asset Name :</label>
+                      <Box>
+                        <FormControl style={{ width: '260px' }}>
+                          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                          <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={age}
+                          label="Age"
+                          onChange={handleChange}>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </div>
                   </form>
-                </di>
+                </div>
               </form>
-
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -254,8 +228,6 @@ export default function AmcServiceadd() {
             </div>
           </DialogActions>
         </Dialog>
-
-
         <AmcServiceview />
       </div>
     </div>

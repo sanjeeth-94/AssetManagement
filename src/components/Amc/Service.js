@@ -45,10 +45,10 @@ export default function Service() {
       <Button variant="outlined" onClick={handleClickOpen}>Service</Button>
       <div>
         <Dialog
-          open={open}
-          onClose={handleClose}
-          fullWidth
-          maxWidth='lg'>
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth='lg'>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {"SERVICE"}
           </DialogTitle>
@@ -64,48 +64,43 @@ export default function Service() {
                     <FormControl style={{ marginLeft: '10px', marginRight: '20px', width: '200px' }}>
                       <InputLabel id="demo-simple-select-label">Age</InputLabel>
                       <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Age"
-                        onChange={handleChange}
-                      >
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Age"
+                      onChange={handleChange}>
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                       </Select>
                     </FormControl>
                   </Box>
-
                   <label style={{ marginLeft: '30', marginRight: '20px' }}>Section:</label>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl style={{ marginLeft: '10px', marginRight: '20px', width: '200px' }}>
                       <InputLabel id="demo-simple-select-label">Age</InputLabel>
                       <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Age"
-                        onChange={handleChange}
-                      >
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Age"
+                      onChange={handleChange}>
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                       </Select>
                     </FormControl>
                   </Box>
-
                   <label style={{ marginLeft: '30', marginRight: '20px' }}>Asset Type:</label>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl style={{ marginLeft: '10px', marginRight: '20px', width: '200px' }}>
                       <InputLabel id="demo-simple-select-label">Age</InputLabel>
                       <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Age"
-                        onChange={handleChange}
-                      >
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Age"
+                      onChange={handleChange}>
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
@@ -115,16 +110,15 @@ export default function Service() {
                 </div>
                 <div style={{ display: 'flex', marginTop: '20px', alignItems: 'center' }}>
                   <label style={{ marginLeft: '30', marginRight: '20px' }}>Asset Name :</label>
-                  <Box >
+                  <Box>
                     <FormControl style={{ marginLeft: '10px', marginRight: '10px', width: '200px' }}>
                       <InputLabel id="demo-simple-select-label">Age</InputLabel>
                       <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Age"
-                        onChange={handleChange}
-                      >
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={age}
+                      label="Age"
+                      onChange={handleChange}>
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
@@ -132,7 +126,6 @@ export default function Service() {
                     </FormControl>
                   </Box>
                   <Button style={{ width: '150px', marginLeft: '60px' }} variant="contained">View</Button>
-
                 </div>
                 <form style={{ border: 'solid', marginTop: '20px' }}>
                   <div style={{ marginLeft: '30px' }}>
@@ -144,28 +137,20 @@ export default function Service() {
                     <TextField id="outlined-basic" label="Outlined" variant="outlined" />
                   </div>
                   <hr />
-
                   <div style={{ height: 400, width: '100%', marginTop: '30px' }}>
                     <DataGrid
-                      rows={rows}
-                      columns={columns}
-                      pageSize={5}
-                      rowsPerPageOptions={[5]}
-                      checkboxSelection
-                    />
+                    rows={rows}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    checkboxSelection/>
                   </div>
-
                 </form>
-
               </form>
-
             </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-
-          </DialogActions>
-        </Dialog>
-      </div>
+            </DialogContent>
+          </Dialog>
+       </div>
     </div>
   );
 }

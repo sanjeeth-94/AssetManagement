@@ -14,130 +14,129 @@ export default function Transferasset() {
     };
 
     return(
-        <div>
-            <form>
-                <h2>From</h2>
-                <hr />
-                <div style={{marginLeft:'50px'}}>
-                    <label>Department : </label>
-                    <Box>
-                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
-                            <InputLabel id="demo-simple-select-label" placeholder="Select Department"></InputLabel>
-                            <Select 
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}>
-                                <MenuItem value={10}>Accounting</MenuItem>
-                                <MenuItem value={20}>production</MenuItem>
-                                <MenuItem value={30}>R & D</MenuItem>
-                                <MenuItem value={30}>Testing</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </div>
-                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
-                    <label>Section : </label>
-                    <Box>
-                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
-                            <InputLabel id="demo-simple-select-label" placeholder="Select Department First"></InputLabel>
-                            <Select 
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </div>
-                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
-                    <label>Asset Type : </label>
-                    <Box>
-                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
-                            <InputLabel id="demo-simple-select-label" placeholder="Select Section First"></InputLabel>
-                            <Select 
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>    
-                </div>
-                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
-                    <label>Asset Name : </label>
-                    <Box>
-                        <FormControl style={{width:'50vh' ,height: '10vh' }}>
-                            <InputLabel id="demo-simple-select-label"placeholder="Select Asset Type First"></InputLabel>
-                            <Select 
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </div>
-                <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
-                    <Button variant="contained">Move</Button>
-                </div>
-            </form>
-            <div>
-                <form>
-                    <h2>To</h2>
+        <div style={{display:'flex'}}>
+            <div >
+                <form style={{width:'500px',border:'solid', borderColor:'whitesmoke'}}>
+                    <h2 style={{marginLeft:'200px'}}>From</h2>
                     <hr />
-                    <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
-                        <label>Department : </label>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Department:</label>
                         <Box>
-                            <FormControl style={{width:'50vh' ,height: '10vh' }}>
-                                <InputLabel id="demo-simple-select-label"placeholder="Select Asset Type First"></InputLabel>
-                                <Select 
+                            <FormControl style={{width:'300px' ,marginLeft:'28px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={age}
-                                label="Age"
+                                label="Select Department"
                                 onChange={handleChange}>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>
                     </div>
-                    <div style={{marginTop:'20px' ,marginLeft:'50px'}}>
-                        <label>Asset Type : </label>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Section:</label>
                         <Box>
-                            <FormControl style={{width:'50vh' ,height: '10vh' }}>
-                                <InputLabel id="demo-simple-select-label"placeholder="Select Asset Type First"></InputLabel>
-                                <Select 
+                            <FormControl style={{width:'300px' ,marginLeft:'59px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={age}
-                                label="Age"
+                                label="Select Department"
                                 onChange={handleChange}>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Asset Type:</label>
+                        <Box>
+                            <FormControl style={{width:'300px' ,marginLeft:'34px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Select Department"
+                                onChange={handleChange}>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Asset Name:</label>
+                        <Box>
+                            <FormControl style={{width:'300px' ,marginLeft:'27px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Select Department"
+                                onChange={handleChange}>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                    <div style={{marginLeft:'150px', marginTop:'20px', marginBottom:'20px'}}>
+                        <Button variant="contained">Move</Button>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <form style={{ marginLeft:'30px' ,width:'500px',border:'solid', borderColor:'whitesmoke'}}>
+                    <h2 style={{marginLeft:'200px'}}>To</h2>
+                    <hr/>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Department:</label>
+                        <Box>
+                            <FormControl style={{width:'300px' ,marginLeft:'22px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Select Department"
+                                onChange={handleChange}>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Section:</label>
+                        <Box>
+                            <FormControl style={{width:'300px' ,marginLeft:'52px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Select Department"
+                                onChange={handleChange}>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                        <label style={{marginLeft:'5px'}}>Asset Type:</label>
+                        <Box>
+                            <FormControl style={{width:'300px' ,marginLeft:'30px', marginBottom:'20px'}}>
+                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={age}
+                                label="Select Department"
+                                onChange={handleChange}>
                                 </Select>
                             </FormControl>
                         </Box>
                     </div>
                 </form>
             </div>
-        </div>
+        </div>       
     )
 }
 
