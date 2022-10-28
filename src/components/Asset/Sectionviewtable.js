@@ -1,16 +1,11 @@
-import * as React from 'react';
+import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 
 const columns = [
-  { field: 'Maintenance Id', headerName: 'Maintenance', width: 80 },
-  { field: 'Maintenance Type', headerName: 'Maintenance Type', width: 140 },
-  { field: 'Machine', headerName: 'Machine', width: 140 },
-  { field: 'Severity', headerName: 'Severity', width: 140 },
-  { field: 'Problem Note', headerName: 'Problem Note', width: 140 },
-  { field: 'Date', headerName: 'Date', width: 140 },
-  { field: 'Time', headerName: 'Time', width: 140 },
-  { field: 'View', headerName: 'View', width: 140 },
+  { field: 'id', headerName: 'Section No', width: 80 },
+  { field: 'department', headerName: 'Department', width: 140 },
+  { field: 'section', headerName: 'Section', width: 140 },
   {field: 'action', headerName: 'Action', width: 250, sortable: false,
   renderCell: (cellValues) => {
     return (
@@ -37,6 +32,21 @@ const rows = [
 ];
 
 export default function DataTable() {
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    fetch("http://192.168.1.174:8000/api/section/showData",
+   {
+     method: 'GET',
+     headers: {
+       'Content-Type': 'application/json',
+     }
+
+   })
+   .then(response => response.json())
+   .then((dataObject) => {
+     setRows(dataObject.data);
+   })
+ }, []);
   return (
     <div className='adduser' style={{ height: '51vh', width: '160vh', margin: '0px' }}>
       <DataGrid

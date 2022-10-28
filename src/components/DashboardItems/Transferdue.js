@@ -11,9 +11,10 @@ import TextField from '@mui/material/TextField';
 const columns = [
   { field: 'Serial No', headerName: 'Serial No', width: 180 },
   { field: 'Department', headerName: 'Department', width: 180 },
-  { field: 'Asset Name', headerName: 'Machine', width: 140 },
-  { field: 'Warranty Start Date', headerName: 'Warranty Start Date', width: 180 },
-  { field: 'Warranty End Date', headerName: 'Warranty End Date', width: 180 },
+  { field: 'Section', headerName: 'Section', width: 180 },
+  { field: 'Asset Type', headerName: 'Asset Type', width: 180 },
+  { field: 'Asset Name', headerName: 'Asset Name', width: 180 },
+  { field: 'Assigned User', headerName: 'Assigned User', width: 180 },
 ];
 
 const rows = [
@@ -22,13 +23,13 @@ const rows = [
 
 export default function DataTable() {
   return (
-    <form style={{marginTop:'40px', height:'600px',width:'900px',marginLeft:'90px',border:'solid', borderColor:'whitesmoke'}}>
+    <form style={{marginTop:'40px', height:'400px',width:'1100px',marginLeft:'65px',border:'solid', borderColor:'whitesmoke'}}>
       <div>
-        <h2> WARRANTY DUE</h2>
+        <h2> TRANSFER DUE</h2>
       </div>
       <hr/>
       <div>
-        <label style={{marginLeft:'600px'}}>Search : </label>
+        <label style={{marginLeft:'800px'}}>Search : </label>
         <TextField
         style={{marginBottom:'20px'}}
         id="outlined-size-small"

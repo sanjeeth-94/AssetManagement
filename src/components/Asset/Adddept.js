@@ -14,12 +14,12 @@ export default function Adddept() {
     const handleClickOpen = () => {
         setOpen(true);
     };
+    
     const handleClose = () => {
         setOpen(false);
     };
-
+ 
     
-
     return (
         <div className='addbutton'>
             <Button variant="outlined" onClick={handleClickOpen}>
@@ -40,14 +40,14 @@ export default function Adddept() {
                             <form>
                                 <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label style={{marginLeft:'1px'}}>Department Name:</label>
-                                    <TextField style={{marginLeft:'20px', width:'250px'}} id="outlined-basic" label="Outlined" variant="outlined" />
+                                    <TextField style={{marginLeft:'20px', width:'250px'}} id="outlined-basic" label="" variant="outlined" />
                                 </div>
                                 <div style={{marginTop:'10px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Description:</label>
                                     <TextareaAutosize
                                     style={{ width:'250px', height:'40px',marginLeft:'70px', marginTop:'20px'}}
                                      aria-label="empty textarea"
-                                    placeholder="Empty"/>
+                                    placeholder="Address"/>
                                 </div>
                                 <div style={{marginTop:'30px', marginLeft:'200px'}}>
                                     <Button variant="contained">ADD</Button>

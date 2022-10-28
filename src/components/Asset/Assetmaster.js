@@ -70,69 +70,68 @@ export default function Assetmaster() {
 
   return(
     <div>
-        <form>
-            <div style={{marginTop:'20px',marginLeft:'2px', width:'150vh', display:'flex', alignItems:'center'}}>
-                <label style={{marginLeft:'1px'}}>Department:</label>
-                <Box>
-                    <FormControl style={{width:'150px' ,marginLeft:'16px'}}>
-                        <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Select Department"
-                        onChange={handleChange}>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <label style={{marginLeft:'15px'}}>Section:</label>
-                <Box>
-                    <FormControl style={{width:'250px' ,marginLeft:'16px'}}>
-                        <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Select Department"
-                        onChange={handleChange}>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <label style={{marginLeft:'15px'}}>Asset Type:</label>
-                <Box>
-                    <FormControl style={{width:'250px' ,marginLeft:'36px'}}>
-                        <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={age}
-                        label="Select Department"
-                        onChange={handleChange}>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Button style={{marginLeft:'15px'}} variant="contained">Submit</Button>
-            </div>
-            
-            <form style={{border:'solid',borderColor:'whitesmoke',marginTop:'30px'}}>
-                <label style={{marginTop:'30px'}}>VIEW ASSET</label>
-                <hr/>
-                <div style={{marginLeft:'800px',display:'flex',alignItems:'center', marginTop:'20px'}}>
-                    <label>Search : </label>
-                    <TextField
-                    id="outlined-size-small"
-                    defaultValue="Search"
-                    size="small"/>
-                </div>
-                <div style={{ height: 400, width: '100%' , marginTop:'20px'}}>
-                  <DataGrid
-                  rows={rows}
-                  columns={columns}
-                  rowsPerPageOptions={[5]}
-                  onRowAdd/>
-                </div>
-            </form>
+      <form>
+        <div style={{marginTop:'20px',marginLeft:'2px', width:'150vh', display:'flex', alignItems:'center'}}>
+          <label style={{marginLeft:'1px'}}>Department:</label>
+          <Box>
+            <FormControl style={{width:'150px' ,marginLeft:'16px'}}>
+              <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+              <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Select Department"
+              onChange={handleChange}>
+              </Select>
+            </FormControl>
+          </Box>
+          <label style={{marginLeft:'15px'}}>Section:</label>
+          <Box>
+            <FormControl style={{width:'250px' ,marginLeft:'16px'}}>
+              <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+              <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Select Department"
+              onChange={handleChange}>
+              </Select>
+            </FormControl>
+          </Box>
+          <label style={{marginLeft:'15px'}}>Asset Type:</label>
+          <Box>
+            <FormControl style={{width:'250px' ,marginLeft:'36px'}}>
+              <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+              <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Select Department"
+              onChange={handleChange}>
+              </Select>
+            </FormControl>
+          </Box>
+          <Button style={{marginLeft:'15px'}} variant="contained">Submit</Button>
+        </div>
+        <form style={{border:'solid',borderColor:'whitesmoke',marginTop:'30px'}}>
+          <label style={{marginTop:'30px'}}>VIEW ASSET</label>
+          <hr/>
+          <div style={{marginLeft:'800px',display:'flex',alignItems:'center', marginTop:'20px'}}>
+            <label>Search : </label>
+            <TextField
+            id="outlined-size-small"
+            defaultValue="Search"
+            size="small"/>
+          </div>
+          <div style={{ height: 400, width: '100%' , marginTop:'20px'}}>
+            <DataGrid
+            rows={rows}
+            columns={columns}
+            rowsPerPageOptions={[5]}
+            onRowAdd/>
+          </div>
         </form>
+      </form>
     </div>
   )
 }

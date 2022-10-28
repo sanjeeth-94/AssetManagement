@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 const columns = [
   { field: 'Serial No', headerName: 'Serial No', width: 180 },
   { field: 'Vendor Name', headerName: 'Vendor Name', width: 180 },
-  { field: 'Asset Name', headerName: 'Asset Name', width: 140 },
+  { field: 'Asset Name', headerName: 'Asset Name', width: 180 },
   { field: 'Service Due Date', headerName: 'Service Due Date', width: 180 },
 ];
 
@@ -20,26 +20,25 @@ const rows = [
 ];
 
 export default function DataTable() {
-    return (
-        <form style={{marginTop:'40px', height:'600px',width:'700px',marginLeft:'150px',border:'solid', borderColor:'whitesmoke'}}>
-            <div>
-                <h2> SERVICE DUE</h2>
-            </div>
-            <hr/>
-            <div>
-            <label style={{marginLeft:'400px'}}>Search : </label>
-            <TextField
-            style={{marginBottom:'20px'}}
-            id="outlined-size-small"
-            defaultValue="Search"
-            size="small"/>
-            </div>
-            <DataGrid
-            rows={rows}
-            columns={columns}
-            rowsPerPageOptions={[5]}
-            onRowAdd />
-        </form>
-    );
+  return (
+    <form style={{marginTop:'40px', height:'400px',width:'800px',marginLeft:'90px',border:'solid', borderColor:'whitesmoke'}}>
+      <div>
+        <h2> INSURANCE DUE</h2>
+      </div>
+      <hr/>
+      <div>
+        <label style={{marginLeft:'500px'}}>Search : </label>
+        <TextField
+        style={{marginBottom:'20px'}}
+        id="outlined-size-small"
+        defaultValue="Search"
+        size="small"/>
+      </div>
+      <DataGrid
+      rows={rows}
+      columns={columns}
+      rowsPerPageOptions={[5]}
+      onRowAdd />
+    </form>   
+  );
 }
-
