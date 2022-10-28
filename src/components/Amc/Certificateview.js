@@ -4,13 +4,14 @@ import { Button } from 'reactstrap';
 
 const columns = [
   { field: 'Serial No', headerName: 'Serial No', width: 80 },
-  { field: 'Employee Id', headerName: 'Employee Id', width: 140 },
-  { field: 'Employee Name', headerName: 'Employee Name', width: 140 },
+  { field: 'Vender Name', headerName: 'Vender Name', width: 140 },
+  { field: 'Period From', headerName: 'Period From', width: 140 },
+  { field: 'Period To', headerName: 'Period To', width: 140 },
+  { field: 'Inspection', headerName: 'Inspection', width: 140 },
   { field: 'Department', headerName: 'Department', width: 140 },
-  { field: 'Designation', headerName: 'Designation', width: 140 },
-  { field: 'Mobile', headerName: 'Mobile', width: 140 },
-  { field: 'Email', headerName: 'Email', width: 140 },
-  { field: 'UserName', headerName: 'UserName', width: 140 },
+  { field: 'Section', headerName: 'Section', width: 140 },
+  { field: 'Asset Type', headerName: 'Asset Type', width: 140 },
+  { field: 'Asset Name', headerName: 'Asset Name', width: 140 },
   { field: 'action', headerName: 'Action', width: 250 ,  sortable: false,
       renderCell:(cellValues)=>{
       return(

@@ -10,9 +10,11 @@ import TextField from '@mui/material/TextField';
 
 const columns = [
   { field: 'Serial No', headerName: 'Serial No', width: 180 },
-  { field: 'Vendor Name', headerName: 'Vendor Name', width: 180 },
-  { field: 'Asset Name', headerName: 'Asset Name', width: 140 },
-  { field: 'Service Due Date', headerName: 'Service Due Date', width: 180 },
+  { field: 'Department', headerName: 'Department', width: 180 },
+  { field: 'Section', headerName: 'Section', width: 140 },
+  { field: 'Asset Type', headerName: 'Asset Type', width: 180 },
+  { field: 'Asset Name', headerName: 'Asset Name', width: 180 },
+  { field: 'Tag Id', headerName: 'Tag Id', width: 180 },
 ];
 
 const rows = [
@@ -23,7 +25,7 @@ export default function DataTable() {
     return (
         <form style={{marginTop:'40px', height:'600px',width:'700px',marginLeft:'150px',border:'solid', borderColor:'whitesmoke'}}>
             <div>
-                <h2> SERVICE DUE</h2>
+                <h2> SALE</h2>
             </div>
             <hr/>
             <div>

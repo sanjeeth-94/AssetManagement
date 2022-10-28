@@ -40,12 +40,12 @@ const rows = [
 
 export default function DataTable() {
   return (
-    <div className='adduser' style={{ height: 200, width: '100%' }}>
+    <div className='adduser' style={{ height: 400, width: '80%' }}>
       <DataGrid
-        rows={rows}
-        columns={columns}
-        rowsPerPageOptions={[5]}
-        onRowAdd/>
+      rows={rows}
+      columns={columns}
+      rowsPerPageOptions={[5]}
+      onRowAdd/>
     </div>
   );
 }

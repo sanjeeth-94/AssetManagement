@@ -4,10 +4,10 @@ import Syncview from './Syncview';
 
 const Auditsync = () => {
   return (
-    <div>
+    <div style={{border:'solid', borderColor:'whitesmoke'}}>
         <div >
         <form>
-            <div>
+            <div >
            AUDIT SYNC
             <hr style={{bottom:'solid'}}/>
             </div>

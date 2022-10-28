@@ -171,67 +171,67 @@ const Main = () => {
                     <div className="heading">
                       AMC Due
                     </div>
-                    <BuildIcon className='icondash' style={{
+                    <Link to='/Amcdue'><BuildIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
 
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div> 
                 <div className="block green">
                     <div className="heading">
                        Certificate Due
                     </div>
-                    <NewReleasesIcon className='icondash' style={{
+                    <Link to='/Certificatedue'><NewReleasesIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div> 
                 <div className="block green">
                     <div className="heading">
                        Insurance Due
                     </div>
-                    <HourglassFullIcon className='icondash' style={{
+                    <Link to='/Insurancedue'><HourglassFullIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                     }} />
+                     }} /></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                         Transfer Due
                     </div>
-                    <SyncAltIcon className='icondash' style={{
+                    <Link to='/Transferdue'><SyncAltIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                        Audit Due
                     </div>
-                    <SettingsApplicationsIcon className='icondash' style={{
+                    <Link to='/Auditdue'><SettingsApplicationsIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                         EOL
                     </div>
-                    <Battery50Icon className='icondash' style={{
+                    <Link to='/EOL'><Battery50Icon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
@@ -249,65 +249,64 @@ const Main = () => {
                     <div className="heading">
                       Not in Use
                     </div>
-                    <NotInterestedIcon className='icondash' style={{
+                    <Link to='/Notinuse'><NotInterestedIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                       Damage
                     </div>
-                    <EventBusyIcon className='icondash' style={{
+                    <Link to='/Damage'><EventBusyIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                       Transfer
                     </div>
-                    <ShuffleIcon className='icondash' style={{
+                    <Link to='/Transfer'><ShuffleIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                       In Service
                     </div>
-                    <SettingsSuggestIcon className='icondash' style={{
+                    <Link to='/Inservice'><SettingsSuggestIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'40px',
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                       Sale
                     </div>
-                    <InsertDriveFileIcon className='icondash' style={{
+                    <Link to='/Sale'><InsertDriveFileIcon className='icondash' style={{
                         height: '60px',
                         width: '60px'
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
                 <div className="block green">
                     <div className="heading">
                       Scrap
                     </div>
-                    <DeleteIcon  className='icondash' style={{
+                    <Link to='/Scrap'><DeleteIcon  className='icondash' style={{
                         height: '70px',
                         width: '70px'
-                    }}/>
+                    }}/></Link>
                     <div className="num">0</div>
                 </div>
             </div>

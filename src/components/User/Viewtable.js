@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridRow } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import { DeleteOutlineSharp } from '@mui/icons-material';
-import { json } from 'react-router-dom';
 
 export default function DataTable() {
-
-
   const columns = [
     { field: 'id', headerName: 'Serial No', width: 80 },
     { field: 'employee_id', headerName: 'Employee Id', width: 140 },
@@ -23,28 +19,6 @@ export default function DataTable() {
         <EditData selectedRow ={params.row}/>,
         <DeleteData selectedRow ={params.row}/>,
       ],
-      // renderCell: (cellValues) => {
-
-      //   return (
-      //     <div >
-      //       <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
-      //         className='prbuton'
-      //         variant="contained"
-      //         color='primary'
-
-      //       >
-      //         Edit
-      //       </Button>
-      //       <Button style={{ width: '100px' }}
-      //         variant="contained"
-      //         color='primary' 
-      //         onClick={() => deletUser()}
-      //       >
-      //         Delete
-      //       </Button>
-      //     </div>
-      //   )
-      // }
     }
   ];
 
@@ -58,8 +32,7 @@ export default function DataTable() {
           // alert(selectedRow.id);
           alert('Edit ' + selectedRow.id);
           console.log(selectedRow.id);
-        }}
-      >
+        }}>
         Edit
       </Button>
     )
@@ -75,12 +48,12 @@ export default function DataTable() {
             // alert('Delete ' + selectedRow.id);
             console.log(selectedRow.id);
           }
-        }
-      >
+        }>
         Delete
       </Button>
     )
   }
+
   const deletUser = (id) => {
     alert('Delete ' + id);
     console.log('DELLETT',id)
@@ -92,11 +65,9 @@ export default function DataTable() {
       console.log(id)
       })
     })
-
-
   }
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [rows, setRows] = useState([]);
   useEffect(() => {
     fetch("http://192.168.1.174:8000/api/user/showData",
@@ -105,20 +76,18 @@ export default function DataTable() {
         headers: {
           'Content-Type': 'application/json',
         }
-
-
       })
       .then(response => response.json())
       .then((dataObject) => {
         setRows(dataObject.data);
       })
-  },[]);
+  });
 
   return (
     <div className='adduser' style={{ height: '500px', width: '90%' }}>
       <DataGrid
-        rows={rows}
-        columns={columns} />
+      rows={rows}
+      columns={columns} />
     </div>
   )
 }

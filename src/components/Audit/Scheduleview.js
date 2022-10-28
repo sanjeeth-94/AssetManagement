@@ -2,10 +2,9 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 
-
 const columns = [
   { field: 'Serial No', headerName: 'Serial No', width: 80 },
-  { field: 'Date', headerName: 'Date', width: 140 },
+  { field: 'Date', headerName: 'Date', width: 100 },
   { field: 'Audit Name', headerName: 'Audit Name', width: 140 },
   { field: 'Department', headerName: 'Department', width: 140 },
   { field: 'Section', headerName: 'Section', width: 140 },
@@ -37,11 +36,10 @@ const rows = [
 
 export default function DataTable() {
   return (
-    <div className='adduser' style={{ height: '450px', width: '80%',marginTop:'20px' }}>
+    <div className='adduser' style={{ height: '400px', width: '70%',marginTop:'20px' }}>
       <DataGrid
-        rows={rows}
-        columns={columns}
-       />
+      rows={rows}
+      columns={columns}/>
     </div>
   );
 }

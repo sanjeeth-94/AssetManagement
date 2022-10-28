@@ -5,7 +5,7 @@ import Requestviewtable from './Requestviewtable';
 const Viewrequestedservice = () => {
   return (
     <div>
-        <div >
+        <div style={{border:'solid' , borderColor:'whitesmoke'}}>
         <form>
             <div>
             View Requested Service
@@ -16,12 +16,10 @@ const Viewrequestedservice = () => {
                 <TextField
                 id="outlined-size-small"
                 defaultValue="Search"
-                size="small"
-              />
+                size="small"/>
             </div>
             <hr style={{bottom:'solid'}}/>
         </form>
-
       <Requestviewtable />
       </div>
     </div>

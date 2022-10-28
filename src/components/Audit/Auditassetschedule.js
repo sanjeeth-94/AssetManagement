@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -39,7 +38,7 @@ export default function Assetadd() {
     };
 
     return(
-        <div style={{marginLeft:'60px'}}>
+        <div style={{marginLeft:'750px'}}>
             <Button variant="outlined" onClick={handleClickOpen}>
             <CalendarMonthIcon className='Add'/>
              schedule
@@ -56,12 +55,11 @@ export default function Assetadd() {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <form>
-                                <div>
-                                    <label>Audit Date : </label>
+                                <div  style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label style={{marginLeft:'1px'}}>Audit Date : </label>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <Stack spacing={3}>
+                                        <Stack style={{ width: '250px' , marginLeft: '40px' }} spacing={3}>
                                             <DesktopDatePicker
-                                            label="Date desktop"
                                             inputFormat="MM/DD/YYYY"
                                             value={value}
                                             onChange={handleChangeDate}
@@ -69,10 +67,10 @@ export default function Assetadd() {
                                         </Stack>
                                     </LocalizationProvider>
                                 </div>
-                                <div>
-                                    <label>Department : </label>
+                                <div  style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label style={{marginLeft:'1px'}}>Department : </label>
                                     <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                        <FormControl style={{width:'250px' ,marginLeft:'30px'}}>
                                             <InputLabel id="demo-simple-select-label">Age</InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -87,10 +85,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
-                                    <label>Section : </label>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label style={{marginLeft:'1px'}}>Section : </label>
                                     <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                        <FormControl style={{width:'250px' ,marginLeft:'60px'}}>
                                             <InputLabel id="demo-simple-select-label">Age</InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -105,10 +103,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
-                                    <label>Section : </label>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label style={{marginLeft:'1px'}}>Asset Type : </label>
                                     <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                        <FormControl style={{width:'250px' ,marginLeft:'35px'}}>
                                             <InputLabel id="demo-simple-select-label">Age</InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -123,30 +121,12 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
-                                    <label>Asset Type : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                                            <Select 
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="Age"
-                                            onChange={handleChange}>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label style={{marginLeft:'1px'}}>Audit Name</label>
+                                    <TextField style={{marginLeft:'40px', width:'250px'}} id="outlined-basic" label="Outlined" variant="outlined" />
                                 </div>
                                 <div>
-                                    <label>Audit Name : </label>
-                                    <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                                </div>
-                                <div>
-                                    <Button variant="contained">Schedule</Button>
+                                    <Button style={{marginLeft:'100px', marginTop:'20px'}}variant="contained">Schedule</Button>
                                 </div>
                             </form>
                         </DialogContentText>
