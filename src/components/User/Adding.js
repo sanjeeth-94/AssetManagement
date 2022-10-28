@@ -124,33 +124,29 @@ export default function Adding() {
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          fullWidth>
+          maxWidth='lg'>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {"ADD USER"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              <form className='addform'>
-                <div className='assetid'>
+              <form>
+                <div  style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                   <label>Employee ID :</label>
-                  <TextField id="employeeId" label="Employee ID" variant="outlined"
+                  <TextField style={{marginLeft:'45px', width:'250px'}}  id="employeeId" label="Employee ID" variant="outlined"
                     onChange={(e) =>
                       handleUser(e)}
-                    value={data.employeeId}
-                  />
-                </div>
-                <div className='assetid'>
-                  <label>Employee Name :</label>
-                  <TextField id="employeeName" label="Employee Name" variant="outlined"
+                    value={data.employeeId}/>        
+                  <label style={{marginLeft:'50px'}} >Employee Name :</label>
+                  <TextField style={{marginLeft:'28px', width:'250px'}}  id="employeeName" label="Employee Name" variant="outlined"
                     onChange={(e) =>
                       handleUser(e)}
-                    value={data.employeeName}
-                  />
+                    value={data.employeeName}/>
                 </div>
-                <div className='dept'>
+                <div  style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }} >
                   <label>Department :</label>
                   <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{ width: '300px' }}>
+                    <FormControl style={{ width: '250px' , marginLeft:'50px'}}>
                       <InputLabel id="departmentlabel">Select Department</InputLabel>
                       <Select
                         labelId="departmentlabel"
@@ -159,41 +155,34 @@ export default function Adding() {
                         onChange={(e) => onDepartmentChange(e)}>
                         {departmentList.map((data, index) => {
                           return (
-
                             <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                           )
                         })}
                       </Select>
                     </FormControl>
                   </Box>
-                </div>
-                <div className='assetid'>
-                  <label sx={{ alignitems: 'start' }}>Designation :</label>
-                  <TextField id="designation" label="Designation" variant="outlined" sx={{ alignitems: 'end' }} onChange={(e) =>
+                  <label style={{ alignitems: 'start', marginLeft:'50px' }}>Designation :</label>
+                  <TextField style={{marginLeft:'65px', width:'250px'}} id="designation" label="Designation" variant="outlined" sx={{ alignitems: 'end' }} onChange={(e) =>
                     handleUser(e)}
                     value={data.designation} />
                 </div>
-                <div className='assetid'>
+                <div  style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                   <label>Mobile Number :</label>
-                  <TextField id="mobile_number" label="Mobile Number" variant="outlined" onChange={(e) =>
+                  <TextField style={{marginLeft:'25px', width:'250px'}}  id="mobile_number" label="Mobile Number" variant="outlined" onChange={(e) =>
                     handleUser(e)}
                     value={data.mobile_number} />
-                </div>
-                <div className='assetid'>
-                  <label>Email ID :</label>
-                  <TextField id="emailId" label="Email ID" variant="outlined" onChange={(e) =>
+                  <label style={{marginLeft:'50px'}}>Email ID :</label>
+                  <TextField style={{marginLeft:'90px', width:'250px'}} id="emailId" label="Email ID" variant="outlined" onChange={(e) =>
                     handleUser(e)}
                     value={data.emailId} />
                 </div>
-                <div className='assetid'>
+                <div  style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                   <label>User Name:</label>
-                  <TextField id="userName" label="User Name" variant="outlined" onChange={(e) =>
+                  <TextField style={{marginLeft:'58px', width:'250px'}} id="userName" label="User Name" variant="outlined" onChange={(e) =>
                     handleUser(e)}
                     value={data.userName} />
-                </div>
-                <div className='assetid'>
-                  <label>Password :</label>
-                  <TextField id="password" label="Password" variant="outlined" onChange={(e) =>
+                  <label style={{marginLeft:'50px'}}>Password :</label>
+                  <TextField style={{marginLeft:'77px', width:'250px'}} id="password" label="Password" variant="outlined" onChange={(e) =>
                     handleUser(e)}
                     value={data.password} />
                 </div>
@@ -201,8 +190,8 @@ export default function Adding() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <div className='addbutton'>
-              <Button onClick={handleClose}>Cancel</Button>
+            <div>
+              <Button style={{marginLeft:'200px'}} onClick={handleClose}>Cancel</Button>
               <Button onClick={handleAdd} autoFocus>Add</Button>
             </div>
           </DialogActions>

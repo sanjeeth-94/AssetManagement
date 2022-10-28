@@ -46,7 +46,7 @@ export default function Assetadd() {
                     <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                         <label style={{marginLeft:'5px'}}>Department:</label>
                         <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'28px'}}>
+                            <FormControl style={{width:'250px' ,marginLeft:'64px'}}>
                                 <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
@@ -61,7 +61,7 @@ export default function Assetadd() {
                     <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                         <label style={{marginLeft:'5px'}}>Section:</label>
                         <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'28px'}}>
+                            <FormControl style={{width:'250px' ,marginLeft:'90px'}}>
                                 <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"

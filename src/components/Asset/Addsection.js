@@ -60,7 +60,7 @@ export default function Assetsection() {
                     </div>
                     <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                         <label style={{marginLeft:'1px'}}>Section:</label>
-                        <TextField style={{marginLeft:'60px', width:'300px'}} id="outlined-basic" label="Outlined" variant="outlined" />
+                        <TextField style={{marginLeft:'60px', width:'300px'}} id="outlined-basic" label="" variant="outlined" />
                     </div>
                     <div style={{marginTop:'30px', marginLeft:'200px', marginBottom:'20px'}}>
                         <Button variant="contained">ADD</Button>

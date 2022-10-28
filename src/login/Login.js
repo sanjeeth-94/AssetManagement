@@ -14,7 +14,6 @@ const Login = () => {
     password: ''
   })
 
-
   function submit(e) {
     e.preventDefault();
     //APPI token 
@@ -39,7 +38,6 @@ const Login = () => {
     }).catch(e => {
       console.log("e", e)
     })
-
   }
 
   const handleLogin = (e) => {
@@ -47,7 +45,6 @@ const Login = () => {
     newdata[e.target.id] = e.target.value
     setData(newdata)
     console.log(newdata)
-
   }
 
   const paperStyle = {
@@ -56,37 +53,31 @@ const Login = () => {
     width: 350,
     margin: "0px auto",
     backgroundColor: 'lightgrey'
-
   }
-
+  
   const avatarStyle = { backgroundColor: 'blue' }
   return (
     <Paper elevation={10} style={paperStyle}>
       <form onSubmit={submit}>
-
         <Grid align='center'>
           <Avatar style={avatarStyle}><HttpsIcon /></Avatar>
           <h3> Login In </h3>
         </Grid>
-
         <TextField
-          type='email'
-          id="email"
-          label="Email"
-          variant="outlined"
-          placeholder='Enter User Email'
-          required
-          fullWidth
-          name='email'
+        type='email'
+        id="email"
+        label="Email"
+        variant="outlined"
+        placeholder='Enter User Email'
+        required
+        fullWidth
+        name='email'
           //  value={user}
-          onChange={(e) =>
+        onChange={(e) =>
             handleLogin(e)
-
           }
-          value={data.username}
-        />
-
-        <TextField
+          value={data.username}/>
+          <TextField
           id="password"
           margin="normal"
           label="Password"
@@ -99,25 +90,20 @@ const Login = () => {
           onChange={(e) =>
             handleLogin(e)
           }
-          value={data.password}
-        />
-
+          value={data.password}/>
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
-          label="Remember_me" style={{ display: 'flex' }}
-        />
-
-        <Button
+          label="Remember_me" style={{ display: 'flex' }}/>
+          <Button
           type="submit"
           fullWidth
           variant="contained"
-          color="primary"
-        >
+          color="primary">
           Sign In
-        </Button>
-       
+        </Button>      
       </form>
     </Paper>
   )
 }
+
 export default Login

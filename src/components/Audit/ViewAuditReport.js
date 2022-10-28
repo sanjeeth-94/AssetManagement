@@ -49,14 +49,15 @@ const ViewAuditReport = () => {
   };
   
   return (
-    <div>
+    <div >
       <form>
         <div>
           <div >
+            <div>
             <h2 style={{marginLeft:'20px'}}>VIEW AUDITED REPORT</h2>
             <hr/>
             </div>
-            <div>
+            <div >
               <div style={{display:'flex',marginLeft:'30px',marginTop:'20px',alignItems:'center'}}>
                 <label style={{marginRight:'20px'}}>Audited Date From:</label>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -140,6 +141,7 @@ const ViewAuditReport = () => {
                 <button style={{width:'90px', marginTop:'20px',marginLeft:'30px',height:'40px',marginBottom:'20px'}}>
                   View
                 </button>
+                </div>
                 </div>
                 <hr/>
                 <div>

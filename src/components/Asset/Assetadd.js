@@ -52,10 +52,7 @@ export default function Assetadd() {
         }).catch(e => {
           console.log("e", e)
         })
-    
       }
-
-
 
     const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
     const handleChangeDate = (newValue) => {
@@ -95,12 +92,12 @@ export default function Assetadd() {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <form>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'1px'}}>Asset Id : </label>
-                                    <TextField  style={{marginLeft:'20px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
-                                    <label style={{marginLeft:'35px'}}>Department:</label>
+                            <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label style={{marginLeft:'1px'}}>Asset ID : </label>
+                                    <TextField  style={{marginLeft:'86px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
+                                    <label style={{marginLeft:'90px'}}>Department:</label>
                                     <Box>
-                                        <FormControl style={{width:'300px' ,marginLeft:'30px'}}>
+                                        <FormControl style={{width:'250px' ,marginLeft:'55px'}}>
                                             <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -112,10 +109,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div style={{ marginTop: '20px', marginLeft: '50px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                                <label style={{marginLeft:'35px'}}>Section:</label>
+                                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
+                                <label style={{marginLeft:'1px'}}>Section:</label>
                                     <Box>
-                                        <FormControl style={{width:'300px' ,marginLeft:'30px'}}>
+                                        <FormControl style={{width:'250px' ,marginLeft:'96px'}}>
                                             <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -126,15 +123,15 @@ export default function Assetadd() {
                                             </Select>
                                         </FormControl>
                                     </Box>
-                                    <label style={{ marginLeft: '100px' }}>Asset Name : </label>
-                                    <TextField id="Asset-Name" label="Asset Name" variant="outlined" style={{ width: '40vh', height: '10vh' }} />
+                                    <label style={{ marginLeft: '90px' }}>Asset Name : </label>
+                                    <TextField style={{marginLeft:'50px'}}id="Asset-Name" label="Asset Name" variant="outlined" />
                                 </div>
                                 <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label style={{marginLeft:'1px'}}>Financial Asset ID : </label>
                                     <TextField  style={{marginLeft:'20px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
-                                    <label style={{marginLeft:'35px'}}>Department:</label>
+                                    <label style={{marginLeft:'88px'}}>Vendor Name:</label>
                                     <Box>
-                                        <FormControl style={{width:'300px' ,marginLeft:'30px'}}>
+                                        <FormControl style={{width:'250px' ,marginLeft:'40px'}}>
                                             <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -147,17 +144,17 @@ export default function Assetadd() {
                                     </Box>
                                 </div>
                                 <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'1px'}}>Asset Id : </label>
-                                    <TextField  style={{marginLeft:'20px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
-                                    <label style={{marginLeft:'1px'}}>Asset Id : </label>
-                                    <TextField  style={{marginLeft:'20px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
+                                    <label style={{marginLeft:'1px'}}>Phone Number : </label>
+                                    <TextField  style={{marginLeft:'40px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
+                                    <label style={{marginLeft:'90px'}}>Email Id: </label>
+                                    <TextField  style={{marginLeft:'80px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
                                 </div>
-                                <div style={{ marginTop: '20px', marginLeft: '50px', width: '150vh', display: 'flex', alignItems: 'center' }}>
+                                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                                     <label >Vendor Address : </label>
-                                    <TextField id="Vendor-Address" label="Vendor Address " variant="outlined" style={{ width: '40vh', height: '10vh' }} />
-                                    <label style={{ marginLeft: '80px' }}>Asset Type :</label>
+                                    <TextField style={{marginLeft:'35px', width:'250px'}} id="Vendor-Address" label="Vendor Address " variant="outlined" />
+                                    <label style={{ marginLeft: '90px' }}>Asset Type :</label>
                                     <Box>
-                                        <FormControl style={{ width: '40vh' }}>
+                                        <FormControl  style={{width:'250px' ,marginLeft:'50px'}}>
                                             <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
                                             <Select
                                             labelId="Vendor Name"
@@ -169,33 +166,33 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div style={{ marginTop: '20px', marginLeft: '50px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                                    <label>Manufacturer : </label>
-                                    <TextField id="Manufacturer" label="Manufacturer" variant="outlined" style={{ width: '40vh', height: '10vh' }} />
-                                    <label style={{ marginLeft: '100px' }}>Asset Model: </label>
-                                    <TextField id="Manufacturer" label="Manufacturer" variant="outlined" style={{ width: '40vh', height: '10vh' }} />
+                                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
+                                    <label>Manufacturer: </label>
+                                    <TextField style={{marginLeft:'58px', width:'250px'}} id="Manufacturer" label="Manufacturer" variant="outlined" />
+                                    <label style={{ marginLeft: '90px' }}>Asset Model: </label>
+                                    <TextField style={{marginLeft:'45px', width:'250px'}} id="Manufacturer" label="Manufacturer" variant="outlined"/>
                                 </div>
-                                <div style={{ marginTop: '20px', marginLeft: '50px', width: '150vh', display: 'flex', alignItems: 'center' }}>
+                                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                                     <label>PO No: </label>
-                                    <TextField id="Manufacturer" label="Manufacturer" variant="outlined" style={{ width: '40vh', height: '10vh' }} />
-                                    <label style={{ marginLeft: '150px' }}>Invoice No :</label>
-                                    <TextField id="Manufacturer" label="Manufacturer" variant="outlined" style={{ width: '40vh', height: '10vh' }} />
+                                    <TextField style={{marginLeft:'109px', width:'250px'}}id="Manufacturer" label="Manufacturer" variant="outlined" />
+                                    <label style={{ marginLeft: '90px' }}>Invoice No :</label>
+                                    <TextField  style={{marginLeft:'45px', width:'250px'}} id="Manufacturer" label="Manufacturer" variant="outlined"/>
                                 </div>
                                 <div style={{ marginTop: '20px', marginLeft: '400px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                                     <FormControl>
                                         <FormLabel id="Warranty"></FormLabel>
                                         <RadioGroup
-                                        rowaria-labelledby="demo-row-radio-buttons-group-label"
+                                        row aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group">
                                             <FormControlLabel value="Warranty" control={<Radio />} label="Warranty" />
-                                            <FormControlLabel value="No Warranty" control={<Radio />} label="No Warranty" />
+                                            <FormControlLabel style={{marginLeft:'40px'}} value="No Warranty" control={<Radio />} label="No Warranty" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
-                                <div style={{ marginTop: '20px', marginLeft: '50px', width: '150vh', display: 'flex', alignItems: 'center' }}>
+                                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                                     <label>Warranty Start Date:</label>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <Stack style={{ width: '250px' }} spacing={3}>
+                                        <Stack style={{ width: '250px' , marginLeft: '18px' }} spacing={3}>
                                             <DesktopDatePicker
                                             label="Date desktop"
                                             inputFormat="MM/DD/YYYY"
@@ -204,7 +201,7 @@ export default function Assetadd() {
                                             renderInput={(params) => <TextField {...params} />}/>
                                         </Stack>
                                     </LocalizationProvider>
-                                    <label style={{marginLeft:'80px'}}>Warranty End Date:</label>
+                                    <label style={{marginLeft:'85px'}}>Warranty End Date:</label>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <Stack style={{ width: '250px' }} spacing={3}>
                                             <DesktopDatePicker
@@ -216,15 +213,15 @@ export default function Assetadd() {
                                         </Stack>
                                     </LocalizationProvider>
                                 </div>
-                                <div style={{ marginTop: '20px', marginLeft: '20px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                                    <label style={{ marginLeft: '100px' }}>Warranty Document:</label>
+                                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
+                                    <label >Warranty Document:</label>
                                     <Stack direction="row" alignItems="center" spacing={2}>
-                                        <Button variant="contained" component="label">
+                                        <Button style={{marginLeft: '20px'}}variant="contained" component="label">
                                             Upload
                                             <input hidden accept="image/*" multiple type="file" />
                                         </Button>
                                     </Stack>
-                                    <label style={{ marginLeft: '170px' }}>Upload Document:</label>
+                                    <label style={{ marginLeft: '250px' }}>Upload Document:</label>
                                     <Stack direction="row" alignItems="center" spacing={2}>
                                         <Button variant="contained" component="label">
                                             Upload
@@ -232,10 +229,10 @@ export default function Assetadd() {
                                         </Button>
                                     </Stack>
                                 </div>
-                                <div style={{ marginTop: '20px', marginLeft: '20px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                                    <label style={{ marginLeft: '100px' }}>Description:</label>
-                                    <TextField id="Manufacturer" label="Manufacturer" variant="outlined" style={{ width: '40vh', height: '10vh' }} />
-                                    <label style={{ marginLeft: '70px' }}>Asset Image:</label>
+                                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
+                                    <label >Description:</label>
+                                    <TextField style={{marginLeft:'80px', width:'250px'}} id="Manufacturer" label="Manufacturer" variant="outlined" />
+                                    <label style={{ marginLeft: '100px' }}>Asset Image:</label>
                                     <Stack direction="row" alignItems="center" spacing={2}>
                                         <Button variant="contained" component="label">
                                             Upload

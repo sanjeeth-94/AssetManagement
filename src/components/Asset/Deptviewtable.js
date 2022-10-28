@@ -4,10 +4,10 @@ import { Button } from 'reactstrap';
 
 
 const columns = [
-  { field: 'id', headerName: 'Dep No', width: 80 },
-  { field: 'department_name', headerName: 'Department Name', width: 140 },
-  { field: 'description', headerName: 'Description', width: 140 },
-  { field: 'action', headerName: 'Action', width: 250 ,  sortable: false,
+  { field: 'id', headerName: 'Dep No', width: 120 },
+  { field: 'department_name', headerName: 'Department Name', width: 180 },
+  { field: 'description', headerName: 'Description', width: 220 },
+  { field: 'action', headerName: 'Action', width: 150 ,  sortable: false,
       renderCell:(cellValues)=>{
       return(
         <div >
@@ -28,6 +28,22 @@ const columns = [
   }
 ];
 
+const deletUser = (id) => {
+  alert('Delete ' + id);
+  console.log('DELLETT',id)
+  fetch(`http://192.168.1.174:8000/api/department/${id}/delete`,
+  {
+    method: 'POST',
+  }).then((result)=>{
+    result.json().then((responce)=>{
+    console.log(id)
+    })
+  })
+
+
+}
+
+
 export default function DataTable() {
  const [rows, setRows] = useState([]);
   useEffect(() => {
@@ -46,7 +62,7 @@ export default function DataTable() {
   }, []);
 
   return(
-    <div className='adduser' style={{ height: 270, width: '90%' }}>
+    <div style={{ height: 600, width: '700px', marginLeft:'100px'}}>
       <DataGrid
       rows={rows}
       columns={columns} />

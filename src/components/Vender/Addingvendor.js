@@ -38,21 +38,19 @@ export default function Adding() {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        fullWidth>
+        maxWidth='lg'>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
             {"ADD VENDOR"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              <form className='addform'>
-                <div className='assetid'>
+              <form>
+                <div  style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                   <label>Vendor Name :</label>
-                  <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                </div>
-                <div className='assetid'>
-                  <label>Vendor Type :</label>
+                  <TextField style={{marginLeft:'20px', width:'250px'}} id="outlined-basic" label="Outlined" variant="outlined" />
+                  <label style={{marginLeft:'50px'}}>Vendor Type :</label>
                   <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
+                    <FormControl style={{width:'250px' ,marginLeft:'50px'}}>
                       <InputLabel id="demo-simple-select-label">Age</InputLabel>
                       <Select
                       labelId="demo-simple-select-label"
@@ -67,31 +65,25 @@ export default function Adding() {
                     </FormControl>
                   </Box>
                 </div>
-                <div className='dept'>
+                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                   <label>Address :</label>
                   <TextareaAutosize
+                  style={{ width:'250', height:'40px', marginleft:'100px' }}
                   aria-label="empty textarea"
-                  placeholder="Empty"
-                  style={{ width: 200 }}/>
+                  placeholder="Empty"/>
+                  <label style={{alignitems:'start', marginLeft:'200px'}}>Email :</label>
+                  <TextField style={{marginLeft:'20px'}} id="outlined-basic" label="Outlined" variant="outlined" sx={{alignitems:'end'}} />
                 </div>
-                <div className='assetid'>
-                  <label sx={{alignitems:'start'}}>Email :</label>
-                  <TextField id="outlined-basic" label="Outlined" variant="outlined" sx={{alignitems:'end'}} />
-                </div>
-                <div className='assetid'>
+                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                   <label>Alt. Email :</label>
-                  <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                  <TextField style={{marginLeft:'50px'}} id="outlined-basic" label="Outlined" variant="outlined" />
+                  <label style={{marginLeft:'50px'}}>Contact No :</label>
+                  <TextField style={{marginLeft:'50px'}} id="outlined-basic" label="Outlined" variant="outlined" />
                 </div>
-                <div className='assetid'>
-                  <label>Contact No :</label>
-                  <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                </div>
-                <div className='assetid'>
+                <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }} >
                   <label>Alt Contact No:</label>
                   <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                </div>
-                <div className='assetid'>
-                  <label>Contact Person :</label>
+                  <label style={{marginLeft:'60px'}}>Contact Person :</label>
                   <TextField id="outlined-basic" label="Outlined" variant="outlined" />
                 </div>
               </form>
