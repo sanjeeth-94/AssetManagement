@@ -12,10 +12,12 @@ import Check from './components/check/check';
 import AllocationTab from './components/Allocation/AllocationTab';
 import ServiceRequestTab from './components/ServiceRequest/RequestedserviceTab';
 import VenderAdd from './components/Vender/VenderAdd';
-import UserAdd from './components/User/UserAdd';
+import UserList from './components/User/UserList';
 import Warrantydue from './components/DashboardItems/Warrantydue';
 import Servicedue from './components/DashboardItems/Servicedue';
 import Inceptiondue from './components/DashboardItems/Inceptiondue';
+import Adding from './components/User/Adding';
+
 
 
 function App() {
@@ -40,7 +42,7 @@ useEffect(()=>{
               <Route path='/alloction' element={<AllocationTab/>}/>
               <Route path='/servicerequest' element={<ServiceRequestTab/>}/>
               <Route path='/vender' element={<VenderAdd/>}/>
-              <Route path='/user' element={<UserAdd/>}/>
+              <Route path='/user' element={<UserList/>}/>
               <Route path='/logout' element={<MaintenanceTab/>}/>
               <Route path='/warrantydue' element={<Warrantydue/>}/>
               <Route path='/servicedue' element={<Servicedue/>}/>
