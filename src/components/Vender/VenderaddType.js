@@ -8,6 +8,7 @@ const VenderaddType = () => {
       <div className='add'>
         <AddingvenderType />
       </div>
+      
     </div>
   )
 }

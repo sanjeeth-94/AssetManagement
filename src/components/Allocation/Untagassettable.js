@@ -2,7 +2,6 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 
-
 const columns = [
   { field: 'Serial No', headerName: 'Serial No', width: 80 },
   { field: 'Department', headerName: 'Department', width: 140 },

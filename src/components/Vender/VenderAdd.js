@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import Addingvendor from './Addingvendor';
 import DataTableVender from './Vendertypeview';
 import VenderaddType from './VenderaddType';
-import DataTableViews from './VenderView';
-
+import VenderView from './VenderView';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,6 +48,8 @@ const VenderAdd = () => {
         <div style={{marginLeft:'85%', marginBottom:'20px'}}>
         <Addingvendor  />
         </div>
+        <VenderView/>
+     
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div style={{marginLeft:'50%', marginBottom:'20px'}}>
