@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 
 const columns = [
-  { field: 'Vendor Id', headerName: 'Vendor Id', width: 100 },
+  { field: 'Vendor Id', headerName: 'Vendor Id', width: 120 },
   { field: 'Vendor Type', headerName: 'Vendor Type', width: 200 },
   { field: 'Description', headerName: 'Description', width: 200 },
   { field: 'action', headerName: 'Action', width: 240 ,  sortable: false,

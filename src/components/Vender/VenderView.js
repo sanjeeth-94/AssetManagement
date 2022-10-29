@@ -11,9 +11,9 @@ const columns = [
   { field: 'Email', headerName: 'Designation', width: 140 },
   { field: 'Contact Person', headerName: 'Mobile', width: 140 },
   { field: 'action', headerName: 'Action', width: 250 ,  sortable: false,
-      renderCell:(cellValues)=>{
-      return(
-        <div >
+  renderCell:(cellValues)=>{
+    return(
+      <div >
         <Button
         className='prbuton'
         variant="contained"
@@ -25,18 +25,16 @@ const columns = [
         color='primary'>
           Delete
         </Button>
-        </div>
-      )
-    }
-  }
+      </div>
+    )
+  }}
 ];
 
 const rows = [
 //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
 ];
 
-
-export default function DataTableViews() {
+export default function VenderView() {
   const [data,setData] = useState()
   return (
     <div className='addvendor' style={{ height: 400, width: '80%' }}>
@@ -50,8 +48,8 @@ export default function DataTableViews() {
             setData([...data, newData]);
             resolve();
           }, 1000);
-        })}
-      />
+        })
+      }/>
     </div>
   );
 }

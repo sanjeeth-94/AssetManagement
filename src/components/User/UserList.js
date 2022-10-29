@@ -3,7 +3,6 @@ import { DataGrid, GridRow } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import UserModel from './UserModel';
 
-
 const UserList = (props) => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
@@ -29,65 +28,59 @@ const UserList = (props) => {
         { field: 'mobile_number', headerName: 'Mobile', width: 140 },
         { field: 'email', headerName: 'Email', width: 140 },
         { field: 'user_name', headerName: 'UserName', width: 140 },
-        {
-            field: 'action', headerName: 'Action', width: 250, sortable: false,
-            cellClassname: 'actions',
-            type: 'actions',
-            getActions: (params) => [
-                <EditData selectedRow={params.row} />,
-                <DeleteData selectedRow={params.row} />,
-            ],
-
+        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        cellClassname: 'actions',
+        type: 'actions',
+        getActions: (params) => [
+            <EditData selectedRow={params.row} />,
+            <DeleteData selectedRow={params.row} />,
+        ],
         }
     ];
-
+    
     useEffect(() => {
         fetch("http://192.168.1.174:8000/api/user/showData",
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(response => response.json())
-            .then((dataObject) => {
-                setRows(dataObject.data);
-            })
+        {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', }
+        })
+        .then(response => response.json())
+        .then((dataObject) => {
+            setRows(dataObject.data);
+        })
     }, []);
-
+    
     function EditData({ selectedRow }) {
         return (
             <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
-                className='prbuton'
-                variant="contained"
-                color='primary'
-                onClick={() => {
-                    setIsAdd(false);
-                    setEditData(selectedRow);
-                    setOpen(true);
-                }}
-            >
+            className='prbuton'
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                setIsAdd(false);
+                setEditData(selectedRow);
+                setOpen(true);
+            }}>
                 Edit
             </Button>
         )
     }
-
+    
     function DeleteData({ selectedRow }) {
         return (
             <Button style={{ width: '100px' }}
-                variant="contained"
-                color='primary'
-                onClick={() => {
-                    deletUser(selectedRow.id)
-                    console.log(selectedRow.id);
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                deletUser(selectedRow.id)
+                console.log(selectedRow.id);
                 }
-                }
-            >
+                }>
                 Delete
             </Button>
         )
     }
-
+    
     const deletUser = (id) => {
         alert('Delete ' + id);
         console.log('DELLETT', id)
@@ -115,19 +108,16 @@ const UserList = (props) => {
             </Button>
             <div style={{ height: '500px', width: '90%', marginLeft: '30px', marginTop: '20px' }}>
                 <DataGrid
-                    rows={rows}
-                    columns={columns} />
-
+                rows={rows}
+                columns={columns} />
             </div>
-            <UserModel 
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-            />
+            <UserModel
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            editData={editData}/>
         </div>
     )
-
 }
 
 export default UserList

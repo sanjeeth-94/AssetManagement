@@ -29,7 +29,7 @@ export default function AddingvenderType() {
         aria-describedby="alert-dialog-description"
         fullWidth>
           <DialogTitle id="alert-dialog-title" sx={{background:'grey'}}>
-              {"ADD VENDOR TYPE"}
+            {"ADD VENDOR TYPE"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">

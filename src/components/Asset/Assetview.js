@@ -7,7 +7,7 @@ const Assetview = () => {
     return(
         <div>
             <form>
-                <div style={{marginLeft:'40px'}}>
+                <div style={{marginLeft:'40px',background:'whitesmoke'}}>
                     VIEW ASSET                 
                 </div>
                 <hr style={{bottom:'solid',

@@ -4,9 +4,9 @@ import { Button } from 'reactstrap';
 
 
 const columns = [
-  { field: 'Scheduled Audit', headerName: 'Scheduled Audit', width: 80 },
-  { field: 'Date', headerName: 'Date', width: 140 },
-  { field: 'action', headerName: 'Action', width: 250 ,  sortable: false,
+  { field: 'Scheduled Audit', headerName: 'Scheduled Audit', width: 200, },
+  { field: 'Date', headerName: 'Date', width: 200 },
+  { field: 'action', headerName: 'Action', width: 200 ,  sortable: false,
       renderCell:(cellValues)=>{
       return(
         <div >
@@ -33,7 +33,7 @@ const rows = [
 
 export default function DataTable() {
   return (
-    <div className='adduser' style={{ height: 200, width: '90%' }}>
+    <div className='adduser' style={{ height: 200, width: '700px' , marginLeft:'60px'}}>
       <DataGrid
         rows={rows}
         columns={columns}
