@@ -17,14 +17,13 @@ import Warrantydue from './components/DashboardItems/Warrantydue';
 import Servicedue from './components/DashboardItems/Servicedue';
 import Inceptiondue from './components/DashboardItems/Inceptiondue';
 
-
 function App() {
   const navigate = useNavigate();
   useEffect(()=>{
     const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
     return !userDetails?.access_token? navigate('/login' ) : navigate('/main')
   },[]);
-
+  
   return (
     <Routes>
       <Route path="/login"  element={<Login/>}/> 

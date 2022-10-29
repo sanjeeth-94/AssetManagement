@@ -1,26 +1,13 @@
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import AddIcon from '@mui/icons-material/Add';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
 import dayjs from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import './Asset.css'
 
@@ -56,7 +43,7 @@ export default function Scrapasset() {
           SCRAP ASSET
         </div>
         <hr style={{bottom:'solid'}}/>
-        <div style={{marginTop:'5px',marginLeft:'400px', width:'150vh', display:'flex', alignItems:'center'}}>
+        <div style={{marginTop:'5px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
           <label style={{marginLeft:'5px'}}>Scrap Type:  </label>
           <FormControl>
             <RadioGroup
@@ -65,8 +52,8 @@ export default function Scrapasset() {
             name="row-radio-buttons-group"
             value={tagAssetType}
             onChange={onTagAssetType}>
-              <FormControlLabel value="Scrap" control={<Radio />} label="Scrap" />
-              <FormControlLabel value="EOL" control={<Radio />} label="EOL" />
+              <FormControlLabel style={{marginLeft:'80px'}}value="Scrap" control={<Radio />} label="Scrap" />
+              <FormControlLabel style={{marginLeft:'80px'}} value="EOL" control={<Radio />} label="EOL" />
               </RadioGroup>
           </FormControl>
         </div>
@@ -116,9 +103,9 @@ export default function Scrapasset() {
           </Box>
         </div>
         <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-          <label style={{marginLeft:'5px'}}>Asset Name : </label>
+          <label style={{marginLeft:'5px'}}>Asset Name:</label>
           <Box>
-            <FormControl style={{width:'450px' ,marginLeft:'50px'}}>
+            <FormControl style={{width:'450px' ,marginLeft:'105px'}}>
               <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
               <Select
               labelId="demo-simple-select-label"
