@@ -3,12 +3,12 @@ import { Grid, Paper, Avatar, TextField, Checkbox, FormControlLabel, Button } fr
 import HttpsIcon from '@mui/icons-material/Https';
 import "./login.css"
 import { Link, useNavigate, } from 'react-router-dom';
+import { LoginService } from '../services/ApiServices';
+import ApplicationStore from '../utils/ApplicationStore';
 
 const Login = () => {
   const navigate = useNavigate();
-
-  //API adress
-  const url = "http://192.168.1.174:8000/api/login"
+  const successCaseCode = [200, 201];
   const [data, setData] = useState({
     email: '',
     password: ''
@@ -16,28 +16,46 @@ const Login = () => {
 
   function submit(e) {
     e.preventDefault();
-    //APPI token 
-    fetch(url, {
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      redirect: 'follow',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-        // 'Access-Control-Allow-Origin':'*',
-      },
-      body: JSON.stringify({ email: data.email, password: data.password }),
-      referrerPolicy: 'no-referrer'
+    LoginService({ email: data.email, password: data.password })
+      .then((response) => {
+        if (successCaseCode.indexOf(response.status) > -1) {
+          console.log('Login Succesfull..!');
+          return response.json();
+        }
+        throw {
+          errorStatus: response.status,
+          errorObject: response.json(),
+        };
+      }).then((data) => {
+        ApplicationStore().setStorage('userDetails', data);
+        navigate("/main");
+      }).catch((error) => {
+        error?.errorObject?.then((errorResponse) => {
+          console.log(errorResponse.error ? errorResponse.error : errorResponse.message);
+        });
+      });
+    // fetch(url, {
+    //   mode: 'cors',
+    //   cache: 'no-cache',
+    //   credentials: 'same-origin',
+    //   redirect: 'follow',
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json'
+    //     // 'Access-Control-Allow-Origin':'*',
+    //   },
+    //   body: JSON.stringify({ email: data.email, password: data.password }),
+    //   referrerPolicy: 'no-referrer'
 
-    }).then(response => response.json()).then(json => {
-      console.log('json', json)
-      sessionStorage.setItem("userDetails", JSON.stringify(json));
-      navigate("/main");
-    }).catch(e => {
-      console.log("e", e)
-    })
+    // }).then(response => response.json()).then(json => {
+    //   console.log('json', json)
+    //   sessionStorage.setItem("userDetails", JSON.stringify(json));
+    //   navigate("/main");
+    // }).catch(e => {
+    //   console.log("e", e)
+    // })
+    
   }
 
   const handleLogin = (e) => {

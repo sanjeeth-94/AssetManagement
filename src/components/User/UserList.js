@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import UserModel from './UserModel';
+import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
 
 const UserList = (props) => {
     const [open, setOpen] = useState(false);
@@ -30,18 +31,27 @@ const UserList = (props) => {
     ];
     
     useEffect(() => {
-        fetch("http://192.168.1.174:8000/api/user/showData",
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(response => response.json())
-            .then((dataObject) => {
-                setRows(dataObject.data);
-            })
+        FetchUserService(handleFetchSuccess, handleFetchException);
+        // fetch("http://192.168.1.174:8000/api/user/showData",
+        //     {
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         }
+        //     })
+        //     .then(response => response.json())
+        //     .then((dataObject) => {
+        //         setRows(dataObject.data);
+        //     })
     }, [refresh]);
+
+    const handleFetchSuccess = (dataObject) =>{
+        setRows(dataObject.data);
+    }
+
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
 
     function EditData({ selectedRow }) {
         return (
@@ -66,7 +76,6 @@ const UserList = (props) => {
             color='primary'
             onClick={() => {
                 deletUser(selectedRow.id)
-                console.log(selectedRow.id);
                 }
                 }>
                 Delete
@@ -76,16 +85,25 @@ const UserList = (props) => {
     
     const deletUser = (id) => {
        
-        console.log('DELLETT', id)
-        fetch(`http://192.168.1.174:8000/api/user/${id}/delete`,
-            {
-                method: 'POST',
-            }).then((result) => {
-                result.json().then((responce) => {
-                    console.log(id)
-                    setRefresh(oldValue => !oldValue);
-                })
-            })
+        // fetch(`http://192.168.1.174:8000/api/user/${id}/delete`,
+        //     {
+        //         method: 'POST',
+        //     }).then((result) => {
+        //         result.json().then((responce) => {
+        //             console.log(id)
+        //             setRefresh(oldValue => !oldValue);
+        //         })
+        //     })
+        UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+    }
+
+    const handleDeleteSuccess = (dataObject) =>{
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+    }
+
+    const handleDeleteException = (errorObject, errorMessage) =>{
+        console.log(errorMessage);
     }
 
     const handleModalOpen = () => {

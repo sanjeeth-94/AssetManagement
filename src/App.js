@@ -33,7 +33,7 @@ function App() {
               <Route path="/asset" element={<AssetTab/>}/>
               <Route path='/audit' element={<AuditTab/>}/>
               <Route path='/amc' element={<AmcTab/>}/>
-              <Route path='/maintaince' element={<MaintenanceTab/>}/>
+              {/* <Route path='/maintaince' element={<MaintenanceTab/>}/> */}
               <Route path='/maintainceaproval' element={<Check/>}/>
               <Route path='/maintaincestatus' element={<MaintenanceTab/>}/>
               <Route path='/alloction' element={<AllocationTab/>}/>
