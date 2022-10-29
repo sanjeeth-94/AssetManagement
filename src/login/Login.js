@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   //API adress
-  const url = "http://192.168.1.174:8000/api/user/login"
+  const url = "http://192.168.1.174:8000/api/login"
   const [data, setData] = useState({
     email: '',
     password: ''

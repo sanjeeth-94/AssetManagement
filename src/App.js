@@ -40,7 +40,7 @@ function App() {
               <Route path='/alloction' element={<AllocationTab/>}/>
               <Route path='/servicerequest' element={<ServiceRequestTab/>}/>
               <Route path='/vender' element={<VenderAdd/>}/>
-              <Route path='/user' element={<UserAdd/>}/>
+              <Route path='/user' element={<UserList/>}/>
               <Route path='/logout' element={<MaintenanceTab/>}/>
               <Route path='/warrantydue' element={<Warrantydue/>}/>
               <Route path='/servicedue' element={<Servicedue/>}/>
