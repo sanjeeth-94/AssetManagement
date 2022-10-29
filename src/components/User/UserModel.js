@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { UserAddService, UserUpdateService } from '../../services/ApiServices';
 
 const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([])
@@ -67,74 +68,117 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     isAdd === true ?
-      (fetch(url, {
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        redirect: 'follow',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          employee_id: employeeId,
-          employee_name: employeeName,
-          department: department,
-          designation: designation,
-          mobile_number: mobile_number,
-          email: emailId,
-          user_name: userName,
-          password: password,
-        }),
-        referrerPolicy: 'no-referrer'
-      }).then(response => response.json()).then(json => {
-        console.log('json', json)
-        setRefresh(oldValue => !oldValue);
-        setOpen(false);
-        setemployeeId('');
-        setemployeeNamed('');
-        setDepartment('');
-        setdesignation('');
-        setemailId('');
-        setmobile_number('');
-        setuserName('');
-        setpassword('')
-      }).catch(e => {
-        console.log("e", e)
-      })) : (fetch(`http://192.168.1.174:8000/api/user/${editData.id}/update`, {
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        redirect: 'follow',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-          // 'Access-Control-Allow-Origin':'*',
-        },
-        body: JSON.stringify({
-          employee_id: employeeId,
-          employee_name: employeeName,
-          department: department,
-          designation: designation,
-          mobile_number: mobile_number,
-          email: emailId,
-          user_name: userName,
+      (
+      //   fetch(url, {
+      //   mode: 'cors',
+      //   cache: 'no-cache',
+      //   credentials: 'same-origin',
+      //   redirect: 'follow',
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Accept: 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     employee_id: employeeId,
+      //     employee_name: employeeName,
+      //     department: department,
+      //     designation: designation,
+      //     mobile_number: mobile_number,
+      //     email: emailId,
+      //     user_name: userName,
+      //     password: password,
+      //   }),
+      //   referrerPolicy: 'no-referrer'
+      // }).then(response => response.json()).then(json => {
+      //   console.log('json', json)
+      //   setRefresh(oldValue => !oldValue);
+      //   setOpen(false);
+      //   setemployeeId('');
+      //   setemployeeNamed('');
+      //   setDepartment('');
+      //   setdesignation('');
+      //   setemailId('');
+      //   setmobile_number('');
+      //   setuserName('');
+      //   setpassword('')
+      // }).catch(e => {
+      //   console.log("e", e)
+      // })
+      UserAddService({
+        employee_id: employeeId,
+        employee_name: employeeName,
+        department: department,
+        designation: designation,
+        mobile_number: mobile_number,
+        email: emailId,
+        user_name: userName,
+        password: password,
+      },handleSuccess, handleException)
+      ) : (
+      //   fetch(`http://192.168.1.174:8000/api/user/${editData.id}/update`, {
+      //   mode: 'cors',
+      //   cache: 'no-cache',
+      //   credentials: 'same-origin',
+      //   redirect: 'follow',
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Accept: 'application/json'
+      //     // 'Access-Control-Allow-Origin':'*',
+      //   },
+      //   body: JSON.stringify({
+      //     employee_id: employeeId,
+      //     employee_name: employeeName,
+      //     department: department,
+      //     designation: designation,
+      //     mobile_number: mobile_number,
+      //     email: emailId,
+      //     user_name: userName,
 
-        }),
-        referrerPolicy: 'no-referrer'
+      //   }),
+      //   referrerPolicy: 'no-referrer'
 
-      }).then(response => response.json()).then(json => {
-        console.log('json', json)
-        setRefresh(oldValue => !oldValue);
-        setOpen(false);
+      // }).then(response => response.json()).then(json => {
+      //   console.log('json', json)
+      //   setRefresh(oldValue => !oldValue);
+      //   setOpen(false);
 
-      }).catch(e => {
-        console.log("e", e)
+      // }).catch(e => {
+      //   console.log("e", e)
 
-      }));
+      // })
+      UserUpdateService({
+        id: editData.id,
+        employee_id: employeeId,
+        employee_name: employeeName,
+        department: department,
+        designation: designation,
+        mobile_number: mobile_number,
+        email: emailId,
+        user_name: userName,
+        password: password
+      }, handleSuccess, handleException)
+      );
 
+  }
+
+  const handleSuccess = (dataObject) =>{
+    console.log(dataObject);
+    setRefresh(oldValue => !oldValue);
+    setOpen(false);
+    setemployeeId('');
+    setemployeeNamed('');
+    setDepartment('');
+    setdesignation('');
+    setemailId('');
+    setmobile_number('');
+    setuserName('');
+    setpassword('');
+  }
+
+  const handleException = (errorObject, errorMessage) =>{
+    console.log(errorMessage);
   }
   return (
     <Dialog

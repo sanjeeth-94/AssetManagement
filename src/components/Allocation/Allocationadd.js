@@ -38,7 +38,7 @@ export default function Assetadd() {
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description" fullWidth>
+                aria-describedby="alert-dialog-description" >
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ASSET"}
                     </DialogTitle>
