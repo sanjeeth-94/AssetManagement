@@ -1,9 +1,7 @@
 import { Box, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Addingvendor from './Addingvendor';
-import DataTableVender from './Vendertypeview';
-import VenderaddType from './VenderaddType';
-import VenderView from './VenderView';
+import VendorList from './VendorList';
+import VendorTypeList from './VendorTypeList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,17 +43,10 @@ const VenderAdd = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <div style={{marginLeft:'85%', marginBottom:'20px'}}>
-        <Addingvendor  />
-        </div>
-        <VenderView/>
-     
+       <VendorList/> 
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <div style={{marginLeft:'50%', marginBottom:'20px'}}>
-        <VenderaddType/>
-        </div>
-        <DataTableVender />
+       <VendorTypeList/>
       </TabPanel>
     </Box>
   )
