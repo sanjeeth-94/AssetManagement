@@ -32,17 +32,7 @@ const UserList = (props) => {
     
     useEffect(() => {
         FetchUserService(handleFetchSuccess, handleFetchException);
-        // fetch("http://192.168.1.174:8000/api/user/showData",
-        //     {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         }
-        //     })
-        //     .then(response => response.json())
-        //     .then((dataObject) => {
-        //         setRows(dataObject.data);
-        //     })
+       
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
@@ -85,15 +75,6 @@ const UserList = (props) => {
     
     const deletUser = (id) => {
        
-        // fetch(`http://192.168.1.174:8000/api/user/${id}/delete`,
-        //     {
-        //         method: 'POST',
-        //     }).then((result) => {
-        //         result.json().then((responce) => {
-        //             console.log(id)
-        //             setRefresh(oldValue => !oldValue);
-        //         })
-        //     })
         UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
 

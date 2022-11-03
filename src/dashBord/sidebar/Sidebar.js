@@ -41,7 +41,7 @@ const Sidebar = ({ toggleFunction, sidebarOpen }) => {
                     <Link to='/Amc'><HandymanIcon className='icon'/></Link>
                 </div>
                 <div className="sidebar__link">
-                     <Link to='/maintaince'><ManageAccountsIcon className='icon'/></Link>
+                     <Link to='/maintenanceschedule'><ManageAccountsIcon className='icon'/></Link>
                 </div>
                 <div className="sidebar__link">
                      <Link to='/maintainceaproval'><CheckCircleIcon className='icon'/></Link>

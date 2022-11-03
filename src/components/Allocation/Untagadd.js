@@ -48,10 +48,10 @@ export default function Assetadd() {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <form>
-                                <div>
-                                    <label>Department : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label>Department:</label>
+                                    <Box >
+                                        <FormControl style={{width:'250px', marginLeft:'80px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -66,10 +66,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Section : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                    <Box >
+                                        <FormControl style={{width:'250px', marginLeft:'105px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -84,10 +84,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Asset Type :</label>
                                     <Box>
-                                        <FormControl fullWidth>
+                                        <FormControl style={{width:'250px', marginLeft:'78px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -102,10 +102,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Asset Name : </label>
                                     <Box>
-                                        <FormControl fullWidth>
+                                        <FormControl style={{width:'250px', marginLeft:'70px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -120,10 +120,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
-                                    <label>Reason For Untag</label>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                    <label>Reason For Untag:</label>
                                     <Box>
-                                        <FormControl fullWidth>
+                                        <FormControl style={{width:'250px', marginLeft:'30px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -138,20 +138,20 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Tag : </label>
-                                    <FormControl>
+                                    <FormControl style={{width:'250px', marginLeft:'30px'}}>
                                         <RadioGroup 
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group">
-                                            <FormControlLabel value="Block" control={<Radio />} label="Block" />
-                                            <FormControlLabel value="Reuse" control={<Radio />} label="Reuse" />
+                                            <FormControlLabel style={{marginLeft:'20px'}} value="Block" control={<Radio />} label="Block" />
+                                            <FormControlLabel style={{marginLeft:'20px'}} value="Reuse" control={<Radio />} label="Reuse" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
                                 <div>
-                                    <Button variant="contained">Untag</Button>
+                                    <Button style={{marginLeft:'60px', marginTop:'10px'}} variant="contained">Untag</Button>
                                 </div>
                             </form>
                         </DialogContentText>

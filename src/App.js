@@ -16,6 +16,10 @@ import UserList from './components/User/UserList';
 import Warrantydue from './components/DashboardItems/Warrantydue';
 import Servicedue from './components/DashboardItems/Servicedue';
 import Inceptiondue from './components/DashboardItems/Inceptiondue';
+import Tagassettable from './components/Asset/Tagassettable';
+import Untagassettable from './components/Allocation/Untagassettable';
+import MaintenanceSchedule from './components/MaintenanceSchedule/MaintenanceSchedule';
+
 
 function App() {
   const navigate = useNavigate();
@@ -33,7 +37,7 @@ function App() {
               <Route path="/asset" element={<AssetTab/>}/>
               <Route path='/audit' element={<AuditTab/>}/>
               <Route path='/amc' element={<AmcTab/>}/>
-              {/* <Route path='/maintaince' element={<MaintenanceTab/>}/> */}
+              <Route path='/maintenanceschedule' element={<MaintenanceSchedule/>}/>
               <Route path='/maintainceaproval' element={<Check/>}/>
               <Route path='/maintaincestatus' element={<MaintenanceTab/>}/>
               <Route path='/alloction' element={<AllocationTab/>}/>
@@ -44,6 +48,8 @@ function App() {
               <Route path='/warrantydue' element={<Warrantydue/>}/>
               <Route path='/servicedue' element={<Servicedue/>}/>
               <Route path='/inceptiondue' element={<Inceptiondue/>}/>
+              <Route path='/tagassettable' element={<Tagassettable/>}/>
+              <Route path='/untagassettable' element={<Untagassettable/>}/>
 
         </Route> 
       </Route>

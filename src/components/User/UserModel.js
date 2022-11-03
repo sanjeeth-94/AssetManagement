@@ -15,7 +15,6 @@ import { UserAddService, UserUpdateService } from '../../services/ApiServices';
 
 const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([])
-  const url = 'http://192.168.1.174:8000/api/user/add'
   const [employeeId, setemployeeId] = useState('')
   const [employeeName, setemployeeNamed] = useState('')
   const [designation, setdesignation] = useState('')
@@ -26,7 +25,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department, setDepartment] = useState('')
 
   useEffect(() => {
-    fetch("http://192.168.1.174:8000/api/department/showData",
+    fetch("http://192.168.1.173:8000/api/department/showData",
       {
         method: 'GET',
         headers: {
@@ -69,42 +68,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     e.preventDefault();
     isAdd === true ?
       (
-      //   fetch(url, {
-      //   mode: 'cors',
-      //   cache: 'no-cache',
-      //   credentials: 'same-origin',
-      //   redirect: 'follow',
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Accept: 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     employee_id: employeeId,
-      //     employee_name: employeeName,
-      //     department: department,
-      //     designation: designation,
-      //     mobile_number: mobile_number,
-      //     email: emailId,
-      //     user_name: userName,
-      //     password: password,
-      //   }),
-      //   referrerPolicy: 'no-referrer'
-      // }).then(response => response.json()).then(json => {
-      //   console.log('json', json)
-      //   setRefresh(oldValue => !oldValue);
-      //   setOpen(false);
-      //   setemployeeId('');
-      //   setemployeeNamed('');
-      //   setDepartment('');
-      //   setdesignation('');
-      //   setemailId('');
-      //   setmobile_number('');
-      //   setuserName('');
-      //   setpassword('')
-      // }).catch(e => {
-      //   console.log("e", e)
-      // })
+
       UserAddService({
         employee_id: employeeId,
         employee_name: employeeName,
@@ -116,38 +80,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         password: password,
       },handleSuccess, handleException)
       ) : (
-      //   fetch(`http://192.168.1.174:8000/api/user/${editData.id}/update`, {
-      //   mode: 'cors',
-      //   cache: 'no-cache',
-      //   credentials: 'same-origin',
-      //   redirect: 'follow',
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Accept: 'application/json'
-      //     // 'Access-Control-Allow-Origin':'*',
-      //   },
-      //   body: JSON.stringify({
-      //     employee_id: employeeId,
-      //     employee_name: employeeName,
-      //     department: department,
-      //     designation: designation,
-      //     mobile_number: mobile_number,
-      //     email: emailId,
-      //     user_name: userName,
-
-      //   }),
-      //   referrerPolicy: 'no-referrer'
-
-      // }).then(response => response.json()).then(json => {
-      //   console.log('json', json)
-      //   setRefresh(oldValue => !oldValue);
-      //   setOpen(false);
-
-      // }).catch(e => {
-      //   console.log("e", e)
-
-      // })
+      
       UserUpdateService({
         id: editData.id,
         employee_id: employeeId,

@@ -125,7 +125,7 @@ export default function Service() {
                   </Box>
                   <Button style={{ width: '150px', marginLeft: '60px' }} variant="contained">View</Button>
                 </div>
-                <form style={{ border: 'solid', marginTop: '20px' }}>
+                <form style={{ border: 'solid', marginTop: '20px', borderColor:'whitesmoke' }}>
                   <div style={{ marginLeft: '30px' }}>
                     <h2>SERVICE DATE</h2>
                   </div>

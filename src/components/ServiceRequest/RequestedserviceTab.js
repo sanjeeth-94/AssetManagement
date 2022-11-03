@@ -50,7 +50,7 @@ const RequestedserviceTab = () => {
             </TabPanel>
         </Box>
         <div>
-          <Button style={{marginLeft:'100px'}} variant="contained">Export</Button>
+          <Button style={{marginLeft:'70px'}} variant="contained">Export</Button>
         </div>
     </div>
   )

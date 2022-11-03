@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -34,21 +33,21 @@ export default function Assetadd() {
                   Add
             </Button>
             <div>
-                <Dialog 
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description" >
+            <Dialog
+      open={open}
+      fullWidth
+      maxWidth='lg'
+    >
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ASSET"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <form>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Department : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                    <Box >
+                                        <FormControl style={{width:'250px', marginLeft:'10px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -63,10 +62,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Section : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                    <Box >
+                                        <FormControl style={{width:'250px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -81,10 +80,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Asset Type : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
+                                    <Box>
+                                        <FormControl style={{width:'250px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
@@ -99,10 +98,10 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
-                                <div>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Asset Name : </label>
                                     <Box>
-                                        <FormControl fullWidth>
+                                        <FormControl style={{width:'250px', marginLeft:'20px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
@@ -117,10 +116,14 @@ export default function Assetadd() {
                                         </FormControl>
                                     </Box>
                                 </div>
+                               
+                                
                             </form>
+                            
                         </DialogContentText>
                     </DialogContent>
                 </Dialog>
+                
             </div>
         </div>
     )
