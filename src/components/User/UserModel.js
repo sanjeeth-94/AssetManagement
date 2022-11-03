@@ -11,7 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { UserAddService, UserUpdateService } from '../../services/ApiServices';
+import { UserAddService, UserUpdateService,FetchDepaertmentService } from '../../services/ApiServices';
 
 const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([])
@@ -25,50 +25,45 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department, setDepartment] = useState('')
 
   useEffect(() => {
-    fetch("http://192.168.1.173:8000/api/department/showData",
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
+    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    setemployeeId(editData.employee_id || '');
+    setemployeeNamed(editData.employee_name || '');
+    setDepartment(editData.department || '');
+    setdesignation(editData.designation || '');
+    setemailId(editData.email || '');
+    setmobile_number(editData.mobile_number || '');
+    setuserName(editData.user_name || '');
+    setpassword(editData.password || '');
+  }, [editData]);
 
-      })
-      .then(response => response.json())
-      .then((dataObject) => {
-        setDepartmentList(dataObject.data);
-          });
-        setemployeeId(editData.employee_id || '');
-        setemployeeNamed(editData.employee_name || '');
-        setDepartment(editData.department || '');
-        setdesignation(editData.designation || '');
-        setemailId(editData.email || '');
-        setmobile_number(editData.mobile_number || '');
-        setuserName(editData.user_name || '');
-        setpassword(editData.password || '')
-      }, [editData]);
+  const handleFetchSuccess = (dataObject) =>{
+    setDepartmentList(dataObject.data);
+  }
+  const handleFetchException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
 
+  const onDepartmentChange = (e) => {
+    setDepartment(e.target.value);
+  }
 
-      const onDepartmentChange = (e) => {
-        setDepartment(e.target.value);
-      }
-
-      const handleClose = () => {
-        setOpen(false);
-        setemployeeId('');
-        setemployeeNamed('');
-        setDepartment('');
-        setdesignation('');
-        setemailId('');
-        setmobile_number('');
-        setuserName('');
-        setpassword('')
-        };
+  const handleClose = () => {
+    setOpen(false);
+    setemployeeId('');
+    setemployeeNamed('');
+    setDepartment('');
+    setdesignation('');
+    setemailId('');
+    setmobile_number('');
+    setuserName('');
+    setpassword('')
+    };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    isAdd === true ?
+     isAdd === true ?
       (
-
+    
       UserAddService({
         employee_id: employeeId,
         employee_name: employeeName,
@@ -80,7 +75,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         password: password,
       },handleSuccess, handleException)
       ) : (
-      
+     
       UserUpdateService({
         id: editData.id,
         employee_id: employeeId,
@@ -93,7 +88,6 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         password: password
       }, handleSuccess, handleException)
       );
-
   }
 
   const handleSuccess = (dataObject) =>{

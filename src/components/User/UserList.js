@@ -32,7 +32,6 @@ const UserList = (props) => {
     
     useEffect(() => {
         FetchUserService(handleFetchSuccess, handleFetchException);
-       
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
@@ -74,7 +73,6 @@ const UserList = (props) => {
     }
     
     const deletUser = (id) => {
-       
         UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
 

@@ -34,28 +34,7 @@ const Login = () => {
           console.log(errorResponse.error ? errorResponse.error : errorResponse.message);
         });
       });
-    // fetch(url, {
-    //   mode: 'cors',
-    //   cache: 'no-cache',
-    //   credentials: 'same-origin',
-    //   redirect: 'follow',
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json'
-    //     // 'Access-Control-Allow-Origin':'*',
-    //   },
-    //   body: JSON.stringify({ email: data.email, password: data.password }),
-    //   referrerPolicy: 'no-referrer'
-
-    // }).then(response => response.json()).then(json => {
-    //   console.log('json', json)
-    //   sessionStorage.setItem("userDetails", JSON.stringify(json));
-    //   navigate("/main");
-    // }).catch(e => {
-    //   console.log("e", e)
-    // })
-    
+        
   }
 
   const handleLogin = (e) => {
