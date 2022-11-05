@@ -24,6 +24,12 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [password, setpassword] = useState('')
   const [department, setDepartment] = useState('')
 
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
+
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     setemployeeId(editData.employee_id || '');
@@ -182,7 +188,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <div >
+          <div className='addbutton'>
             <Button type='reset' onClick={handleClose}>Cancel</Button>
             <Button type='submit'>
               {isAdd === true ? 'Add' : 'Update'}

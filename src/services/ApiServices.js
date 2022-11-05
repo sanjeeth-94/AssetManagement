@@ -108,6 +108,9 @@ export const VendorTypeUpdateService = (data, successCallback, errorCallBack) =>
 
 export const VendorTypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
+// //...........Requested Service...........////
+
+export const FetchRequestedService = (successCallback, errorCallBack) => _fetchService('vendorType/showData', 'GET', {}, successCallback, errorCallBack);
 ///.........Asset........////
 
 export const  FetchAssetListService = (successCallback, errorCallBack) => _fetchService('asset/showData', 'GET', {}, successCallback, errorCallBack);
