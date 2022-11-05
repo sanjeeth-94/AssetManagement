@@ -14,7 +14,7 @@ const rows = [
 //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
 ];
 
-export default function DataTable() {
+export default function Tagassettable() {
   return (
     <div className='adduser' style={{ height: 200, width: '100%' }}>
       <DataGrid

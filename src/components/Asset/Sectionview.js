@@ -1,7 +1,7 @@
 import React from 'react'
 import TextField from '@mui/material/TextField';
 import './Asset.css'
-import Sectionviewtable from './Sectionviewtable';
+import Sectionviewtable from './Section/SectionList';
 
 const Sectionview = () => {
     return(

@@ -38,7 +38,7 @@ const UserList = (props) => {
     
     useEffect(() => {
         FetchUserService(handleFetchSuccess, handleFetchException);
-      
+       
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{

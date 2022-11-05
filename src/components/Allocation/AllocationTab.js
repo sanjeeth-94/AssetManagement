@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Allocationadd from './Allocationadd';
 import Selfassessment from './Selfassessment';
 import Untagadd from './Untagadd';
+import unTagview from './unTagview';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,6 +55,7 @@ const AllocationTab = () => {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Untagadd />
+          <unTagview />
         </TabPanel>
         <TabPanel value={value} index={2}>
           </TabPanel>

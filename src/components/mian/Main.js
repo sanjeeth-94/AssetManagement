@@ -46,9 +46,8 @@ const Main = () => {
                                 alignItems: 'center',
                                 justifyContent: 'space-between'
                         }}>
-
                             <span className="font-bold text-title">0</span>
-                            <FileCopyIcon className='dash-icon' />  
+                            <Link to='/asset'><FileCopyIcon className='dash-icon' /> </Link>
                         </div>
                     </div>
                 </div>
@@ -80,7 +79,7 @@ const Main = () => {
                             justifyContent: 'space-between'
                         }}>
                             <span className="font-bold text-title">0</span>
-                            <StyleIcon className='dash-icon2' />
+                            <Link to='/tagassettable'><StyleIcon className='dash-icon2' /></Link>
                         </div>
                     </div>
                 </div>
@@ -97,7 +96,7 @@ const Main = () => {
                         }}>
                             
                             <span className="font-bold text-title">0</span>
-                            <LocalOfferIcon className='dash-icon3' />
+                            <Link to='/Untagassettable'><LocalOfferIcon className='dash-icon3' /></Link>
                         </div>
                     </div>
                 </div>

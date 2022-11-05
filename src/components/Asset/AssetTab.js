@@ -1,21 +1,15 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Assetadd from './Assetadd';
-import Assetimport from './Assetimport';
-import Addlabel from './Addlabel';
-import Adddept from './Adddept';
-import Addsection from './Addsection';
-import Assettypeadd from './Assettypeadd';
 import Tagassetadd from './Tagassetadd';
 import Transferasset from './Transferasset';
-import Assetview from './Assetview';
-import Deptview from './Deptview';
-import Sectionview from './Sectionview';
-import Assettypeview from './Assettypeview';
 import Scraplog from './Scraplog'
 import Scrapasset from './Scrapasset';
 import Assetmaster from './Assetmaster'
-import './Asset.css'
+import AssetList from './asset/AssetList';
+import SectionList from './Section/SectionList';
+import AssettypeList from './AssetType/AssettypeList';
+import DepartmentList from './Department/DepartmentList';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -69,33 +63,21 @@ const AssetTab = () => {
         </Tabs>
       </Box>
       <TabPanel  value={value} index={0} >
-        <div style={{display:'flex'}}>
-      <div style={{display:'flex' ,height:'10vh',marginLeft:'650px',}}> 
-       <Assetadd  />
-      </div>
-      <div style={{display:'flex' ,height:'10vh',marginLeft:'10px',}}> 
-       <Assetimport />  
-      </div>
-      <div style={{display:'flex' ,height:'10vh',marginLeft:'10px',}}> 
-       <Addlabel /> 
-      </div>
-      </div>
-      <div>
-        <hr/>
-       <Assetview />    
-      </div>   
+        
+
+       <AssetList/>
+
+     
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Adddept />
-      <Deptview />
+      <DepartmentList />
+     
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Addsection />
-        <Sectionview />
+   <SectionList />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Assettypeadd />
-        <Assettypeview />
+        <AssettypeList />
       </TabPanel>
       <TabPanel value={value} index={4}>
         <Tagassetadd />
