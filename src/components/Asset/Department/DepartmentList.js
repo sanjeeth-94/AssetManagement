@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { DataGrid} from '@mui/x-data-grid';
+import  React , { useEffect, useState } from 'react';
+import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import UserModel from './UserModel';
-import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
+import { FetchDepartmentListService , DepartmentDeleteService  } from '../../../services/ApiServices';
+import DepartmentModel from './DepartmentModel';
 
-const UserList = (props) => {
+const DepartmentList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false)
-
+    
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 80 },
-        { field: 'employee_id', headerName: 'Employee Id', width: 140 },
-        { field: 'employee_name', headerName: 'Employee Name', width: 140 },
-        { field: 'department', headerName: 'Department', width: 140 },
-        { field: 'designation', headerName: 'Designation', width: 140 },
-        { field: 'mobile_number', headerName: 'Mobile', width: 140 },
-        { field: 'email', headerName: 'Email', width: 140 },
-        { field: 'user_name', headerName: 'UserName', width: 140 },
+        { field: 'id', headerName: 'Dep No', width: 120 },
+        { field: 'department_name', headerName: 'Department Name', width: 180 },
+        { field: 'description', headerName: 'Description', width: 220 },
         {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -30,19 +25,6 @@ const UserList = (props) => {
         }
     ];
     
-    useEffect(() => {
-        FetchUserService(handleFetchSuccess, handleFetchException);
-       
-    }, [refresh]);
-
-    const handleFetchSuccess = (dataObject) =>{
-        setRows(dataObject.data);
-    }
-
-    const handleFetchException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-    }
-
     function EditData({ selectedRow }) {
         return (
             <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
@@ -65,33 +47,44 @@ const UserList = (props) => {
             variant="contained"
             color='primary'
             onClick={() => {
-                deletUser(selectedRow.id)
-                }
-                }>
-                Delete
+                deleteDepartment(selectedRow.id)
+            }}>
+              Delete
             </Button>
         )
     }
     
-    const deletUser = (id) => {
-        UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+    const deleteDepartment = (id) => {
+        DepartmentDeleteService ({id}, handleDeleteSuccess, handleDeleteException);
     }
-
+    
     const handleDeleteSuccess = (dataObject) =>{
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
     }
-
+    
     const handleDeleteException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
     }
-
+    
+    useEffect(() => {
+        FetchDepartmentListService(handleFetchSuccess, handleFetchException);
+       
+    }, [refresh]);
+    
+    const handleFetchSuccess = (dataObject) =>{
+        setRows(dataObject.data);
+    }
+    
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
-       
     };
-
+  
     return (
         <div>
             <h1 style={{ marginLeft: '50px' }}>Manage user</h1>
@@ -104,15 +97,14 @@ const UserList = (props) => {
                 rows={rows}
                 columns={columns} />
             </div>
-            <UserModel 
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-                setRefresh={setRefresh}
-            />
+            <DepartmentModel 
+             open={open}
+             setOpen={setOpen}
+             isAdd={isAdd}
+             editData={editData}
+             setRefresh={setRefresh}/>
         </div>
     )
 }
 
-export default UserList
+export default DepartmentList;

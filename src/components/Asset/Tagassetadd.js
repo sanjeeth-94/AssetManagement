@@ -34,7 +34,7 @@ export default function Tagassetadd() {
   };
 
   const onTagAssetType = (event) => {
-    setTagAssetType(event.target.value);
+    // setTagAssetType(event.target.value);
   };
 
   return (

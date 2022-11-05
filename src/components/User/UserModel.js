@@ -182,7 +182,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <div className='addbutton'>
+          <div >
             <Button type='reset' onClick={handleClose}>Cancel</Button>
             <Button type='submit'>
               {isAdd === true ? 'Add' : 'Update'}
