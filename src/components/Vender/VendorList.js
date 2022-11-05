@@ -4,13 +4,19 @@ import { Button } from 'reactstrap';
 
 import { FetchVendorService,VendorDeleteService } from '../../services/ApiServices';
 import VendorModel from './VendorModel';
+import NotificationBar from '../../services/NotificationBar';
 
 export default function VendorList() {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh, setRefresh] = useState(false)
+    const [refresh, setRefresh] = useState(false);
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+      });
 
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 80 },
@@ -42,8 +48,13 @@ export default function VendorList() {
     const handleFetchException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
-
-
+    const handleClose = () => {
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+      };
 
     function EditData({ selectedRow }) {
         return (
@@ -84,10 +95,20 @@ export default function VendorList() {
     const handleDeleteSuccess = (dataObject) => {
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+          });
     }
 
     const handleDeleteException = (errorObject, errorMessage) => {
         console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message: errorMessage,
+          });
     }
 
     const handleModalOpen = () => {
@@ -116,6 +137,12 @@ export default function VendorList() {
                 editData={editData}
                 setRefresh={setRefresh}
             />
+                <NotificationBar
+                    handleClose={handleClose}
+                    notificationContent={openNotification.message}
+                    openNotification={openNotification.status}
+                    type={openNotification.type}
+                />
 
         </div>
     );

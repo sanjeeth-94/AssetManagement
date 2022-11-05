@@ -13,6 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { VendorAddService, VendorUpdateService, FetchVendorTypeService } from '../../services/ApiServices';
+import NotificationBar from '../../services/NotificationBar';
 
 
 const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
@@ -30,6 +31,11 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [msmeCertificate, setMsmeCertificate] = useState('');
   const [canceledCheque, setcanceledCheque] = useState('');
   const [vendorType, setVenderType] = useState('');
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
 
   useEffect(() => {
     FetchVendorTypeService(handleFetchSuccess, handleFetchException);
@@ -53,6 +59,15 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     console.log(errorMessage);
   }
 
+  const handleCloseNotify = () => {
+    setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
   const handleClose = () => {
     setOpen(false);
     setvendorName('');
@@ -70,7 +85,11 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleSuccess = (dataObject) => {
     console.log(dataObject);
     setRefresh(oldValue => !oldValue);
-    setOpen(false);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    });
     setvendorName('');
     setVenderType('');
     setAddress('');
@@ -85,6 +104,11 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleException = (errorObject, errorMessage) => {
     console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
   }
 
   const onVendorTypeChange = (e) => {
@@ -316,6 +340,12 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </DialogActions>
         </form>
       </Dialog>
+      <NotificationBar
+        handleClose={handleCloseNotify}
+        notificationContent={openNotification.message}
+        openNotification={openNotification.status}
+        type={openNotification.type}
+      />
 
     </div>
   )

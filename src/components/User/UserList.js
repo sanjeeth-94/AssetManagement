@@ -3,6 +3,7 @@ import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import UserModel from './UserModel';
 import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
+import NotificationBar from '../../services/NotificationBar';
 
 const UserList = (props) => {
     const [open, setOpen] = useState(false);
@@ -10,6 +11,11 @@ const UserList = (props) => {
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false)
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+    });
 
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 80 },
@@ -43,6 +49,14 @@ const UserList = (props) => {
         console.log(errorMessage);
     }
 
+    const handleClose = () => {
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+      };
+
     function EditData({ selectedRow }) {
         return (
             <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
@@ -74,17 +88,26 @@ const UserList = (props) => {
     }
     
     const deletUser = (id) => {
-      
         UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
 
     const handleDeleteSuccess = (dataObject) =>{
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+          });
     }
 
     const handleDeleteException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message:errorMessage,
+          });
     }
 
     const handleModalOpen = () => {
@@ -112,6 +135,12 @@ const UserList = (props) => {
                 editData={editData}
                 setRefresh={setRefresh}
             />
+                 <NotificationBar
+                    handleClose={handleClose}
+                    notificationContent={openNotification.message}
+                    openNotification={openNotification.status}
+                    type={openNotification.type}
+                />
         </div>
     )
 }

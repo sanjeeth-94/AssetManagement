@@ -16,6 +16,7 @@ import UserList from './components/User/UserList';
 import Warrantydue from './components/DashboardItems/Warrantydue';
 import Servicedue from './components/DashboardItems/Servicedue';
 import Inceptiondue from './components/DashboardItems/Inceptiondue';
+import RequestedService from './components/ServiceRequest/RequestedService';
 
 function App() {
   const navigate = useNavigate();
@@ -33,11 +34,11 @@ function App() {
               <Route path="/asset" element={<AssetTab/>}/>
               <Route path='/audit' element={<AuditTab/>}/>
               <Route path='/amc' element={<AmcTab/>}/>
-              {/* <Route path='/maintaince' element={<MaintenanceTab/>}/> */}
               <Route path='/maintainceaproval' element={<Check/>}/>
               <Route path='/maintaincestatus' element={<MaintenanceTab/>}/>
               <Route path='/alloction' element={<AllocationTab/>}/>
-              <Route path='/servicerequest' element={<ServiceRequestTab/>}/>
+              {/* <Route path='/servicerequest' element={<ServiceRequestTab/>}/> */}
+              <Route path='/servicerequest' element={<RequestedService/>}/>
               <Route path='/vender' element={<VenderAdd/>}/>
               <Route path='/user' element={<UserList/>}/>
               <Route path='/logout' element={<MaintenanceTab/>}/>

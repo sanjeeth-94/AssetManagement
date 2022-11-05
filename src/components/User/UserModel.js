@@ -12,10 +12,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { UserAddService, UserUpdateService,FetchDepaertmentService } from '../../services/ApiServices';
+import NotificationBar from '../../services/NotificationBar';
 
 const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([])
-  const url = 'http://192.168.1.174:8000/api/user/add'
   const [employeeId, setemployeeId] = useState('')
   const [employeeName, setemployeeNamed] = useState('')
   const [designation, setdesignation] = useState('')
@@ -25,6 +25,11 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [password, setpassword] = useState('')
   const [department, setDepartment] = useState('')
 
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
 
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
@@ -62,6 +67,14 @@ const handleFetchException = (errorStaus, errorMessage) =>{
         setpassword('')
         };
 
+        const handleCloseNotify = () => {
+          setOpen(false)
+          setNotification({
+            status: false,
+            type: '',
+            message: '',
+          });
+        };
   const onSubmit = (e) => {
     e.preventDefault();
      isAdd === true ?
@@ -97,7 +110,12 @@ const handleFetchException = (errorStaus, errorMessage) =>{
   const handleSuccess = (dataObject) =>{
     console.log(dataObject);
     setRefresh(oldValue => !oldValue);
-    setOpen(false);
+    setNotification({
+      status: true,
+      type: 'success',
+      message:dataObject.message,
+      
+    });
     setemployeeId('');
     setemployeeNamed('');
     setDepartment('');
@@ -106,10 +124,18 @@ const handleFetchException = (errorStaus, errorMessage) =>{
     setmobile_number('');
     setuserName('');
     setpassword('');
+   
+    
   }
 
   const handleException = (errorObject, errorMessage) =>{
     console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+
   }
   return (
     <Dialog
@@ -194,6 +220,12 @@ const handleFetchException = (errorStaus, errorMessage) =>{
           </div>
         </DialogActions>
       </form>
+      <NotificationBar
+        handleClose={handleCloseNotify}
+        notificationContent={openNotification.message}
+        openNotification={openNotification.status}
+        type={openNotification.type}
+      />
     </Dialog>
   )
 }
