@@ -15,13 +15,7 @@ const SectionList = () => {
 
   const columns = [
     { field: 'id', headerName: 'Section No', width: 80 },
-    { field: 'department', headerName: 'Department', width: 170,
-      cellClassname: 'actions',
-      type: 'actions',
-      getActions: (params) => [
-        <DepartmentList selectedRow={params.row}/>
-      ],
-    },
+    { field: 'department', headerName: 'Department', width: 170, },
     { field: 'section', headerName: 'Section', width: 140 },
     {field: 'action', headerName: 'Action', width: 250, sortable: false,
       cellClassname: 'actions',
@@ -35,12 +29,12 @@ const SectionList = () => {
   ];
   
   useEffect(() => {
-    FetchDepaertmentService(handleDepartmentSuccess, handleDepartmentException);
+    FetchSectionListService(handleFetchSuccess, handleFetchException);
   }, [refresh]);
   
   const handleDepartmentSuccess = (dataObject) =>{
     setDepartmentList(dataObject.data || []);
-    FetchSectionListService(handleFetchSuccess, handleFetchException);
+    
   } 
 
   const handleDepartmentException = () =>{}

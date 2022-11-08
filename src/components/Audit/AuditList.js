@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import UserModel from './UserModel';
-import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
+import { FetchAuditListService, AuditDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
+import AuditModel from './AuditModel';
 
-const UserList = (props) => {
+const AuditList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
@@ -18,14 +18,12 @@ const UserList = (props) => {
     });
 
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 50 },
-        { field: 'employee_id', headerName: 'Employee Id', width: 120 },
-        { field: 'employee_name', headerName: 'Employee Name', width: 120 },
-        { field: 'department', headerName: 'Department', width: 120 },
-        { field: 'designation', headerName: 'Designation', width: 120 },
-        { field: 'mobile_number', headerName: 'Mobile', width: 120 },
-        { field: 'email', headerName: 'Email', width: 120 },
-        { field: 'user_name', headerName: 'UserName', width: 120 },
+        { field: 'id', headerName: 'Serial No', width: 120 },
+        { field: 'auditDate', headerName: 'Date', width: 180 },
+        { field: 'auditName', headerName: 'Audit Name', width: 180 },
+        { field: 'department', headerName: 'Department', width: 180 },
+        { field: 'section', headerName: 'Section', width: 180 },
+        { field: 'assetType', headerName: 'Asset Type', width: 180 },
         {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -35,9 +33,9 @@ const UserList = (props) => {
         ],
         }
     ];
-    
+
     useEffect(() => {
-        FetchUserService(handleFetchSuccess, handleFetchException);
+        FetchAuditListService(handleFetchSuccess, handleFetchException);
        
     }, [refresh]);
 
@@ -50,7 +48,6 @@ const UserList = (props) => {
     }
 
     const handleClose = () => {
-        setOpen(false)
         setNotification({
           status: false,
           type: '',
@@ -80,7 +77,7 @@ const UserList = (props) => {
             variant="contained"
             color='primary'
             onClick={() => {
-                deletUser(selectedRow.id)
+                deleteAudit(selectedRow.id)
                 }
                 }>
                 Delete
@@ -88,8 +85,8 @@ const UserList = (props) => {
         )
     }
     
-    const deletUser = (id) => {
-        UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+    const deleteAudit = (id) => {
+        AuditDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
 
     const handleDeleteSuccess = (dataObject) =>{
@@ -114,36 +111,35 @@ const UserList = (props) => {
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
-       
     };
 
-    return (
-        <div>
-            <h1 style={{ marginLeft: '50px' }}> Manage user</h1>
-            <hr style={{ bottom: 'solid' }} />
-            <Button style={{marginLeft:'83%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
-                Add
-            </Button>
-            <div style={{ height: '500px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-                <DataGrid
-                rows={rows}
-                columns={columns} />
-            </div>
-            <UserModel 
+  return (
+    <div>
+    <h1 style={{ marginLeft: '50px' }}> Audit View Assets </h1>
+    <hr style={{ bottom: 'solid' }} />
+    <Button style={{marginLeft:'83%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
+        Add
+    </Button>
+    <div style={{ height: '500px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
+        <DataGrid
+        rows={rows}
+        columns={columns} />
+    </div>
+       <AuditModel
                 open={open}
                 setOpen={setOpen}
                 isAdd={isAdd}
                 editData={editData}
                 setRefresh={setRefresh}
             />
-                 <NotificationBar
-                    handleClose={handleClose}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
-        </div>
-    )
+         <NotificationBar
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}
+        />
+</div>
+  )
 }
 
-export default UserList
+export default AuditList
