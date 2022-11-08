@@ -30,7 +30,8 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     status: false,
     type: 'error',
     message: '',
-  });
+});
+
 
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
@@ -54,7 +55,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const onDepartmentChange = (e) => {
     setDepartment(e.target.value);
   }
-
+  
   const handleClose = () => {
     setOpen(false);
     setemployeeId('');
