@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import NotificationBar from '../../services/NotificationBar';
 import { UserAddService, UserUpdateService,FetchDepaertmentService } from '../../services/ApiServices';
 
 const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
@@ -23,12 +24,12 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [userName, setuserName] = useState('')
   const [password, setpassword] = useState('')
   const [department, setDepartment] = useState('')
-
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
     message: '',
-  });
+});
+
 
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
@@ -52,6 +53,15 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const onDepartmentChange = (e) => {
     setDepartment(e.target.value);
   }
+  const handleCloseNotify = () => {
+    setOpen(false);
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
 
   const handleClose = () => {
     setOpen(false);
@@ -99,7 +109,12 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleSuccess = (dataObject) =>{
     console.log(dataObject);
     setRefresh(oldValue => !oldValue);
-    setOpen(false);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+     
+    });
     setemployeeId('');
     setemployeeNamed('');
     setDepartment('');
@@ -112,6 +127,11 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleException = (errorObject, errorMessage) =>{
     console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message:errorMessage,
+    });
   }
   return (
     <Dialog
@@ -194,6 +214,11 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               {isAdd === true ? 'Add' : 'Update'}
             </Button>
           </div>
+          <NotificationBar
+          handleClose={handleCloseNotify}
+          notificationContent={openNotification.message}
+          openNotification={openNotification.status}
+          type={openNotification.type}/>
         </DialogActions>
       </form>
     </Dialog>
