@@ -1,7 +1,7 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import AuditList from './AuditList';
-import Auditsync from './Auditsync';
+
 import AuditSyncList from './AuditSyncList';
 import ViewAuditReport from './ViewAuditReport';
 

@@ -19,11 +19,11 @@ const AuditList = () => {
 
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 120 },
-        { field: 'auditDate', headerName: 'Date', width: 180 },
-        { field: 'auditName', headerName: 'Audit Name', width: 180 },
-        { field: 'department', headerName: 'Department', width: 180 },
-        { field: 'section', headerName: 'Section', width: 180 },
-        { field: 'assetType', headerName: 'Asset Type', width: 180 },
+        { field: 'auditDate', headerName: 'Date', width: 140 },
+        { field: 'auditName', headerName: 'Audit Name', width: 140 },
+        { field: 'department', headerName: 'Department', width: 140 },
+        { field: 'section', headerName: 'Section', width: 140 },
+        { field: 'assetType', headerName: 'Asset Type', width: 140 },
         {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',

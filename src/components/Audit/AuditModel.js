@@ -20,13 +20,13 @@ import NotificationBar from '../../services/NotificationBar';
 import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeService,AuditAddService, AuditUpdateService } from '../../services/ApiServices';
 
   const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [passData,setPassData]= useState('5')
+   
     const [auditdate,setAuditDate] = useState('');
     const [departmentList, setDepartmentList] =useState([]);
     const [department, setDepartment]=useState('');
     const [sectionList, setSectioonList]=useState([]);
     const [section, setSection]=useState('');
-    const [assetTypeList, setAssetTypeList]=useState('');
+    const [assetTypeList, setAssetTypeList]=useState([]);
     const [assetType, setAssetType]=useState('');
     const [auditName,setAuditName]=useState('');
 
@@ -41,13 +41,14 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
       setOpen(false);
   };
 
-  const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
+  const [value, setValue] = useState(dayjs('2022-08-18T21:11:54'));
 
   const handleChangeDate = (newValue) => {
       setValue(newValue);
+      alert('date:'+newValue)
       setAuditDate(newValue);
-
   };
+  
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
 
@@ -61,8 +62,7 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
   }
   const onDepartmentChange = (e,) => {
     setDepartment(e.target.value);
-    alert("data="+ e.target.value)
-    FetchAuditSectionService({
+     FetchAuditSectionService({
         id: e.target.value
     },handleFetchSectionSuccess, handleFetchSectionException);
 
@@ -73,13 +73,15 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
   const handleFetchSectionException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
   }
+
   const onSectionChange = (e) => {
     setSection(e.target.value);
-    FetchAuditAssetTypeService (handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+    FetchAuditAssetTypeService ({id: e.target.value},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
   
   }
   const handleFetchAssetTypeSuccess = (dataObject) =>{
     setAssetTypeList(dataObject.data);
+    console.log(dataObject.data);  
   }
   const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
@@ -95,6 +97,11 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
       (
     
         AuditAddService({
+          auditDate:auditdate,
+          department:department,
+          section:section,
+          assetType:assetType,
+          auditName:auditName,
 
       },handleSuccess, handleException)
       ) : (
@@ -122,7 +129,7 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
     setNotification({
       status: true,
       type: 'error',
-      message:errorMessage,
+      message: errorMessage,
     });
   }
 
@@ -209,11 +216,11 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
                                             id='assetType'
                                             label="AssetType"
                                             onChange={(e) => onAssetTypeChange(e)}>
-                                            {/* {assetTypeList.map((data, index) => {
+                                            {assetTypeList.map((data, index) => {
                                             return (
                                                 <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                                             )
-                                            })} */}
+                                            })}
                                         </Select>
                                         </FormControl>
                                     </Box>

@@ -164,3 +164,12 @@ export const AuditAddService = (data, successCallback, errorCallBack) => _fetchS
 export const  AuditUpdateService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 export const AuditDeleteService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+///..........Amc.........//// 
+export const  FetchAmcServiceListService = (successCallback, errorCallBack) => _fetchService('AmcService/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const AmcServiceAddService = (data, successCallback, errorCallBack) => _fetchService('AmcService/add', 'POST', data, successCallback, errorCallBack);
+
+export const AmcServiceUpdateService = (data, successCallback, errorCallBack) => _fetchService(`AmcService/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const AmcServiceDeleteService = (data, successCallback, errorCallBack) => _fetchService(`AmcService/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);

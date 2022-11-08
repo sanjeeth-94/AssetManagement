@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -12,37 +12,40 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { DataGrid } from '@mui/x-data-grid';
 
-const columns = [
-  { field: 'VendorName', headerName: 'Vendor Name', width: 320 },
-  { field: 'assetName', headerName: 'Asset Name', width: 320 },
-  { field: 'ServiceDateAction', headerName: 'Service Date-Action', width: 380 },
-
-];
-const rows = [
-
-];
-
-export default function Service() {
-
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const ServiceAmc = () => {
+    const [departmentList,setDepartmentList]= useState([]);
+    const [department,setDepartment]= useState();
+    const [sectionList,setSectionList]= useState([]);
+    const [section,setSection]= useState();
+    const [assetTypeList,setAssetTypeList]= useState([]);
+    const [assetType,setAssetType]= useState();
+    const [assetNameList,setAssetNameList]= useState([]);
+    const [assetName,setAssetName]= useState();
+    const [rows,setRows]= useState([]);
+   
+    const columns = [
+        { field: 'VendorName', headerName: 'Vendor Name', width: 320 },
+        { field: 'assetName', headerName: 'Asset Name', width: 320 },
+        { field: 'ServiceDateAction', headerName: 'Service Date-Action', width: 380 },
+      
+      ];
+      const [age, setAge] = React.useState('');
+      const handleChange = (event) => {
+        setAge(event.target.value);
+      };
+    
+      const [open, setOpen] = React.useState(false);
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>Service this one</Button>
-      <div>
-        <Dialog
+      <Dialog
         open={open}
         onClose={handleClose}
         fullWidth
@@ -148,7 +151,8 @@ export default function Service() {
             </DialogContentText>
             </DialogContent>
           </Dialog>
-       </div>
     </div>
-  );
+  )
 }
+
+export default ServiceAmc
