@@ -12,14 +12,8 @@ import { SectionAddService,SectionUpdateService,FetchDepaertmentService  } from 
 
 const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([])
-    const [age, setAge] = React.useState('');
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
-    
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    const [department,setDepartment]=useState("");
+    const [section,setSection]=useState("");
     
     const handleClose = () => {
         setOpen(false);
@@ -27,6 +21,7 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+
     }, [editData]);
     
     const handleFetchSuccess = (dataObject) =>{
@@ -38,7 +33,7 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     }
     
     const onDepartmentChange = (e) => {
-        setDepartmentList(e.target.value);
+        setDepartment(e.target.value);
     }
     
     const onSubmit = (e) => {
@@ -46,14 +41,17 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         isAdd === true ?
         (
             SectionAddService({
-                
+                department:department,
+                section:section,
+            
             },handleSuccess, handleException)
-            ) : (
-                SectionUpdateService({
+        ) : (
+            SectionUpdateService({
             id: editData.id,
-          
-          }, handleSuccess, handleException)
-        );
+            department:department,
+            section:section,
+            }, handleSuccess, handleException)
+            );
     }
     
     const handleSuccess = (dataObject) =>{
@@ -65,46 +63,55 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const handleException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
     }
+    
     return (
         <div>
-            <div>
-                <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description" fullWidth>
+            <Dialog
+            open={open}
+            onClose={handleClose}
+            maxWidth='lg'>
+                <form onSubmit={onSubmit}>
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ADD SECTION"}
                     </DialogTitle>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Department:</label>
-                        <Box>
-                            <FormControl style={{width:'250px' ,marginLeft:'55px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={age}
-                                label="Select Department"
-                                onChange={(e) => onDepartmentChange(e)}>
-                                    {departmentList.map((data, index) => {
-                                        return (
-                                            <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                        )
-                                    })}
-                                </Select>
-                            </FormControl>
-                        </Box>
+                    <div style={{width:'600px'}}>
+                        <div style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
+                            <label style={{marginLeft:'5px'}}>Department:</label>
+                            <Box>
+                                <FormControl style={{width:'250px' ,marginLeft:'55px'}}>
+                                    <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                    <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Select Department"
+                                    onChange={(e) => onDepartmentChange(e)}>
+                                        {departmentList.map((data, index) => {
+                                            return (
+                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                            )
+                                        })}
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </div>
+                        <div style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
+                            <label style={{marginLeft:'1px'}}>Section:</label>
+                            <TextField
+                            style={{marginLeft:'60px', width:'300px'}} 
+                            id="outlined-basic" 
+                            label="" 
+                            variant="outlined" 
+                            onChange={(e) => {setSection(e.target.value)}}/>
+                        </div>
+                        <div style={{alignItem:'left', marginTop:'20px'}}>
+                            <Button type='reset' onClick={handleClose}>Cancel</Button>
+                            <Button type='submit'>
+                                {isAdd === true ? 'Add'   : 'Update'}
+                            </Button>
+                        </div>
                     </div>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'1px'}}>Section:</label>
-                        <TextField style={{marginLeft:'60px', width:'300px'}} id="outlined-basic" label="" variant="outlined" />
-                    </div>
-                    <div style={{marginTop:'30px', marginLeft:'200px', marginBottom:'20px'}}>
-                        <Button variant="contained">ADD</Button>
-                    </div>
-                </Dialog>
-            </div>
+                </form>
+            </Dialog>           
         </div>
     )
 }

@@ -7,9 +7,8 @@ import Scrapasset from './Scrapasset';
 import Assetmaster from './Assetmaster'
 import AssetList from './asset/AssetList';
 import SectionList from './Section/SectionList';
-import AssettypeList from './AssetType/AssettypeList';
+import AssetTypeList from '../Asset/AssetType/AssetTypeList';
 import DepartmentList from './Department/DepartmentList';
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -74,10 +73,11 @@ const AssetTab = () => {
      
       </TabPanel>
       <TabPanel value={value} index={2}>
-   <SectionList />
+       <SectionList />
       </TabPanel>
+
       <TabPanel value={value} index={3}>
-        <AssettypeList />
+        <AssetTypeList />
       </TabPanel>
       <TabPanel value={value} index={4}>
         <Tagassetadd />
