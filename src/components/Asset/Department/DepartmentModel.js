@@ -7,35 +7,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { DepartmentAddService, DepartmentUpdateService } from '../../../services/ApiServices';
-import NotificationBar from '../../../services/NotificationBar';
 
 const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentName,setDepartmentName]=useState("")
     const[description,setDescription]=useState("")
-    const [openNotification, setNotification] = useState({
-        status: false,
-        type: 'error',
-        message: '',
-    });
-    useEffect(() => {
-        setDepartmentName(editData.department_name|| '');
-        setDescription(editData.description || '');
-    }, [editData]);
-
-    const handleClose = () => {              
+    const handleClose = () => {
         setOpen(false);
-        setDepartmentName('');
-        setDescription('');
     };
-
-      const handleCloseNotify = () => {
-        setOpen(false);
-        setNotification({
-          status: false,
-          type: '',
-          message: '',
-        });
-      };
     
     const onSubmit = (e) => {
         e.preventDefault();
@@ -56,22 +34,12 @@ const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const handleSuccess = (dataObject) =>{
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
-        setNotification({
-            status: true,
-            type: 'success',
-            message: dataObject.message,
-          });
-        
+        setOpen(false);
           
     }
     
     const handleException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
-        setNotification({
-            status: true,
-            type: 'error',
-            message: errorMessage,
-          });
     }
   
     return (
@@ -88,11 +56,10 @@ const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Department Name:</label>
                                 <TextField style={{marginLeft:'20px', width:'250px'}}
+                                id="outlined-basic"
                                 label=""
                                 variant="outlined"
-                                onChange={((e)=>{setDepartmentName(e.target.value)})}
-                                value={departmentName}
-                                />
+                                onChange={((e)=>{setDepartmentName(e.target.value)})}/>
                             </div>
                             <div style={{marginTop:'10px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label>Description:</label>
@@ -100,9 +67,7 @@ const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 style={{ width:'250px', height:'40px',marginLeft:'70px', marginTop:'20px'}}
                                 aria-label="empty textarea"
                                 placeholder="Address"
-                                onChange={((e)=>{setDescription(e.target.value)})}
-                                value={description}
-                                />
+                                onChange={((e)=>{setDescription(e.target.value)})}/>
                             </div>
                             <div>
                                 <Button type='reset' onClick={handleClose}>Cancel</Button>
@@ -114,12 +79,6 @@ const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     </DialogContent>
                 </form>
             </Dialog>
-            <NotificationBar
-                    handleClose={handleCloseNotify}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
         </div>
     )
 }

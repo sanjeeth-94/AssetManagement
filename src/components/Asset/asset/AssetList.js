@@ -13,15 +13,15 @@ const AssetList = () => {
     
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 80 },
-        { field: 'department', headerName: 'Department', width: 100 },
-        { field: 'section', headerName: 'Section', width: 100 },
-        { field: 'assetName', headerName: 'Machine', width: 100 },
-        { field: 'assetType', headerName: 'Asset Type', width: 120 },
-        { field: 'manufaturer', headerName: 'Manufacturer', width: 120 },
-        { field: 'assetModel', headerName: 'Asset Model', width: 120 },
-        { field: 'warrantyStartDate', headerName: 'Warranty Start Date', width: 150 },
-        { field: 'warrantyEndDate', headerName: 'Warranty End Date', width: 150 },
-        {field: 'action', headerName: 'Action', width: 150, sortable: false,
+        { field: 'department', headerName: 'Department', width: 140 },
+        { field: 'section', headerName: 'Section', width: 140 },
+        { field: 'assetName', headerName: 'Machine', width: 140 },
+        { field: 'assetType', headerName: 'Asset Type', width: 140 },
+        { field: 'manufaturer', headerName: 'Manufacturer', width: 140 },
+        { field: 'assetModel', headerName: 'Asset Model', width: 140 },
+        { field: 'warrantyStartDate', headerName: 'Warranty Start Date', width: 140 },
+        { field: 'warrantyEndDate', headerName: 'Warranty End Date', width: 140 },
+        {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -33,7 +33,6 @@ const AssetList = () => {
     
     useEffect(() => {
         FetchAssetListService(handleFetchSuccess, handleFetchException);
-        
     }, [refresh]);
     
     const handleFetchSuccess = (dataObject) =>{
@@ -93,7 +92,7 @@ const AssetList = () => {
             <Button style={{marginLeft:'83%',width:'120px',height:'30px', marginBottom:'20px'}} variant="outlined" onClick={handleModalOpen}>
                Add
             </Button>
-            <div style={{ height: 270, width: '1200px' }}>
+            <div className='adduser' style={{ height: 270, width: '90%' }}>
                 <DataGrid
                 rows={rows}
                 columns={columns} />
