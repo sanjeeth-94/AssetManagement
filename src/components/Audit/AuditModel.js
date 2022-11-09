@@ -51,6 +51,9 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
   
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    setAuditDate(editData.auditDate || '');
+    setDepartment(editData.department || '');
+    setAuditName(editData.auditName || '');
 
   }, [editData]);
 

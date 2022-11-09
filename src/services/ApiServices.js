@@ -4,7 +4,7 @@ const successCaseCode = [200, 201];
 
 const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
-  const END_POINT = 'http://192.168.1.173:8000/api/';
+  const END_POINT = 'http://192.168.1.174:8000/api/';
   const { email } = userDetails;
 
   const headers = {
@@ -55,7 +55,7 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
 
 export const LoginService = (data) => {
   const PATH = 'login';
-  const END_POINT = 'http://192.168.1.173:8000/api/';
+  const END_POINT = 'http://192.168.1.174:8000/api/';
   const SERVICE_METHOD = 'POST';
   const headers = {
     Accept: 'application/json',
@@ -158,7 +158,7 @@ export const  FetchAuditListService = (successCallback, errorCallBack) => _fetch
 
 export const  FetchAuditSectionService = (data,successCallback, errorCallBack) => _fetchService(`audit/${data.id}/getSection`, 'GET', {}, successCallback, errorCallBack);
 
-export const  FetchAuditAssetTypeService = (data,successCallback, errorCallBack) => _fetchService(`audit/${data.id}getAssetTypr`, 'GET', {}, successCallback, errorCallBack);
+export const  FetchAuditAssetTypeService = (data,successCallback, errorCallBack) => _fetchService(`audit/${data.id}/getAssetType`, 'GET', {}, successCallback, errorCallBack);
 
 export const AuditAddService = (data, successCallback, errorCallBack) => _fetchService('audit/add', 'POST', data, successCallback, errorCallBack);
 
