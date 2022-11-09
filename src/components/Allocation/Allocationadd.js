@@ -33,11 +33,10 @@ export default function Assetadd() {
                   Add
             </Button>
             <div>
-            <Dialog
-      open={open}
-      fullWidth
-      maxWidth='lg'
-    >
+                <Dialog
+                open={open}
+                fullWidth
+                maxWidth='lg'>
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ASSET"}
                     </DialogTitle>
@@ -46,7 +45,7 @@ export default function Assetadd() {
                             <form>
                                 <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label>Department : </label>
-                                    <Box >
+                                    <Box>
                                         <FormControl style={{width:'250px', marginLeft:'10px'}}>
                                             <InputLabel id="demo-simple-select-label"></InputLabel>
                                             <Select 
@@ -115,15 +114,11 @@ export default function Assetadd() {
                                             </Select>
                                         </FormControl>
                                     </Box>
-                                </div>
-                               
-                                
-                            </form>
-                            
+                                </div>                               
+                            </form>   
                         </DialogContentText>
                     </DialogContent>
-                </Dialog>
-                
+                </Dialog>      
             </div>
         </div>
     )

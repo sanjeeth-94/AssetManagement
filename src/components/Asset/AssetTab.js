@@ -64,7 +64,7 @@ const AssetTab = () => {
       <TabPanel  value={value} index={0} >
         
 
-       <AssetList/>
+       <AssetTypeList/>
 
      
       </TabPanel>

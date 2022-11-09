@@ -29,7 +29,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const handleChangeDate = (newValue) => {
         setValue(newValue);
     };
-
+    
     const [age, setAge] = React.useState('');
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -63,12 +63,10 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         e.preventDefault();
         isAdd === true ?
         (
-            
             AssetAddService({
                 
             },handleSuccess, handleException)
             ) : (
-                
                 AssetUpdateService({
                     id: editData.id,
                 }, handleSuccess, handleException)
