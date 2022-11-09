@@ -151,4 +151,28 @@ export const AssetTypeAddService = (data, successCallback, errorCallBack) => _fe
 
 export const AssetTypeUpdateService = (data, successCallback, errorCallBack) => _fetchService(`assettype/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
+export const AssettypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+////..........Audit........////
+export const  FetchAuditListService = (successCallback, errorCallBack) => _fetchService('audit/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchAuditSectionService = (data,successCallback, errorCallBack) => _fetchService(`audit/${data.id}/getSection`, 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchAuditAssetTypeService = (data,successCallback, errorCallBack) => _fetchService(`audit/${data.id}getAssetTypr`, 'GET', {}, successCallback, errorCallBack);
+
+export const AuditAddService = (data, successCallback, errorCallBack) => _fetchService('audit/add', 'POST', data, successCallback, errorCallBack);
+
+export const  AuditUpdateService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const AuditDeleteService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+///..........Amc.........//// 
+export const  FetchAmcServiceListService = (successCallback, errorCallBack) => _fetchService('AmcService/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const AmcServiceAddService = (data, successCallback, errorCallBack) => _fetchService('AmcService/add', 'POST', data, successCallback, errorCallBack);
+
+export const AmcServiceUpdateService = (data, successCallback, errorCallBack) => _fetchService(`AmcService/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const AmcServiceDeleteService = (data, successCallback, errorCallBack) => _fetchService(`AmcService/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
 export const AssetTypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assettype/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);

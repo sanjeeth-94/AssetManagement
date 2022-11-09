@@ -7,7 +7,7 @@ import Scrapasset from './Scrapasset';
 import Assetmaster from './Assetmaster'
 import AssetList from './asset/AssetList';
 import SectionList from './Section/SectionList';
-import AssetTypeList from '../Asset/AssetType/AssetTypeList';
+import AssetTypeList from './AssetType/AssetTypeList';
 import DepartmentList from './Department/DepartmentList';
 
 function TabPanel(props) {

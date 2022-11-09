@@ -1,13 +1,9 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Auditassetschedule from './Auditassetschedule';
-import Auditsync from './Auditsync';
-import Scheduleview from './Scheduleview';
+import AuditList from './AuditList';
+
+import AuditSyncList from './AuditSyncList';
 import ViewAuditReport from './ViewAuditReport';
-// import Adddept from './Adddept';
-// import Addsection from './Addsection';
-// import Assettypeadd from './Assettypeadd';
-// import Tagassetadd from './Tagassetadd';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,12 +53,11 @@ const AuditTab = () => {
       </Box>
       <TabPanel  value={value} index={0} >
       <div> 
-       <Auditassetschedule />
-       <Scheduleview />  
-      </div>   
+         <AuditList/>
+       </div>   
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Auditsync />
+      <AuditSyncList />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <ViewAuditReport/>

@@ -16,6 +16,7 @@ import { UserAddService, UserUpdateService,FetchDepaertmentService } from '../..
 
 const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([])
+  const [department, setDepartment] = useState('')
   const [employeeId, setemployeeId] = useState('')
   const [employeeName, setemployeeNamed] = useState('')
   const [designation, setdesignation] = useState('')
@@ -23,7 +24,8 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [emailId, setemailId] = useState('')
   const [userName, setuserName] = useState('')
   const [password, setpassword] = useState('')
-  const [department, setDepartment] = useState('')
+ 
+
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -53,16 +55,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const onDepartmentChange = (e) => {
     setDepartment(e.target.value);
   }
-  const handleCloseNotify = () => {
-    setOpen(false);
-    setNotification({
-      status: false,
-      type: '',
-      message: '',
-    });
-  };
-
-
+  
   const handleClose = () => {
     setOpen(false);
     setemployeeId('');
@@ -113,7 +106,6 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       status: true,
       type: 'success',
       message: dataObject.message,
-     
     });
     setemployeeId('');
     setemployeeNamed('');
@@ -133,6 +125,15 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       message:errorMessage,
     });
   }
+
+  const handleCloseNotify = () => {
+   setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
   return (
     <Dialog
       open={open}
@@ -215,10 +216,11 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </Button>
           </div>
           <NotificationBar
-          handleClose={handleCloseNotify}
-          notificationContent={openNotification.message}
-          openNotification={openNotification.status}
-          type={openNotification.type}/>
+                    handleClose={handleCloseNotify}
+                    notificationContent={openNotification.message}
+                    openNotification={openNotification.status}
+                    type={openNotification.type}
+                />
         </DialogActions>
       </form>
     </Dialog>
