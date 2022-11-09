@@ -1,8 +1,8 @@
 import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import { FetchAssetTypeListService , AssetTypeDeleteService} from '../../../services/ApiServices'
-import AssetTypeModel from './AssetTypeModel'
+import { FetchAssetTypeListService , AssetTypeDeleteService,FetchAssetTypeSection} from '../../../services/ApiServices'
+import AssetTypeModel from '../AssetType/AssetTypeModel'
 import NotificationBar from '../../../services/NotificationBar';
 
 const AssetTypeList= () => {
@@ -10,7 +10,9 @@ const AssetTypeList= () => {
   const [isAdd, setIsAdd] = useState(true);
   const [rows, setRows] = useState([]);
   const [editData, setEditData] = useState('');
-  const [refresh , setRefresh]=useState(false)
+  const [refresh , setRefresh]=useState(false);
+  const [department,setDepartment] = useState('');
+  const [sectionList,setSectionList] = useState([]);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -19,20 +21,8 @@ const AssetTypeList= () => {
   
   const columns = [
     { field: 'id', headerName: 'Section No', width: 80 },
-    { field: 'department', headerName: 'Department', width: 170,
-    cellClassname: 'actions',
-    type: 'actions',
-    getActions: (params) => [
-      <departmentList selectedRow={params.row}/>
-      ],
-    },
-    { field: 'section', headerName: 'Section', width: 170,
-    cellClassname: 'actions',
-    type: 'actions',
-    getActions: (params) => [
-      <sectionList selectedRow={params.row}/>
-    ],
-    },
+    { field: 'department', headerName: 'Department', width: 170,},
+    { field: 'section', headerName: 'Section', width: 170,},
     {field: 'action', headerName: 'Action', width: 250, sortable: false,
     cellClassname: 'actions',
     type: 'actions',
@@ -107,7 +97,7 @@ const AssetTypeList= () => {
   const handleFetchException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
   }
-  
+
   const handleModalOpen = () => {
     setIsAdd(true);
     setOpen(true);

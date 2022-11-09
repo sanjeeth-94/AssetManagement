@@ -8,16 +8,37 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { AssetTypeAddService, AssetTypeUpdateService } from '../../../services/ApiServices';
+import { AssetTypeAddService, AssetTypeUpdateService, FetchDepaertmentService } from '../../../services/ApiServices';
 
 const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [department,setdepartment]=useState("")
     const [departmentList, setDepartmentList] = useState([])
     const[section,setSection]=useState("")
-    const[assetType,setAssetType]=useState("")
+    const[assetType,setAssetType]=useState([])
     const handleClose = () => {
         setOpen(false);
     };
+    const [age, setAge] = React.useState('');
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
+    
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+
+    useEffect(() => {
+        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    }, [editData]);
+    
+    const handleFetchSuccess = (dataObject) =>{
+        setDepartmentList(dataObject.data);
+    }
+    
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
     
     const onSubmit = (e) => {
         e.preventDefault();
@@ -47,6 +68,8 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     }
     const onDepartmentChange = (e) => {
         setdepartment(e.target.value);
+        
+        
       }
         return (
             <div>
@@ -79,7 +102,7 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             </Box>
                         </div>
                         <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                            <label style={{marginLeft:'5px'}}>Department:</label>
+                            <label style={{marginLeft:'5px'}}>Section:</label>
                             <Box>
                                 <FormControl style={{width:'250px' ,marginLeft:'55px'}}>
                                     <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
@@ -88,7 +111,7 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                     id="demo-simple-select"
                                     label="Select Department"
                                     onChange={(e) => onDepartmentChange(e)}>
-                                        {assetType.map((data, index) => {
+                                        {assetType?.map((data, index) => {
                                             return (
                                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                                             )
