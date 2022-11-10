@@ -55,7 +55,7 @@ const handleChange = (newValue) => {
   };
   return (
     <div>
-      <form style={{border:'solid'}}>
+      <form style={{border:'solid' , borderColor:'whitesmoke'}}>
         <div>
             <h2 style={{marginLeft:'30px'}}>VIEW AUDITED REPORT</h2>
             <hr/>
@@ -145,7 +145,7 @@ const handleChange = (newValue) => {
         <Button style={{marginLeft:'50px', marginBottom:'30px'}} variant="contained">View</Button>
       </div>
       </form>
-      <form style={{border:'solid '}}>
+      <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
         <div>
             <h2 style={{marginLeft:'30px'}}>AUDITED REPORT</h2>
         </div>

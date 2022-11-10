@@ -19,7 +19,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
         return (
                 <div className={sidebarOpen === false ? "sidebar_responsive" : " "} id="sidebar" style={{
-            height:'100vh', width:'15vh'
+            height:'98vh', width:'11vh'
                 }}>
                         <div className="sidebar__title"></div>
                         <div className="sidebar__menu">

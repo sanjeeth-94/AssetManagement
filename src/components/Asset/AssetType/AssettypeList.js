@@ -113,7 +113,7 @@ const AssetTypeList= () => {
   
   return (
     <div>
-      <h1 style={{ marginLeft: '50px' }}>Manage user</h1>
+      <h1 style={{ marginLeft: '50px' }}>Asset Type</h1>
       <hr style={{ bottom: 'solid' }} />
       <Button style={{marginLeft:'83%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
         Add
