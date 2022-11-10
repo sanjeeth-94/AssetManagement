@@ -20,29 +20,32 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Stack from '@mui/material/Stack';
 import dayjs from 'dayjs';
 import MenuItem from '@mui/material/MenuItem';
-import { AssetAddService,AssetUpdateService,FetchDepaertmentService  } from '../../../services/ApiServices';
+import { AssetAddService,
+        AssetUpdateService,
+        FetchDepaertmentService, 
+        FetchAuditSectionService,
+        FetchAuditAssetTypeService 
+    } from '../../../services/ApiServices';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([])
     const [department, setDepartment] = useState('')
+    const [sectionList,setSectionList] = useState([]);
+    const [section,setSection] = useState('');
+    const [assetTypeList,setAssetTypeList] = useState([]);
+    const [assetType,setAssetType] = useState('');
+    const [assetId,setAssetId] = useState('');
+    const [assetName,setAssetName] = useState('');
+
     const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
     const handleChangeDate = (newValue) => {
         setValue(newValue);
     };
-    
-    const [age, setAge] = React.useState('');
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
-    
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
+        
     const handleClose = () => {
         setOpen(false);
     };
-
+//to call display in department//
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     }, [editData]);
@@ -55,20 +58,55 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         console.log(errorMessage);
     }
     
+// department on change and section API call//    
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
-    }
+        FetchAuditSectionService({
+            id: e.target.value
+        },handleFetchSectionSuccess, handleFetchSectionException);
     
+      }
+      const handleFetchSectionSuccess = (dataObject) =>{
+        setSectionList(dataObject.data);
+      }
+      const handleFetchSectionException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
+
+//section onchange and AssetType API call//
+      const onSectionChange = (e) => {
+        setSection(e.target.value);
+        FetchAuditAssetTypeService ({
+            id: e.target.value
+        },handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+  
+      }
+      const handleFetchAssetTypeSuccess = (dataObject) =>{
+        setAssetTypeList(dataObject.data);
+      }
+      const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
+
+ //  onAssetTypeChange
+      
+      const  onAssetTypeChange = (e) => {
+        setAssetType(e.target.value);
+      }
+      
     const onSubmit = (e) => {
         e.preventDefault();
         isAdd === true ?
         (
             AssetAddService({
+                assetId:assetId,
+
                 
             },handleSuccess, handleException)
             ) : (
                 AssetUpdateService({
                     id: editData.id,
+                    assetId:assetId,
                 }, handleSuccess, handleException)
         );
     }
@@ -82,6 +120,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const handleException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
     }
+    
   
     return (
         <div>
@@ -99,7 +138,16 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <form>
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Asset ID : </label>
-                                <TextField  style={{marginLeft:'86px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
+                                <TextField  
+                                    style={{
+                                        marginLeft:'86px', 
+                                        width:'250px'
+                                        }} id="Asset Id " 
+                                        label="Asset Id "
+                                        variant="outlined"
+                                        onChange={(e) => { setAssetId(e.target.value) }}
+                                        value={assetId} 
+                                         />
                                 <label style={{marginLeft:'90px'}}>Department:</label>
                                 <Box>
                                     <FormControl style={{width:'250px' ,marginLeft:'55px'}}>
@@ -107,7 +155,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={age}
                                         label="Select Department"
                                         onChange={(e) => onDepartmentChange(e)}>
                                             {departmentList.map((data, index) => {
@@ -123,18 +170,30 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 <label style={{marginLeft:'1px'}}>Section:</label>
                                 <Box>
                                     <FormControl style={{width:'250px' ,marginLeft:'96px'}}>
-                                        <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                        <InputLabel id="demo-simple-select-label">Select Section </InputLabel>
                                         <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={age}
+                                     
                                         label="Select Department"
-                                        onChange={handleChange}>
+                                        onChange={(e) => onSectionChange(e)}>
+                                        {sectionList.map((data, index) => {
+                                            return (
+                                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                            )
+                                        })}
                                         </Select>
                                     </FormControl>
                                 </Box>
                                 <label style={{ marginLeft: '90px' }}>Asset Name : </label>
-                                <TextField style={{marginLeft:'50px'}}id="Asset-Name" label="Asset Name" variant="outlined" />
+                                <TextField 
+                                    style={{marginLeft:'50px'}}
+                                    id="Asset-Name" 
+                                    label="Asset Name"
+                                    variant="outlined" 
+                                    onChange={(e) => { setAssetName(e.target.value) }}
+                                    value={assetName}
+                                />
                             </div>
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Financial Asset ID : </label>
@@ -146,9 +205,9 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        value={age}
+                                  
                                         label="Select Department"
-                                        onChange={handleChange}>
+                                       >
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -169,9 +228,15 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <Select
                                         labelId="Vendor Name"
                                         id="Vendor-Name"
-                                        value={age}
+                               
                                         label="Asset Type"
-                                        onChange={handleChange}>
+                                        onChange={(e) => onAssetTypeChange(e)}>
+                                        {assetTypeList.map((data, index) => {
+                                            return (
+                                                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                            )
+                                        })}
+                                        
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -254,10 +319,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <div className='addbutton'>
-                        <Button onClick={handleClose}>Cancel</Button>
-                           
-                    </div>
+                <div>
+                    <Button type='reset' onClick={handleClose}>Cancel</Button>
+                    <Button type='submit'>
+                        {isAdd === true ? 'Add' : 'Update'}
+                    </Button>
+                </div>
                 </DialogActions>
             </Dialog>
         </div>

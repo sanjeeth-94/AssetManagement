@@ -1,6 +1,5 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Tagassetadd from './Tagassetadd';
 import Transferasset from './Transferasset';
 import Scraplog from './Scraplog'
 import Scrapasset from './Scrapasset';
@@ -9,6 +8,7 @@ import AssetList from './asset/AssetList';
 import SectionList from './Section/SectionList';
 import AssetTypeList from './AssetType/AssetTypeList';
 import DepartmentList from './Department/DepartmentList';
+import TagAssetModel from './TagAsset/TagAssetModel';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -64,7 +64,7 @@ const AssetTab = () => {
       <TabPanel  value={value} index={0} >
         
 
-       <AssetTypeList/>
+       <AssetList/>
 
      
       </TabPanel>
@@ -80,7 +80,7 @@ const AssetTab = () => {
         <AssetTypeList />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <Tagassetadd />
+        <TagAssetModel />
       </TabPanel>
       <TabPanel value={value} index={5}>
         <Scraplog/>
