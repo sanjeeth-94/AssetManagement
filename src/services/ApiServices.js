@@ -153,6 +153,16 @@ export const AssetTypeUpdateService = (data, successCallback, errorCallBack) => 
 
 export const AssettypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
+/////........TagAsset....../////
+
+export const  FetchTagAssetListService = (successCallback, errorCallBack) => _fetchService('tagasset/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const TagAssetAddService = (data, successCallback, errorCallBack) => _fetchService('tagasset/add', 'POST', data, successCallback, errorCallBack);
+
+export const TagAssetUpdateService = (data, successCallback, errorCallBack) => _fetchService(`tagasset/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const TagAssetDeleteService = (data, successCallback, errorCallBack) => _fetchService(`tagasset/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
 ////..........Audit........////
 export const  FetchAuditListService = (successCallback, errorCallBack) => _fetchService('audit/showData', 'GET', {}, successCallback, errorCallBack);
 
@@ -176,3 +186,4 @@ export const AmcServiceUpdateService = (data, successCallback, errorCallBack) =>
 export const AmcServiceDeleteService = (data, successCallback, errorCallBack) => _fetchService(`AmcService/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 export const AssetTypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assettype/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+

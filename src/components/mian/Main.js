@@ -30,7 +30,7 @@ const Main = () => {
     return (
       
         <div className="main__container" style={{
-            height: '200vh',   
+            height: '150vh',   
         }}>
             <div className="main__cards">
                 <div className="card">
