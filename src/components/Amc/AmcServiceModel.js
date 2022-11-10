@@ -19,7 +19,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { AmcServiceAddService, AmcServiceUpdateService,FetchDepaertmentService } from '../../services/ApiServices';
 
-const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
     const [venderNameList ,setVenderNameList]= useState([]);
     const [venderEmail ,setVenderEmail]= useState();
     const [venderAddress ,setVenderAddress]= useState();
@@ -36,7 +36,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [assetName ,setAssetName]= useState();
     const [departmentList,setDepartmentList]= useState([]);
     
-    const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
+    const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
     const handleChangeDateFrom = (newValue) => {
       setValue(newValue);
     };
@@ -44,7 +44,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         setValue(newValue);
       };
     
-    const [age, setAge] = React.useState('');
+    const [age, setAge] = useState('');
     const handleChange = (event) => {
       setAge(event.target.value);
     };
@@ -120,7 +120,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           };
     
   return (
-    <div>
+    <div>  
        <Dialog
         open={open}
         onClose={handleClose}
@@ -355,6 +355,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </DialogActions>
           </form>
         </Dialog>
+      
     </div>
   )
 }

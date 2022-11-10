@@ -4,11 +4,11 @@ import { Button } from 'reactstrap';
 import { FetchAmcServiceListService, AmcServiceDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AmcServiceModel from './AmcServiceModel';
-import ServiceAmc from './ServiceAmc';
 
 const AmcServiceList = () => {
     const [open, setOpen] = useState(false);
-    const [isAdd, setIsAdd] = useState(true);
+    const [isAdd, setIsAdd] = useState(false);
+    const [isService, setIsService] = useState(false);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false)
@@ -94,7 +94,8 @@ const AmcServiceList = () => {
        
     };
     const handleServiceModalOpen = () => {
-        setIsAdd(true);
+        setIsAdd(false);
+        setIsService(true);
         setOpen(true);
        
     };
@@ -124,18 +125,9 @@ const AmcServiceList = () => {
     <div>
          <h2 style={{ marginLeft: '50px' }}> AMC</h2>
             <hr style={{ bottom: 'solid' }} />
-        <div style={{display:'flex', marginLeft:'50%', marginTop:'10px'}}>
+        <div style={{display:'flex', marginLeft:'90%', marginTop:'10px'}}>
             <Button style={{width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
                 Add
-            </Button>
-            <Button style={{width:'120px',height:'30px',marginLeft:'20px'}} variant="outlined" onClick={handleModalOpen}>
-                Service
-            </Button>
-            <Button style={{width:'120px',height:'30px',marginLeft:'20px'}} variant="outlined" onClick={handleServiceModalOpen}>
-               Service Due
-            </Button>
-            <Button style={{width:'120px',height:'30px',marginLeft:'20px'}} variant="outlined" onClick={handleModalOpen}>
-               Amc Renewal
             </Button>
         </div>
          <div style={{ height: '500px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
@@ -147,15 +139,12 @@ const AmcServiceList = () => {
                 open={open}
                 setOpen={setOpen}
                 isAdd={isAdd}
+                isService={isService}
                 editData={editData}
                 setRefresh={setRefresh}
+                
             />
-             <ServiceAmc 
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                setRefresh={setRefresh}
-            />
+            
             <NotificationBar
                 handleClose={handleClose}
                 notificationContent={openNotification.message}

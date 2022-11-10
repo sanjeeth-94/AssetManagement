@@ -45,7 +45,6 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
 
   const handleChangeDate = (newValue) => {
       setValue(newValue);
-      alert('date:'+newValue)
       setAuditDate(newValue);
   };
   
@@ -148,112 +147,110 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
   return (
     <div>
        <Dialog
-                open={open}
-                onClose={handleClose}
-                fullWidth>
-                     <form onSubmit={onSubmit}>
-                    <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                        {"AUDIT ASSETS"}
-                    </DialogTitle>    
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                           
-                                <div  style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'1px'}}>Audit Date : </label>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <Stack style={{ width: '250px' , marginLeft: '40px' }} spacing={3}>
-                                            <DesktopDatePicker
-                                            inputFormat="MM/DD/YYYY"
-                                            value={value}
-                                            onChange={handleChangeDate}
-                                            renderInput={(params) => <TextField {...params} />}/>
-                                        </Stack>
-                                    </LocalizationProvider>
-                                </div>
-                                <div  style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'1px'}}>Department : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                    <FormControl style={{ width: '300px' }}>
-                                        <InputLabel id="departmentlabel">Select Department</InputLabel>
-                                        <Select
-                                            labelId="departmentlabel"
-                                            id='department'
-                                            label="Department"
-                                            onChange={(e) => onDepartmentChange(e)}>
-                                            {departmentList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                                
-                                            )
-                                            })}
-                                        </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'1px'}}>Section : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                    <FormControl style={{ width: '300px' }}>
-                                        <InputLabel id="sectionList">Select section</InputLabel>
-                                        <Select
-                                            labelId="sectionList"
-                                            id='section'
-                                            label="Section"
-                                            onChange={(e) => onSectionChange(e)}>
-                                            {sectionList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                                            )
-                                            })}
-                                        </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'1px'}}>Asset Type : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                    <FormControl style={{ width: '300px' }}>
-                                        <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
-                                        <Select
-                                            labelId="assetTypeList"
-                                            id='assetType'
-                                            label="AssetType"
-                                            onChange={(e) => onAssetTypeChange(e)}>
-                                            {assetTypeList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
-                                            )
-                                            })}
-                                        </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'1px'}}>Audit Name</label>
-                                    <TextField 
-                                        style={{marginLeft:'40px', width:'250px'}} 
-                                        label="Audit Name" 
-                                        variant="outlined" 
-                                        onChange={(e)=>{setAuditName(e.target.value) }}
-                                    />
-                                </div>
-                                <div>
-                                <Button type='reset' onClick={handleClose}>Cancel</Button>
-                                    <Button type='submit'>
-                                    {isAdd === true ? 'Add' : 'Update'}
-                                    </Button>
-                                </div>
-                                <NotificationBar
-                                    handleClose={handleCloseNotify}
-                                    notificationContent={openNotification.message}
-                                    openNotification={openNotification.status}
-                                    type={openNotification.type}
-                                />
-                       
-                        </DialogContentText>
-                    </DialogContent>   
-                    </form>                         
-                </Dialog>
+          open={open}
+          onClose={handleClose}
+          maxWidth='lg'
+        >
+              <form onSubmit={onSubmit}>
+            <DialogTitle style={{background:'whitesmoke'}}>
+                {"AUDIT ASSETS"}
+            </DialogTitle>    
+            <DialogContent>
+                <DialogContentText >   
+                  <div style={{marginLeft:'0px'}}>         
+                        <div  style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
+                            <label style={{marginLeft:'30px'}}>Audit Date : </label>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <Stack style={{ width: '300px' , marginLeft: '40px' }} spacing={3}>
+                                    <DesktopDatePicker
+                                    inputFormat="MM/DD/YYYY"
+                                    value={value}
+                                    onChange={handleChangeDate}
+                                    renderInput={(params) => <TextField {...params} />}/>
+                                </Stack>
+                            </LocalizationProvider>
+                        
+                            <label style={{marginLeft:'40px', marginRight:'40px'}}>Department : </label>
+                            <Box sx={{ minWidth: 120 }}>
+                            <FormControl style={{ width: '300px' }}>
+                                <InputLabel id="departmentlabel">Select Department</InputLabel>
+                                <Select
+                                    labelId="departmentlabel"
+                                    id='department'
+                                    label="Department"
+                                    onChange={(e) => onDepartmentChange(e)}>
+                                    {departmentList.map((data, index) => {
+                                    return (
+                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                        
+                                    )
+                                    })}
+                                </Select>
+                                </FormControl>
+                            </Box>
+                        </div>
+                        <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                            <label style={{marginLeft:'30px',marginRight:'60px'}}>Section : </label>
+                            <Box sx={{ minWidth: 120 }}>
+                            <FormControl style={{ width: '300px' }}>
+                                <InputLabel id="sectionList">Select section</InputLabel>
+                                <Select
+                                    labelId="sectionList"
+                                    id='section'
+                                    label="Section"
+                                    onChange={(e) => onSectionChange(e)}>
+                                    {sectionList.map((data, index) => {
+                                    return (
+                                        <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                    )
+                                    })}
+                                </Select>
+                                </FormControl>
+                            </Box>
+                            <label style={{marginLeft:'50px', marginRight:'35px'}}>Asset Type : </label>
+                            <Box sx={{ minWidth: 120 }}>
+                            <FormControl style={{ width: '300px' }}>
+                                <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
+                                <Select
+                                    labelId="assetTypeList"
+                                    id='assetType'
+                                    label="AssetType"
+                                    onChange={(e) => onAssetTypeChange(e)}>
+                                    {assetTypeList.map((data, index) => {
+                                    return (
+                                        <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                    )
+                                    })}
+                                </Select>
+                                </FormControl>
+                            </Box>
+                        </div>
+                        <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                            <label style={{marginLeft:'25px'}}>Audit Name:</label>
+                            <TextField 
+                                style={{marginLeft:'40px', width:'300px'}} 
+                                label="Audit Name" 
+                                variant="outlined" 
+                                onChange={(e)=>{setAuditName(e.target.value) }}
+                            />
+                        </div>
+                        <div style={{marginLeft:'20px' , marginTop:'20px'}}>
+                        <Button type='reset' onClick={handleClose}>Cancel</Button>
+                            <Button type='submit'>
+                            {isAdd === true ? 'Add' : 'Update'}
+                            </Button>
+                        </div>
+                        <NotificationBar
+                            handleClose={handleCloseNotify}
+                            notificationContent={openNotification.message}
+                            openNotification={openNotification.status}
+                            type={openNotification.type}
+                        />
+                  </div>
+                </DialogContentText>
+            </DialogContent>   
+            </form>                         
+        </Dialog>
     </div>
   )
 }

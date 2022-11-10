@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -16,27 +16,107 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+import { UserAddService, UserUpdateService,FetchDepaertmentService } from '../../services/ApiServices';
 
-export default function Assetadd() {
-    const [age, setAge] = React.useState('');
+const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+    const [departmentList, setDepartmentList] = useState([])
+    const [department, setDepartment] = useState('')
+    const [employeeId, setemployeeId] = useState('')
+    const [employeeName, setemployeeNamed] = useState('')
+    const [designation, setdesignation] = useState('')
+    const [mobile_number, setmobile_number] = useState('')
+    const [emailId, setemailId] = useState('')
+    const [userName, setuserName] = useState('')
+    const [password, setpassword] = useState('')
+   
+    const [openNotification, setNotification] = useState({
+      status: false,
+      type: 'error',
+      message: '',
+  });
+  
+  
+    useEffect(() => {
+      FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+
+    }, [editData]);
+  
+    const handleFetchSuccess = (dataObject) =>{
+      setDepartmentList(dataObject.data);
+    }
+    const handleFetchException = (errorStaus, errorMessage) =>{
+      console.log(errorMessage);
+    }
+  
+    const onDepartmentChange = (e) => {
+      setDepartment(e.target.value);
+    }
+    
+   
+  
+    const onSubmit = (e) => {
+      e.preventDefault();
+       isAdd === true ?
+        (
+      
+        UserAddService({
+      
+        },handleSuccess, handleException)
+        ) : (
+       
+        UserUpdateService({
+          id: editData.id,
+     
+        }, handleSuccess, handleException)
+        );
+    }
+  
+    const handleSuccess = (dataObject) =>{
+      console.log(dataObject);
+      setRefresh(oldValue => !oldValue);
+      setNotification({
+        status: true,
+        type: 'success',
+        message: dataObject.message,
+      });
+      setemployeeId('');
+      setemployeeNamed('');
+      setDepartment('');
+      setdesignation('');
+      setemailId('');
+      setmobile_number('');
+      setuserName('');
+      setpassword('');
+    }
+  
+    const handleException = (errorObject, errorMessage) =>{
+      console.log(errorMessage);
+      setNotification({
+        status: true,
+        type: 'error',
+        message:errorMessage,
+      });
+    }
+  
+    const handleCloseNotify = () => {
+     setOpen(false)
+      setNotification({
+        status: false,
+        type: '',
+        message: '',
+      });
+    };
+    const [age, setAge] = useState('');
     const handleChange = (event) => {
         setAge(event.target.value);
-    };
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
 
-    return(
-        <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-            <AddIcon className='Add'/>
-            Add
-            </Button>
-            <div>
+  return (
+    <div>
+           <div>
                 <Dialog 
                 open={open}
                 onClose={handleClose}
@@ -158,6 +238,9 @@ export default function Assetadd() {
                     </DialogContent>
                 </Dialog>
             </div>
-        </div>
-    )
+      
+    </div>
+  )
 }
+
+export default UntageAssetModel

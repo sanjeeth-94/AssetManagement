@@ -1,9 +1,9 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Allocationadd from './Allocationadd';
-import Selfassessment from './Selfassessment';
-import Untagadd from './Untagadd';
-import unTagview from './unTagview';
+import AllocationList from './AllocationList';
+import RequestAssetReturnasset from './RequestAssetReturnasset';
+import SelfAssesmentList from './SelfAssesmentList';
+import UntageAseetList from './UntageAseetList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,16 +51,16 @@ const AllocationTab = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <Allocationadd />
+       <AllocationList/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Untagadd />
-          <unTagview />
+        <UntageAseetList/>
         </TabPanel>
         <TabPanel value={value} index={2}>
+          <RequestAssetReturnasset/>
           </TabPanel>
         <TabPanel value={value} index={3}>
-            <Selfassessment />
+          <SelfAssesmentList/>
         </TabPanel>
       </Box>
     </div>

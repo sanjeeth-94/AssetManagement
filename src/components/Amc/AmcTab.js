@@ -6,6 +6,7 @@ import Certificateadd from './Certificateadd';
 import Service from './Service';
 import Servicedue from './Servicedue';
 import AmcServiceList from './AmcServiceList';
+import AmcList from './AmcList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +52,7 @@ const AmcTab = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-           <AmcServiceList/>         
+          <AmcList/>      
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Certificateadd />
