@@ -6,11 +6,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AddIcon from '@mui/icons-material/Add';
-import './Asset.css'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -32,7 +30,7 @@ export default function Addlabel() {
     };
 
     return (
-        <div>
+        <div >
             <Button variant="outlined" onClick={handleClickOpen}>
             <AddIcon className='Add'/>
             Add Label
@@ -59,11 +57,7 @@ export default function Addlabel() {
                                             id="demo-simple-select"
                                             value={age}
                                             label="Age"
-                                            onChange={handleChange}>
-                                                <MenuItem value={10}>Accounting</MenuItem>
-                                                <MenuItem value={20}>production</MenuItem>
-                                                <MenuItem value={30}>R & D</MenuItem>
-                                                <MenuItem value={40}>Testing</MenuItem>
+                                            onChange={handleChange}>                                                                                                                                                                                                                                                                                                       
                                             </Select>
                                         </FormControl>
                                     </Box>

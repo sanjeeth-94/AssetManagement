@@ -1,7 +1,7 @@
 import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import { FetchAssetListService } from '../../../services/ApiServices';
+import { FetchAssetListService,FetchSectionService } from '../../../services/ApiServices';
 import AssetModel from './AssetModel';
 import NotificationBar from '../../../services/NotificationBar';
 
@@ -99,11 +99,14 @@ const AssetList = () => {
   
     return (
         <div>
-            <h1 style={{ marginLeft: '50px' }}>Asset</h1>
-            <hr style={{ bottom: 'solid' }} />
-            <Button style={{marginLeft:'83%',width:'120px',height:'30px', marginBottom:'20px'}} variant="outlined" onClick={handleModalOpen}>
+            <div style={{display:'flex'}}>
+            <h3 style={{ marginLeft: '50px' }}>Asset</h3>
+            
+            <Button style={{marginLeft:'80%',width:'120px',height:'30px', marginBottom:'20px'}} variant="outlined" onClick={handleModalOpen}>
                Add
             </Button>
+            </div>
+            <hr style={{ bottom: 'solid' }} />
             <div style={{ height: 270, width: '1350px' }}>
                 <DataGrid
                 rows={rows}

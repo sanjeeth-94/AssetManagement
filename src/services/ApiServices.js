@@ -76,6 +76,14 @@ export const LoginService = (data) => {
 
 export const LogoutService = (successCallback, errorCallBack) => _fetchService('logout', 'POST', {}, successCallback, errorCallBack);
 
+///........ common API........./////
+export const FetchSectionService = (data,successCallback, errorCallBack) => _fetchService(`getSection/${data.id}`, 'GET', {}, successCallback, errorCallBack);
+
+export const FetchAssetTypeService = (data,successCallback, errorCallBack) => _fetchService(`getAssetType/${data.id}`, 'GET', {}, successCallback, errorCallBack);
+
+export const FetchAssetNameService = (successCallback, errorCallBack) => _fetchService('getAssetName/{id}', 'GET', {}, successCallback, errorCallBack);
+
+
 // // --------- User--------------//
 export const FetchUserService = (successCallback, errorCallBack) => _fetchService('user/showData', 'GET', {}, successCallback, errorCallBack);
 
@@ -116,11 +124,15 @@ export const FetchRequestedService = (successCallback, errorCallBack) => _fetchS
 
 export const  FetchAssetListService = (successCallback, errorCallBack) => _fetchService('asset/showData', 'GET', {}, successCallback, errorCallBack);
 
-export const AssetAddService = (data, successCallback, errorCallBack) => _fetchService('vendorType/add', 'POST', data, successCallback, errorCallBack);
+export const FetchVenderService = (successCallback, errorCallBack) => _fetchService('getVendor', 'GET', {}, successCallback, errorCallBack);
+
+export const AssetAddService = (data, successCallback, errorCallBack) => _fetchService('asset/getVendor', 'POST', data, successCallback, errorCallBack);
 
 export const AssetUpdateService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 export const AssetDeleteService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+
 
 ////....Department..../////
 
@@ -145,13 +157,13 @@ export const SectionDeleteService = (data, successCallback, errorCallBack) => _f
 
 ////..........Assettype........////
 
-export const  FetchAssetTypeListService = (successCallback, errorCallBack) => _fetchService('assettype/showData', 'GET', {}, successCallback, errorCallBack);
+export const  FetchAssetTypeListService = (successCallback, errorCallBack) => _fetchService('assetType/showData', 'GET', {}, successCallback, errorCallBack);
 
-export const AssetTypeAddService = (data, successCallback, errorCallBack) => _fetchService('assettype/add', 'POST', data, successCallback, errorCallBack);
+export const AssetTypeAddService = (data, successCallback, errorCallBack) => _fetchService('assetType/add', 'POST', data, successCallback, errorCallBack);
 
-export const AssetTypeUpdateService = (data, successCallback, errorCallBack) => _fetchService(`assettype/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+export const AssetTypeUpdateService = (data, successCallback, errorCallBack) => _fetchService(`assetType/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
-export const AssettypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+export const AssettypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assetType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 /////........TagAsset....../////
 

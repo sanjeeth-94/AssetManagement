@@ -1,17 +1,34 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
-import './Asset.css'
+import {FetchDepaertmentService,FetchSectionService,FetchAssetTypeService ,  } from '../../services/ApiServices';
 
-export default function Transferasset() {
-    const [age, setAge] = React.useState('');
-    const handleChange = (event) => {
-        setAge(event.target.value);
+const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+    const [departmentList, setDepartmentList] = useState([])
+    const [department,setDepartment]=useState("");
+    const [section,setSection]=useState("");
+    const [assetTypeList,setAssetTypeList] = useState([]);
+    const [assetType,setAssetType] = useState('');
+    
+    useEffect(() => {
+        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+
+    }, [editData]);
+    
+    const handleFetchSuccess = (dataObject) =>{
+        setDepartmentList(dataObject.data);
+    }
+    
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onDepartmentChange = (e) => {
+        setDepartment(e.target.value);
     };
-
     return(
         <div style={{display:'flex'}}>
             <div >
@@ -26,9 +43,9 @@ export default function Transferasset() {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Select Department"
-                                onChange={handleChange}>
+                                >
                                 </Select>
                             </FormControl>
                         </Box>
@@ -41,9 +58,9 @@ export default function Transferasset() {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Select Department"
-                                onChange={handleChange}>
+                                >
                                 </Select>
                             </FormControl>
                         </Box>
@@ -56,9 +73,9 @@ export default function Transferasset() {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                               
                                 label="Select Department"
-                                onChange={handleChange}>
+                               >
                                 </Select>
                             </FormControl>
                         </Box>
@@ -71,9 +88,9 @@ export default function Transferasset() {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Select Department"
-                                onChange={handleChange}>
+                                >
                                 </Select>
                             </FormControl>
                         </Box>
@@ -96,9 +113,9 @@ export default function Transferasset() {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Select Department"
-                                onChange={handleChange}>
+                                >
                                 </Select>
                             </FormControl>
                         </Box>
@@ -111,9 +128,9 @@ export default function Transferasset() {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Select Department"
-                                onChange={handleChange}>
+                                >
                                 </Select>
                             </FormControl>
                         </Box>
@@ -126,9 +143,9 @@ export default function Transferasset() {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Select Department"
-                                onChange={handleChange}>
+                                >
                                 </Select>
                             </FormControl>
                         </Box>
@@ -139,4 +156,4 @@ export default function Transferasset() {
     )
 }
 
-            
+export default Transferasset;       

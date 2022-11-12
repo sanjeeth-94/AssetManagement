@@ -20,7 +20,8 @@ const AssetTypeList= () => {
   });
   
   const columns = [
-    { field: 'id', headerName: 'Section No', width: 80 },
+    { field: 'id', headerName: 'Asset Type no', width: 80 },
+    { field: 'assetType', headerName: 'Asset Type', width: 170,},
     { field: 'department', headerName: 'Department', width: 170,},
     { field: 'section', headerName: 'Section', width: 170,},
     {field: 'action', headerName: 'Action', width: 250, sortable: false,
