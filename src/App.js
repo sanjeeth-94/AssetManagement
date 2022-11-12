@@ -8,7 +8,6 @@ import AuditTab from './components/Audit/AuditTab';
 import { useEffect } from 'react';
 import AmcTab from './components/Amc/AmcTab';
 import MaintenanceTab from './components/Maintenance/MaintenanceTab';
-import Check from './components/check/check';
 import AllocationTab from './components/Allocation/AllocationTab';
 import ServiceRequestTab from './components/ServiceRequest/RequestedserviceTab';
 import VenderAdd from './components/Vender/VenderAdd';
@@ -19,6 +18,7 @@ import Inceptiondue from './components/DashboardItems/Inceptiondue';
 import Tagassettable from './components/Asset/Tagassettable';
 import Untagassettable from './components/Allocation/Untagassettable';
 import MaintenanceSchedule from './components/MaintenanceSchedule/MaintenanceSchedule';
+import MaintenanceSchedulList from './components/check/MaintenanceSchedulList';
 
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
               <Route path='/audit' element={<AuditTab/>}/>
               <Route path='/amc' element={<AmcTab/>}/>
               <Route path='/maintenanceschedule' element={<MaintenanceSchedule/>}/>
-              <Route path='/maintainceaproval' element={<Check/>}/>
+              <Route path='/maintainceaproval' element={<MaintenanceSchedulList/>}/>
               <Route path='/maintaincestatus' element={<MaintenanceTab/>}/>
               <Route path='/alloction' element={<AllocationTab/>}/>
               <Route path='/servicerequest' element={<ServiceRequestTab/>}/>

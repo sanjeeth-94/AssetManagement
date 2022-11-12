@@ -88,13 +88,14 @@ export default function HorizontalLinearStepper() {
   return (
     <div>
         <div>
-            <h2>Maintenance Schedule</h2>
+            <h2 style={{marginLeft:'40px'}}>Maintenance Schedule</h2>
         </div>
-        <form style={{width:'1240px',border:'solid', borderColor:'whitesmoke'}}>
+        <form style={{width:'95%',border:'solid', borderColor:'whitesmoke', marginLeft:'30px'}}>
             <div>
-                <h3>Create Maintenance Schedule</h3>
+                <h3 style={{marginLeft:'30px'}}>Create Maintenance Schedule</h3>
             </div>
-            <Box sx={{ width: '100%' }}>
+            <hr/>
+            <Box sx={{ width: '60%',marginLeft:'250px',marginTop:'30px' }}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         const stepProps = {};
@@ -147,13 +148,13 @@ export default function HorizontalLinearStepper() {
                     </React.Fragment>
                 )}
             </Box>
-            <form style={{width:'200%',border:'solid', borderColor:'whitesmoke'}}>
+            <form style={{width:'90%',border:'solid', borderColor:'whitesmoke',marginLeft:'60px',}}>
                 <div>
-                    <label>Select Asset</label>
+                    <h3 style={{marginLeft:'30px'}}>Select Asset</h3>
                 </div>
-                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                <div style={{marginTop:'20px',marginLeft:'20px',display:'flex', alignItems:'center' }}>
                     <Box>
-                        <FormControl style={{width:'250px' ,marginLeft:'28px', marginBottom:'20px'}}>
+                        <FormControl style={{width:'200px' ,marginLeft:'28px', marginBottom:'20px'}}>
                             <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                             <Select
                             labelId="demo-simple-select-label"
@@ -201,10 +202,8 @@ export default function HorizontalLinearStepper() {
                         </FormControl>
                     </Box>
                 </div>                
-            </form>
-            <div>
-                <form>
-                    <div style={{ height: 200, width: '1000px', marginTop: '30px', marginLeft:'30px' ,marginRight:'30px'}}>
+            </form>           
+                    <div style={{ height: 200, width: '1000px', marginTop: '30px', marginLeft:'180px' ,marginRight:'30px',marginBottom:'10px'}}>
                         <DataGrid
                         style={{background:'whitesmoke'}}
                         rows={rows}
@@ -212,81 +211,8 @@ export default function HorizontalLinearStepper() {
                         pageSize={5}
                         rowsPerPageOptions={[5]}/>
                     </div>
-                </form>
-            </div>
-            <div>
-                <form>
-                    <div>
-                        <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                            <label style={{marginLeft:'5px'}}>Maintenance Id:  </label>
-                            <TextField style={{marginLeft:'50px', width:'450px'}} id="outlined-basic" label="Outlined" variant="outlined" />
-                        </div>
-                        <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                            <Box>
-                                <label style={{ marginLeft: '30', marginRight: '20px' }}>Maintenance Type :</label>
-                                <FormControl style={{width:'250px' ,marginLeft:'28px', marginBottom:'20px'}}>
-                                    <InputLabel id="demo-simple-select-label">Maintenance Type </InputLabel>
-                                    <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={age}
-                                    label="Select Department"
-                                    onChange={handleChange}>
-                                    </Select>
-                                </FormControl>
-                            </Box>
-                        </div>
-                        <div style={{marginTop:'5px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                            <label style={{marginLeft:'5px'}}>Severity :  </label>
-                            <FormControl>
-                                <RadioGroup
-                                row
-                                aria-labelledby="demo-row-radio-buttons-group-label"
-                                name="row-radio-buttons-group"
-                                value={setTagAssetType}
-                                onChange={setTagAssetType}>
-                                    <FormControlLabel style={{marginLeft:'80px'}}value="Critical" control={<Radio />} label="Critical" />
-                                    <FormControlLabel style={{marginLeft:'80px'}} value="Emergency" control={<Radio />} label="Emergency" />
-                                </RadioGroup>
-                            </FormControl>
-                        </div>
-                        <div style={{marginTop:'10px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                            <label>Problem Note:</label>
-                            <TextareaAutosize
-                            style={{ width:'250px', height:'40px',marginLeft:'70px', marginTop:'20px'}}
-                            aria-label="empty textarea"
-                            placeholder=""/>
-                        </div>
-                        <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                            <label >Warranty Document:</label>
-                            <Stack direction="row" alignItems="center" spacing={2}>
-                                <Button style={{marginLeft: '20px'}}variant="contained" component="label">
-                                     Upload
-                                    <input hidden accept="image/*" multiple type="file" />
-                                </Button>
-                            </Stack>
-                        </div>
-                        <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                            <label >Warranty Document:</label>
-                            <Stack direction="row" alignItems="center" spacing={2}>
-                                <Button style={{marginLeft: '20px'}}variant="contained" component="label">
-                                    Upload
-                                    <input hidden accept="image/*" multiple type="file" />
-                                </Button>
-                            </Stack>                           
-                        </div>
-                        <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                            <label >Warranty Document:</label>
-                            <Stack direction="row" alignItems="center" spacing={2}>
-                                <Button style={{marginLeft: '20px'}}variant="contained" component="label">
-                                    Upload
-                                    <input hidden accept="image/*" multiple type="file" />
-                                </Button>
-                            </Stack>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            
+                        
         </form>
     </div>
   );

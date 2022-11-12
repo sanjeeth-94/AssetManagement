@@ -1,18 +1,29 @@
 import React from 'react';
-// import FileCopyIcon from '@mui/icons-material/FileCopy';
-// import AddBoxIcon from '@mui/icons-material/AddBox';
-// import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import BuildIcon from '@mui/icons-material/Build';
-import Table from './Table';
+import { DataGrid } from '@mui/x-data-grid';
 
-const Check = () => {
+const MaintenanceSchedulList = () => {
+    const rows =[];
+    const columns = [
+
+        { field: 'id', headerName: 'Maintenance ID	', width: 50 },
+        { field: 'employee_id', headerName: 'Maintenance Type	', width: 120 },
+        { field: 'employee_name', headerName: 'Machine	', width: 120 },
+        { field: 'department', headerName: 'Severity	', width: 120 },
+        { field: 'designation', headerName: 'Problem Note	', width: 120 },
+        { field: 'mobile_number', headerName: 'Date	', width: 120 },
+        { field: 'email', headerName: 'Time	', width: 120 },
+        {field: 'action', headerName: 'Action', width: 250, sortable: false,        }
+    ];
   return (
     <div>
-        <div className="main__cards">
+      <div>
+        <div className="main__cards" style={{marginLest:'30px'}} >
             <div className="card">
                 <div className="card_inner" style={{
                     color: 'white',
-                    display: 'inline'    
+                    display: 'inline'  ,
+                  
                 }}>
                     <p className="text-primary-p" >MAINTENANCE</p>
                     <div style={{
@@ -74,9 +85,15 @@ const Check = () => {
                     </div>
                 </div>
             </div>
-            <Table />
+           
+            <div style={{ height: '400px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+                <DataGrid
+                rows={rows}
+                columns={columns} />
+            </div>
         </div> 
-    )
+    </div>
+  )
 }
 
-export default Check;
+export default MaintenanceSchedulList

@@ -7,24 +7,23 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const AmcService = () => {
+const InspectionList = () => {
+    
     const [age, setAge] = React.useState('');
 
     const handleChange = (event) => {
       setAge(event.target.value);
     };
-    const rows = [];
-    const columns = [
-        { field: 'Vendor Name', headerName: 'Vendor Name', width: 280 },
-        { field: 'Asset Name', headerName: 'Asset Name', width: 240 },
-        { field: 'Service Due Date', headerName: 'Service Due Date', width: 240 },
-        { field: 'Action', headerName: 'Action', width: 240 }
+    const rows = [];   
+ 
+     const columns = [
+        { field: 'Vendor Name', headerName: 'Vendor Name ', width: 280 },
+        { field: 'Asset Name', headerName: 'Inspection date - Action', width: 240 },
        
       ];
-      
   return (
-    <div style={{border:'solid'}}>
-        <div style={{display:'flex', marginBottom:'30px',marginLeft:'30px',alignItems:'center',marginTop:'20px'}}>
+    <div>
+        <div style={{display:'flex', marginBottom:'30px',marginLeft:'30px',alignItems:'center'}}>
             <label>Department:</label>
             <Box sx={{ minWidth: 120 }}>
                 <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
@@ -98,16 +97,21 @@ const AmcService = () => {
                 </Box>
                 <Button variant="contained">Contained</Button>
         </div>
-<hr/>
-       <div style={{ height: '300px', width: '80%', marginLeft:'40px', }}>
+        <form style={{border:'solid'}}>
+        <div>
+            <h3 style={{marginLeft:'30px',marginTop:'10px'}}>INSPECTION DATE</h3>
+        </div>
+        <hr/>
+       <div style={{ height: 200, width: '80%', marginLeft:'40px' }}>
       <DataGrid
         rows={rows}
         columns={columns}
         rowsPerPageOptions={[5]}
         onRowAdd/>
     </div>
+    </form>
     </div>
   )
 }
 
-export default AmcService
+export default InspectionList

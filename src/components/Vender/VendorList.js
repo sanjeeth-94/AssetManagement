@@ -19,12 +19,12 @@ export default function VendorList() {
       });
 
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 80 },
-        { field: 'vendorName', headerName: 'Name', width: 200 },
-        { field: 'address', headerName: 'Address', width: 200 },
-        { field: 'contactNo', headerName: 'Contact No', width: 200 },
-        { field: 'email', headerName: 'Email', width: 200 },
-        { field: 'contactPerson', headerName: 'Contact Parson', width: 200 },
+        { field: 'id', headerName: 'Serial No', width: 60 },
+        { field: 'vendorName', headerName: 'Name', width: 150 },
+        { field: 'address', headerName: 'Address', width: 150 },
+        { field: 'contactNo', headerName: 'Contact No', width: 150 },
+        { field: 'email', headerName: 'Email', width: 150 },
+        { field: 'contactPerson', headerName: 'Contact Parson', width: 150 },
         {
             field: 'action', headerName: 'Action', width: 250, sortable: false,
             cellClassname: 'actions',

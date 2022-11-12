@@ -1,8 +1,6 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import AuditList from './AuditList';
-
-import AuditSyncList from './AuditSyncList';
 import ViewAuditReport from './ViewAuditReport';
 
 function TabPanel(props) {
@@ -47,8 +45,8 @@ const AuditTab = () => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label=" AUDIT ASSET" {...a11yProps(0)} />
-          <Tab label="AUDIT SYNC" {...a11yProps(1)} />
-          <Tab label="VIEW AUDIT REPORT" {...a11yProps(2)} />
+          <Tab label="VIEW AUDIT REPORT" {...a11yProps(1)} />
+         
         </Tabs>
       </Box>
       <TabPanel  value={value} index={0} >
@@ -57,11 +55,9 @@ const AuditTab = () => {
        </div>   
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <AuditSyncList />
+      <ViewAuditReport/>
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        <ViewAuditReport/>
-      </TabPanel>
+    
     </Box>
     </div>
   )

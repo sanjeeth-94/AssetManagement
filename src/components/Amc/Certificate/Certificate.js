@@ -1,9 +1,9 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import AmcRenewalList from './AmcRenewalList';
-import AmcService from './AmcService';
-import AmcServiceDueList from './AmcServiceDueList';
-import AmcServiceList from './AmcServiceList';
+import CertificateList from './CertificateList';
+import CertificateRenewal from './CertificateRenewal';
+import InspactionDueLis from './InspactionDueLis';
+import InspectionList from './InspectionList';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -32,40 +32,40 @@ function TabPanel(props) {
   }
   
 
-const AmcList = () => {
+
+const Certificate = () => {
     const [value, setValue] = useState(0);
 
     const handleChange = (e, newValue) => {
       setValue(newValue);
     };    
-      
   return (
     <div>
-        <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label=" VENDER DETAILS " {...a11yProps(0)} />
-          <Tab label="Service" {...a11yProps(1)} />
-          <Tab label="Service Due" {...a11yProps(2)} />
-          <Tab label="AMC Renewal" {...a11yProps(3)} />
+          <Tab label="Inspection" {...a11yProps(1)} />
+          <Tab label="Inspection Due " {...a11yProps(2)} />
+          <Tab label="Certificate Renewal" {...a11yProps(3)} />
           
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <AmcServiceList/>
+        <CertificateList/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <AmcService/>
+        <InspectionList/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <AmcServiceDueList/>
+      <InspactionDueLis/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <AmcRenewalList/> 
+        <CertificateRenewal/>
       </TabPanel>
     </Box>
     </div>
   )
 }
 
-export default AmcList
+export default Certificate

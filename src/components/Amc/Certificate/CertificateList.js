@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import { FetchAmcServiceListService, AmcServiceDeleteService } from '../../services/ApiServices';
-import NotificationBar from '../../services/NotificationBar';
-import AmcServiceModel from './AmcServiceModel';
+import NotificationBar from '../../../services/NotificationBar';
+import CretificateModel from './CretificateModel';
 
-const AmcServiceList = () => {
+const CertificateList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(false);
     const [isService, setIsService] = useState(false);
@@ -22,7 +21,7 @@ const AmcServiceList = () => {
         { field: 'Vender Name', headerName: 'Vender Name', width: 140 },
         { field: 'Period From', headerName: 'Period From', width: 140 },
         { field: 'Period To', headerName: 'Period To', width: 140 },
-        { field: 'ServicePattern', headerName: 'Service Pattern', width: 140 },
+        { field: 'ServicePattern', headerName: 'Inspection Pattern', width: 140 },
         { field: 'Department', headerName: 'Department', width: 140 },
         { field: 'Section', headerName: 'Section', width: 140 },
         { field: 'Asset Type', headerName: 'Asset Type', width: 140 },
@@ -67,7 +66,7 @@ const AmcServiceList = () => {
     }
     
     const deleteAmc = (id) => {
-        AmcServiceDeleteService ({id}, handleDeleteSuccess, handleDeleteException);
+       
     }
 
     const handleDeleteSuccess = (dataObject) =>{
@@ -100,7 +99,6 @@ const AmcServiceList = () => {
        
     };
     useEffect(() => {
-        FetchAmcServiceListService(handleFetchSuccess, handleFetchException);
        
     }, [refresh]);
 
@@ -120,39 +118,38 @@ const AmcServiceList = () => {
           message: '',
         });
       };
-      
   return (
     <div style={{border:'solid'}}>
-     <div style={{display:'flex',}}>
-         <h3 style={{ marginLeft: '80px' }}> AMC</h3>      
-            <Button style={{width:'120px',height:'30px',marginLeft:'70%',marginTop:'30px'}} variant="outlined" onClick={handleModalOpen}>
-                Add
-            </Button>  
-        </div>
-        <hr style={{ bottom: 'solid' }} />
-         <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-            <DataGrid
-            rows={rows}
-            columns={columns} />
-       </div>
-            <AmcServiceModel 
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                isService={isService}
-                editData={editData}
-                setRefresh={setRefresh}
-                
-            />
-            
-            <NotificationBar
-                handleClose={handleClose}
-                notificationContent={openNotification.message}
-                openNotification={openNotification.status}
-                type={openNotification.type}
-            />
-    </div>
+        <div style={{display:'flex', marginLeft:'40px',}}>
+           <h3 style={{ marginLeft: '60px' }}> INSPECTION</h3>            
+                <Button style={{width:'120px',height:'30px', marginLeft:'60%',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
+                    Add
+                </Button>
+            </div>
+            <hr style={{ bottom: 'solid' }} />
+    <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+       <DataGrid
+       rows={rows}
+       columns={columns} />
+  </div>
+       <CretificateModel
+           open={open}
+           setOpen={setOpen}
+           isAdd={isAdd}
+           isService={isService}
+           editData={editData}
+           setRefresh={setRefresh}
+           
+       />
+       
+       <NotificationBar
+           handleClose={handleClose}
+           notificationContent={openNotification.message}
+           openNotification={openNotification.status}
+           type={openNotification.type}
+       />
+</div>
   )
 }
 
-export default AmcServiceList
+export default CertificateList

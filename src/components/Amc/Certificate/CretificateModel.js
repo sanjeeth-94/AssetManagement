@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -11,46 +11,119 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import AmcServiceview from './AmcServiceview';
 import dayjs from 'dayjs';
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { AmcServiceAddService, AmcServiceUpdateService } from '../../../services/ApiServices';
 
-export default function AmcServiceadd() {
-  const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
-  const handleChangeDate = (newValue) => {
-    setValue(newValue);
-  };
-  
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
+    const [venderNameList ,setVenderNameList]= useState([]);
+    const [venderEmail ,setVenderEmail]= useState();
+    const [venderAddress ,setVenderAddress]= useState();
+    const [venderCompany ,setVenderCompany]= useState();
+    const [venderPhone ,setVenderPhone]= useState();
+    const [periodFrom ,setPeriodFrom]= useState();
+    const [periodTo ,setPeriodTo]= useState();
+    const [premiumCost ,setPremiumCost]= useState();
+    const [AMCDoc ,setAMCDoc]= useState();
+    const [servicePattern ,setServicePattern]= useState();
+    const [department  ,setDepartment]= useState();
+    const [section ,setSection]= useState();
+    const [assetType ,setAssetType]= useState();
+    const [assetName ,setAssetName]= useState();
+    const [departmentList,setDepartmentList]= useState([]);
+    
+    const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
+    const handleChangeDateFrom = (newValue) => {
+      setValue(newValue);
+    };
+    const handleChangeDateTo = (newValue) => {
+        setValue(newValue);
+      };
+    
+    const [age, setAge] = useState('');
+    const handleChange = (event) => {
+      setAge(event.target.value);
+    };
+    
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+      });
 
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+    useEffect(() => {
+        
+      }, [editData]);
+      const handleFetchSuccess = (dataObject) =>{
+        setDepartmentList(dataObject.data);
+      }
+      const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
+    
+      const onDepartmentChange = (e) => {
+        setDepartment(e.target.value);
+      }
+    
+    const onSubmit = (e) => {
+        e.preventDefault();
+            isAdd === true ?
+            (
+        
+            AmcServiceAddService({
+            
+            },handleSuccess, handleException)
+            ) : (
+            
+            AmcServiceUpdateService({
+            id: editData.id,
+            
+            }, handleSuccess, handleException)
+            );
+        }
+    
+        const handleSuccess = (dataObject) =>{
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+        });
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+        }
+    
+        const handleException = (errorObject, errorMessage) =>{
+        console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message:errorMessage,
+        });
+        }
+    
+        const handleCloseNotify = () => {
+        setOpen(false)
+        setNotification({
+            status: false,
+            type: '',
+            message: '',
+        });
+        };
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen} style={{ marginLeft: '80%', marginBottom: '20px', marginTop: '5px' }}>
-        Add
-      </Button>
-      <div>
-        <Dialog
+           <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
         fullWidth
         maxWidth='lg'>
+            <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {"ADD ASSET"}
           </DialogTitle>
@@ -77,24 +150,64 @@ export default function AmcServiceadd() {
                       </FormControl>
                     </Box>
                     <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail</label>
-                    <TextField id="Email" label="Email" variant="outlined" />
-                    <label style={{ marginLeft: '60px', marginRight: '30px' }}> Address</label>
-                    <TextField id="address" label="Address" variant="outlined" />
+                    <TextField 
+                        id="Email" 
+                        label="Email" 
+                        variant="outlined"
+                        onChange={(e) => { setVenderEmail(e.target.value) }}
+                       value={venderEmail} 
+                    />
+                    <label 
+                        style={{ marginLeft: '60px', 
+                                marginRight: '30px' }}>
+                                 Address
+                    </label>
+                    <TextField 
+                        id="address" 
+                        label="Address" 
+                        variant="outlined" 
+                        onChange={(e) => { setVenderAddress(e.target.value) }}
+                        value={venderAddress}    
+                    />
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '20px' }}>
-                    <label style={{ marginLeft: '20px', marginRight: '20px' }}> Company</label>
-                    <TextField id="address" label="Address" variant="outlined" />
-                    <label style={{ marginLeft: '60px', marginRight: '30px' }}> Phone</label>
-                    <TextField id="address" label="Address" variant="outlined" />
+                    <label 
+                        style={{ 
+                            marginLeft: '20px',
+                            marginRight: '20px' 
+                            }}>
+                                 Company
+                    </label>
+                    <TextField 
+                        id="address" 
+                        label="Address" 
+                        variant="outlined" 
+                        onChange={(e) => { setVenderCompany(e.target.value) }}
+                        value={venderCompany}
+                    />
+                    <label 
+                        style={{ 
+                            marginLeft: '60px', 
+                            marginRight: '30px' 
+                            }}> 
+                            Phone
+                    </label>
+                    <TextField 
+                        id="address" 
+                        label="Address" 
+                        variant="outlined" 
+                        onChange={(e) => { setVenderPhone(e.target.value) }}
+                        value={venderPhone}    
+                    />
                   </div>
                   <form style={{ border: 'solid' }}>
                     <div style={{ margin: '20px' }}>
-                      <h2>SERVICE DETAILS</h2>
+                      <h2>CERTIFICATE DETAILS</h2>
                       <hr />
                     </div>
                     <div style={{ margin: '20px', display: 'flex', marginTop: '20px' }}>
                       <label style={{ marginLeft: '20px', marginRight: '80px' }}>
-                        Period : FROM
+                      Certificate Date
                       </label>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Stack spacing={3}>
@@ -102,12 +215,12 @@ export default function AmcServiceadd() {
                           label="Date desktop"
                           inputFormat="MM/DD/YYYY"
                           value={value}
-                          onChange={handleChangeDate}
+                          onChange={handleChangeDateFrom}
                           renderInput={(params) => <TextField {...params} />}/>
                         </Stack>
                       </LocalizationProvider>
                       <label style={{ marginLeft: '20px', marginRight: '80px' }}>
-                        To
+                      Expire Date
                       </label>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Stack spacing={3}>
@@ -115,15 +228,25 @@ export default function AmcServiceadd() {
                           label="Date desktop"
                           inputFormat="MM/DD/YYYY"
                           value={value}
-                          onChange={handleChangeDate}
+                          onChange={handleChangeDateTo}
                           renderInput={(params) => <TextField {...params} />}/>
                         </Stack>
                       </LocalizationProvider>
                     </div>
                     <div style={{ display: 'flex', marginLeft: '40px', marginTop: '20px', alignItems: 'center' }}>
-                      <label style={{ marginRight: '90px' }}>Premium Cost</label>
-                      <TextField id="premium" label="Premium Cost" variant="outlined" />
-                      <label style={{ marginLeft: '60px', marginRight: '50px' }}>AMC Doc</label>
+                      <label style={{ 
+                                marginRight: '90px' 
+                                }}>
+                                    Premium Cost
+                       </label>
+                      <TextField 
+                        id="premium" 
+                        label="Premium Cost" 
+                        variant="outlined" 
+                        onChange={(e) => { setPremiumCost(e.target.value) }}
+                        value={premiumCost}    
+                       />
+                      <label style={{ marginLeft: '60px', marginRight: '50px' }}>Certificate Doc</label>
                       <Stack direction="row" alignItems="center" spacing={2}>
                         <Button style={{ width: "200px" }} variant="contained" component="label">
                           Upload
@@ -132,7 +255,7 @@ export default function AmcServiceadd() {
                       </Stack>
                     </div>
                     <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center' }}>
-                      <label style={{ marginRight: '80px' }}>Service Pattern :</label>
+                      <label style={{ marginRight: '60px' }}>Inspection Pattern :</label>
                       <Box>
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label">Age</InputLabel>
@@ -227,9 +350,11 @@ export default function AmcServiceadd() {
               <Button style={{ border: 'solid', width: '150px' }} onClick={handleClose} autoFocus>Apply</Button>
             </div>
           </DialogActions>
+          </form>
         </Dialog>
-        <AmcServiceview />
-      </div>
+      
     </div>
   )
 }
+
+export default CretificateModel

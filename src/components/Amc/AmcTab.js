@@ -1,12 +1,9 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import AmcServiceadd from './AmcServiceadd';
-import Warranty from './Warranty';
-import Certificateadd from './Certificateadd';
-import Service from './Service';
-import Servicedue from './Servicedue';
-import AmcServiceList from './AmcServiceList';
 import AmcList from './AmcList';
+import Certificate from './Certificate/Certificate';
+import WarrantyList from './WarrantyList.js';
+import InsuranceTabList from './Insurance/InsuranceTabList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,10 +52,13 @@ const AmcTab = () => {
           <AmcList/>      
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Certificateadd />
+          <Certificate/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <Warranty />
+          <WarrantyList/>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <InsuranceTabList/>
         </TabPanel>
       </Box>
     </div>

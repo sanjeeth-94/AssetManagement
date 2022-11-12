@@ -57,7 +57,7 @@ const handleChange = (newValue) => {
     <div>
       <form style={{border:'solid' , borderColor:'whitesmoke'}}>
         <div>
-            <h2 style={{marginLeft:'30px'}}>VIEW AUDITED REPORT</h2>
+            <h3 style={{marginLeft:'30px'}}>VIEW AUDITED REPORT</h3>
             <hr/>
       </div>    
       <div style={{marginTop:'20px'}}>
@@ -74,7 +74,7 @@ const handleChange = (newValue) => {
         />
       </Stack>
     </LocalizationProvider>
-    <label style={{marginLeft:'20px', marginRight:'85px'}}> To</label>
+    <label style={{marginLeft:'80px', marginRight:'70px'}}> To</label>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack spacing={3}>
         <DesktopDatePicker
@@ -147,7 +147,7 @@ const handleChange = (newValue) => {
       </form>
       <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
         <div>
-            <h2 style={{marginLeft:'30px'}}>AUDITED REPORT</h2>
+            <h3 style={{marginLeft:'30px'}}>AUDITED REPORT</h3>
         </div>
         <hr/>
         

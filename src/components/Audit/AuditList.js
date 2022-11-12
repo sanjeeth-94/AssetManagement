@@ -114,17 +114,19 @@ const AuditList = () => {
     };
 
   return (
-    <div>
-    <h1 style={{ marginLeft: '50px' }}> Audit View Assets </h1>
-    <hr style={{ bottom: 'solid' }} />
-    <Button style={{marginLeft:'83%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
-        Add
-    </Button>
-    <div style={{ height: '500px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
-        <DataGrid
-        rows={rows}
-        columns={columns} />
-    </div>
+    <div style={{border:'solid'}}>
+        <div style={{display:'flex'}}>
+            <h3 style={{ marginLeft: '50px' }}> Audit View Assets </h3>
+            <Button style={{marginLeft:'63%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
+                Add
+            </Button>
+            </div>
+            <hr style={{ bottom: 'solid' }} />
+            <div style={{ height: '300px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
+                <DataGrid
+                rows={rows}
+                columns={columns} />
+         </div>
        <AuditModel
                 open={open}
                 setOpen={setOpen}
