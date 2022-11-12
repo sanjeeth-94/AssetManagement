@@ -79,7 +79,7 @@ const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             <Dialog 
             open={open}
             onClose={handleClose}fullWidth>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit}> 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                       {"ADD DEPARTMENT"}
                     </DialogTitle>
