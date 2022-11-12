@@ -9,6 +9,8 @@ import SectionList from './Section/SectionList';
 import AssetTypeList from './AssetType/AssetTypeList';
 import DepartmentList from './Department/DepartmentList';
 import TagAssetModel from './TagAsset/TagAssetModel';
+import AssetTabList from './asset/AssetTabList';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,11 +64,7 @@ const AssetTab = () => {
         </Tabs>
       </Box>
       <TabPanel  value={value} index={0} >
-        
-
-       <AssetList/>
-
-     
+       <AssetTabList/>     
       </TabPanel>
       <TabPanel value={value} index={1}>
       <DepartmentList />

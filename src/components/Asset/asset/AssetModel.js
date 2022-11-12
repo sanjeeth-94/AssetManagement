@@ -20,34 +20,45 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Stack from '@mui/material/Stack';
 import dayjs from 'dayjs';
 import MenuItem from '@mui/material/MenuItem';
-import { AssetAddService,
+import { 
+        AssetAddService,
         AssetUpdateService,
         FetchDepaertmentService, 
-        FetchAuditSectionService,
-        FetchAuditAssetTypeService 
+        FetchAssetTypeService,
+        FetchSectionService, 
+        FetchVenderService,
     } from '../../../services/ApiServices';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+    const [assetId,setAssetId] = useState('');
     const [departmentList, setDepartmentList] = useState([])
     const [department, setDepartment] = useState('')
     const [sectionList,setSectionList] = useState([]);
     const [section,setSection] = useState('');
+    const [assetName,setAssetName] = useState([]);
+    const [financialAssetID,setfinancialAssetID] = useState('');
+    const [venderList,setVenderList] = useState([]);
+    const [vender,setVender] = useState([]);
+    const [phonono,setphono] = useState('');
+    const [email, setEmail] = useState('');
     const [assetTypeList,setAssetTypeList] = useState([]);
     const [assetType,setAssetType] = useState('');
-    const [assetId,setAssetId] = useState('');
-    const [assetName,setAssetName] = useState('');
-
+    const [manufacturer,setmanufactuer] = useState([]);
+    const [assetModel,setassetmodel] = useState('');
+    const [invoiceno,setinvoice] = useState('');
     const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
+    const [gstCertificate, setGstCertificate] = useState('');
     const handleChangeDate = (newValue) => {
         setValue(newValue);
     };
-        
+    
     const handleClose = () => {
         setOpen(false);
     };
 //to call display in department//
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+        FetchVenderService(handleFetchVender, handleFetchVenderException);
     }, [editData]);
     
     const handleFetchSuccess = (dataObject) =>{
@@ -57,43 +68,56 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const handleFetchException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
     }
+    const handleFetchVender = (dataObject) =>{
+        setVenderList(dataObject.data);
+    }
+    
+    const handleFetchVenderException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
     
 // department on change and section API call//    
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
-        FetchAuditSectionService({
+        FetchSectionService ({
             id: e.target.value
         },handleFetchSectionSuccess, handleFetchSectionException);
+    }
     
-      }
-      const handleFetchSectionSuccess = (dataObject) =>{
+    const handleFetchSectionSuccess = (dataObject) =>{
         setSectionList(dataObject.data);
-      }
-      const handleFetchSectionException = (errorStaus, errorMessage) =>{
+    }
+    
+    const handleFetchSectionException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
-      }
+    }
 
 //section onchange and AssetType API call//
-      const onSectionChange = (e) => {
+    const onSectionChange = (e) => {
         setSection(e.target.value);
-        FetchAuditAssetTypeService ({
+        FetchAssetTypeService({
             id: e.target.value
         },handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
-  
-      }
-      const handleFetchAssetTypeSuccess = (dataObject) =>{
+    }
+    
+    const handleFetchAssetTypeSuccess = (dataObject) =>{
         setAssetTypeList(dataObject.data);
-      }
-      const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
+    }
+    
+    const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
-      }
+    }
+    
+    const onVenderChange = (e) => {
+        setVender(e.target.value);
+        
+    }
 
  //  onAssetTypeChange
-      
-      const  onAssetTypeChange = (e) => {
+    const  onAssetTypeChange = (e) => {
         setAssetType(e.target.value);
-      }
-      
+    }
+    
     const onSubmit = (e) => {
         e.preventDefault();
         isAdd === true ?
@@ -101,13 +125,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             AssetAddService({
                 assetId:assetId,
 
-                
             },handleSuccess, handleException)
-            ) : (
-                AssetUpdateService({
-                    id: editData.id,
-                    assetId:assetId,
-                }, handleSuccess, handleException)
+        ) : (
+            AssetUpdateService({
+                id: editData.id,
+                assetId:assetId,
+            }, handleSuccess, handleException)
         );
     }
     
@@ -121,15 +144,13 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         console.log(errorMessage);
     }
     
-  
     return (
         <div>
             <Dialog
             open={open}
             onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            fullWidth maxWidth='lg'>
+            maxWidth='lg'>
+                <form onSubmit={onSubmit}>
                 <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
                     {"ADD ASSET"}
                 </DialogTitle>
@@ -138,16 +159,13 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <form>
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Asset ID : </label>
-                                <TextField  
-                                    style={{
-                                        marginLeft:'86px', 
-                                        width:'250px'
-                                        }} id="Asset Id " 
-                                        label="Asset Id "
-                                        variant="outlined"
-                                        onChange={(e) => { setAssetId(e.target.value) }}
-                                        value={assetId} 
-                                         />
+                                <TextField
+                                style={{ marginLeft:'86px', width:'250px'}} 
+                                id="Asset Id " 
+                                label="Asset Id "
+                                variant="outlined"
+                                onChange={(e) => { setAssetId(e.target.value) }}
+                                value={assetId}  />
                                 <label style={{marginLeft:'90px'}}>Department:</label>
                                 <Box>
                                     <FormControl style={{width:'250px' ,marginLeft:'55px'}}>
@@ -174,7 +192,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                     
                                         label="Select Department"
                                         onChange={(e) => onSectionChange(e)}>
                                         {sectionList.map((data, index) => {
@@ -205,18 +222,42 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                  
                                         label="Select Department"
-                                       >
+                                        onChange={(e) => onVenderChange(e)}>
+                                        {sectionList.map((data, index) => {
+                                            return (
+                                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                            )
+                                        })}
+                                       
                                         </Select>
                                     </FormControl>
                                 </Box>
                             </div>
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Phone Number : </label>
-                                <TextField  style={{marginLeft:'40px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
+                                <TextField  
+                                    style={{
+                                        marginLeft:'40px', 
+                                        width:'250px'}} 
+                                        id="Asset Id " 
+                                        label="Asset Id " 
+                                        variant="outlined"
+                                        
+                                    />
                                 <label style={{marginLeft:'90px'}}>Email Id: </label>
-                                <TextField  style={{marginLeft:'80px', width:'250px'}} id="Asset Id " label="Asset Id " variant="outlined"/>
+                                <TextField  
+                                    style={{
+                                            marginLeft:'80px',
+                                            width:'250px'
+                                            }}
+                                             id="Asset Id " 
+                                             label="Asset Id " 
+                                             variant="outlined"
+                                             onChange={(e) => { setEmail(e.target.value) }}
+                  value={email}
+                                             
+                                />
                             </div>
                             <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                                 <label >Vendor Address : </label>
@@ -290,30 +331,63 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             </div>
                             <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                                 <label >Warranty Document:</label>
-                                <Stack direction="row" alignItems="center" spacing={2}>
-                                    <Button style={{marginLeft: '20px'}}variant="contained" component="label">
-                                        Upload
-                                        <input hidden accept="image/*" multiple type="file" />
-                                    </Button>
-                                </Stack>
+                                <TextField
+                  style={{ width: '300px', marginLeft: '20px' }}
+                  
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        if (reader.readyState === 2) {
+                          setGstCertificate(reader.result);
+                        }
+                      };
+                      reader.readAsDataURL(e.target.files[0]);
+                    }
+                  }}
+                  InputLabelProps={{ shrink: true }}
+                  type="file"
+                />
                                 <label style={{ marginLeft: '250px' }}>Upload Document:</label>
-                                <Stack direction="row" alignItems="center" spacing={2}>
-                                    <Button variant="contained" component="label">
-                                        Upload
-                                        <input hidden accept="image/*" multiple type="file" />
-                                    </Button>
-                                </Stack>
+                                <TextField
+                  style={{ width: '300px', marginLeft: '20px' }}
+                 
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        if (reader.readyState === 2) {
+                          setGstCertificate(reader.result);
+                        }
+                      };
+                      reader.readAsDataURL(e.target.files[0]);
+                    }
+                  }}
+                  InputLabelProps={{ shrink: true }}
+                  type="file"
+                />
                             </div>
                             <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
                                 <label >Description:</label>
                                 <TextField style={{marginLeft:'80px', width:'250px'}} id="Manufacturer" label="Manufacturer" variant="outlined" />
                                 <label style={{ marginLeft: '100px' }}>Asset Image:</label>
-                                <Stack direction="row" alignItems="center" spacing={2}>
-                                    <Button variant="contained" component="label">
-                                        Upload
-                                        <input hidden accept="image/*" multiple type="file" />
-                                    </Button>
-                                </Stack>
+                                <TextField
+                  style={{ width: '300px', marginLeft: '20px' }}
+                  
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        if (reader.readyState === 2) {
+                          setGstCertificate(reader.result);
+                        }
+                      };
+                      reader.readAsDataURL(e.target.files[0]);
+                    }
+                  }}
+                  InputLabelProps={{ shrink: true }}
+                  type="file"
+                />
                             </div>
                         </form>
                     </DialogContentText>
@@ -326,6 +400,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     </Button>
                 </div>
                 </DialogActions>
+                </form>
             </Dialog>
         </div>
     )
