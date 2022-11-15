@@ -17,6 +17,7 @@ const AmcServiceList = () => {
         type: 'error',
         message: '',
     });
+    
     const columns = [
         { field: 'Serial No', headerName: 'Serial No', width: 80 },
         { field: 'Vender Name', headerName: 'Vender Name', width: 140 },
@@ -35,8 +36,9 @@ const AmcServiceList = () => {
             <DeleteData selectedRow={params.row} />,
         ],
         }
-      ];
-      function EditData({ selectedRow }) {
+    ];
+    
+    function EditData({ selectedRow }) {
         return (
             <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
             className='prbuton'
@@ -86,19 +88,21 @@ const AmcServiceList = () => {
             status: true,
             type: 'error',
             message:errorMessage,
-          });
+        });
     }
+
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
        
     };
+
     const handleServiceModalOpen = () => {
         setIsAdd(false);
         setIsService(true);
-        setOpen(true);
-       
+        setOpen(true);       
     };
+
     useEffect(() => {
         FetchAmcServiceListService(handleFetchSuccess, handleFetchException);
        
@@ -119,40 +123,38 @@ const AmcServiceList = () => {
           type: '',
           message: '',
         });
-      };
-      
-  return (
-    <div style={{border:'solid'}}>
-     <div style={{display:'flex',}}>
-         <h3 style={{ marginLeft: '80px' }}> AMC</h3>      
-            <Button style={{width:'120px',height:'30px',marginLeft:'70%',marginTop:'30px'}} variant="outlined" onClick={handleModalOpen}>
-                Add
-            </Button>  
-        </div>
-        <hr style={{ bottom: 'solid' }} />
-         <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-            <DataGrid
-            rows={rows}
-            columns={columns} />
-       </div>
+    };
+  
+    return (
+        <div style={{border:'solid', borderColor:'whitesmoke'}}>
+            <div style={{display:'flex',}}>
+                <h3 style={{ marginLeft: '80px' }}> AMC</h3>
+                <Button style={{width:'120px',height:'30px',marginLeft:'70%',marginTop:'30px'}} variant="outlined" onClick={handleModalOpen}>
+                   Add
+                </Button>  
+            </div>
+            <hr style={{ bottom: 'solid' , borderColor:'whitesmoke'}} />
+            <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+                <DataGrid
+                rows={rows}
+                columns={columns} />
+            </div>
+    
             <AmcServiceModel 
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                isService={isService}
-                editData={editData}
-                setRefresh={setRefresh}
-                
-            />
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            isService={isService}
+            editData={editData}
+            setRefresh={setRefresh}/>
             
             <NotificationBar
-                handleClose={handleClose}
-                notificationContent={openNotification.message}
-                openNotification={openNotification.status}
-                type={openNotification.type}
-            />
-    </div>
-  )
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
+        </div>
+    )
 }
 
 export default AmcServiceList

@@ -16,114 +16,145 @@ import dayjs from 'dayjs';
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-
-
-import { UserAddService, UserUpdateService,FetchDepaertmentService } from '../../services/ApiServices';
+import { 
+  UserAddService,
+  UserUpdateService,
+  FetchDepaertmentService,
+  FetchSectionService,
+  FetchAssetTypeService,
+} from '../../services/ApiServices';
 
 const AmcServiceDueModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [departmentList, setDepartmentList] = useState([])
-    const [department, setDepartment] = useState('')
-    const [employeeId, setemployeeId] = useState('')
-    const [employeeName, setemployeeNamed] = useState('')
-    const [designation, setdesignation] = useState('')
-    const [mobile_number, setmobile_number] = useState('')
-    const [emailId, setemailId] = useState('')
-    const [userName, setuserName] = useState('')
-    const [password, setpassword] = useState('')
-   
-    const [openNotification, setNotification] = useState({
-        status: false,
-        type: 'error',
-        message: '',
-    });
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event) => {
-      setAge(event.target.value);
-    };
-
-    const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
-
+  const [departmentList, setDepartmentList] = useState([]);
+  const [department, setDepartment] = useState('');
+  const [section ,setSection]= useState();
+  const [sectionList,setSectionList]=useState([]);
+  const [employeeId, setemployeeId] = useState('');
+  const [employeeName, setemployeeNamed] = useState('');
+  const [designation, setdesignation] = useState('');
+  const [mobile_number, setmobile_number] = useState('');
+  const [emailId, setemailId] = useState('');
+  const [userName, setuserName] = useState('');
+  const [password, setpassword] = useState('');
+  const [assetList, setAssetList]= useState([]);
+  const [asset, setAsset]= useState('');
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
+  
+  const [age, setAge] = React.useState('');
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+  
+  const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
   const handleChangeDate = (newValue) => {
     setValue(newValue);
   };
-      
-    useEffect(() => {
-     
-    }, [editData]);
+  
+  useEffect(() => {
+    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+  }, [editData]);
+  
+  const handleFetchSuccess = (dataObject) =>{
+    setDepartmentList(dataObject.data);
+  }
+  
+  const handleFetchException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+  
+  const onDepartmentChange = (e) => {
+    setDepartment(e.target.value);
+    FetchSectionService ({
+      id: e.target.value
+  },handleFetchDepartmentSuccess, handleFetchDepartmentException);
+}
 
-    const handleFetchSuccess = (dataObject) =>{
-        setDepartmentList(dataObject.data);
-      }
-      const handleFetchException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-      }
-    
-      const onDepartmentChange = (e) => {
-        setDepartment(e.target.value);
-      }
-      
-      const handleClose = () => {
-        setOpen(false);
-      
-        };
-    
-      const onSubmit = (e) => {
-        e.preventDefault();
-         isAdd === true ?
-          (
-        
-          UserAddService({
-          
-         
-          },handleSuccess, handleException)
-          ) : (
-         
-          UserUpdateService({
-            id: editData.id,
-        
-          }, handleSuccess, handleException)
-          );
-      }
-    
-      const handleSuccess = (dataObject) =>{
-        console.log(dataObject);
-        setRefresh(oldValue => !oldValue);
-        setNotification({
-          status: true,
-          type: 'success',
-          message: dataObject.message,
-        });
-      
-      }
-    
-      const handleException = (errorObject, errorMessage) =>{
-        console.log(errorMessage);
-        setNotification({
-          status: true,
-          type: 'error',
-          message:errorMessage,
-        });
-      }
-    
-      const handleCloseNotify = () => {
-       setOpen(false)
-        setNotification({
-          status: false,
-          type: '',
-          message: '',
-        });
-      };
-  return (
-    <div>
-         <Dialog
-      open={open}
-      maxWidth='lg'
-    >
+const handleFetchDepartmentSuccess = (dataObject) =>{
+  setSectionList(dataObject.data);
+}
+
+const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
+  console.log(errorMessage);
+}
+
+const onSectionChange = (e) => {
+  setSection(e.target.value); 
+  FetchAssetTypeService({
+    id: e.target.value
+  },handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+}
+
+const handleFetchAssetTypeServiceSuccess = (dataObject) =>{
+  setAssetList(dataObject.data);
+}
+
+const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) =>{
+  console.log(errorMessage);
+}
+
+const handleClose = () => {
+  setOpen(false);
+};
+
+const onSubmit = (e) => {
+  e.preventDefault();
+  isAdd === true ?
+  (
+    UserAddService({
+      department:department,
+      section:section,
+    },handleSuccess, handleException)
+  ) : (
+    UserUpdateService({
+      id: editData.id,
+      department:department,
+      section:section,
+    }, handleSuccess, handleException)
+  );
+}
+
+const handleSuccess = (dataObject) =>{
+  console.log(dataObject);
+  setRefresh(oldValue => !oldValue);
+  setNotification({
+    status: true,
+    type: 'success',
+    message: dataObject.message,
+  });   
+}
+
+const handleException = (errorObject, errorMessage) =>{
+  console.log(errorMessage);
+  setNotification({
+    status: true,
+    type: 'error',
+    message:errorMessage,
+  });
+}
+
+const handleCloseNotify = () => {
+  setOpen(false)
+  setNotification({
+    status: false,
+    type: '',
+    message: '',
+  });
+};
+
+const onAssetChange=(e)=>{
+  setAsset(e.target.value)
+}
+
+return (
+  <div>
+    <Dialog
+    open={open}
+    maxWidth='lg'>
       <form onSubmit={onSubmit}>
         <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
           {'Service Due'}
@@ -131,91 +162,86 @@ const AmcServiceDueModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         <DialogContent>
           <DialogContentText>
             <div>
-                <form>
-                    <div style={{display:'flex' ,marginTop:'50px',alignItems:'center'}}>
-                    <label style={{marginLeft:'40px',marginRight:'50px'}}>Service Date From:</label>
-                    <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                        <Stack spacing={3}>
-                            <DesktopDatePicker
-                            label="Date desktop"
-                            inputFormat="MM/DD/YYYY"
-                            value={value}
-                            onChange={handleChangeDate}
-                            renderInput={(params) => <TextField {...params} />}
-                            />
-                        </Stack>
-                        </LocalizationProvider>
-                        <label style={{marginLeft:'40px',marginRight:'50px'}}>To:</label>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <Stack spacing={3}>
-                                    <DesktopDatePicker
-                                    label="Date desktop"
-                                    inputFormat="MM/DD/YYYY"
-                                    value={value}
-                                    onChange={handleChange}
-                                    renderInput={(params) => <TextField {...params} />}
-                            />
-                        </Stack>
-                        </LocalizationProvider>
-
-                    </div>
-                    <div style={{display:'flex',  marginTop:'40px' , alignItems:'center'}}>
-                        <label style={{marginLeft:'40px',marginRight:'20px'}}>Department:</label>
-                        <Box sx={{ minWidth: 120 }}>
-                        <FormControl style={{width:'200px'}}>
-                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                            >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                        </Box>
-                        <label style={{marginLeft:'30px',marginRight:'20px'}}>Section:</label>
-                        <Box sx={{ minWidth: 120 }}>
-                        <FormControl style={{width:'200px'}}>
-                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                            >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                        </Box>
-                        <label style={{marginLeft:'30px',marginRight:'20px'}}>Asset Type:</label>
-                        <Box sx={{ minWidth: 120 }}>
-                        <FormControl style={{width:'200px'}}>
-                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
-                            >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                        </Box>
-                    </div>
-                   
-                </form>
+              <form>
+                <div style={{display:'flex' ,marginTop:'50px',alignItems:'center'}}>
+                  <label style={{marginLeft:'40px',marginRight:'50px'}}>Service Date From:</label>
+                  <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                    <Stack spacing={3}>
+                      <DesktopDatePicker
+                      label="Date desktop"
+                      inputFormat="MM/DD/YYYY"
+                      value={value}
+                      onChange={handleChangeDate}
+                      renderInput={(params) => <TextField {...params} />}/>
+                    </Stack>
+                  </LocalizationProvider>
+                  <label style={{marginLeft:'40px',marginRight:'50px'}}>To:</label>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <Stack spacing={3}>
+                      <DesktopDatePicker
+                      label="Date desktop"
+                      inputFormat="MM/DD/YYYY"
+                      value={value}
+                      onChange={handleChange}
+                      renderInput={(params) => <TextField {...params} />}/>
+                    </Stack>
+                  </LocalizationProvider>
+                </div>
+                <div style={{display:'flex',  marginTop:'40px' , alignItems:'center'}}>
+                  <label style={{marginLeft:'40px',marginRight:'20px'}}>Department:</label>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl style={{width:'200px'}}>
+                      <InputLabel id="demo-simple-select-label"></InputLabel>
+                      <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label=""
+                      onChange={(e) => onDepartmentChange(e)}>
+                        {departmentList.map((data, index) => {
+                          return (
+                            <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                          )
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <label style={{marginLeft:'30px',marginRight:'20px'}}>Section:</label>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl style={{width:'200px'}}>
+                      <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                      <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label=""
+                      onChange={(e) => onSectionChange(e)}>
+                        {sectionList.map((data, index) => {
+                          return (
+                            <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                          )
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <label style={{marginLeft:'30px',marginRight:'20px'}}>Asset Type:</label>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl style={{width:'200px'}}>
+                      <InputLabel id="demo-simple-select-label"></InputLabel>
+                      <Select
+                      labelId="Asset Type"
+                      id="Asset Type"
+                      label="Asset Type"
+                      onChange={(e) => onAssetChange(e)}>
+                        {assetList.map((data, index) => {
+                          return (
+                            <MenuItem value={data.id} key={index}>{data.asset}</MenuItem>
+                          )
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+              </form>
             </div>
-           
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -226,16 +252,15 @@ const AmcServiceDueModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </Button>
           </div>
           <NotificationBar
-                    handleClose={handleCloseNotify}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
+          handleClose={handleCloseNotify}
+          notificationContent={openNotification.message}
+          openNotification={openNotification.status}
+          type={openNotification.type}/>
         </DialogActions>
       </form>
     </Dialog>
-    </div>
+  </div>
   )
 }
 
-export default AmcServiceDueModel
+export default AmcServiceDueModel;

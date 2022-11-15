@@ -52,7 +52,7 @@ const InsuranceList = () => {
     };
   return (
     <div>
-    <div style={{border:'solid'}}>
+    <div style={{border:'solid',borderColor:'whitesmoke'}}>
         <div style={{display:'flex',}}>
           <h3 style={{ marginLeft: '80px',marginBottom:'0px' }}>VENDER DETAILS</h3>
           
@@ -60,7 +60,7 @@ const InsuranceList = () => {
               Add
           </Button>
           </div>
-          <hr style={{ bottom: 'solid' }} />
+          <hr style={{ bottom: 'solid' ,borderColor:'whitesmoke'}} />
 
           <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
               <DataGrid
