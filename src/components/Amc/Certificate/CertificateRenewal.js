@@ -13,7 +13,7 @@ const CertificateRenewal = () => {
     ];
   return (
     <div>
-     <form style={{border:'solid'}}>
+     <form style={{border:'solid', borderColor:'whitesmoke'}}>
         
       <h3 style={{marginLeft:'40%'}}> View Certificate </h3>
       <hr/>

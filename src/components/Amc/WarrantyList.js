@@ -66,7 +66,7 @@ const WarrantyList = () => {
     <div>
 
     </div>
-    <div style={{border:'solid',marginTop:'30px    '}}>
+    <div style={{border:'solid',marginTop:'30px',borderColor:'whitesmoke'}}>
       <h3 style={{marginLeft:'30px'}}>View Warranty</h3>
     <hr/>
     <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>

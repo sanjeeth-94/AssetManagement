@@ -50,7 +50,7 @@ const InsuranceDueList = () => {
        
     };
   return (
-    <div style={{border:'solid'}}>
+    <div style={{border:'solid',borderColor:'whitesmoke'}}>
          <div style={{display:'flex',alignItems:'center'}}>
                 <h3 style={{ marginLeft: '50px', width:500}}>SERVICE DUE DATE</h3>
                 <Button style={{marginLeft:'40%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>

@@ -16,7 +16,7 @@ import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { AmcServiceAddService, AmcServiceUpdateService } from '../../../services/ApiServices';
+import { AmcServiceAddService, AmcServiceUpdateService,FetchDepaertmentService, FetchSectionService  } from '../../../services/ApiServices';
 
 const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
     const [venderNameList ,setVenderNameList]= useState([]);
@@ -31,11 +31,12 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
     const [servicePattern ,setServicePattern]= useState();
     const [department  ,setDepartment]= useState();
     const [section ,setSection]= useState();
+    const [sectionList,setSectionList]=useState([]);
     const [assetType ,setAssetType]= useState();
     const [assetName ,setAssetName]= useState();
     const [departmentList,setDepartmentList]= useState([]);
-    
     const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
+    const [gstCertificate, setGstCertificate] = useState('');
     const handleChangeDateFrom = (newValue) => {
       setValue(newValue);
     };
@@ -57,33 +58,40 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
         message: '',
       });
 
-    useEffect(() => {
-        
+      useEffect(() => {
+        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
       }, [editData]);
-      const handleFetchSuccess = (dataObject) =>{
-        setDepartmentList(dataObject.data);
-      }
-      const handleFetchException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-      }
-    
-      const onDepartmentChange = (e) => {
-        setDepartment(e.target.value);
-      }
-    
+
+       const handleFetchSuccess = (dataObject) =>{
+    setDepartmentList(dataObject.data);
+  }
+  
+  const handleFetchException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+  
+  const onDepartmentChange = (e) => {
+    setDepartment(e.target.value);
+    FetchSectionService ({
+      id: e.target.value
+  },handleFetchDepartmentSuccess, handleFetchDepartmentException);
+
+}
     const onSubmit = (e) => {
         e.preventDefault();
             isAdd === true ?
             (
         
             AmcServiceAddService({
-            
+              department:department,
+              section:section,
             },handleSuccess, handleException)
             ) : (
             
             AmcServiceUpdateService({
             id: editData.id,
-            
+            department:department,
+          section:section,
             }, handleSuccess, handleException)
             );
         }
@@ -116,6 +124,18 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
             message: '',
         });
         };
+        const handleFetchDepartmentSuccess = (dataObject) =>{
+          setSectionList(dataObject.data);
+  
+        }
+        const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
+          console.log(errorMessage);
+        }
+  
+        const onSectionChange = (e) => {
+          setSection(e.target.value);    
+        }
+
   return (
     <div>
            <Dialog
@@ -140,12 +160,10 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={age}
+                        
                         label="Age"
-                        onChange={handleChange}>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                        >
+                          
                         </Select>
                       </FormControl>
                     </Box>
@@ -200,7 +218,7 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
                         value={venderPhone}    
                     />
                   </div>
-                  <form style={{ border: 'solid' }}>
+                  <form style={{ border: 'solid', borderColor:'whitesmoke' }}>
                     <div style={{ margin: '20px' }}>
                       <h2>CERTIFICATE DETAILS</h2>
                       <hr />
@@ -247,43 +265,55 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
                         value={premiumCost}    
                        />
                       <label style={{ marginLeft: '60px', marginRight: '50px' }}>Certificate Doc</label>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Button style={{ width: "200px" }} variant="contained" component="label">
-                          Upload
-                          <input hidden accept="image/*" multiple type="file" />
-                        </Button>
-                      </Stack>
+                      <TextField
+                  style={{ width: '300px', marginLeft: '20px' }}
+                  
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        if (reader.readyState === 2) {
+                          setGstCertificate(reader.result);
+                        }
+                      };
+                      reader.readAsDataURL(e.target.files[0]);
+                    }
+                  }}
+                  InputLabelProps={{ shrink: true }}
+                  type="file"
+                />
                     </div>
                     <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center' }}>
                       <label style={{ marginRight: '60px' }}>Inspection Pattern :</label>
                       <Box>
                         <FormControl style={{ width: '260px' }}>
-                          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={age}
-                          label="Age"
-                          onChange={handleChange}>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                          
+                          label=""
+                          >
+                            
                           </Select>
                         </FormControl>
                       </Box>
                       <label style={{ marginRight: '10px', marginLeft: '30px' }}>Department :</label>
                       <Box>
                         <FormControl style={{ width: '260px' }} >
-                          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={age}
+                          
                           label="Age"
-                          onChange={handleChange}>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                          onChange={(e) => onDepartmentChange(e)}>
+                            {departmentList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                              )
+                            })}
+                            
                           </Select>
                         </FormControl>
                       </Box>
@@ -292,32 +322,32 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
                       <label style={{ marginRight: '140px' }}>Section:</label>
                       <Box>
                         <FormControl style={{ width: '260px' }}>
-                          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={age}
+                          
                           label="Age"
-                          onChange={handleChange}>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                          onChange={(e) => onSectionChange(e)}>
+                          {sectionList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                              )
+                          })}
                           </Select>
                         </FormControl>
                       </Box>
                       <label style={{ marginRight: '10px', marginLeft: '30px' }}>Asset Type :</label>
                       <Box>
                         <FormControl style={{ width: '260px' }}>
-                          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={age}
+                          
                           label="Age"
-                          onChange={handleChange}>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                          >
+                           
                           </Select>
                         </FormControl>
                       </Box>
@@ -326,16 +356,14 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
                       <label style={{ marginRight: '100px' }}>Asset Name :</label>
                       <Box>
                         <FormControl style={{ width: '260px' }}>
-                          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={age}
+                          
                           label="Age"
-                          onChange={handleChange}>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                          >
+                            
                           </Select>
                         </FormControl>
                       </Box>

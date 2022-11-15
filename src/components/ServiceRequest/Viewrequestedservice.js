@@ -11,14 +11,6 @@ const Viewrequestedservice = () => {
             View Requested Service
             <hr style={{bottom:'solid'}}/>
             </div>
-            <div className='search'>
-                <label>Search : </label>
-                <TextField
-                id="outlined-size-small"
-                defaultValue="Search"
-                size="small"/>
-            </div>
-            <hr style={{bottom:'solid'}}/>
         </form>
       <Requestviewtable />
       </div>
