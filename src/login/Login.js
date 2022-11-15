@@ -8,6 +8,12 @@ import ApplicationStore from '../utils/ApplicationStore';
 
 const Login = () => {
   const navigate = useNavigate();
+  
+  useEffect(()=>{
+    const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+    return userDetails?.access_token? navigate('/main') : {}
+  },[]);
+
   const successCaseCode = [200, 201];
   const [data, setData] = useState({
     email: '',

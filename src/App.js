@@ -1,6 +1,6 @@
 import DashBoard from './dashBord/DashBoard'
 import Login from './login/Login';
-import {Route,Routes, useNavigate,} from 'react-router-dom';
+import {Navigate, Outlet, Route,Routes, useNavigate,} from 'react-router-dom';
 import PrivateRoutes from './ProtectedRouts';
 import Main from './components/mian/Main';
 import AssetTab from './components/Asset/AssetTab';
@@ -23,15 +23,24 @@ import MaintenanceSchedulList from './components/check/MaintenanceSchedulList';
 
 function App() {
   const navigate = useNavigate();
-  useEffect(()=>{
+  // useEffect(()=>{
+  //   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+  //   return !userDetails?.access_token? navigate('/login' ) : navigate('/main')
+  // },[]);
+  function ProtectedRoutes() {
+    const navigate = useNavigate();
     const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
-    return !userDetails?.access_token? navigate('/login' ) : navigate('/main')
-  },[]);
+    if (userDetails) {
+      return !userDetails?.access_token? navigate('/login' ) : <Outlet />
+    }
+    
+    return <Navigate replace to="/login" />;
+  }
   
   return (
     <Routes>
       <Route path="/login"  element={<Login/>}/> 
-      <Route element={<PrivateRoutes/>}>
+      <Route element={<ProtectedRoutes/>}>
            <Route path="/" element={<DashBoard/>}>
               <Route path="/main" element={<Main/>}/>
               <Route path="/asset" element={<AssetTab/>}/>

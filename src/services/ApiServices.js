@@ -72,7 +72,11 @@ export const LoginService = (data) => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data),
   });
+
 };
+
+
+
 
 export const LogoutService = (successCallback, errorCallBack) => _fetchService('logout', 'POST', {}, successCallback, errorCallBack);
 
@@ -81,8 +85,9 @@ export const FetchSectionService = (data,successCallback, errorCallBack) => _fet
 
 export const FetchAssetTypeService = (data,successCallback, errorCallBack) => _fetchService(`getAssetType/${data.id}`, 'GET', {}, successCallback, errorCallBack);
 
-export const FetchAssetNameService = (successCallback, errorCallBack) => _fetchService('getAssetName/{id}', 'GET', {}, successCallback, errorCallBack);
+export const FetchAssetNameService = (data,successCallback, errorCallBack) => _fetchService(`getAssetName/${data.id}`, 'GET', {}, successCallback, errorCallBack);
 
+export const FetchVenderDataService = (data,successCallback, errorCallBack) => _fetchService(`getVendorData/${data.id}`, 'GET', {}, successCallback, errorCallBack);
 
 // // --------- User--------------//
 export const FetchUserService = (successCallback, errorCallBack) => _fetchService('user/showData', 'GET', {}, successCallback, errorCallBack);
@@ -124,13 +129,13 @@ export const FetchRequestedService = (successCallback, errorCallBack) => _fetchS
 
 export const  FetchAssetListService = (successCallback, errorCallBack) => _fetchService('asset/showData', 'GET', {}, successCallback, errorCallBack);
 
-export const FetchVenderService = (successCallback, errorCallBack) => _fetchService('getVendor', 'GET', {}, successCallback, errorCallBack);
+export const  FetchVenderService = (successCallback, errorCallBack) => _fetchService('getVendor', 'GET', {}, successCallback, errorCallBack);
 
-export const AssetAddService = (data, successCallback, errorCallBack) => _fetchService('asset/getVendor', 'POST', data, successCallback, errorCallBack);
+export const  AssetAddService = (data, successCallback, errorCallBack) => _fetchService('asset/add', 'POST', data, successCallback, errorCallBack);
 
-export const AssetUpdateService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+export const  AssetUpdateService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
-export const AssetDeleteService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+export const  AssetDeleteService = (data, successCallback, errorCallBack) => _fetchService(`vendorType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 
 
@@ -182,7 +187,7 @@ export const  FetchAuditSectionService = (data,successCallback, errorCallBack) =
 
 export const  FetchAuditAssetTypeService = (data,successCallback, errorCallBack) => _fetchService(`audit/${data.id}/getAssetType`, 'GET', {}, successCallback, errorCallBack);
 
-export const AuditAddService = (data, successCallback, errorCallBack) => _fetchService('audit/add', 'POST', data, successCallback, errorCallBack);
+export const  AuditAddService = (data, successCallback, errorCallBack) => _fetchService('audit/add', 'POST', data, successCallback, errorCallBack);
 
 export const  AuditUpdateService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 

@@ -10,7 +10,7 @@ const UserList = (props) => {
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh , setRefresh]=useState(false)
+    const [refresh , setRefresh]=useState(false);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',

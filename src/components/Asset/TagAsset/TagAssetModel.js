@@ -26,7 +26,7 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     };
     
     const onTagAssetType = (event) => {
-      // setTagAssetType(event.target.value);
+        setTageAssetType(event.target.value);
     };
     
     useEffect(() => {
@@ -56,13 +56,16 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                     name="row-radio-buttons-group"
                     value={tagAssetType}
                     onChange={onTagAssetType}>
+
                         <FormControlLabel value="Department" control={<Radio />} label="Department" />
                         <FormControlLabel value="AssetId" control={<Radio />} label="Asset Id" />
                     </RadioGroup>
                 </FormControl>
             </div>
             <div>
-                {tagAssetType === 'Department' && 
+                {
+                  tagAssetType === 'Department' && 
+
                 <form>
                     <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                         <label style={{marginLeft:'5px'}}>Department : </label>
@@ -131,7 +134,8 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                     </div>
                 </form>
             }
-            {tagAssetType === 'AssetId' && 
+            {
+             tagAssetType === 'AssetId' && 
             <form>
                 <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                     <label style={{marginLeft:'5px'}}>Asset Id : </label>

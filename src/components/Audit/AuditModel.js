@@ -17,7 +17,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import NotificationBar from '../../services/NotificationBar';
-import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeService,AuditAddService, AuditUpdateService } from '../../services/ApiServices';
+import {
+        FetchDepaertmentService,
+        FetchSectionService,
+        FetchAssetTypeService,
+        AuditAddService, 
+        AuditUpdateService 
+      } from '../../services/ApiServices';
 
   const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
    
@@ -64,7 +70,7 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
   }
   const onDepartmentChange = (e,) => {
     setDepartment(e.target.value);
-     FetchAuditSectionService({
+    FetchSectionService({
         id: e.target.value
     },handleFetchSectionSuccess, handleFetchSectionException);
 
@@ -78,7 +84,7 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
 
   const onSectionChange = (e) => {
     setSection(e.target.value);
-    FetchAuditAssetTypeService ({id: e.target.value},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+    FetchAssetTypeService({id: e.target.value},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
   
   }
   const handleFetchAssetTypeSuccess = (dataObject) =>{
@@ -197,7 +203,7 @@ import {FetchDepaertmentService,FetchAuditSectionService,FetchAuditAssetTypeServ
                                 <Select
                                     labelId="sectionList"
                                     id='section'
-                                    label="Section"
+                                    label="Select section"
                                     onChange={(e) => onSectionChange(e)}>
                                     {sectionList.map((data, index) => {
                                     return (

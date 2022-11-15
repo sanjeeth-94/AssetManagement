@@ -117,7 +117,9 @@ const AssetList = () => {
             setOpen={setOpen}
             isAdd={isAdd}
             editData={editData}
-            setRefresh={setRefresh}/>
+            setRefresh={setRefresh}
+            refresh ={refresh}
+            />
         </div>
     )
 }
