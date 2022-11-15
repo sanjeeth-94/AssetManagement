@@ -5,7 +5,6 @@ import { FetchUserService, UserDeleteService } from '../../services/ApiServices'
 import NotificationBar from '../../services/NotificationBar';
 import AmcServiceDueModel from './AmcServiceDueModel';
 
-
 const AmcServiceDueList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
@@ -17,6 +16,7 @@ const AmcServiceDueList = () => {
         type: 'error',
         message: '',
     });
+    
     const columns = [
         { field: 'Vendor Name', headerName: 'Vendor Name	', width: 400 },
         { field: 'Asset Name', headerName: 'Asset Name	', width: 400 },
@@ -50,38 +50,36 @@ const AmcServiceDueList = () => {
         setOpen(true);
        
     };
-
-  return (
-   
-      <div style={{border:'solid'}}>
-           <div style={{display:'flex'}}>
-            <h3 style={{ marginLeft: '80px' }}>SERVICE DUE DATE</h3> 
-            <Button style={{marginLeft:'53%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
-                Add
-            </Button>
+  
+    return (
+        
+        <div style={{border:'solid' , borderColor:'whitesmoke'}}>
+            <div style={{display:'flex'}}>
+                <h3 style={{ marginLeft: '80px' }}>SERVICE DUE DATE</h3>
+                <Button style={{marginLeft:'53%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
+                  Add
+                </Button>
             </div>
-            <hr style={{ bottom: 'solid' }} />
+            <hr style={{ bottom: 'solid',borderColor:'whitesmoke' }} />
             <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
                 <DataGrid
                 rows={rows}
                 columns={columns} />
             </div>
             <AmcServiceDueModel
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-                setRefresh={setRefresh}
-            />
-                 <NotificationBar
-                    handleClose={handleClose}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
-        </div>
-    
-  )
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            editData={editData}
+            setRefresh={setRefresh}/>
+            
+            <NotificationBar
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
+        </div>    
+    )
 }
 
 export default AmcServiceDueList

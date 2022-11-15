@@ -119,14 +119,14 @@ const CertificateList = () => {
         });
       };
   return (
-    <div style={{border:'solid'}}>
+    <div style={{border:'solid',borderColor:'whitesmoke'}}>
         <div style={{display:'flex', marginLeft:'40px',}}>
            <h3 style={{ marginLeft: '60px' }}> INSPECTION</h3>            
                 <Button style={{width:'120px',height:'30px', marginLeft:'60%',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
                     Add
                 </Button>
             </div>
-            <hr style={{ bottom: 'solid' }} />
+            <hr style={{ bottom: 'solid' , borderColor:'whitesmoke'}} />
     <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
        <DataGrid
        rows={rows}
