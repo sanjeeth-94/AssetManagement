@@ -39,6 +39,8 @@ const AmcServiceDueModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [password, setpassword] = useState('');
   const [assetList, setAssetList]= useState([]);
   const [asset, setAsset]= useState('');
+  const [assetTypeList, setAssetTypeList] = useState([]);
+  const [assetType, setAssetType] = useState('');
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -84,18 +86,10 @@ const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
 
 const onSectionChange = (e) => {
   setSection(e.target.value); 
-  FetchAssetTypeService({
-    id: e.target.value
-  },handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+  FetchAssetTypeService({ id: e.target.value },handleFetchAssetType, handleFetchAssetTypeException)   
 }
 
-const handleFetchAssetTypeServiceSuccess = (dataObject) =>{
-  setAssetList(dataObject.data);
-}
 
-const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) =>{
-  console.log(errorMessage);
-}
 
 const handleClose = () => {
   setOpen(false);
@@ -108,12 +102,14 @@ const onSubmit = (e) => {
     UserAddService({
       department:department,
       section:section,
+      assetType:assetType,
     },handleSuccess, handleException)
   ) : (
     UserUpdateService({
       id: editData.id,
       department:department,
       section:section,
+      assetType:assetType,
     }, handleSuccess, handleException)
   );
 }
@@ -146,8 +142,16 @@ const handleCloseNotify = () => {
   });
 };
 
-const onAssetChange=(e)=>{
-  setAsset(e.target.value)
+
+const handleFetchAssetType = (dataObject) => {
+  setAssetTypeList(dataObject.data);
+}
+const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
+  console.log(errorMessage);
+}
+
+const onAssetTypeChange = (e) => {
+  setAssetType(e.target.value);
 }
 
 return (
@@ -208,7 +212,7 @@ return (
                   <label style={{marginLeft:'30px',marginRight:'20px'}}>Section:</label>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl style={{width:'200px'}}>
-                      <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                      <InputLabel id="demo-simple-select-label"></InputLabel>
                       <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -230,12 +234,12 @@ return (
                       labelId="Asset Type"
                       id="Asset Type"
                       label="Asset Type"
-                      onChange={(e) => onAssetChange(e)}>
-                        {assetList.map((data, index) => {
-                          return (
-                            <MenuItem value={data.id} key={index}>{data.asset}</MenuItem>
-                          )
-                        })}
+                      onChange={(e) => onAssetTypeChange(e)}>
+                    {assetTypeList.map((data, index) => {
+                        return (
+                            <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                        )
+                    })}
                       </Select>
                     </FormControl>
                   </Box>

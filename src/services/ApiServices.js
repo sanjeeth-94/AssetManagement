@@ -195,6 +195,8 @@ export const  AuditUpdateService = (data, successCallback, errorCallBack) => _fe
 
 export const AuditDeleteService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
+export const ViewAuditReportService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/viewAuditReport`, 'POST', data, successCallback, errorCallBack);
+
 ///..........Amc.........//// 
 export const  FetchAmcServiceListService = (successCallback, errorCallBack) => _fetchService('AmcService/showData', 'GET', {}, successCallback, errorCallBack);
 
