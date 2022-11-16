@@ -17,222 +17,277 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import {
-  AmcServiceAddService, 
+  AmcServiceAddService,
   AmcServiceUpdateService,
-  FetchDepaertmentService, 
+  FetchDepaertmentService,
   FetchSectionService,
   FetchAssetTypeService,
+  FetchVenderService,
+  FetchVenderDataService,
 } from '../../services/ApiServices';
 
-const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
-  const [venderNameList ,setVenderNameList]= useState([]);
-  const [venderEmail ,setVenderEmail]= useState();
-  const [venderAddress ,setVenderAddress]= useState();
-  const [venderCompany ,setVenderCompany]= useState();
-  const [venderPhone ,setVenderPhone]= useState();
-  const [periodFrom ,setPeriodFrom]= useState();
-  const [periodTo ,setPeriodTo]= useState();
-  const [premiumCost ,setPremiumCost]= useState();
-  const [AMCDoc ,setAMCDoc]= useState();
-  const [servicePattern ,setServicePattern]= useState();
-  const [department  ,setDepartment]= useState();
-  const [section ,setSection]= useState();
-  const [sectionList,setSectionList]=useState([]);
-  const [departmentList,setDepartmentList]= useState([]);
-  const [assetType ,setAssetType]= useState();
-  const [assetName ,setAssetName]= useState();
-  const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
+const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh, isService }) => {
+  const [vendorName, setVendorName] = useState('');
+  const [vendorNameList, setVendorNameList] = useState([]);
+  const [venderEmail, setVenderEmail] = useState();
+  const [venderAddress, setVenderAddress] = useState();
+  const [venderCompany, setVenderCompany] = useState();
+  const [venderPhone, setVenderPhone] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailId, setEmailId] = useState('');
+  const [periodFrom, setPeriodFrom] = useState();
+  const [periodTo, setPeriodTo] = useState();
+  const [premiumCost, setPremiumCost] = useState();
+  const [AMCDoc, setAMCDoc] = useState();
+  const [servicePattern, setServicePattern] = useState();
+  const [department, setDepartment] = useState();
+  const [section, setSection] = useState();
+  const [sectionList, setSectionList] = useState([]);
+  const [departmentList, setDepartmentList] = useState([]);
+  const [assetType, setAssetType] = useState();
+  const [assetName, setAssetName] = useState();
+  const [fromDate, setfromDate] = useState(dayjs('2014-08-18T21:11:54'));;
+  const [toDate, settoDate] = useState(dayjs('2014-08-18T21:11:54'));;
   const [gstCertificate, setGstCertificate] = useState('');
-  const [assetList, setAssetList]=useState([]);
-  const [asset, setAsset]=useState('');
-  const handleChangeDateFrom = (newValue) => {
-    setValue(newValue);
-  };
+  const [assetList, setAssetList] = useState([]);
+  const [asset, setAsset] = useState('');
+  const [vendorData, setVendorData] = useState([]);
+  const [vendorAddress, setVendorAddress] = useState('');
+  const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
   
-  const handleChangeDateTo = (newValue) => {
-    setValue(newValue);
-  };
-  
+
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
     message: '',
   });
-  
+
+  const handleChangefromDate = (newValue) => {
+     
+    setfromDate(newValue);
+};
+
+const handleChangetoDate = (newValue) => {
+    setValue(newValue);
+    settoDate(newValue);
+};
+
+
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    FetchVenderService(handleFetchVender, handleFetchVenderException);
   }, [editData]);
-  
-  const handleFetchSuccess = (dataObject) =>{
+
+  const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
   }
-  
-  const handleFetchException = (errorStaus, errorMessage) =>{
+
+  const handleFetchException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
-  
+
+  const handleFetchVender = (dataObject) => {
+    setVendorNameList(dataObject.data);
+  }
+
+  const handleFetchVenderException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
   const onDepartmentChange = (e) => {
     setDepartment(e.target.value);
-    FetchSectionService ({
+    FetchSectionService({
       id: e.target.value
-  },handleFetchDepartmentSuccess, handleFetchDepartmentException);
+    }, handleFetchDepartmentSuccess, handleFetchDepartmentException);
 
-}
+  }
 
-const handleFetchDepartmentSuccess = (dataObject) =>{
-  setSectionList(dataObject.data);
-}
+  const handleFetchDepartmentSuccess = (dataObject) => {
+    setSectionList(dataObject.data);
+  }
 
-const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
-  console.log(errorMessage);
-}
+  const handleFetchDepartmentException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
 
-const onSectionChange = (e) => {
-  setSection(e.target.value);
-  FetchAssetTypeService ({
-    id: e.target.value
-  },handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
-}
+  const onSectionChange = (e) => {
+    setSection(e.target.value);
+    FetchAssetTypeService({
+      id: e.target.value
+    }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+  }
 
-const handleFetchAssetTypeServiceSuccess = (dataObject) =>{
-  setAssetList(dataObject.data);
-}
+  const handleFetchAssetTypeServiceSuccess = (dataObject) => {
+    setAssetList(dataObject.data);
+  }
 
-const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) =>{
-  console.log(errorMessage);
-}
+  const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
 
-const onAssetChange =(e)=>{
-  setAsset(e.target.value)
-}
+  const onAssetChange = (e) => {
+    setAsset(e.target.value)
+  }
 
-const onSubmit = (e) => {
-  e.preventDefault();
-  isAdd === true ?
-  (
-    AmcServiceAddService({
-      department:department,
-      section:section,
-    },handleSuccess, handleException)
-  ) : (
-    AmcServiceUpdateService({
-      id: editData.id,
-      department:department,
-      section:section,
-    }, handleSuccess, handleException)
-  );
-}
+  const onAssetTypeChange = (e) => {
+    setAssetType(e.target.value);
+  }
+  const onVenderChange = (e) => {
+    setVendorName(e.target.value);
+    FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
+  }
+  const handleFetchVenderDataService = (dataObject) => {
+    setVendorData(dataObject.data);
+    setPhoneNumber(dataObject?.data[0]?.contactNo || '');
+    setEmailId(dataObject?.data[0]?.email || '');
+    setVenderAddress(dataObject?.data[0]?.address || '');
 
-const handleSuccess = (dataObject) =>{
-  console.log(dataObject);
-  setRefresh(oldValue => !oldValue);
-  setNotification({
-    status: true,
-    type: 'success',
-    message: dataObject.message,
-  });
-}
+  }
 
-const handleException = (errorObject, errorMessage) =>{
-  console.log(errorMessage);
-  setNotification({
-    status: true,
-    type: 'error',
-    message:errorMessage,
-  });
-}
+  const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
 
-const handleCloseNotify = () => {
-  setOpen(false)
-  setNotification({
-    status: false,
-    type: '',
-    message: '',
-  });
-}; 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    isAdd === true ?
+      (
+        AmcServiceAddService({
+          department: department,
+          section: section,
+          vendorName: vendorName,
+          phoneNumber: phoneNumber,
+          email: emailId,
+          fromDate:fromDate,
+          toDate:toDate,
+        }, handleSuccess, handleException)
+      ) : (
+        AmcServiceUpdateService({
+          id: editData.id,
+          department: department,
+          section: section,
+          vendorName: vendorName,
+          phoneNumber: phoneNumber,
+          email: emailId,
+        }, handleSuccess, handleException)
+      );
+  }
 
-return (
-  <div>
-    <Dialog
-    open={open}
-    onClose={handleClose}
-    fullWidth
-    maxWidth='lg'>
-      <form onSubmit={onSubmit}>
-        <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
+  const handleSuccess = (dataObject) => {
+    console.log(dataObject);
+    setRefresh(oldValue => !oldValue);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    });
+  }
+
+  const handleException = (errorObject, errorMessage) => {
+    console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+  }
+
+  const handleCloseNotify = () => {
+    setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
+  return (
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth='lg'>
+        <form onSubmit={onSubmit}>
+          <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {"VENDER DETAILS"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <form>
                 <div>
-                  <div>
-                    <h2>VENDER DETAILS</h2> <hr />
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name</label>
+                  <div style={{ display: 'flex', alignItems: 'center', marginTop:'20px' }}>
+                    <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name: </label>
                     <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '200px' }}>
+                      <FormControl style={{ width: '190px' ,marginLeft:'9px' }}>
                         <InputLabel id="demo-simple-select-label"></InputLabel>
                         <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="">
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label=""
+                          onChange={(e) => onVenderChange(e)}>
+                          {vendorNameList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.vendorName}</MenuItem>
+                            )
+                          })}
                         </Select>
                       </FormControl>
                     </Box>
-                    <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail</label>
+                    <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail: </label>
                     <TextField
-                    id="Email" 
-                    label="Email"
-                    variant="outlined"
-                    onChange={(e) => { setVenderEmail(e.target.value) }}
-                    value={venderEmail}/>
+                      id="Email"
+                      label=""
+                      variant="outlined"
+                     
+                      value={emailId} />
                     <label
-                    style={{ marginLeft: '60px',
-                    marginRight: '30px' }}>
-                      Address
+                      style={{
+                        marginLeft: '60px',
+                        marginRight: '30px'
+                      }}>
+                      Address :
                     </label>
-                    <TextField 
-                    id="address" 
-                    label="Address" 
-                    variant="outlined" 
-                    onChange={(e) => { setVenderAddress(e.target.value) }}
-                    value={venderAddress}/>
+                    <TextField
+                      id=""
+                      label=""
+                      variant="outlined"
+                      value={venderAddress} />
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '20px' }}>
-                    <label 
-                    style={{ 
-                      marginLeft: '20px',
-                      marginRight: '20px'
-                    }}>
+                    {/* <label
+                      style={{
+                        marginLeft: '20px',
+                        marginRight: '20px'
+                      }}>
                       Company
                     </label>
-                    <TextField 
-                    id="address"
-                    label="Address"
-                    variant="outlined"
-                    onChange={(e) => { setVenderCompany(e.target.value) }}
-                    value={venderCompany}/>
-                    <label 
-                    style={{ 
-                      marginLeft: '60px', 
-                      marginRight: '30px' 
-                    }}> 
-                      Phone
+                    <TextField
+                      id="address"
+                      label="Address"
+                      variant="outlined"
+                      onChange={(e) => { setVenderCompany(e.target.value) }}
+                      value={venderCompany} /> */}
+                    <label
+                      style={{
+                        marginLeft: '20px',
+                        marginRight: '30px'
+                      }}>
+                      Phone :
                     </label>
                     <TextField
-                    id="address" 
-                    label="Address" 
-                    variant="outlined"
-                    onChange={(e) => { setVenderPhone(e.target.value) }}
-                    value={venderPhone} />
+                    style = {{ width: '190px'}}
+                      id=" Phone"
+                      label=""
+                      variant="outlined"
+                      value={phoneNumber}
+                       />
                   </div>
-                  <form style={{ border: 'solid' }}>
+                  <form style={{ border: 'solid', borderColor:'whitesmoke' }}>
                     <div style={{ margin: '20px' }}>
                       <h2>SERVICE DETAILS</h2>
                       <hr />
@@ -244,11 +299,11 @@ return (
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Stack spacing={3}>
                           <DesktopDatePicker
-                          label="Date desktop"
-                          inputFormat="MM/DD/YYYY"
-                          value={value}
-                          onChange={handleChangeDateFrom}
-                          renderInput={(params) => <TextField {...params} />}/>
+                            label=""
+                            inputFormat="MM/DD/YYYY"
+                            value={fromDate}
+                            onChange={handleChangefromDate}
+                            renderInput={(params) => <TextField {...params} />} />
                         </Stack>
                       </LocalizationProvider>
                       <label style={{ marginLeft: '20px', marginRight: '80px' }}>
@@ -257,45 +312,45 @@ return (
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Stack spacing={3}>
                           <DesktopDatePicker
-                          label="Date desktop"
-                          inputFormat="MM/DD/YYYY"
-                          value={value}
-                          onChange={handleChangeDateTo}
-                          renderInput={(params) => <TextField {...params} />}/>
+                            label=""
+                            inputFormat="MM/DD/YYYY"
+                            value={toDate}
+                            onChange={handleChangetoDate}
+                            renderInput={(params) => <TextField {...params} />} />
                         </Stack>
                       </LocalizationProvider>
                     </div>
                     <div style={{ display: 'flex', marginLeft: '40px', marginTop: '20px', alignItems: 'center' }}>
                       <label
-                       style={{
-                        marginRight: '90px' 
-                      }}>
+                        style={{
+                          marginRight: '90px'
+                        }}>
                         Premium Cost
                       </label>
                       <TextField
-                      id="premium"
-                      label="Premium Cost"
-                      variant="outlined"
-                      onChange={(e) => { setPremiumCost(e.target.value) }}
-                      value={premiumCost}/>
+                        id="premium"
+                        label="Premium Cost"
+                        variant="outlined"
+                        onChange={(e) => { setPremiumCost(e.target.value) }}
+                        value={premiumCost} />
                       <label style={{ marginLeft: '60px', marginRight: '50px' }}>AMC Doc</label>
                       <TextField
-                  style={{ width: '300px', marginLeft: '20px' }}
-                 
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0) {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        if (reader.readyState === 2) {
-                          setGstCertificate(reader.result);
-                        }
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                  type="file"
-                />
+                        style={{ width: '300px', marginLeft: '20px' }}
+
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files.length > 0) {
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                              if (reader.readyState === 2) {
+                                setGstCertificate(reader.result);
+                              }
+                            };
+                            reader.readAsDataURL(e.target.files[0]);
+                          }
+                        }}
+                        InputLabelProps={{ shrink: true }}
+                        type="file"
+                      />
                     </div>
                     <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center' }}>
                       <label style={{ marginRight: '80px' }}>Service Pattern :</label>
@@ -303,9 +358,9 @@ return (
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          label="">
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="">
                           </Select>
                         </FormControl>
                       </Box>
@@ -314,10 +369,10 @@ return (
                         <FormControl style={{ width: '260px' }} >
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          label=""
-                          onChange={(e) => onDepartmentChange(e)}>
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label=""
+                            onChange={(e) => onDepartmentChange(e)}>
                             {departmentList.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
@@ -333,15 +388,15 @@ return (
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          label=""
-                          onChange={(e) => onSectionChange(e)}>
-                          {sectionList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label=""
+                            onChange={(e) => onSectionChange(e)}>
+                            {sectionList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
                               )
-                          })}
+                            })}
                           </Select>
                         </FormControl>
                       </Box>
@@ -350,16 +405,16 @@ return (
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          label=""
-                          onChange={(e) => onAssetChange(e)}>
-                          {assetList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label=""
+                            onChange={(e) => onAssetChange(e)}>
+                            {assetList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                               )
-                          })}
-                   
+                            })}
+
                           </Select>
                         </FormControl>
                       </Box>
@@ -370,9 +425,9 @@ return (
                         <FormControl style={{ width: '260px' }}>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          label="">
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="">
                           </Select>
                         </FormControl>
                       </Box>
@@ -387,10 +442,10 @@ return (
               <Button style={{ border: 'solid', width: '150px' }} onClick={handleClose} autoFocus>Apply</Button>
             </div>
           </DialogActions>
-         </form>
-      </Dialog>  
+        </form>
+      </Dialog>
     </div>
-  )  
+  )
 }
 
 export default AmcServiceModel

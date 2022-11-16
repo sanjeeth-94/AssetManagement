@@ -12,48 +12,157 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
-import {FetchDepaertmentService } from '../../services/ApiServices';
+import {UserAddService, UserUpdateService,FetchDepaertmentService,
+  FetchSectionService,
+  FetchAssetTypeService,
+  ViewAuditReportService,
+ } from '../../services/ApiServices';
 
-const ViewAuditReport = () => {
-  const [departmentList, setDepartmentList] = useState([])
-  const [department, setDepartment] = useState('')
+const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+  const [department, setDepartment] = useState();
+  const [section, setSection] = useState();
+  const [sectionList, setSectionList] = useState([]);
+  const [departmentList, setDepartmentList] = useState([]);
+  const [assetType, setAssetType] = useState();
+  const [assetTypeList, setAssetTypeList] = useState([]);
+  const [viewReport,setViewReport] = useState([]);
+  const [fromDate, setfromDate] = useState(dayjs('2014-08-18T21:11:54'));;
+  const [toDate, settoDate] = useState(dayjs('2014-08-18T21:11:54'));;
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
+  
+  const handleChangefromDate = (newValue) => {
+    setfromDate(newValue);
+  };
+
+  const handleChangetoDate = (newValue) => {
+    setValue(newValue);
+    settoDate(newValue);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-  }, []);
-  
-  const onDepartmentChange = (e) => {
-    setDepartment(e.target.value);
-  }
-  
+  }, [editData]);
+
   const handleFetchSuccess = (dataObject) =>{
     setDepartmentList(dataObject.data);
   }
-  
+
   const handleFetchException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
+  }
+
+  const onDepartmentChange = (e) => {
+    setDepartment(e.target.value);
+    FetchSectionService ({
+      id: e.target.value
+    },handleFetchDepartmentSuccess, handleFetchDepartmentException);
+  }
+
+  const handleFetchDepartmentSuccess = (dataObject) =>{
+    setSectionList(dataObject.data);
+  }
+
+  const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
+  const handleChangeDate = (newValue) => {
+    setValue(newValue);
+  };
+
+  const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+
+  const onSectionChange = (e) => {
+    setSection(e.target.value); 
+    FetchAssetTypeService({ id: e.target.value },handleFetchAssetType, handleFetchAssetTypeException)   
+  }
+
+  const handleFetchAssetType = (dataObject) => {
+    setAssetTypeList(dataObject.data);
+  }
+
+  const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
+
+  const onViewClick = () => {
+    
+  }
+  
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+      ViewAuditReportService({ 
+        id:assetType ,
+        fromDate:fromDate,
+        toDate:toDate,
+     },handleViewAuditReport, handleViewAuditReportException)    
+  }
+  const handleViewAuditReport = (dataObject) => {
+    setViewReport(dataObject.data);
+  }
+
+  const handleViewAuditReportException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
+  
+  const handleSuccess = (dataObject) =>{
+    console.log(dataObject);
+    setRefresh(oldValue => !oldValue);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    }); 
+  }
+
+  const handleException = (errorObject, errorMessage) =>{
+    console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message:errorMessage,
+    });
+  }
+
+  const handleCloseNotify = () => {
+    setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
+ 
+  const onAssetTypeChange = (e) => {
+    setAssetType(e.target.value);
   }
   
   const [rows, setRows] = useState([]);
   const columns = [
-    { field: 'id', headerName: 'Serial No', width: 50 },
-    { field: 'employee_id', headerName: 'Employee Id', width: 120 },
-    { field: 'employee_name', headerName: 'Employee Name', width: 120 },
-    { field: 'department', headerName: 'Department', width: 120 },
-    { field: 'designation', headerName: 'Designation', width: 120 },
-    { field: 'mobile_number', headerName: 'Mobile', width: 120 },
-    { field: 'email', headerName: 'Email', width: 120 },
-    { field: 'user_name', headerName: 'UserName', width: 120 },
+    { field: 'id', headerName: 'Serial No', width: 180 },
+    { field: 'employee_id', headerName: 'Audit Name', width: 200 },
+    { field: 'employee_name', headerName: 'Department', width: 200 },
+    { field: 'department', headerName: 'Section', width: 180 },
+    { field: 'designation', headerName: 'Asset Type', width: 180 },
+    {field: 'action', headerName: 'Action', width: 150, sortable: false,
+    cellClassname: 'actions',
+    type: 'actions',
+        // getActions: (params) => [
+        //     <EditData selectedRow={params.row} />,
+        //     <DeleteData selectedRow={params.row} />,
+        // ],
+    }
   ];
-
-  const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
-
-  const [age, setAge] = React.useState('');
-  const handleChangeSelected = (event) => {
-    setAge(event.target.value);
-  };
   
   return (
     <div>
@@ -70,8 +179,8 @@ const ViewAuditReport = () => {
                 <DesktopDatePicker
                 label="Date desktop"
                 inputFormat="MM/DD/YYYY"
-                value={value}
-                onChange={handleChange}
+                value={fromDate}
+                onChange={handleChangefromDate}
                 renderInput={(params) => <TextField {...params} />}/>
               </Stack>
             </LocalizationProvider>
@@ -81,8 +190,8 @@ const ViewAuditReport = () => {
                 <DesktopDatePicker
                 label="Date desktop"
                 inputFormat="MM/DD/YYYY"
-                value={value}
-                onChange={handleChange}
+                value={toDate}
+                onChange={handleChangetoDate}
                 renderInput={(params) => <TextField {...params} />}/>
               </Stack>
             </LocalizationProvider>
@@ -108,29 +217,39 @@ const ViewAuditReport = () => {
             <label style={{marginRight:'50px',marginLeft:'20px'}}>Section:</label>
             <Box >
               <FormControl style={{width:'255px'}} >
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
                 label="Age"
-                onChange={handleChangeSelected}>
+                onChange={(e) => onSectionChange(e)}>
+                  {sectionList.map((data, index) => {
+                    return (
+                      <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                    )
+                  })}
                 </Select>
               </FormControl>
             </Box>
             <label style={{marginRight:'50px',marginLeft:'20px'}}>Asset Type :</label>
             <Box >
               <FormControl style={{width:'255px'}}>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Age">
+                label="Age"
+                onChange={(e) => onAssetTypeChange(e)}>
+                  {assetTypeList.map((data, index) => {
+                    return (
+                      <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                    )
+                  })}
                 </Select>
               </FormControl>
             </Box>
           </div>
-          <Button style={{marginLeft:'50px', marginBottom:'30px'}} variant="contained">View</Button>
+          <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
         </div>
       </form>
       <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>

@@ -107,91 +107,83 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
   const rows = [];
   const columns = [
     { field: 'Vendor Name', headerName: 'Vendor Name ', width: 280 },
-        { field: 'Asset Name', headerName: 'Inspection date - Action', width: 240 },
-       
-      ];
+    { field: 'Asset Name', headerName: 'Inspection date - Action', width: 240 },   
+  ];
+
   return (
     <div>
-        <div style={{display:'flex', marginBottom:'30px',marginLeft:'30px',alignItems:'center'}}>
-            <label>Department:</label>
-            <Box sx={{ minWidth: 120 }}>
-                <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    
-                    label="Age"
-                    
-                    onChange={(e) => onDepartmentChange(e)}>
-                            {departmentList.map((data, index) => {
-                              return (
-                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                              )
-                            })}
-                    
-                    </Select>
-                </FormControl>
-                </Box>
-
-                <label>Section:</label>
-            <Box sx={{ minWidth: 120 }}>
-                <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    
-                    label="Age"
-                    onChange={(e) => onSectionChange(e)}>
-                          {sectionList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                              )
-                          })}
-                    </Select>
-                </FormControl>
-                </Box>
-            
-                <label>Asset Type</label>
-            <Box sx={{ minWidth: 120 }}>
-                <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
-                    <InputLabel id="Asset Type"></InputLabel>
-                    <Select
-                    labelId="Asset Type"
-                    id="Asset Type"
-                    label="Asset Type">
-                    </Select>
-                </FormControl>
-                </Box>
-            
-                <label>Asset Name :</label>
-            <Box sx={{ minWidth: 120 }}>
-                <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
-                    <InputLabel id="Asset Name "></InputLabel>
-                    <Select
-                    labelId="Asset Name "
-                    id="Asset Name "
-                    label="Asset Name ">
-                    
-                    </Select>
-                </FormControl>
-                </Box>
-                <Button variant="contained">Contained</Button>
-        </div>
-        <form style={{border:'solid'}}>
+      <div style={{display:'flex', marginBottom:'30px',marginLeft:'30px',alignItems:'center'}}>
+        <label>Department:</label>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
+            <InputLabel id="demo-simple-select-label"></InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+            onChange={(e) => onDepartmentChange(e)}>
+              {departmentList.map((data, index) => {
+                return (
+                  <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                )
+              })}
+            </Select>
+          </FormControl>
+        </Box>
+        <label>Section:</label>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
+            <InputLabel id="demo-simple-select-label"></InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+            onChange={(e) => onSectionChange(e)}>
+              {sectionList.map((data, index) => {
+                return (
+                  <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                )
+              })}
+            </Select>
+          </FormControl>
+        </Box>
+        <label>Asset Type</label>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
+            <InputLabel id="Asset Type"></InputLabel>
+            <Select
+            labelId="Asset Type"
+            id="Asset Type"
+            label="Asset Type">
+            </Select>
+          </FormControl>
+        </Box>
+        <label>Asset Name :</label>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
+            <InputLabel id="Asset Name "></InputLabel>
+            <Select
+            labelId="Asset Name "
+            id="Asset Name "
+            label="Asset Name ">
+            </Select>
+          </FormControl>
+        </Box>
+        <Button variant="contained">Contained</Button>
+      </div>
+      <form style={{border:'solid'}}>
         <div>
-            <h3 style={{marginLeft:'30px',marginTop:'10px'}}>INSPECTION DATE</h3>
+          <h3 style={{marginLeft:'30px',marginTop:'10px'}}>INSPECTION DATE</h3>
         </div>
         <hr/>
-       <div style={{ height: 200, width: '80%', marginLeft:'40px' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        rowsPerPageOptions={[5]}
-        onRowAdd/>
-    </div>
-    </form>
+        <div style={{ height: 200, width: '80%', marginLeft:'40px' }}>
+          <DataGrid
+          rows={rows}
+          columns={columns}
+          rowsPerPageOptions={[5]}
+          onRowAdd/>
+        </div>
+      </form>
     </div>
   )
 }
