@@ -6,7 +6,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -14,10 +13,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import Stack from '@mui/material/Stack';
 import dayjs from 'dayjs';
 import MenuItem from '@mui/material/MenuItem';
 import {
@@ -28,11 +23,13 @@ import {
     FetchSectionService,
     FetchAssetTypeService,
     FetchVenderDataService,
+    FetchAssetIdService,
 } from '../../../services/ApiServices';
+import { Grid } from '@mui/material';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => {
 
-    const [assetId, setAssetId] = useState('');
+    const [assetId, setAssetId] = useState();
     const [departmentList, setDepartmentList] = useState([]);
     const [department, setDepartment] = useState('');
     const [section, setSection] = useState('');
@@ -50,36 +47,65 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const [assetModel, setAssetModel] = useState('');
     const [poNo, setpoNo] = useState('');
     const [invoiceNo, setInvoiceNo] = useState('');
-    const [warrantyStartDate, setWarrantyStartDate] = useState(dayjs('2014-08-18T21:11:54'));;
-    const [warrantyEndDate, setwarrantyEndDate] = useState(dayjs('2014-08-18T21:11:54'));;
+    const [warrantyStartDate, setWarrantyStartDate] = useState('');;
+    const [warrantyEndDate, setwarrantyEndDate] = useState('');;
     const [warrantyDocument, setWarrantyDocument] = useState('');
     const [uploadDocument, setUploadDocument] = useState('');
     const [description, setDescription] = useState('');
     const [assetImage, setAssetImage] = useState('');
     const [vendorData, setVendorData] = useState([]);
-    const [warranty, setWarranty] = useState("Warranty");
+    const [warranty, setWarranty] = useState("warranty");
 
-    const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
-   
-   
-    const handleChangeWarrantyStartDate = (newValue) => {
-     
-        setWarrantyStartDate(newValue);
+    const handleChangeWarrantyStartDate = (e) => {
+        setWarrantyStartDate(e.target.value);
+        console.log(e.target.value);
     };
 
-    const handleChangeWarrantyEndDate = (newValue) => {
-        setValue(newValue);
-        setwarrantyEndDate(newValue);
+    const handleChangeWarrantyEndDate = (e) => {
+        setwarrantyEndDate(e.target.value);
     };
 
     const handleClose = () => {
         setOpen(false);
+        setAssetId('');
+        setDepartment('');
+        setSection('');
+        setAssetName('');
+        setFinancialAssetId('');
+        setVendorName('');
+        setPhoneNumber('');
+        setEmailId('');
+        setAssetType('');
+        setVendorAddress('');
+        setManufacturer('');
+        setAssetModel('');
+        setpoNo('');
+        setInvoiceNo('');
+
     };
 
     //to call display in department//
     useEffect(() => {
+        FetchAssetIdService(handleFetchAssetId, handleFetchAssetIdException);
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchVenderService(handleFetchVender, handleFetchVenderException);
+
+        setDepartment(editData?.department || '');
+        setSection(editData?.section || '');
+        setAssetName(editData?.assetName || '');
+        setFinancialAssetId(editData.financialAssetId || '');
+        setVendorName(editData.vendorName || '');
+        setPhoneNumber(editData.phoneNumber || '');
+        setEmailId(editData.email || '');
+        setAssetType(editData.assetType || '');
+        setVendorAddress(editData.vendorAddress || '');
+        setManufacturer(editData.manufacturer || '');
+        setAssetModel(editData.assetModel || '');
+        setpoNo(editData.poNo || '');
+        setInvoiceNo(editData.invoiceNo || '');
+        setWarrantyStartDate(dayjs('2014-08-18T21:11:54'));
+        setwarrantyEndDate(dayjs('2014-08-18T21:11:54'));
+
     }, [editData, refresh]);
 
     const handleFetchSuccess = (dataObject) => {
@@ -97,9 +123,18 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         console.log(errorMessage);
     }
 
+    const handleFetchAssetId = (dataObject) => {
+        setAssetId(dataObject.data);
+    }
+
+    const handleFetchAssetIdException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+
     // department on change and section API call//    
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
+
         FetchSectionService({
             id: e.target.value
         }, handleFetchSection, handleFetchSectionException)
@@ -138,21 +173,14 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setVendorData(dataObject.data);
         setPhoneNumber(dataObject?.data[0]?.contactNo || '');
         setEmailId(dataObject?.data[0]?.email || '');
-        setVendorAddress(dataObject?.data[0]?.address || '');   
-        // {vendorData.map((data) => {
-        //     console.log('data', data.contactNo);
-        //     setPhoneNumber(data.contactNo);
-        //     setEmailId(data.email);
-        //     setVendorAddress(data.address);          
-  
-        // })}
+        setVendorAddress(dataObject?.data[0]?.address || '');
+
     }
 
     const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
-    const onChangeRedio= (event) =>
-     {
+    const onChangeRedio = (event) => {
         setWarranty(event.target.value);
     };
 
@@ -164,52 +192,52 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                 AssetAddService({
 
                     assetId: assetId,
-                    department:department,
-                    section:section,
-                    assetName:assetName,
-                    financialAssetId:financialAssetId,
-                    vendorName:vendorName,
-                    phoneNumber:phoneNumber,
-                    email:emailId,
-                    assetType:assetType,
-                    vendorAddress:vendorAddress,
-                    manufaturer:manufacturer,
-                    assetModel:assetModel,
-                    poNo:poNo,
-                    invoiceNo:invoiceNo,
-                    warrantyStartDate:warrantyStartDate,
-                    warrantyEndDate:warrantyEndDate,
-                    warrantyDocument:warrantyDocument,
-                    uploadDocument:uploadDocument,
-                    description:description,
-                    assetImage:assetImage,
-                    typeWarranty:warranty,
+                    department: department,
+                    section: section,
+                    assetName: assetName,
+                    financialAssetId: financialAssetId,
+                    vendorName: vendorName,
+                    phoneNumber: phoneNumber,
+                    email: emailId,
+                    assetType: assetType,
+                    vendorAddress: vendorAddress,
+                    manufaturer: manufacturer,
+                    assetModel: assetModel,
+                    poNo: poNo,
+                    invoiceNo: invoiceNo,
+                    warrantyStartDate: warrantyStartDate,
+                    warrantyEndDate: warrantyEndDate,
+                    warrantyDocument: warrantyDocument,
+                    uploadDocument: uploadDocument,
+                    description: description,
+                    assetImage: assetImage,
+                    typeWarranty: warranty,
 
                 }, handleSuccess, handleException)
             ) : (
                 AssetUpdateService({
                     id: editData.id,
                     assetId: assetId,
-                    department:department,
-                    section:section,
-                    assetName:assetName,
-                    financialAssetId:financialAssetId,
-                    vendorName:vendorName,
-                    phoneNumber:phoneNumber,
-                    email:emailId,
-                    assetType:assetType,
-                    vendorAddress:vendorAddress,
-                    manufaturer:manufacturer,
-                    assetModel:assetModel,
-                    poNo:poNo,
-                    invoiceNo:invoiceNo,
-                    warrantyStartDate:warrantyStartDate,
-                    warrantyEndDate:warrantyEndDate,
-                    warrantyDocument:warrantyDocument,
-                    uploadDocument:uploadDocument,
-                    description:description,
-                    assetImage:assetImage,
-                    typeWarranty:warranty,
+                    department: department,
+                    section: section,
+                    assetName: assetName,
+                    financialAssetId: financialAssetId,
+                    vendorName: vendorName,
+                    phoneNumber: phoneNumber,
+                    email: emailId,
+                    assetType: assetType,
+                    vendorAddress: vendorAddress,
+                    manufaturer: manufacturer,
+                    assetModel: assetModel,
+                    poNo: poNo,
+                    invoiceNo: invoiceNo,
+                    warrantyStartDate: warrantyStartDate,
+                    warrantyEndDate: warrantyEndDate,
+                    warrantyDocument: warrantyDocument,
+                    uploadDocument: uploadDocument,
+                    description: description,
+                    assetImage: assetImage,
+                    typeWarranty: warranty,
 
                 }, handleSuccess, handleException)
             );
@@ -219,6 +247,20 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
         setOpen(false);
+        setAssetId('');
+        setDepartment('');
+        setSection('');
+        setAssetName('');
+        setFinancialAssetId('');
+        setVendorName('');
+        setPhoneNumber('');
+        setEmailId('');
+        setAssetType('');
+        setVendorAddress('');
+        setManufacturer('');
+        setAssetModel('');
+        setpoNo('');
+        setInvoiceNo('');
     }
 
     const handleException = (errorObject, errorMessage) => {
@@ -229,8 +271,8 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         <div>
             <Dialog
                 open={open}
-                onClose={handleClose}
-                maxWidth='lg'>
+                // onClose={handleClose}
+                maxWidth='xl'>
                 <form onSubmit={onSubmit}>
                     <DialogTitle style={{ background: 'whitesmoke' }}>
                         {"ADD ASSET"}
@@ -238,25 +280,61 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                     <DialogContent>
                         <DialogContentText>
                             <form>
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label style={{ marginLeft: '1px' }}>Asset ID : </label>
-                                    <TextField
-                                        style={{ marginLeft: '86px', width: '250px' }}
-                                        id="Asset Id "
-                                        label="Asset Id "
-                                        variant="outlined"
-                                        onChange={(e) => { setAssetId(e.target.value) }}
-                                        value={assetId}
-                                    />
-
-                                    <label style={{ marginLeft: '90px' }}>Department:</label>
-                                    <Box>
-                                        <FormControl style={{ width: '250px', marginLeft: '55px' }}>
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label> Asset ID : </label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            id="Asset Id "
+                                            fullWidth
+                                            variant="outlined"
+                                            value={assetId}
+                                        />
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label style={{}}>Department:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <FormControl style={{}} fullWidth>
                                             <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                             <Select
                                                 labelId="department"
                                                 id="department"
                                                 label="Select Department"
+                                                value={department}
                                                 onChange={(e) => onDepartmentChange(e)}>
                                                 {departmentList.map((data, index) => {
                                                     return (
@@ -265,13 +343,36 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                                 })}
                                             </Select>
                                         </FormControl>
-                                    </Box>
-                                </div>
+                                    </Grid>
+                                </Grid>
 
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label style={{ marginLeft: '1px' }}>Section:</label>
-                                    <Box>
-                                        <FormControl style={{ width: '250px', marginLeft: '96px' }}>
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+
+                                        }}
+                                    >
+                                        <label >Section:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <FormControl fullWidth style={{}}>
                                             <InputLabel id="demo-simple-select-label">Select Section </InputLabel>
                                             <Select
                                                 labelId="section"
@@ -285,34 +386,97 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                                 })}
                                             </Select>
                                         </FormControl>
-                                    </Box>
-                                    <label style={{ marginLeft: '90px' }}>Asset Name : </label>
-                                    <TextField
-                                        style={{ marginLeft: '50px' }}
-                                        id="Asset-Name"
-                                        label="Asset Name"
-                                        variant="outlined"
-                                        onChange={(e) => { setAssetName(e.target.value) }}
-                                        value={assetName}
-                                    />
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label style={{ marginLeft: '1px' }}>Financial Asset ID : </label>
-                                    <TextField 
-                                            style={{ 
-                                                marginLeft: '20px', 
-                                                width: '250px' 
-                                                }} 
-                                                id="Asset Id " 
-                                                label="Asset Id " 
-                                                variant="outlined" 
-                                                onChange={(e) => { setFinancialAssetId(e.target.value) }}
-                                                 value={financialAssetId} 
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Asset Name : </label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            style={{}}
+                                            id="Asset-Name"
+                                            label="Asset Name"
+                                            variant="outlined"
+                                            onChange={(e) => { setAssetName(e.target.value) }}
+                                            value={assetName}
                                         />
-                                    <label style={{ marginLeft: '88px' }}>Vendor Name:</label>
-                                    <Box>
-                                        <FormControl style={{ width: '250px', marginLeft: '40px' }}>
-                                            <InputLabel >Select Department</InputLabel>
+
+                                    </Grid>
+
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label> Financial Asset ID :</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="FinancialAssetID "
+                                            label="Financial Asset ID  "
+                                            variant="outlined"
+                                            onChange={(e) => { setFinancialAssetId(e.target.value) }}
+                                            value={financialAssetId}
+                                        />
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label style={{}}>Vendor Name:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <FormControl fullWidth >
+                                            <InputLabel >Select Vendor Name</InputLabel>
                                             <Select
                                                 labelId="vendor"
                                                 id="vendor"
@@ -326,55 +490,125 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
                                             </Select>
                                         </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label style={{ marginLeft: '1px' }}>Phone Number : </label>
-                                    <TextField
-                                        style={{
-                                            marginLeft: '40px',
-                                            width: '250px'
-                                        }}
-                                        id="Asset Id "
-                                        label="Asset Id "
-                                        variant="outlined"
-                                        value={phoneNumber}
-                                      
-                                    />
-                                    <label style={{ marginLeft: '90px' }}>Email Id: </label>
-                                    <TextField
-                                        style={{
-                                            marginLeft: '80px',
-                                            width: '250px'
-                                        }}
-                                        id="Asset Id "
-                                        label="Asset Id "
-                                        variant="outlined"
-                                        value={emailId}
+                                    </Grid>
+                                </Grid>
 
-                                    />
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label >Vendor Address : </label>
-                                    <TextField
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
                                         style={{
-                                            marginLeft: '35px',
-                                            width: '250px'
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
                                         }}
-                                        id="Vendor-Address"
-                                        label="Vendor Address "
-                                        variant="outlined"
-                                        value={vendorAddress}
-                        
-                                    />
-                                    <label style={{ marginLeft: '90px' }}>Asset Type :</label>
-                                    <Box>
-                                        <FormControl style={{ width: '250px', marginLeft: '50px' }}>
+                                    >
+                                        <label> Phone Number : </label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="Phone Number"
+                                            label="Phone Number "
+                                            variant="outlined"
+                                            value={phoneNumber}
+
+                                        />
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label style={{}}>Email Id:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="Email Id "
+                                            label="Email Id "
+                                            variant="outlined"
+                                            value={emailId}
+
+                                        />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Vendor Address : </label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="Vendor-Address"
+                                            label="Vendor Address "
+                                            variant="outlined"
+                                            value={vendorAddress}
+
+                                        />
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Asset Type :</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
                                             <Select
                                                 labelId="Vendor Name"
                                                 id="Vendor-Name"
-
                                                 label="Asset Type"
                                                 onChange={(e) => onAssetTypeChange(e)}>
                                                 {assetTypeList.map((data, index) => {
@@ -385,173 +619,371 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
                                             </Select>
                                         </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label>Manufacturer: </label>
-                                    <TextField 
-                                        style={{ 
-                                            marginLeft: '58px',
-                                            width: '250px' 
-                                            }} 
-                                            id="Manufacturer" 
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Manufacturer: </label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="Manufacturer"
                                             label="Manufacturer"
-                                             variant="outlined" 
-                                             vallue={manufacturer}
-                                             onChange={(e) => { setManufacturer(e.target.value) }}
+                                            variant="outlined"
+                                            vallue={manufacturer}
+                                            onChange={(e) => { setManufacturer(e.target.value) }}
                                         />
-                                    <label style={{ marginLeft: '90px' }}>Asset Model: </label>
-                                    <TextField 
-                                        style={{ 
-                                            marginLeft: '45px',
-                                            width: '250px' 
-                                            }} 
-                                            id="AssetModel" 
-                                            label="Asset Modelr" 
-                                            variant="outlined" 
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label style={{}}>Asset Model: :</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="AssetModel"
+                                            label="Asset Modelr"
+                                            variant="outlined"
                                             vallue={assetModel}
                                             onChange={(e) => { setAssetModel(e.target.value) }}
-                                    />
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label>PO No: </label>
-                                    <TextField 
-                                        style={{ 
-                                            marginLeft: '109px',
-                                            width: '250px' 
-                                            }} 
-                                            id="PONo" 
-                                            label="PO No:" 
+                                        />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>PO No: </label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="PONo"
+                                            label="PO No:"
                                             variant="outlined"
                                             vallue={poNo}
-                                            onChange={(e) => { setpoNo(e.target.value) }}                                   
-                                    
-                                    />
-                                    <label style={{ marginLeft: '90px' }}>Invoice No :</label>
-                                    <TextField 
-                                        style={{ 
-                                            marginLeft: '45px', 
-                                            width: '250px' 
-                                            }} 
-                                            id="InvoiceNo" 
-                                            label="Invoice No" 
-                                            variant="outlined" 
+                                            onChange={(e) => { setpoNo(e.target.value) }}
+
+                                        />
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label style={{}}>Invoice No :</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="InvoiceNo"
+                                            label="Invoice No"
+                                            variant="outlined"
                                             vallue={invoiceNo}
-                                            onChange={(e) => { setInvoiceNo(e.target.value) }}         
-                                    />
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '400px', display: 'flex', alignItems: 'center' }}>
-                                    <FormControl>
-                                        <FormLabel id="Warranty"></FormLabel>
-                                        <RadioGroup
-                                            row aria-labelledby="demo-row-radio-buttons-group-label"
-                                            name="row-radio-buttons-group"
+                                            onChange={(e) => { setInvoiceNo(e.target.value) }}
+                                        />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={12}
+                                        md={12}
+                                        lg={12}
+                                        xl={12}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <FormControl>
+                                            <FormLabel id="warranty"></FormLabel>
+                                            <RadioGroup
+                                                row aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
                                                 value={warranty}
                                                 onChange={onChangeRedio}>
-                                            <FormControlLabel value="Warranty" control={<Radio />} label="Warranty" />
-                                            <FormControlLabel style={{ marginLeft: '40px' }} value="NoWarranty" control={<Radio />} label="No Warranty" />
-                                        </RadioGroup>
-                                    </FormControl>
-                                </div>
-                                {
-                                    warranty ==='Warranty' &&
-                               
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label>Warranty Start Date:</label>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <Stack style={{ width: '250px', marginLeft: '18px' }} spacing={3}>
-                                            <DesktopDatePicker
-                                                label="Date desktop"
-                                                inputFormat="MM/DD/YYYY"
-                                                value={warrantyStartDate}
-                                                onChange={handleChangeWarrantyStartDate}
-                                                renderInput={(params) => <TextField {...params} />} />
-                                        </Stack>
-                                    </LocalizationProvider>
-                                    <label style={{ marginLeft: '85px' }}>Warranty End Date:</label>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <Stack style={{ width: '250px' }} spacing={3}>
-                                            <DesktopDatePicker
-                                                label="Date desktop"
-                                                inputFormat="MM/DD/YYYY"
-                                                value={warrantyEndDate}
-                                                onChange={handleChangeWarrantyEndDate}
-                                                renderInput={(params) => <TextField {...params} />} />
-                                        </Stack>
-                                    </LocalizationProvider>
-                                </div>
-                                 }
-                                 
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label >Warranty Document:</label>
-                                    <TextField
-                                        style={{ width: '300px', marginLeft: '20px' }}
+                                                <FormControlLabel value="warranty" control={<Radio />} label="Warranty" />
+                                                <FormControlLabel style={{ marginLeft: '40px' }} value="NoWarranty" control={<Radio />} label="No Warranty" />
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
 
-                                        onChange={(e) => {
-                                            if (e.target.files && e.target.files.length > 0) {
-                                                const reader = new FileReader();
-                                                reader.onload = () => {
-                                                    if (reader.readyState === 2) {
-                                                        setWarrantyDocument(reader.result);
-                                                    }
-                                                };
-                                                reader.readAsDataURL(e.target.files[0]);
-                                            }
-                                        }}
-                                        InputLabelProps={{ shrink: true }}
-                                        type="file"
-                                    />
-                                    <label style={{ marginLeft: '250px' }}>Upload Document:</label>
-                                    <TextField
-                                        style={{ width: '300px', marginLeft: '20px' }}
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    {
+                                        warranty === 'warranty' &&
+                                        <>
+                                            <Grid item
+                                                xs={12}
+                                                sm={3}
+                                                md={2}
+                                                lg={1.5}
+                                                xl={3}
+                                                style={{
+                                                    alignSelf: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <label>Warranty Start Date: </label>
+                                            </Grid>
+                                            <Grid item
+                                                xs={12}
+                                                sm={9}
+                                                md={4}
+                                                lg={4.5}
+                                                xl={3}
+                                            >
+                                                <TextField
+                                                    fullWidth
+                                                    id="Vendor-Address"
+                                                    variant="outlined"
+                                                    type='date'
+                                                    value={warrantyStartDate}
+                                                    onChange={(e) => { handleChangeWarrantyStartDate(e) }}
 
-                                        onChange={(e) => {
-                                            if (e.target.files && e.target.files.length > 0) {
-                                                const reader = new FileReader();
-                                                reader.onload = () => {
-                                                    if (reader.readyState === 2) {
-                                                        setUploadDocument(reader.result);
-                                                    }
-                                                };
-                                                reader.readAsDataURL(e.target.files[0]);
-                                            }
+                                                />
+                                            </Grid>
+                                            <Grid item
+                                                xs={12}
+                                                sm={3}
+                                                md={2}
+                                                lg={1.5}
+                                                xl={3}
+                                                style={{
+                                                    alignSelf: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <label>Warranty End Date:</label>
+                                            </Grid>
+                                            <Grid item
+                                                xs={12}
+                                                sm={9}
+                                                md={4}
+                                                lg={4.5}
+                                                xl={3}
+                                            >
+                                                <TextField
+                                                    fullWidth
+                                                    id="Vendor-Address"
+                                                    variant="outlined"
+                                                    type='date'
+                                                    value={warrantyEndDate}
+                                                    onChange={(e) => { handleChangeWarrantyEndDate(e) }}
+
+                                                />
+                                            </Grid>
+                                        </>
+                                    }
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
                                         }}
-                                        InputLabelProps={{ shrink: true }}
-                                        type="file"
-                                    />
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '5px', display: 'flex', alignItems: 'center' }}>
-                                    <label >Description:</label>
-                                    <TextField 
-                                        style={{ 
-                                            marginLeft: '80px', 
-                                            width: '250px' 
-                                            }} 
-                                            id="Description" 
-                                            label="Description" 
-                                            variant="outlined" 
+                                    >
+                                        <label>Warranty Document:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            onChange={(e) => {
+                                                if (e.target.files && e.target.files.length > 0) {
+                                                    const reader = new FileReader();
+                                                    reader.onload = () => {
+                                                        if (reader.readyState === 2) {
+                                                            setWarrantyDocument(reader.result);
+                                                        }
+                                                    };
+                                                    reader.readAsDataURL(e.target.files[0]);
+                                                }
+                                            }}
+                                            InputLabelProps={{ shrink: true }}
+                                            type="file"
+                                        />
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Upload Document:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            onChange={(e) => {
+                                                if (e.target.files && e.target.files.length > 0) {
+                                                    const reader = new FileReader();
+                                                    reader.onload = () => {
+                                                        if (reader.readyState === 2) {
+                                                            setUploadDocument(reader.result);
+                                                        }
+                                                    };
+                                                    reader.readAsDataURL(e.target.files[0]);
+                                                }
+                                            }}
+                                            InputLabelProps={{ shrink: true }}
+                                            type="file"
+                                        />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Description:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            id="Description"
+                                            label="Description"
+                                            variant="outlined"
                                             vallue={description}
                                             onChange={(e) => { setDescription(e.target.value) }}
-                                    />
-                                    <label style={{ marginLeft: '100px' }}>Asset Image:</label>
-                                    <TextField
-                                        style={{ width: '300px', marginLeft: '20px' }}
-
-                                        onChange={(e) => {
-                                            if (e.target.files && e.target.files.length > 0) {
-                                                const reader = new FileReader();
-                                                reader.onload = () => {
-                                                    if (reader.readyState === 2) {
-                                                        setAssetImage(reader.result);
-                                                    }
-                                                };
-                                                reader.readAsDataURL(e.target.files[0]);
-                                            }
+                                        />
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={3}
+                                        md={2}
+                                        lg={1.5}
+                                        xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
                                         }}
-                                        InputLabelProps={{ shrink: true }}
-                                        type="file"
-                                    />
-                                </div>
+                                    >
+                                        <label>Asset Image:</label>
+                                    </Grid>
+                                    <Grid item
+                                        xs={12}
+                                        sm={9}
+                                        md={4}
+                                        lg={4.5}
+                                        xl={3}
+                                    >
+                                        <TextField
+                                            fullWidth
+                                            onChange={(e) => {
+                                                if (e.target.files && e.target.files.length > 0) {
+                                                    const reader = new FileReader();
+                                                    reader.onload = () => {
+                                                        if (reader.readyState === 2) {
+                                                            setAssetImage(reader.result);
+                                                        }
+                                                    };
+                                                    reader.readAsDataURL(e.target.files[0]);
+                                                }
+                                            }}
+                                            InputLabelProps={{ shrink: true }}
+                                            type="file"
+                                        />
+                                    </Grid>
+                                </Grid>
                             </form>
                         </DialogContentText>
                     </DialogContent>
