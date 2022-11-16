@@ -15,10 +15,12 @@ import { AmcServiceAddService,
 
 const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department  ,setDepartment]= useState();
+  const [departmentList,setDepartmentList]= useState([]);
   const [section ,setSection]= useState();
   const [sectionList,setSectionList]=useState([]);
-  const [departmentList,setDepartmentList]= useState([]);
   const [assetList, setAssetList]= useState([]);
+  const [assetTypeList, setAssetTypeList] = useState([]);
+  const [assetType, setAssetType] = useState('');
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -80,6 +82,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               id: editData.id,
               department:department,
               section:section,
+              assetType:assetType,
             }, handleSuccess, handleException)
         );
       }
@@ -122,8 +125,21 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           }
     
           const onSectionChange = (e) => {
-            setSection(e.target.value);    
+            setSection(e.target.value); 
+            FetchAssetTypeService({ id: e.target.value },handleFetchAssetType, handleFetchAssetTypeException)   
           }
+
+          const handleFetchAssetType = (dataObject) => {
+            setAssetTypeList(dataObject.data);
+        }
+          const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
+            console.log(errorMessage);
+        }
+    
+    
+        const onAssetTypeChange = (e) => {
+            setAssetType(e.target.value);
+        }
           
     
     const rows = [];
@@ -147,11 +163,11 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     id="demo-simple-select"
                     label=""
                     onChange={(e) => onDepartmentChange(e)}>
-                                        {departmentList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                            )
-                                        })}
+                      {departmentList.map((data, index) => {
+                         return (
+                          <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                        )
+                      })}
                     </Select>
                 </FormControl>
             </Box>
@@ -180,12 +196,12 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"     
                     label=""
-                    onChange={(e) => onAssetChange(e)}>
-                        {assetList.map((data, index) => {
-                          return (
-                            <MenuItem value={data.id} key={index}>{data.asset}</MenuItem>
-                          )
-                        })}
+                    onChange={(e) => onAssetTypeChange(e)}>
+                    {assetTypeList.map((data, index) => {
+                        return (
+                            <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                        )
+                    })}
                     </Select>
                 </FormControl>
             </Box>

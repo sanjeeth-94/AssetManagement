@@ -135,17 +135,15 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <label style={{marginLeft:'30px',marginRight:'65px'}}>Name</label>
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Age"
-                                onChange={handleChange}
+                                
                                 >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                
                                 </Select>
                             </FormControl>
                             </Box>
@@ -213,34 +211,30 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <label style={{marginLeft:'50px',marginRight:'45px'}}>Department :</label>
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                                
                                 label="Age"
-                                onChange={handleChange}
+                                
                                 >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                
                                 </Select>
                             </FormControl>
                             </Box>
                             <label style={{marginLeft:'70px',marginRight:'68px'}}>Section:</label>
                             <Box sx={{ minWidth: 120 }}>
                             <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
+                               
                                 label="Age"
-                                onChange={handleChange}
+                                
                                 >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                
                                 </Select>
                             </FormControl>
                             </Box>
@@ -249,34 +243,24 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <label style={{marginLeft:'50px',marginRight:'50px' , }}>Asset Type :</label>
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
-                                label="Age"
-                                onChange={handleChange}
-                                >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                label="Age" >
+                                
                                 </Select>
                             </FormControl>
                             </Box>
                             <label style={{marginLeft:'60px',marginRight:'40px'}}>Asset Name :</label>
                             <Box sx={{ minWidth: 120 }}>
                             <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={age}
-                                label="Age"
-                                onChange={handleChange}
-                                >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                label="Age">
+                                
                                 </Select>
                             </FormControl>
                             </Box>

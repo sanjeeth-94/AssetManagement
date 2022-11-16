@@ -16,7 +16,7 @@ const AuditList = () => {
         type: 'error',
         message: '',
     });
-
+    
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 120 },
         { field: 'auditDate', headerName: 'Date', width: 140 },
@@ -53,7 +53,7 @@ const AuditList = () => {
           type: '',
           message: '',
         });
-      };
+    };
 
     function EditData({ selectedRow }) {
         return (
@@ -96,7 +96,7 @@ const AuditList = () => {
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleDeleteException = (errorObject, errorMessage) =>{
@@ -105,43 +105,41 @@ const AuditList = () => {
             status: true,
             type: 'error',
             message:errorMessage,
-          });
+        });
     }
 
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
     };
-
-  return (
-    <div style={{border:'solid', borderColor:'whitesmoke'}}>
-        <div style={{display:'flex'}}>
-            <h3 style={{ marginLeft: '50px' }}> Audit View Assets </h3>
-            <Button style={{marginLeft:'63%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
-                Add
-            </Button>
+  
+    return (
+        <div style={{border:'solid', borderColor:'whitesmoke'}}>
+            <div style={{display:'flex'}}>
+                <h3 style={{ marginLeft: '50px' }}> Audit View Assets </h3>
+                <Button style={{marginLeft:'63%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
+                    Add
+                </Button>
             </div>
             <hr style={{ bottom: 'solid' }} />
             <div style={{ height: '400px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
                 <DataGrid
                 rows={rows}
                 columns={columns} />
-         </div>
-       <AuditModel
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-                setRefresh={setRefresh}
-            />
-         <NotificationBar
+            </div>
+            <AuditModel
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            editData={editData}
+            setRefresh={setRefresh} />
+            <NotificationBar
             handleClose={handleClose}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
-            type={openNotification.type}
-        />
-</div>
-  )
+            type={openNotification.type}/>
+        </div>
+    )
 }
 
 export default AuditList;
