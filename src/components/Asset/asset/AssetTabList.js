@@ -1,6 +1,7 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Addlabel from './Addlabel';
+import AddlabelList from './AddlabelList';
 import Assetimport from './Assetimport';
 import AssetList from './AssetList';
 
@@ -57,10 +58,8 @@ const AssetTabList = () => {
       <TabPanel value={value} index={1}>
       <Assetimport />
       </TabPanel>
-      <TabPanel value={value} index={2}>
-       
-       <Addlabel />
-       {/* <AddlabelList /> */}
+      <TabPanel value={value} index={2}> 
+        <AddlabelList /> 
       </TabPanel>
      
     </Box>

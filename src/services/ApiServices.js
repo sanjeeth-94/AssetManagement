@@ -89,6 +89,9 @@ export const FetchAssetNameService = (data,successCallback, errorCallBack) => _f
 
 export const FetchVenderDataService = (data,successCallback, errorCallBack) => _fetchService(`getVendorData/${data.id}`, 'GET', {}, successCallback, errorCallBack);
 
+export const FetchAsstTransferService = (data,successCallback, errorCallBack) => _fetchService(`transferAsset/${data.id}`, 'POST', data, successCallback, errorCallBack);
+
+
 // // --------- User--------------//
 export const FetchUserService = (successCallback, errorCallBack) => _fetchService('user/showData', 'GET', {}, successCallback, errorCallBack);
 
@@ -139,7 +142,7 @@ export const  AssetUpdateService = (data, successCallback, errorCallBack) => _fe
 
 export const  AssetDeleteService = (data, successCallback, errorCallBack) => _fetchService(`asset/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
-
+export const  FetchAssetLableService = (successCallback, errorCallBack) => _fetchService('label/showData', 'GET', {}, successCallback, errorCallBack);
 
 ////....Department..../////
 

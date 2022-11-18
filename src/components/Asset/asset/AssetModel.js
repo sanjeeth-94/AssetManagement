@@ -13,7 +13,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import dayjs from 'dayjs';
 import MenuItem from '@mui/material/MenuItem';
 import {
     AssetAddService,
@@ -24,6 +23,7 @@ import {
     FetchAssetTypeService,
     FetchVenderDataService,
     FetchAssetIdService,
+   
 } from '../../../services/ApiServices';
 import { Grid } from '@mui/material';
 
@@ -31,12 +31,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
     const [assetId, setAssetId] = useState();
     const [departmentList, setDepartmentList] = useState([]);
-    const [department, setDepartment] = useState('');
+    const [department, setDepartment] = useState(editData?.department || '');
     const [section, setSection] = useState('');
     const [sectionList, setSectionList] = useState([]);
     const [assetName, setAssetName] = useState('');
     const [financialAssetId, setFinancialAssetId] = useState('');
-    const [vendorName, setVendorName] = useState('');
+    const [vendorName, setVendorName] = useState(editData?.vendorName ||'');
     const [vendorNameList, setVendorNameList] = useState([]);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [emailId, setEmailId] = useState('');
@@ -90,41 +90,74 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchVenderService(handleFetchVender, handleFetchVenderException);
 
+        setAssetId(editData.assetId || '');
         setDepartment(editData?.department || '');
-        setSection(editData?.section || '');
+        setSection(editData?.section ||'');
         setAssetName(editData?.assetName || '');
-        setFinancialAssetId(editData.financialAssetId || '');
-        setVendorName(editData.vendorName || '');
-        setPhoneNumber(editData.phoneNumber || '');
-        setEmailId(editData.email || '');
-        setAssetType(editData.assetType || '');
-        setVendorAddress(editData.vendorAddress || '');
-        setManufacturer(editData.manufacturer || '');
-        setAssetModel(editData.assetModel || '');
-        setpoNo(editData.poNo || '');
-        setInvoiceNo(editData.invoiceNo || '');
-        setWarrantyStartDate(dayjs('2014-08-18T21:11:54'));
-        setwarrantyEndDate(dayjs('2014-08-18T21:11:54'));
+        setFinancialAssetId(editData?.financialAssetId || '');
+        setVendorName(editData?.vendorName || '');
+        setPhoneNumber(editData?.phoneNumber || '');
+        setEmailId(editData?.email || '');
+        setAssetType(editData?.assetType || '');
+        setVendorAddress(editData?.vendorAddress || '');
+        setManufacturer(editData?.manufacturer || '');
+        setAssetModel(editData?.assetModel || '');
+        setpoNo(editData?.poNo || '');
+        setInvoiceNo(editData?.invoiceNo || '');
+        setWarrantyStartDate(editData?.warrantyStartDate || '');
+        setwarrantyEndDate(editData?.warrantyEndDate || '');
 
     }, [editData, refresh]);
 
     const handleFetchSuccess = (dataObject) => {
         setDepartmentList(dataObject.data);
+  
+        if (editData?.department) {
+            FetchSectionService({
+                id: editData?.department
+            }, handleFetchSectionEdit, handleFetchSectionEditException)
+        }
+    }
+
+    const handleFetchSectionEdit = (dataObject) => {
+      
+        setSectionList(dataObject.data);
+       
+        if (editData?.section) {
+            FetchAssetTypeService({ id:editData?.section}, handleFetchAssetTypeSectionEdit, handleFetchAssetTypeSectionEditException)
+        }
+   }
+
+    const handleFetchAssetTypeSectionEdit = (dataObject) => {
+       setAssetTypeList(dataObject.data)
+
+    }
+
+    const handleFetchAssetTypeSectionEditException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+
+    const handleFetchSectionEditException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
     }
 
     const handleFetchException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
+
     const handleFetchVender = (dataObject) => {
         setVendorNameList(dataObject.data);
+      
+      
     }
-
+    
     const handleFetchVenderException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
 
     const handleFetchAssetId = (dataObject) => {
         setAssetId(dataObject.data);
+
     }
 
     const handleFetchAssetIdException = (errorStaus, errorMessage) => {
@@ -281,12 +314,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                         <DialogContentText>
                             <form>
                                 <Grid container spacing={2} style={{ marginTop: '20px' }}>
-                                    <Grid item
-                                        xs={12}
-                                        sm={3}
-                                        md={2}
-                                        lg={1.5}
-                                        xl={3}
+                                    <Grid item xs={12} sm={3} md={2} lg={1.5} xl={3}
                                         style={{
                                             alignSelf: 'center',
                                             textAlignLast: 'center'
@@ -294,12 +322,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     >
                                         <label> Asset ID : </label>
                                     </Grid>
-                                    <Grid item
-                                        xs={12}
-                                        sm={9}
-                                        md={4}
-                                        lg={4.5}
-                                        xl={3}
+                                    <Grid item xs={12} sm={9} md={4} lg={4.5} xl={3}
                                     >
                                         <TextField
                                             id="Asset Id "
@@ -378,6 +401,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                                 labelId="section"
                                                 id="section"
                                                 label="Select Section"
+                                                value={section}
                                                 onChange={(e) => onSectionChange(e)}>
                                                 {sectionList.map((data, index) => {
                                                     return (
@@ -413,7 +437,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     >
                                         <TextField
                                             fullWidth
-                                            style={{}}
                                             id="Asset-Name"
                                             label="Asset Name"
                                             variant="outlined"
@@ -478,13 +501,15 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <FormControl fullWidth >
                                             <InputLabel >Select Vendor Name</InputLabel>
                                             <Select
+                                               
                                                 labelId="vendor"
                                                 id="vendor"
                                                 label="Select Vendor"
+                                                value={vendorName}
                                                 onChange={(e) => onVenderChange(e)}>
                                                 {vendorNameList.map((data, index) => {
                                                     return (
-                                                        <MenuItem value={data.id} key={index}>{data.vendorName}</MenuItem>
+                                                        <MenuItem value={data.vendorId} key={index}>{data.vendorName}</MenuItem>
                                                     )
                                                 })}
 
@@ -610,6 +635,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                                 labelId="Vendor Name"
                                                 id="Vendor-Name"
                                                 label="Asset Type"
+                                                value={assetType}
                                                 onChange={(e) => onAssetTypeChange(e)}>
                                                 {assetTypeList.map((data, index) => {
                                                     return (
@@ -648,7 +674,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             id="Manufacturer"
                                             label="Manufacturer"
                                             variant="outlined"
-                                            vallue={manufacturer}
+                                            value={manufacturer}
                                             onChange={(e) => { setManufacturer(e.target.value) }}
                                         />
                                     </Grid>
@@ -663,7 +689,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             textAlignLast: 'center'
                                         }}
                                     >
-                                        <label style={{}}>Asset Model: :</label>
+                                        <label style={{}}>Asset Model:</label>
                                     </Grid>
                                     <Grid item
                                         xs={12}
@@ -677,7 +703,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             id="AssetModel"
                                             label="Asset Modelr"
                                             variant="outlined"
-                                            vallue={assetModel}
+                                            value={assetModel}
                                             onChange={(e) => { setAssetModel(e.target.value) }}
                                         />
                                     </Grid>
@@ -709,7 +735,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             id="PONo"
                                             label="PO No:"
                                             variant="outlined"
-                                            vallue={poNo}
+                                            value={poNo}
                                             onChange={(e) => { setpoNo(e.target.value) }}
 
                                         />
@@ -739,7 +765,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             id="InvoiceNo"
                                             label="Invoice No"
                                             variant="outlined"
-                                            vallue={invoiceNo}
+                                            value={invoiceNo}
                                             onChange={(e) => { setInvoiceNo(e.target.value) }}
                                         />
                                     </Grid>
@@ -942,7 +968,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             id="Description"
                                             label="Description"
                                             variant="outlined"
-                                            vallue={description}
+                                            value={description}
                                             onChange={(e) => { setDescription(e.target.value) }}
                                         />
                                     </Grid>

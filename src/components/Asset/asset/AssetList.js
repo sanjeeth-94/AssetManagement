@@ -19,11 +19,11 @@ const AssetList = () => {
     
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 60 },
-        { field: 'department', headerName: 'Department', width: 110 },
-        { field: 'section', headerName: 'Section', width: 120 },
+        { field: 'departmentName', headerName: 'Department', width: 110 },
+        { field: 'sectionName', headerName: 'Section', width: 120 },
         { field: 'assetName', headerName: 'Machine', width: 120 },
-        { field: 'assetType', headerName: 'Asset Type', width: 120 },
-        { field: 'manufaturer', headerName: 'Manufacturer', width: 120 },
+        { field: 'assetTypeName', headerName: 'Asset Type', width: 120 },
+        { field: 'manufacturer', headerName: 'Manufacturer', width: 120 },
         { field: 'assetModel', headerName: 'Asset Model', width: 120 },
         { field: 'warrantyStartDate', headerName: 'Warranty Start Date', width: 120 },
         { field: 'warrantyEndDate', headerName: 'Warranty End Date', width: 120 },

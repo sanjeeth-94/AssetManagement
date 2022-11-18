@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import { Grid } from '@mui/material';
 
 
 export default function Assetimport() {
@@ -20,17 +21,28 @@ export default function Assetimport() {
     const [gstCertificate, setGstCertificate] = useState('');
 
     return (
-        <div style={{border:'solid', borderColor:'whitesmoke', width:'70vh'}}>
-            <div>
-        <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-        {"IMPORT"} 
-    </DialogTitle>
-    </div>
-    <div style={{width:'70vh',height:'30vh',  marginLeft:'90px'}}>
-        <div style={{marginTop:'30px', display:'flex', alignItems:'center'}}>
-        <label style={{marginLeft:'5px'}}> Import CSV File : </label>
-        <TextField
-                  style={{ width: '250px', marginLeft: '5px' }}
+      <div>
+    <Grid container spacing={2} style={{border:'solid', borderColor:'whitesmoke', width:'100%'}} >
+        <Grid container >
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
+            {"IMPORT"} 
+          </DialogTitle>
+          </Grid>
+         </Grid>
+             <Grid container  style={{marginTop:'30px'}}>
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+             style={{
+              alignSelf: 'center',
+              textAlignLast: 'center'
+
+          }}
+            >
+            <label > Import CSV File : </label>
+            
+             </Grid>
+             <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+             <TextField
                   
                   onChange={(e) => {
                     if (e.target.files && e.target.files.length > 0) {
@@ -46,16 +58,31 @@ export default function Assetimport() {
                   InputLabelProps={{ shrink: true }}
                   type="file"
                 />
-    </div>
-    <div  style={{marginLeft:'20px', marginTop:'20px'}}>
-    <Button variant="contained" component="label">
+            </Grid>
+             
+             </Grid>
+             <Grid container  style={{marginTop:'30px', marginBottom:'30px'}}>
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+             style={{
+              alignSelf: 'center',
+              textAlignLast: 'center'
+
+          }}
+            >
+            <Button variant="contained" component="label">
             Download Templete
-    </Button>
-    <Button style={{marginLeft:'20px'}} variant="contained">Import</Button>
-    </div>
-    </div>
-              
-    </div>  
+            </Button>
+             </Grid>
+             <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+             
+             >
+             <Button style={{marginLeft:'20px'}} variant="contained">Import</Button>
+            </Grid>
+             
+     </Grid>
+       
+     </Grid>
+     </div>
        
     )
 }

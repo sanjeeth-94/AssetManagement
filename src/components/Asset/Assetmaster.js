@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -8,50 +8,94 @@ import Select from '@mui/material/Select';
 import dayjs from 'dayjs';
 import './Asset.css'
 import { DataGrid } from '@mui/x-data-grid';
+import { MenuItem } from '@mui/material';
+import { FetchAssetTypeService, FetchDepaertmentService, FetchSectionService } from '../../services/ApiServices';
 
-const columns = [
-  { field: 'Serial No', headerName: 'Serial No', width: 80 },
-  { field: 'Department', headerName: 'Department', width: 140 },
-  { field: 'Section', headerName: 'Section', width: 140 },
-  { field: 'Machine Name', headerName: 'Machine Name', width: 140 },
-  { field: 'Asset Type', headerName: 'Asset Type', width: 140 },
-  { field: 'Manufacturer', headerName: 'Manufacturer', width: 140 },
-  { field: 'Asset Model', headerName: 'Asset Model', width: 140 },
-  { field: 'PO Details', headerName: 'PO Details', width: 140 },
-  { field: 'Invoice Details', headerName: 'Invoice Details', width: 140 },
-  { field: 'Waranty Start Date', headerName: 'Waranty Start Date', width: 140 },
-  { field: 'Waranty End Date', headerName: 'Waranty End Date', width: 140 },
-];
 
-const rows = [
-    //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    ];
 
 export default function Assetmaster() {
-  const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
-  const [tagAssetType, setTageAssetType] = useState("Department");
-  const handleChangeDate = (newValue) => {
-    setValue(newValue);
-  };
+  const [departmentList, setDepartmentList] = useState([]);
+  const [sectionList,setSectionList] = useState([]);
+  const [department,setDepartment]=useState("");
+  const [section,setSection]=useState("");
+  const [assetTypeList,setAssetTypeList] = useState([]);
+  const [assetType,setAssetType] = useState('');
+  const [rows, setRows ]= useState([]);
 
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const columns = [
+    { field: 'Serial No', headerName: 'Serial No', width: 80 },
+    { field: 'Department', headerName: 'Department', width: 140 },
+    { field: 'Section', headerName: 'Section', width: 140 },
+    { field: 'Machine Name', headerName: 'Machine Name', width: 140 },
+    { field: 'Asset Type', headerName: 'Asset Type', width: 140 },
+    { field: 'Manufacturer', headerName: 'Manufacturer', width: 140 },
+    { field: 'Asset Model', headerName: 'Asset Model', width: 140 },
+    { field: 'PO Details', headerName: 'PO Details', width: 140 },
+    { field: 'Invoice Details', headerName: 'Invoice Details', width: 140 },
+    { field: 'Waranty Start Date', headerName: 'Waranty Start Date', width: 140 },
+    { field: 'Waranty End Date', headerName: 'Waranty End Date', width: 140 },
+  ];
+ 
+    useEffect(() => {
+        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
 
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+    }, []);
+    
+    const handleFetchSuccess = (dataObject) =>{
+        setDepartmentList(dataObject.data);
+    }
+    
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onDepartmentChange = (e) => {
+        setDepartment(e.target.value);
+        FetchSectionService ({
+            id: e.target.value
+        },handleFetchDepartmentSuccess, handleFetchDepartmentException);
+    };
+    const handleFetchDepartmentSuccess = (dataObject) =>{
+        setSectionList(dataObject.data);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+      }
+      const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
 
-  const onTagAssetType = (event) => {
-    setTageAssetType(event.target.value);
-  };
+      const onSectionChange = (e) => {
+        setSection(e.target.value);
+        FetchAssetTypeService({
+            id: e.target.value
+        },handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+    };
+    const handleFetchAssetTypeSuccess = (dataObject) =>{
+        setAssetTypeList(dataObject.data);
 
+      }
+      const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
+
+    const onAssetTypeChange = (e)=>{
+        setAssetType(e.target.value);
+        
+    };
+       
+  const onSubmit = (e) => {
+    e.preventDefault();
+    // FetchAsstTransferService({
+      
+    //   },handleFetchAsstTransferServiceSuccess, handleFetchAsstTransferServiceException)
+    }
+    const handleFetchAsstTransferServiceSuccess = () =>{
+     
+      }
+      const handleFetchAsstTransferServiceException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
+ 
+  
   return(
     <div>
       <form>
@@ -61,52 +105,56 @@ export default function Assetmaster() {
             <FormControl style={{width:'150px' ,marginLeft:'16px'}}>
               <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
               <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
               label="Select Department"
-              onChange={handleChange}>
+              value={department}
+              onChange={(e) => onDepartmentChange(e)}>
+                      {departmentList.map((data, index) => {
+                          return (
+                              <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                          )
+                      })}
               </Select>
             </FormControl>
           </Box>
           <label style={{marginLeft:'15px'}}>Section:</label>
           <Box>
             <FormControl style={{width:'250px' ,marginLeft:'16px'}}>
-              <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+              <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
               <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              label="Select Department"
-              onChange={handleChange}>
+             
+              label="Select Section"
+              value={section}
+              onChange={(e) => onSectionChange(e)}>
+                      {sectionList.map((data, index) => {
+                          return (
+                              <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                          )
+                      })}
+            
               </Select>
             </FormControl>
           </Box>
           <label style={{marginLeft:'15px'}}>Asset Type:</label>
           <Box>
             <FormControl style={{width:'250px' ,marginLeft:'36px'}}>
-              <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+              <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
               <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              label="Select Department"
-              onChange={handleChange}>
+              label="Select Asset Type"
+              value={assetType}
+              onChange={(e) => onAssetTypeChange(e)}>
+              {assetTypeList.map((data, index) => {
+                  return (
+                      <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                  )
+              })}
               </Select>
             </FormControl>
           </Box>
           <Button style={{marginLeft:'15px'}} variant="contained">Submit</Button>
         </div>
         <form style={{border:'solid',borderColor:'whitesmoke',marginTop:'30px'}}>
-          <label style={{marginTop:'30px'}}>VIEW ASSET</label>
+          <h3 style={{marginTop:'30px',marginLeft:'40px'}}>VIEW ASSET</h3>
           <hr/>
-          <div style={{marginLeft:'800px',display:'flex',alignItems:'center', marginTop:'20px'}}>
-            <label>Search : </label>
-            <TextField
-            id="outlined-size-small"
-            defaultValue="Search"
-            size="small"/>
-          </div>
           <div style={{ height: 400, width: '100%' , marginTop:'20px'}}>
             <DataGrid
             rows={rows}

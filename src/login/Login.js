@@ -11,7 +11,7 @@ const Login = () => {
   
   useEffect(()=>{
     const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
-    return userDetails?.access_token? navigate('/main') : {}
+    return userDetails?.access_token? navigate("/main") : navigate("/login")
   },[]);
 
   const successCaseCode = [200, 201];
