@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import dayjs from 'dayjs';
+
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -34,6 +34,7 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [assetTypeList, setAssetTypeList]=useState([]);
   const [assetType, setAssetType]=useState('');
   const [auditName,setAuditName]=useState('');
+  const [auditDate, setauditDate] = useState('');
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -44,12 +45,7 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setOpen(false);
   };
   
-  const [value, setValue] = useState(dayjs('2022-08-18T21:11:54'));
-  const handleChangeDate = (newValue) => {
-    setValue(newValue);
-    setAuditDate(newValue);
-  };
-  
+   
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     setAuditDate(editData.auditDate || '');
@@ -61,6 +57,11 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleFetchSuccess = (dataObject) =>{
     setDepartmentList(dataObject.data);
   }
+
+  const handleChangeauditDate = (e) => {
+    setauditDate(e.target.value);
+    console.log(e.target.value);
+};
 
   const handleFetchException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
@@ -104,7 +105,7 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     isAdd === true ?
     (
       AuditAddService({
-        auditDate:auditdate,
+        auditDate:auditDate,
         department:department,
         section:section,
         assetType:assetType,
@@ -160,15 +161,13 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               <div style={{marginLeft:'0px'}}>
                 <div  style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
                   <label style={{marginLeft:'30px'}}>Audit Date : </label>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <Stack style={{ width: '300px' , marginLeft: '40px' }} spacing={3}>
-                      <DesktopDatePicker
-                      inputFormat="MM/DD/YYYY"
-                      value={value}
-                      onChange={handleChangeDate}
-                      renderInput={(params) => <TextField {...params} />}/>
-                    </Stack>
-                  </LocalizationProvider>
+                  <TextField
+                  style={{width:'200px'}}
+                  id="Vendor-Address"
+                  variant="outlined"
+                  type='date'
+                  value={auditDate}
+                  onChange={(e) => { handleChangeauditDate(e) }}/>
                   <label style={{marginLeft:'40px', marginRight:'40px'}}>Department : </label>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl style={{ width: '300px' }}>

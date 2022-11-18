@@ -10,14 +10,20 @@ import {
   AmcServiceAddService,
   AmcServiceUpdateService,
   FetchDepaertmentService,
-  FetchSectionService  
+  FetchSectionService ,
+  FetchAssetTypeService, 
+  FetchAssetNameService, 
 } from '../../../services/ApiServices';
 
 const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
   const [department  ,setDepartment]= useState();
+  const [departmentList,setDepartmentList]= useState([]);
   const [section ,setSection]= useState();
   const [sectionList,setSectionList]=useState([]);
-  const [departmentList,setDepartmentList]= useState([]);
+  const [assetList, setAssetList]= useState([]);
+  const [assetType, setAssetType] = useState('');
+  const [asset, setAsset] = useState('');
+  const [ assetNameList, setAssetNameList] = useState([]);
   const handleClose = () => {
     setOpen(false);
   };
@@ -44,7 +50,8 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
     setDepartment(e.target.value);
     FetchSectionService ({
       id: e.target.value
-    },handleFetchDepartmentSuccess, handleFetchDepartmentException); 
+    },handleFetchDepartmentSuccess, handleFetchDepartmentException);
+    
   }
   
   const onSubmit = (e) => {
@@ -54,60 +61,100 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
       AmcServiceAddService({
         department:department,
         section:section,
+        assetType:assetType,
       },handleSuccess, handleException)
-    ) : (
-      AmcServiceUpdateService({
-        id: editData.id,
-        department:department,
-        section:section,
-      }, handleSuccess, handleException)
-    );
-  }
+          ) : (
+            AmcServiceUpdateService({
+              id: editData.id,
+              department:department,
+              section:section,
+              assetType:assetType,
+            }, handleSuccess, handleException)
+        );
+      }
   
-  const handleSuccess = (dataObject) =>{
-    console.log(dataObject);
-    setRefresh(oldValue => !oldValue);
-    setNotification({
-      status: true,
-      type: 'success',
-      message: dataObject.message,
-    });
-  }
+      const handleSuccess = (dataObject) =>{
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+          status: true,
+          type: 'success',
+          message: dataObject.message,
+        });
+      }
+      
+      const handleException = (errorObject, errorMessage) =>{
+        console.log(errorMessage);
+        setNotification({
+          status: true,
+          type: 'error',
+          message:errorMessage,
+          });
+        }
   
-  const handleException = (errorObject, errorMessage) =>{
-    console.log(errorMessage);
-    setNotification({
-      status: true,
-      type: 'error',
-      message:errorMessage,
-    });
-  }
-  
-  const handleCloseNotify = () => {
-    setOpen(false)
-    setNotification({
-      status: false,
-      type: '',
-      message: '',
-    });
-  };
-  
-  const handleFetchDepartmentSuccess = (dataObject) =>{
-    setSectionList(dataObject.data);
-  }
-  
-  const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
-    console.log(errorMessage);
-  }
-  
-  const onSectionChange = (e) => {
-    setSection(e.target.value);    
-  }
+        const handleCloseNotify = () => {
+          setOpen(false)
+          setNotification({
+            status: false,
+            type: '',
+            message: '',
+          });
+        };
+    
+        
+          const handleFetchDepartmentSuccess = (dataObject) =>{
+            setSectionList(dataObject.data);
+    
+          }
+          const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
+            console.log(errorMessage);
+          }
+    
+          const onSectionChange = (e) => {
+            setSection(e.target.value);
+            FetchAssetTypeService({
+              id: e.target.value
+            }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+          }
+        
+          const handleFetchAssetTypeServiceSuccess = (dataObject) => {
+            setAssetList(dataObject.data);
+           
+          }
+          
+          const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
+            console.log(errorMessage);
+          }
+
+          const onAssetChange = (e) => {
+            setAsset(e.target.value)
+        
+            FetchAssetNameService({
+              id: e.target.value
+            }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
+          }
+          const handleFetchAssetNameServiceSuccess = (dataObject) => {
+            setAssetNameList(dataObject.data);
+           
+          }
+          
+          const handleFetchAssetNameServiceException= (errorStaus, errorMessage) => {
+            console.log(errorMessage);
+          }
+        
+    
+    
+        const onAssetTypeChange = (e) => {
+            setAssetType(e.target.value);
+        }
+          
   
   const rows = [];
   const columns = [
-    { field: 'Vendor Name', headerName: 'Vendor Name ', width: 280 },
-    { field: 'Asset Name', headerName: 'Inspection date - Action', width: 240 },   
+    { field: 'vendorId', headerName: 'Serial No', width: 200 },
+    { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
+    { field: '', headerName: 'Inspection Date', width: 200 },
+    { field: '', headerName: 'Asset Name', width: 180 },
   ];
 
   return (
@@ -154,7 +201,13 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
             <Select
             labelId="Asset Type"
             id="Asset Type"
-            label="Asset Type">
+            label="Asset Type"
+            onChange={(e) => onAssetChange(e)}>
+                    {assetList.map((data, index) => {
+                      return (
+                        <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                      )
+                    })}
             </Select>
           </FormControl>
         </Box>
@@ -165,13 +218,19 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
             <Select
             labelId="Asset Name "
             id="Asset Name "
-            label="Asset Name ">
+            label="Asset Name "
+            onChange={(e) => onAssetChange(e)}>
+            {assetNameList.map((data, index) => {
+              return (
+                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+              )
+            })}
             </Select>
           </FormControl>
         </Box>
-        <Button variant="contained">Contained</Button>
+        <Button variant="contained"onClick={onSubmit}>View</Button>
       </div>
-      <form style={{border:'solid'}}>
+      <form style={{border:'solid', borderColor:'whitesmoke'}}>
         <div>
           <h3 style={{marginLeft:'30px',marginTop:'10px'}}>INSPECTION DATE</h3>
         </div>

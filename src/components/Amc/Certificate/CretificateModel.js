@@ -16,14 +16,24 @@ import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { AmcServiceAddService, AmcServiceUpdateService,FetchDepaertmentService, FetchSectionService  } from '../../../services/ApiServices';
+import { AmcServiceAddService,
+   AmcServiceUpdateService,
+   FetchDepaertmentService, 
+   FetchSectionService,
+   FetchVenderService,
+   FetchVenderDataService, 
+  } from '../../../services/ApiServices';
 
 const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
-    const [venderNameList ,setVenderNameList]= useState([]);
+    
+    const [vendorName, setVendorName] = useState('');
+    const [vendorNameList, setVendorNameList] = useState([]);
     const [venderEmail ,setVenderEmail]= useState();
     const [venderAddress ,setVenderAddress]= useState();
     const [venderCompany ,setVenderCompany]= useState();
     const [venderPhone ,setVenderPhone]= useState();
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [emailId, setEmailId] = useState('');
     const [periodFrom ,setPeriodFrom]= useState();
     const [periodTo ,setPeriodTo]= useState();
     const [premiumCost ,setPremiumCost]= useState();
@@ -35,18 +45,21 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
     const [assetType ,setAssetType]= useState();
     const [assetName ,setAssetName]= useState();
     const [departmentList,setDepartmentList]= useState([]);
-    const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
+    const [fromDate, setfromDate] = useState('');
+    const [vendorData, setVendorData] = useState([]);
+    const [toDate, settoDate] = useState(''); 
     const [gstCertificate, setGstCertificate] = useState('');
-    const handleChangeDateFrom = (newValue) => {
-      setValue(newValue);
-    };
-    const handleChangeDateTo = (newValue) => {
-        setValue(newValue);
-      };
     
-    const [age, setAge] = useState('');
-    const handleChange = (event) => {
-      setAge(event.target.value);
+    
+
+    const handleChangefromDate = (e) => {
+      setfromDate(e.target.value);
+      console.log(e.target.value);
+    };
+  
+    const handleChangetoDate = (e) => {
+      settoDate(e.target.value);
+      console.log(e.target.value);
     };
     
     const handleClose = () => {
@@ -60,6 +73,7 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
 
       useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+        FetchVenderService(handleFetchVender, handleFetchVenderException);
       }, [editData]);
 
        const handleFetchSuccess = (dataObject) =>{
@@ -67,6 +81,14 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
   }
   
   const handleFetchException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+
+  const handleFetchVender = (dataObject) => {
+    setVendorNameList(dataObject.data);
+  }
+
+  const handleFetchVenderException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
   
@@ -77,21 +99,48 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
   },handleFetchDepartmentSuccess, handleFetchDepartmentException);
 
 }
+
+const onVenderChange = (e) => {
+  setVendorName(e.target.value);
+  FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
+}
+
+const handleFetchVenderDataService = (dataObject) => {
+  setVendorData(dataObject.data);
+  setPhoneNumber(dataObject?.data[0]?.contactNo || '');
+  setEmailId(dataObject?.data[0]?.email || '');
+  setVenderAddress(dataObject?.data[0]?.address || '');
+}
+
+const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
+  console.log(errorMessage);
+}
+
     const onSubmit = (e) => {
         e.preventDefault();
             isAdd === true ?
             (
         
             AmcServiceAddService({
-              department:department,
-              section:section,
+              department: department,
+        section: section,
+        vendorName: vendorName,
+        phoneNumber: phoneNumber,
+        email: emailId,
+        fromDate:fromDate,
+        toDate:toDate,
             },handleSuccess, handleException)
             ) : (
             
             AmcServiceUpdateService({
             id: editData.id,
-            department:department,
-          section:section,
+            department: department,
+            section: section,
+            vendorName: vendorName,
+            phoneNumber: phoneNumber,
+            email: emailId,
+            fromDate:fromDate,
+            toDate:toDate,
             }, handleSuccess, handleException)
             );
         }
@@ -153,70 +202,56 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
                 <div>
                   <div><h2>VENDER DETAILS</h2> <hr /> </div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name</label>
+                  <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name: </label>
                     <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '200px' }}>
-                        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                      <FormControl style={{ width: '190px' ,marginLeft:'9px' }}>
+                        <InputLabel id="demo-simple-select-label"></InputLabel>
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        
-                        label="Age"
-                        >
-                          
+                        label=""
+                        onChange={(e) => onVenderChange(e)}>
+                          {vendorNameList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.vendorName}</MenuItem>
+                            )
+                          })}
                         </Select>
                       </FormControl>
                     </Box>
-                    <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail</label>
-                    <TextField 
-                        id="Email" 
-                        label="Email" 
-                        variant="outlined"
-                        onChange={(e) => { setVenderEmail(e.target.value) }}
-                       value={venderEmail} 
-                    />
-                    <label 
-                        style={{ marginLeft: '60px', 
-                                marginRight: '30px' }}>
-                                 Address
+                    <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail: </label>
+                    <TextField
+                    id="Email"
+                    label=""
+                    variant="outlined"
+                    value={emailId} />
+                    <label
+                    style={{
+                      marginLeft: '60px',
+                      marginRight: '30px'
+                    }}>
+                      Address :
                     </label>
-                    <TextField 
-                        id="address" 
-                        label="Address" 
-                        variant="outlined" 
-                        onChange={(e) => { setVenderAddress(e.target.value) }}
-                        value={venderAddress}    
-                    />
+                    <TextField
+                    id=""
+                    label=""
+                    variant="outlined"
+                    value={venderAddress} />
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '20px' }}>
-                    <label 
-                        style={{ 
-                            marginLeft: '20px',
-                            marginRight: '20px' 
-                            }}>
-                                 Company
+                    <label
+                    style={{
+                      marginLeft: '20px',
+                      marginRight: '30px'
+                    }}>
+                      Phone :
                     </label>
-                    <TextField 
-                        id="address" 
-                        label="Address" 
-                        variant="outlined" 
-                        onChange={(e) => { setVenderCompany(e.target.value) }}
-                        value={venderCompany}
-                    />
-                    <label 
-                        style={{ 
-                            marginLeft: '60px', 
-                            marginRight: '30px' 
-                            }}> 
-                            Phone
-                    </label>
-                    <TextField 
-                        id="address" 
-                        label="Address" 
-                        variant="outlined" 
-                        onChange={(e) => { setVenderPhone(e.target.value) }}
-                        value={venderPhone}    
-                    />
+                    <TextField
+                    style = {{ width: '190px'}}
+                    id=" Phone"
+                    label=""
+                    variant="outlined"
+                    value={phoneNumber}/>
                   </div>
                   <form style={{ border: 'solid', borderColor:'whitesmoke' }}>
                     <div style={{ margin: '20px' }}>
@@ -227,29 +262,23 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
                       <label style={{ marginLeft: '20px', marginRight: '80px' }}>
                       Certificate Date
                       </label>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <Stack spacing={3}>
-                          <DesktopDatePicker
-                          label="Date desktop"
-                          inputFormat="MM/DD/YYYY"
-                          value={value}
-                          onChange={handleChangeDateFrom}
-                          renderInput={(params) => <TextField {...params} />}/>
-                        </Stack>
-                      </LocalizationProvider>
+                      <TextField
+                      style={{width:'200px'}}
+                      id="Vendor-Address"
+                      variant="outlined"
+                      type='date'
+                      value={fromDate}
+                      onChange={(e) => { handleChangefromDate(e) }}/>
                       <label style={{ marginLeft: '20px', marginRight: '80px' }}>
                       Expire Date
                       </label>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <Stack spacing={3}>
-                          <DesktopDatePicker
-                          label="Date desktop"
-                          inputFormat="MM/DD/YYYY"
-                          value={value}
-                          onChange={handleChangeDateTo}
-                          renderInput={(params) => <TextField {...params} />}/>
-                        </Stack>
-                      </LocalizationProvider>
+                      <TextField
+                      style={{width:'200px'}}
+                      id="Vendor-Address"
+                      variant="outlined"
+                      type='date'
+                      value={toDate}
+                      onChange={(e) => { handleChangetoDate(e) }}/>
                     </div>
                     <div style={{ display: 'flex', marginLeft: '40px', marginTop: '20px', alignItems: 'center' }}>
                       <label style={{ 
