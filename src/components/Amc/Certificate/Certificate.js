@@ -2,7 +2,7 @@ import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import CertificateList from './CertificateList';
 import CertificateRenewal from './CertificateRenewal';
-import InspactionDueLis from './InspactionDueLis';
+import InspactionDueLis from './InspectionDueList';
 import InspectionList from './InspectionList';
 
 function TabPanel(props) {

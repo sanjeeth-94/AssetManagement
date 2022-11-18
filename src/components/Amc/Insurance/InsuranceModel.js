@@ -8,86 +8,179 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NotificationBar from '../../../services/NotificationBar';
-import dayjs from 'dayjs';
-import Stack from '@mui/material/Stack';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-
-import { UserAddService, UserUpdateService } from '../../../services/ApiServices';
+import MenuItem from '@mui/material/MenuItem';
+import { AmcServiceAddService,
+  AmcServiceUpdateService,
+  FetchDepaertmentService,
+  FetchSectionService,
+  FetchAssetTypeService,
+  FetchVenderService,
+  FetchVenderDataService,
+  FetchAssetNameService,
+} from '../../../services/ApiServices';
 
 const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-
-    const [departmentList, setDepartmentList] = useState([])
-    const [department, setDepartment] = useState('')
-    const [employeeId, setemployeeId] = useState('')
-    const [employeeName, setemployeeNamed] = useState('')
-    const [designation, setdesignation] = useState('')
-    const [mobile_number, setmobile_number] = useState('')
-    const [emailId, setemailId] = useState('')
-    const [userName, setuserName] = useState('')
-    const [password, setpassword] = useState('')
-    const [openNotification, setNotification] = useState({
+  const [vendorName, setVendorName] = useState('');
+  const [vendorNameList, setVendorNameList] = useState([]);
+  const [venderAddress, setVenderAddress] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailId, setEmailId] = useState('');
+  const [premiumCost, setPremiumCost] = useState();
+  const [department, setDepartment] = useState();
+  const [departmentList, setDepartmentList] = useState([]);
+  const [section, setSection] = useState();
+  const [sectionList, setSectionList] = useState([]);
+  const [fromDate, setfromDate] = useState('');
+  const [toDate, settoDate] = useState('');
+  const [assetType, setAssetType] = useState();
+  const [gstCertificate, setGstCertificate] = useState('');
+  const [assetList, setAssetList] = useState([]);
+  const [asset, setAsset] = useState('');
+  const [vendorData, setVendorData] = useState([]);
+  const [ assetNameList, setAssetNameList] = useState([]);
+  const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
         message: '',
     });
-    const [age, setAge] = React.useState('');
 
-    const handleChange = (event) => {
-      setAge(event.target.value);
+    const handleClose = () => {
+      setOpen(false);
     };
 
-    const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
+    const handleChangefromDate = (e) => {
+      setfromDate(e.target.value);
+      console.log(e.target.value);
+    };
 
-  const handleChangeDate = (newValue) => {
-    setValue(newValue);
-  };
-      
+  
+    const handleChangetoDate = (e) => {
+      settoDate(e.target.value);
+      console.log(e.target.value);
+    };
+
     useEffect(() => {
-     
+      FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+      FetchVenderService(handleFetchVender, handleFetchVenderException);
     }, [editData]);
+  
+    const handleFetchSuccess = (dataObject) => {
+      setDepartmentList(dataObject.data);
+    }
+  
+    const handleFetchException = (errorStaus, errorMessage) => {
+      console.log(errorMessage);
+    }
+  
+    const handleFetchVender = (dataObject) => {
+      setVendorNameList(dataObject.data);
+    }
+  
+    const handleFetchVenderException = (errorStaus, errorMessage) => {
+      console.log(errorMessage);
+    }
 
-    const handleFetchSuccess = (dataObject) =>{
-        setDepartmentList(dataObject.data);
-      }
-      const handleFetchException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-      }
+    const onDepartmentChange = (e) => {
+      setDepartment(e.target.value);
+      FetchSectionService({
+        id: e.target.value
+      }, handleFetchDepartmentSuccess, handleFetchDepartmentException);
+    }
+  
+    const handleFetchDepartmentSuccess = (dataObject) => {
+      setSectionList(dataObject.data);
+    }
+  
+    const handleFetchDepartmentException = (errorStaus, errorMessage) => {
+      console.log(errorMessage);
+    }
+  
+    const onSectionChange = (e) => {
+      setSection(e.target.value);
+      FetchAssetTypeService({
+        id: e.target.value
+      }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+    }
+
+    const handleFetchAssetTypeServiceSuccess = (dataObject) => {
+      setAssetList(dataObject.data);
+     
+    }
     
-      const onDepartmentChange = (e) => {
-        setDepartment(e.target.value);
-      }
-      
-      const handleClose = () => {
-        setOpen(false);
-      
-        };
+    const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
+      console.log(errorMessage);
+    }
+  
+    const onAssetChange = (e) => {
+      setAsset(e.target.value)
+  
+      FetchAssetNameService({
+        id: e.target.value
+      }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
+    }
+    const handleFetchAssetNameServiceSuccess = (dataObject) => {
+      setAssetNameList(dataObject.data);
+     
+    }
+
+    const handleFetchAssetNameServiceException= (errorStaus, errorMessage) => {
+      console.log(errorMessage);
+    }
+  
+    const onAssetTypeChange = (e) => {
+      setAssetType(e.target.value);
+    }
+  
+    const onVenderChange = (e) => {
+      setVendorName(e.target.value);
+      FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
+    }
+  
+    const handleFetchVenderDataService = (dataObject) => {
+      setVendorData(dataObject.data);
+      setPhoneNumber(dataObject?.data[0]?.contactNo || '');
+      setEmailId(dataObject?.data[0]?.email || '');
+      setVenderAddress(dataObject?.data[0]?.address || '');
+    }
+
+    const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
+      console.log(errorMessage);
+    }
+  
+    const onSubmit = (e) => {
+      e.preventDefault();
+      isAdd === true ?
+      (
+        AmcServiceAddService({
+          department: department,
+          section: section,
+          vendorName: vendorName,
+          phoneNumber: phoneNumber,
+          email: emailId,
+          fromDate:fromDate,
+          toDate:toDate,
+        }, handleSuccess, handleException)
+      ) : (
+        AmcServiceUpdateService({
+          id: editData.id,
+          department: department,
+          section: section,
+          vendorName: vendorName,
+          phoneNumber: phoneNumber,
+          email: emailId,
+          fromDate:fromDate,
+          toDate:toDate,
+        }, handleSuccess, handleException)
+      );
+    }
     
-      const onSubmit = (e) => {
-        e.preventDefault();
-         isAdd === true ?
-          (
-        
-          UserAddService({
-          
-         
-          },handleSuccess, handleException)
-          ) : (
-         
-          UserUpdateService({
-            id: editData.id,
-        
-          }, handleSuccess, handleException)
-          );
-      }
+    
+      
+    
+      
     
       const handleSuccess = (dataObject) =>{
         console.log(dataObject);
@@ -131,82 +224,104 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <DialogContentText>
             <div>
                 <form>
-                    <div style={{display:'flex',alignItems:'center',marginTop:'20px'}}>
-                        <label style={{marginLeft:'30px',marginRight:'65px'}}>Name</label>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label"></InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                
-                                label="Age"
-                                
-                                >
-                                
-                                </Select>
-                            </FormControl>
-                            </Box>
-                        <label style={{marginLeft:'30px',marginRight:'40px'}}>E mail</label>
-                        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                        <label style={{marginLeft:'30px',marginRight:'40px'}}>Address</label>
-                        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                    </div>
-                    <div style={{marginTop:'20px',display:'flex',alignItems:'center'}}>
-                        <label style={{marginLeft:'30px',marginRight:'40px'}}>Company</label>
-                        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                        <label style={{marginLeft:'30px',marginRight:'40px'}}>Phone</label>
-                        <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-                    </div>
-                    <form style={{border:'solid',marginTop:'20px'}}>
+                <div style={{ display: 'flex', alignItems: 'center', marginTop:'20px' }}>
+                    <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name: </label>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl style={{ width: '190px' ,marginLeft:'9px' }}>
+                        <InputLabel id="demo-simple-select-label"></InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label=""
+                        value={vendorName}
+                        onChange={(e) => onVenderChange(e)}>
+                          {vendorNameList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.vendorId} key={index}>{data.vendorName}</MenuItem>
+                            )
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail: </label>
+                    <TextField
+                    id="Email"
+                    label=""
+                    variant="outlined"
+                    value={emailId} />
+                    <label
+                    style={{
+                      marginLeft: '60px',
+                      marginRight: '30px'
+                    }}>
+                      Address :
+                    </label>
+                    <TextField
+                    id=""
+                    label=""
+                    variant="outlined"
+                    value={venderAddress} />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '20px' }}>
+                    <label
+                    style={{
+                      marginLeft: '20px',
+                      marginRight: '30px'
+                    }}>
+                      Phone :
+                    </label>
+                    <TextField
+                    style = {{ width: '190px'}}
+                    id=" Phone"
+                    label=""
+                    variant="outlined"
+                    value={phoneNumber}/>
+                  </div>
+                    <form style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px'}}>
                         <div style={{marginTop:'20px',marginLeft:'20px',display:'flex',alignItems:'center'}}>
                             <label style={{marginRight:'30px',marginLeft:'30px'}}>Period : FROM</label>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <Stack spacing={3}>
-                                <DesktopDatePicker
-                                label="Date desktop"
-                                inputFormat="MM/DD/YYYY"
-                                value={value}
-                                onChange={handleChange}
-                                renderInput={(params) => <TextField {...params} />}
-                                />
-                            </Stack>
-                            </LocalizationProvider>
+                            <TextField
+                      style={{width:'200px'}}
+                      id="Vendor-Address"
+                      variant="outlined"
+                      type='date'
+                      value={fromDate}
+                      onChange={(e) => { handleChangefromDate(e) }}/>
+                            
                             <label style={{marginRight:'100px',marginLeft:'40px'}}>To</label>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <Stack spacing={3}>
-                                <DesktopDatePicker
-                                label="Date desktop"
-                                inputFormat="MM/DD/YYYY"
-                                value={value}
-                                onChange={handleChange}
-                                renderInput={(params) => <TextField {...params} />}
-                                />
-                            </Stack>
-                            </LocalizationProvider>
+                            <TextField
+                      style={{width:'200px'}}
+                      id="Vendor-Address"
+                      variant="outlined"
+                      type='date'
+                      value={toDate}
+                      onChange={(e) => { handleChangetoDate(e) }}/>
                         </div>
                         <div style={{marginTop:'20px',display:'flex',alignItems:'center'}}>
                             <label style={{marginLeft:'50px',marginRight:'35px'}}>Premium Cost</label>
-                            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                            <TextField
+                      id="premium"
+                      label="Premium Cost"
+                      variant="outlined"
+                      onChange={(e) => { setPremiumCost(e.target.value) }}
+                      value={premiumCost} />
                             <label style={{marginLeft:'60px',marginRight:'20px'}}>Insurance Doc</label>
-                             <TextField
-                                style={{ width: '250px', marginLeft: '10px' }}
-                                label="Canceled Cheque"
-                                onChange={(e) => {
-                                    if (e.target.files && e.target.files.length > 0) {
-                                    const reader = new FileReader();
-                                    reader.onload = () => {
-                                        if (reader.readyState === 2) {
-                                        // setcanceledCheque(reader.result);
-                                        }
-                                    };
-                                    reader.readAsDataURL(e.target.files[0]);
-                                    }
-                                }}
-                                InputLabelProps={{ shrink: true }}
-                                type="file"
-                            />
-                        </div>
+                            <TextField
+                      style={{ width: '300px', marginLeft: '20px' }}
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          const reader = new FileReader();
+                          reader.onload = () => {
+                            if (reader.readyState === 2) {
+                              setGstCertificate(reader.result);
+                            }
+                          };
+                          reader.readAsDataURL(e.target.files[0]);
+                        }
+                      }}
+                      InputLabelProps={{ shrink: true }}
+                      type="file"/>
+                    </div>
                         <div style={{display:'flex',alignItems:'center',marginTop:'20px'}}>
                         <label style={{marginLeft:'50px',marginRight:'45px'}}>Department :</label>
                         <Box sx={{ minWidth: 120 }}>
@@ -218,8 +333,12 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 
                                 label="Age"
                                 
-                                >
-                                
+                                onChange={(e) => onDepartmentChange(e)}>
+                            {departmentList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                              )
+                            })}
                                 </Select>
                             </FormControl>
                             </Box>
@@ -232,9 +351,12 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 id="demo-simple-select"
                                
                                 label="Age"
-                                
-                                >
-                                
+                                onChange={(e) => onSectionChange(e)}>
+                                {sectionList.map((data, index) => {
+                                  return (
+                                    <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                  )
+                                })}
                                 </Select>
                             </FormControl>
                             </Box>
@@ -247,7 +369,13 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                label="Age" >
+                                label="Age" 
+                                onChange={(e) => onAssetChange(e)}>
+                            {assetList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                              )
+                            })}
                                 
                                 </Select>
                             </FormControl>
@@ -259,7 +387,13 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                label="Age">
+                                label="Age"
+                                onChange={(e) => onAssetChange(e)}>
+                            {assetNameList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                              )
+                            })}
                                 
                                 </Select>
                             </FormControl>
@@ -271,12 +405,9 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <div className='addbutton'>
-            <Button type='reset' onClick={handleClose}>Cancel</Button>
-            <Button type='submit'>
-              Apply
-            </Button>
-          </div>
+        <div className='addbutton'>
+              <Button style={{ border: 'solid', width: '150px' }} onClick={handleClose} autoFocus>Apply</Button>
+            </div>
           <NotificationBar
                     handleClose={handleCloseNotify}
                     notificationContent={openNotification.message}

@@ -6,12 +6,13 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import NotificationBar from '../../services/NotificationBar';
 import { AmcServiceAddService, 
   AmcServiceUpdateService,
   FetchDepaertmentService, 
   FetchSectionService ,
-  FetchAssetTypeService, } from '../../services/ApiServices';
+  FetchAssetTypeService, 
+  FetchAssetNameService,
+} from '../../services/ApiServices';
 
 const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department  ,setDepartment]= useState();
@@ -19,8 +20,9 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [section ,setSection]= useState();
   const [sectionList,setSectionList]=useState([]);
   const [assetList, setAssetList]= useState([]);
-  const [assetTypeList, setAssetTypeList] = useState([]);
   const [assetType, setAssetType] = useState('');
+  const [ assetNameList, setAssetNameList] = useState([]);
+  const [asset, setAsset] = useState('');
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -47,25 +49,6 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     
   }
   
-  const onAssetChange = (e) => {
-    setDepartment(e.target.value);
-    FetchSectionService ({
-      id: e.target.value
-    },handleFetchDepartmentSuccess, handleFetchDepartmentException);
-    
-  }
-  
-  const handleFetchAssetTypeServiceSuccess = (dataObject) =>{
-    setAssetList(dataObject.data);
-  }
-  
-  const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) =>{
-    console.log(errorMessage);
-  }
-  
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   
   
@@ -76,6 +59,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       AmcServiceAddService({
         department:department,
         section:section,
+        assetType:assetType,
       },handleSuccess, handleException)
           ) : (
             AmcServiceUpdateService({
@@ -125,16 +109,37 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           }
     
           const onSectionChange = (e) => {
-            setSection(e.target.value); 
-            FetchAssetTypeService({ id: e.target.value },handleFetchAssetType, handleFetchAssetTypeException)   
+            setSection(e.target.value);
+            FetchAssetTypeService({
+              id: e.target.value
+            }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+          }
+        
+          const handleFetchAssetTypeServiceSuccess = (dataObject) => {
+            setAssetList(dataObject.data);
+           
+          }
+          
+          const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
+            console.log(errorMessage);
           }
 
-          const handleFetchAssetType = (dataObject) => {
-            setAssetTypeList(dataObject.data);
-        }
-          const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
+          const onAssetChange = (e) => {
+            setAsset(e.target.value)
+        
+            FetchAssetNameService({
+              id: e.target.value
+            }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
+          }
+          const handleFetchAssetNameServiceSuccess = (dataObject) => {
+            setAssetNameList(dataObject.data);
+           
+          }
+          
+          const handleFetchAssetNameServiceException= (errorStaus, errorMessage) => {
             console.log(errorMessage);
-        }
+          }
+        
     
     
         const onAssetTypeChange = (e) => {
@@ -147,13 +152,14 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         { field: 'Vendor Name', headerName: 'Vendor Name', width: 280 },
         { field: 'Asset Name', headerName: 'Asset Name', width: 240 },
         { field: 'Service Due Date', headerName: 'Service Due Date', width: 240 },
-        { field: 'Action', headerName: 'Action', width: 240 },   
+        // { field: 'Action', headerName: 'Action', width: 240 },   
     ];
 
     
     return (
         <div style={{border:'solid' , borderColor:'whitesmoke'}}>
         <div style={{display:'flex', marginBottom:'30px',marginLeft:'30px',alignItems:'center',marginTop:'20px'}}>
+           
             <label>Department:</label>
             <Box sx={{ minWidth: 120 }}>
                 <FormControl style={{width:'150px',marginLeft:'30px',marginRight:'30px'}}>
@@ -196,11 +202,11 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"     
                     label=""
-                    onChange={(e) => onAssetTypeChange(e)}>
-                    {assetTypeList.map((data, index) => {
-                        return (
-                            <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
-                        )
+                    onChange={(e) => onAssetChange(e)}>
+                    {assetList.map((data, index) => {
+                      return (
+                        <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                      )
                     })}
                     </Select>
                 </FormControl>
@@ -212,12 +218,20 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    label="">
+                    label=""
+                    onChange={(e) => onAssetChange(e)}>
+                            {assetNameList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                              )
+                            })}
                     </Select>
                 </FormControl>
             </Box>
-            <Button variant="contained">Contained</Button>
+            <Button variant="contained" onClick={onSubmit}>View</Button>
+           
         </div>
+        
         <hr/>
         <div style={{ height: '300px', width: '80%', marginLeft:'40px', }}>
             <DataGrid
@@ -226,6 +240,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             rowsPerPageOptions={[5]}
             onRowAdd/>
         </div>
+       
     </div>
   )
 }

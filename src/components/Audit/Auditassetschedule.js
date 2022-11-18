@@ -23,11 +23,12 @@ export default function Assetadd() {
     const handleChange = (event) => {
         setAge(event.target.value);
     };
-
+   
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -40,8 +41,8 @@ export default function Assetadd() {
     return(
         <div style={{marginLeft:'750px'}}>
             <Button variant="outlined" onClick={handleClickOpen}>
-            <CalendarMonthIcon className='Add'/>
-             schedule
+                <CalendarMonthIcon className='Add'/>
+                schedule
             </Button>
             <div>
                 <Dialog
@@ -55,7 +56,7 @@ export default function Assetadd() {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <form>
-                                <div  style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                     <label style={{marginLeft:'1px'}}>Audit Date : </label>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <Stack style={{ width: '250px' , marginLeft: '40px' }} spacing={3}>
