@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
+
 
 const AuditSyncList = () => {
-const [rows,setRows]=React.useState([])
-const columns = [
-  { field: 'Scheduled Audit', headerName: 'Scheduled Audit', width: 200, },
-  { field: 'Date', headerName: 'Date', width: 200 },
-  { field: 'action', headerName: 'Action', width: 200 ,  sortable: false, }
-];
+  const [rows,setRows]=React.useState([])
+  const columns = [
+    { field: 'Scheduled Audit', headerName: 'Scheduled Audit', width: 200, },
+    { field: 'Date', headerName: 'Date', width: 200 },
+    { field: 'action', headerName: 'Action', width: 200 ,  sortable: false, }
+  ];
 
-return (
-  <div>
+  return (
     <div>
-      <h2>AUDIT SYNC</h2>
-    </div>
+      <div>
+        <h2>AUDIT SYNC</h2>
+      </div>
       <hr/>
       <div>
         <DataGrid style={{height:'150px'}}

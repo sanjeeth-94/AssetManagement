@@ -12,9 +12,9 @@ import {
   FetchSectionService,
   FetchAssetTypeService,
   AMCServiceDueListService
-} from '../../services/ApiServices';
+} from '../../../services/ApiServices';
 
-const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department, setDepartment] = useState();
   const [section, setSection] = useState();
   const [sectionList, setSectionList] = useState([]);
@@ -124,9 +124,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const columns = [
     { field: 'vendorId', headerName: 'Serial No', width: 200 },
     { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
-    { field: 'department', headerName: 'Asset Name', width: 200 },
-    { field: 'periodFrom', headerName: 'Service Due Date', width: 180 },
-    
+    { field: '', headerName: 'Inspection Date', width: 200 },
   ];
   
   return (
@@ -134,7 +132,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       <form style={{border:'solid' , borderColor:'whitesmoke'}}>
         <div style={{marginTop:'20px'}}>
           <div style={{display:'flex',alignItems:'center'}}>
-            <label style={{marginLeft:'20px', marginRight:'40px'}}>AmcService Date From :</label>
+            <label style={{marginLeft:'20px', marginRight:'40px'}}>Inspection Date From :</label>
             <TextField
             style={{width:'200px'}}
             id="Vendor-Address"
@@ -209,7 +207,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       </form>
       <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
         <div>
-          <h3 style={{marginLeft:'30px'}}>INSPECTION DUE DATE</h3>
+          <h3 style={{marginLeft:'30px'}}>SERVICE DUE DATE</h3>
         </div>
         <hr/>
         <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
@@ -223,4 +221,4 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   )
 }
 
-export default AmcServiceDueList;
+export default InspectionDueList;

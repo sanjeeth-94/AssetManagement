@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import dayjs from 'dayjs';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,11 +7,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
-import {UserAddService, UserUpdateService,FetchDepaertmentService,
+import {
+  FetchDepaertmentService,
   FetchSectionService,
   FetchAssetTypeService,
   ViewAuditReportService,
- } from '../../services/ApiServices';
+} from '../../services/ApiServices';
 
 const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department, setDepartment] = useState();
@@ -26,21 +22,22 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [assetType, setAssetType] = useState();
   const [assetTypeList, setAssetTypeList] = useState([]);
   const [viewReport,setViewReport] = useState([]);
-  const [fromDate, setfromDate] = useState(dayjs('2014-08-18T21:11:54'));;
-  const [toDate, settoDate] = useState(dayjs('2014-08-18T21:11:54'));;
+  const [fromDate, setfromDate] = useState('');
+  const [toDate, settoDate] = useState('');
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
     message: '',
   });
   
-  const handleChangefromDate = (newValue) => {
-    setfromDate(newValue);
+  const handleChangefromDate = (e) => {
+    setfromDate(e.target.value);
+    console.log(e.target.value);
   };
 
-  const handleChangetoDate = (newValue) => {
-    setValue(newValue);
-    settoDate(newValue);
+  const handleChangetoDate = (e) => {
+    settoDate(e.target.value);
+    console.log(e.target.value);
   };
 
   const handleClose = () => {
@@ -68,12 +65,7 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleFetchDepartmentSuccess = (dataObject) =>{
     setSectionList(dataObject.data);
   }
-
-  const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
-  const handleChangeDate = (newValue) => {
-    setValue(newValue);
-  };
-
+  
   const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
   }
@@ -91,29 +83,25 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     console.log(errorMessage);
   }
 
-
-  const onViewClick = () => {
-    
-  }
-  
-
   const onSubmit = (e) => {
     e.preventDefault();
-      ViewAuditReportService({ 
-        id:assetType ,
-        fromDate:fromDate,
-        toDate:toDate,
-     },handleViewAuditReport, handleViewAuditReportException)    
+    ViewAuditReportService({ 
+      id:assetType ,
+      fromDate:fromDate,
+      toDate:toDate,
+    },handleViewAuditReport, handleViewAuditReportException)    
   }
+
   const handleViewAuditReport = (dataObject) => {
     setViewReport(dataObject.data);
+    setRows(dataObject.data);
+    console.log(dataObject.data);
   }
 
   const handleViewAuditReportException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
 
-  
   const handleSuccess = (dataObject) =>{
     console.log(dataObject);
     setRefresh(oldValue => !oldValue);
@@ -124,25 +112,6 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     }); 
   }
 
-  const handleException = (errorObject, errorMessage) =>{
-    console.log(errorMessage);
-    setNotification({
-      status: true,
-      type: 'error',
-      message:errorMessage,
-    });
-  }
-
-  const handleCloseNotify = () => {
-    setOpen(false)
-    setNotification({
-      status: false,
-      type: '',
-      message: '',
-    });
-  };
-
- 
   const onAssetTypeChange = (e) => {
     setAssetType(e.target.value);
   }
@@ -150,18 +119,17 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [rows, setRows] = useState([]);
   const columns = [
     { field: 'id', headerName: 'Serial No', width: 180 },
-    { field: 'employee_id', headerName: 'Audit Name', width: 200 },
-    { field: 'employee_name', headerName: 'Department', width: 200 },
-    { field: 'department', headerName: 'Section', width: 180 },
-    { field: 'designation', headerName: 'Asset Type', width: 180 },
+    { field: 'auditName', headerName: 'Audit Name1212', width: 200 },
+    { field: 'department', headerName: 'Department', width: 200 },
+    { field: 'section', headerName: 'Section', width: 180 },
+    { field: 'assetType', headerName: 'Asset Type', width: 180 },
     {field: 'action', headerName: 'Action', width: 150, sortable: false,
     cellClassname: 'actions',
     type: 'actions',
-        // getActions: (params) => [
-        //     <EditData selectedRow={params.row} />,
-        //     <DeleteData selectedRow={params.row} />,
-        // ],
-    }
+    getActions: (params) => [
+      // <EditData selectedRow={params.row} />,
+      // <DeleteData selectedRow={params.row} />,
+    ]},
   ];
   
   return (
@@ -174,27 +142,21 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         <div style={{marginTop:'20px'}}>
           <div style={{display:'flex',alignItems:'center'}}>
             <label style={{marginLeft:'20px', marginRight:'40px'}}>Audited Date From :</label>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Stack spacing={3}>
-                <DesktopDatePicker
-                label="Date desktop"
-                inputFormat="MM/DD/YYYY"
-                value={fromDate}
-                onChange={handleChangefromDate}
-                renderInput={(params) => <TextField {...params} />}/>
-              </Stack>
-            </LocalizationProvider>
+            <TextField
+            style={{width:'200px'}}
+            id="Vendor-Address"
+            variant="outlined"
+            type='date'
+            value={fromDate}
+            onChange={(e) => { handleChangefromDate(e) }}/>
             <label style={{marginLeft:'80px', marginRight:'70px'}}> To</label>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Stack spacing={3}>
-                <DesktopDatePicker
-                label="Date desktop"
-                inputFormat="MM/DD/YYYY"
-                value={toDate}
-                onChange={handleChangetoDate}
-                renderInput={(params) => <TextField {...params} />}/>
-              </Stack>
-            </LocalizationProvider>
+            <TextField
+            style={{width:'200px'}}
+            id="Vendor-Address"
+            variant="outlined"
+            type='date'
+            value={toDate}
+            onChange={(e) => { handleChangetoDate(e) }}/>
           </div>
           <div style={{display:'flex',alignItems:'center', marginTop:'20px', marginBottom:'20px'}}>
             <label style={{marginRight:'90px',marginLeft:'20px'}}>Department :</label>
@@ -260,7 +222,7 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
           <DataGrid
           rows={rows}
-          columns={columns} />
+          columns={columns}/>
         </div>
         <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
       </form>
