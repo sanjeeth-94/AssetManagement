@@ -14,6 +14,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import MenuItem from '@mui/material/MenuItem';
+import { Grid } from '@mui/material';
 import {
     AssetAddService,
     AssetUpdateService,
@@ -25,10 +26,8 @@ import {
     FetchAssetIdService,
    
 } from '../../../services/ApiServices';
-import { Grid } from '@mui/material';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => {
-
     const [assetId, setAssetId] = useState();
     const [departmentList, setDepartmentList] = useState([]);
     const [department, setDepartment] = useState(editData?.department || '');
@@ -81,10 +80,8 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setAssetModel('');
         setpoNo('');
         setInvoiceNo('');
-
     };
 
-    //to call display in department//
     useEffect(() => {
         FetchAssetIdService(handleFetchAssetId, handleFetchAssetIdException);
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
@@ -111,18 +108,15 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
     const handleFetchSuccess = (dataObject) => {
         setDepartmentList(dataObject.data);
-  
         if (editData?.department) {
             FetchSectionService({
                 id: editData?.department
             }, handleFetchSectionEdit, handleFetchSectionEditException)
         }
     }
-
+    
     const handleFetchSectionEdit = (dataObject) => {
-      
         setSectionList(dataObject.data);
-       
         if (editData?.section) {
             FetchAssetTypeService({ id:editData?.section}, handleFetchAssetTypeSectionEdit, handleFetchAssetTypeSectionEditException)
         }
@@ -130,7 +124,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
     const handleFetchAssetTypeSectionEdit = (dataObject) => {
        setAssetTypeList(dataObject.data)
-
     }
 
     const handleFetchAssetTypeSectionEditException = (errorStaus, errorMessage) => {
@@ -146,9 +139,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     }
 
     const handleFetchVender = (dataObject) => {
-        setVendorNameList(dataObject.data);
-      
-      
+        setVendorNameList(dataObject.data); 
     }
     
     const handleFetchVenderException = (errorStaus, errorMessage) => {
@@ -157,7 +148,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
     const handleFetchAssetId = (dataObject) => {
         setAssetId(dataObject.data);
-
     }
 
     const handleFetchAssetIdException = (errorStaus, errorMessage) => {
@@ -167,12 +157,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     // department on change and section API call//    
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
-
         FetchSectionService({
             id: e.target.value
         }, handleFetchSection, handleFetchSectionException)
-
     }
+
     const handleFetchSection = (dataObject) => {
         setSectionList(dataObject.data);
     }
@@ -184,8 +173,8 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const onSectionChange = (e) => {
         setSection(e.target.value);
         FetchAssetTypeService({ id: e.target.value }, handleFetchAssetType, handleFetchAssetTypeException)
-
     }
+
     const handleFetchAssetType = (dataObject) => {
         setAssetTypeList(dataObject.data);
     }
@@ -194,83 +183,81 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         console.log(errorMessage);
     }
 
-
     const onAssetTypeChange = (e) => {
         setAssetType(e.target.value);
     }
+
     const onVenderChange = (e) => {
         setVendorName(e.target.value);
         FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
     }
+
     const handleFetchVenderDataService = (dataObject) => {
         setVendorData(dataObject.data);
         setPhoneNumber(dataObject?.data[0]?.contactNo || '');
         setEmailId(dataObject?.data[0]?.email || '');
         setVendorAddress(dataObject?.data[0]?.address || '');
-
     }
 
     const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
+
     const onChangeRedio = (event) => {
         setWarranty(event.target.value);
     };
 
-
     const onSubmit = (e) => {
         e.preventDefault();
         isAdd === true ?
-            (
-                AssetAddService({
-
-                    assetId: assetId,
-                    department: department,
-                    section: section,
-                    assetName: assetName,
-                    financialAssetId: financialAssetId,
-                    vendorName: vendorName,
-                    phoneNumber: phoneNumber,
-                    email: emailId,
-                    assetType: assetType,
-                    vendorAddress: vendorAddress,
-                    manufaturer: manufacturer,
-                    assetModel: assetModel,
-                    poNo: poNo,
-                    invoiceNo: invoiceNo,
-                    warrantyStartDate: warrantyStartDate,
-                    warrantyEndDate: warrantyEndDate,
-                    warrantyDocument: warrantyDocument,
-                    uploadDocument: uploadDocument,
-                    description: description,
-                    assetImage: assetImage,
-                    typeWarranty: warranty,
-
-                }, handleSuccess, handleException)
-            ) : (
-                AssetUpdateService({
-                    id: editData.id,
-                    assetId: assetId,
-                    department: department,
-                    section: section,
-                    assetName: assetName,
-                    financialAssetId: financialAssetId,
-                    vendorName: vendorName,
-                    phoneNumber: phoneNumber,
-                    email: emailId,
-                    assetType: assetType,
-                    vendorAddress: vendorAddress,
-                    manufaturer: manufacturer,
-                    assetModel: assetModel,
-                    poNo: poNo,
-                    invoiceNo: invoiceNo,
-                    warrantyStartDate: warrantyStartDate,
-                    warrantyEndDate: warrantyEndDate,
-                    warrantyDocument: warrantyDocument,
-                    uploadDocument: uploadDocument,
-                    description: description,
-                    assetImage: assetImage,
-                    typeWarranty: warranty,
+        (
+            AssetAddService({
+                assetId: assetId,
+                department: department,
+                section: section,
+                assetName: assetName,
+                financialAssetId: financialAssetId,
+                vendorName: vendorName,
+                phoneNumber: phoneNumber,
+                email: emailId,
+                assetType: assetType,
+                vendorAddress: vendorAddress,
+                manufaturer: manufacturer,
+                assetModel: assetModel,
+                poNo: poNo,
+                invoiceNo: invoiceNo,
+                warrantyStartDate: warrantyStartDate,
+                warrantyEndDate: warrantyEndDate,
+                warrantyDocument: warrantyDocument,
+                uploadDocument: uploadDocument,
+                description: description,
+                assetImage: assetImage,
+                typeWarranty: warranty,
+            }, handleSuccess, handleException)
+        ) : (
+            AssetUpdateService({
+                id: editData.id,
+                assetId: assetId,
+                department: department,
+                section: section,
+                assetName: assetName,
+                financialAssetId: financialAssetId,
+                vendorName: vendorName,
+                phoneNumber: phoneNumber,
+                email: emailId,
+                assetType: assetType,
+                vendorAddress: vendorAddress,
+                manufaturer: manufacturer,
+                assetModel: assetModel,
+                poNo: poNo,
+                invoiceNo: invoiceNo,
+                warrantyStartDate: warrantyStartDate,
+                warrantyEndDate: warrantyEndDate,
+                warrantyDocument: warrantyDocument,
+                uploadDocument: uploadDocument,
+                description: description,
+                assetImage: assetImage,
+                typeWarranty: warranty,
 
                 }, handleSuccess, handleException)
             );
