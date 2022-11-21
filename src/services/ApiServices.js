@@ -212,3 +212,13 @@ export const AmcServiceDeleteService = (data, successCallback, errorCallBack) =>
 export const AssetTypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assettype/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 export const  AMCServiceDueListService = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/serviceDue`, 'POST', data, successCallback, errorCallBack);
+
+///.........Maintenance......./////
+export const MaintenanceAddService = (data, successCallback, errorCallBack) => _fetchService('maintenance/add', 'POST', data, successCallback, errorCallBack);
+
+export const  FetchMachineService = (successCallback, errorCallBack) => _fetchService('getMachine', 'GET', {}, successCallback, errorCallBack);
+
+
+
+
+

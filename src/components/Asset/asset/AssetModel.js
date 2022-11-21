@@ -198,6 +198,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const onAssetTypeChange = (e) => {
         setAssetType(e.target.value);
     }
+    
     const onVenderChange = (e) => {
         setVendorName(e.target.value);
         FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)

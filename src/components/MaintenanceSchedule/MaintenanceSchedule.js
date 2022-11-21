@@ -9,13 +9,20 @@ import Select from '@mui/material/Select';
 import { DataGrid } from '@mui/x-data-grid';
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Stack from '@mui/material/Stack';
-import { FormLabel, Grid, StepButton } from '@mui/material';
+import {  Grid, MenuItem, } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import { FetchAssetNameService, 
+        FetchAssetTypeService, 
+        FetchDepaertmentService, 
+        FetchSectionService, 
+        MaintenanceAddService,
+        FetchMachineService,
+     } from '../../services/ApiServices';
+import Maintenance from './MaintenanceTable';
 
 const columns = [
     { field: 'AMC Status', headerName: 'AMC Status', width: 320 },
@@ -26,16 +33,116 @@ const columns = [
 const rows = [
 
 ];
+const columns2 = [
+    { field: 'AMC Status', headerName: 'Name ', width: 80 },
+    { field: 'Warranty Status', headerName: 'Part Id', width: 80 },
+    { field: 'Warranty Type', headerName: 'Quantity	', width: 80 },
+    { field: 'Warranty Type', headerName: '	Units	', width: 80 },
+    { field: 'Warranty Type', headerName: '	Amount	', width: 80 },
+    { field: 'Warranty Type', headerName: '	Action', width: 80 },
+];
 
 const steps = ['Step 1', 'Step 2', 'Step 3', 'Complete'];
 
 export default function HorizontalLinearStepper() {
-
+    const [departmentList, setDepartmentList] = useState([]);
+    const [department, setDepartment] = useState('');
+    const [section, setSection] = useState('');
+    const [sectionList, setSectionList] = useState([]);
+    const [assetName, setAssetName] = useState('');
+    const [assetNameList, setAssetNameList] = useState([]);
+    const [maintenanceType,setMaintenanceType] = useState('');
+    const [assetTypeList, setAssetTypeList] = useState([]);
+    const [assetType, setAssetType] = useState('');
+    const [name, setName] = useState('');
+    const [partid, setPartid] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [UOM, setUOM] = useState('');
+    const [unitPrice, setUnitPrice] = useState('');
+    const [maintenance, setMaintenance] = useState([]);
+    const [unitId, setUnitId] = useState('');
     const [canceledCheque, setcanceledCheque] = useState('');
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set());
-    const [targetForm, setTargetFrom] = useState('')
+    const [targetForm, setTargetFrom] = useState('');
+    const [isAddUnit, setIsAddUnit] = useState(true);
+    const [affectedMachine,setAffectedMachine]=useState([]);
+    const [affectedMachineList,setAffectedMachineList]=useState([]);
 
+    useEffect(() => {
+        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+        FetchMachineService(handleFetchMachineSuccess, handleFetchMachineException);
+
+    }, []);
+
+    const handleFetchSuccess = (dataObject) => {
+        setDepartmentList(dataObject.data);
+    }
+    const handleFetchException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+    const handleFetchMachineSuccess = (dataObject) => {
+        setAffectedMachineList(dataObject.data);
+    }
+    const handleFetchMachineException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+   
+    const onDepartmentChange = (e) => {
+        setDepartment(e.target.value);
+
+        FetchSectionService({
+            id: e.target.value
+        }, handleFetchSection, handleFetchSectionException)
+
+    }
+    const handleFetchSection = (dataObject) => {
+        setSectionList(dataObject.data);
+    }
+    const  onaffectedMachineChange=(e)=>{
+        setAffectedMachine(e.target.value)
+    }
+
+    const handleFetchSectionException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+
+    const onSectionChange = (e) => {
+        setSection(e.target.value);
+        FetchAssetTypeService({ id: e.target.value }, handleFetchAssetType, handleFetchAssetTypeException)
+
+    }
+    const handleFetchAssetType = (dataObject) => {
+        setAssetTypeList(dataObject.data);
+    }
+
+    const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+    const onAssetTypeChange = (e) => {
+        setAssetType(e.target.value);
+        FetchAssetNameService({ id: e.target.value }, handleFetchAssetNameService,  handleFetchAssetNameException)
+
+    }
+    const handleFetchAssetNameService= (dataObject) => {
+        setAssetNameList(dataObject.data);
+    }
+
+    const handleFetchAssetNameException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+    const onAssetNameChange = (e) => {
+        setAssetName(e.target.value);
+        MaintenanceAddService({ id: e.target.value }, handleMaintenanceAddService,  handleMaintenanceAddServiceException)
+
+    }
+    const handleMaintenanceAddService= (dataObject) => {
+        console.log(dataObject.data);
+    }
+
+    const handleMaintenanceAddServiceException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
 
     const isStepOptional = (step) => {
         return step === 1;
@@ -46,42 +153,28 @@ export default function HorizontalLinearStepper() {
     };
 
     const handleNext = () => {
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
-        }
-
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
+        if(activeStep === steps.length - 1 ){
+        alert('fished')
+        }
+        
     };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleSkip = () => {
-        if (!isStepOptional(activeStep)) {
-            // You probably want to guard against something like this,
-            // it should never occur unless someone's actively trying to break something.
-            throw new Error("You can't skip a step that isn't optional.");
-        }
-
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped((prevSkipped) => {
-            const newSkipped = new Set(prevSkipped.values());
-            newSkipped.add(activeStep);
-            return newSkipped;
-        });
-    };
-
     const handleReset = () => {
         setActiveStep(0);
     };
 
-    const [age, setAge] = React.useState('');
-    const handleChange = (event) => {
-        setAge(event.target.value);
+    
+    const handleMaintenanceTypeChange = (e) => {
+        setMaintenanceType(e.target.value);
+    };
+
+    const handleUOMChange = (e) => {
+        setUOM(e.target.value);
     };
 
     const setTagAssetType = (event) => {
@@ -89,6 +182,65 @@ export default function HorizontalLinearStepper() {
     };
 
 
+const addMaintenance=()=>{
+    if(name === ''){
+        alert("Enter name");
+       
+    }else if(partid === ''){
+        alert("Enter part Id");
+    }
+    else if(quantity=== ''){
+        alert("Enter quantity");
+    }
+    else if(UOM === ''){
+        alert("Enter UOM");
+    }
+    else if(unitPrice === ''){
+        alert("Enter unit price");
+    }
+    else if (unitId === '') {
+       
+        const newMaintenance = [...maintenance, { name, partid,quantity ,UOM,unitPrice }];
+        setMaintenance(newMaintenance);
+        
+      }
+    else {
+        const newMaintenance = [...maintenance];
+        newMaintenance[unitId].name = name;
+        newMaintenance[unitId].partid = partid;
+        newMaintenance[unitId].quantity = quantity;
+        newMaintenance[unitId].UOM = UOM;
+        newMaintenance[unitId].unitPrice = unitPrice;
+        setMaintenance(newMaintenance);
+        // clear textboxes
+        setName('');
+        setPartid('');
+        setQuantity('');
+        setUOM('');
+        setUnitPrice('');
+        setUnitId('');
+        setIsAddUnit(false);
+        setIsAddUnit(true);
+      }
+}
+
+const removeMaintenance= (index) => {
+        const newMaintenance = [...maintenance];
+        newMaintenance.splice(index, 1);
+        setMaintenance(newMaintenance);
+   
+ };
+
+const updateMaintenance= (index) => {
+        setUnitId(index);
+        setName(maintenance[index].name);
+        setPartid(maintenance[index].partid);
+        setQuantity(maintenance[index].quantity);
+        setUOM(maintenance[index].UOM);
+        setUnitPrice(maintenance[index].unitPrice);
+        setIsAddUnit(false);
+        
+}
     return (
         <div>
             <div>
@@ -123,69 +275,130 @@ export default function HorizontalLinearStepper() {
                         activeStep === 0 &&
 
                         <>
-                            <form style={{ width: '90%', border: 'solid', borderColor: 'whitesmoke', marginLeft: '0px', marginTop: '20px' }}>
-                                <div>
-                                    <h3 style={{ marginLeft: '30px' }}>Select Asset</h3>
-                                </div>
-                                <div style={{ marginTop: '20px', marginLeft: '20px', display: 'flex', alignItems: 'center' }}>
-                                    <Box>
-                                        <FormControl style={{ width: '200px', marginLeft: '28px', marginBottom: '20px' }}>
-                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={age}
-                                                label="Select Department"
-                                                onChange={handleChange}>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                    <Box>
-                                        <FormControl style={{ width: '250px', marginLeft: '28px', marginBottom: '20px' }}>
-                                            <InputLabel id="demo-simple-select-label">Select Department First</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={age}
-                                                label="Select Department"
-                                                onChange={handleChange}>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                    <Box>
-                                        <FormControl style={{ width: '250px', marginLeft: '28px', marginBottom: '20px' }}>
-                                            <InputLabel id="demo-simple-select-label">Select Section First</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={age}
-                                                label="Select Department"
-                                                onChange={handleChange}>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                    <Box>
-                                        <FormControl style={{ width: '250px', marginLeft: '28px', marginBottom: '20px' }}>
-                                            <InputLabel id="demo-simple-select-label">Select Asset Type First</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={age}
-                                                label="Select Department"
-                                                onChange={handleChange}>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                            </form>
-                            <div style={{ height: 200, width: '1000px', marginTop: '30px', marginLeft: '70px', marginRight: '30px', marginBottom: '10px' }}>
-                                <DataGrid
-                                    style={{ background: 'whitesmoke' }}
+                        
+                            <Grid container style={{ border: 'solid', borderColor: 'whitesmoke', marginTop: '20px' }}>
+                                <Grid container item xs={12} sm={12} md={12} lg={12} xl={12} >
+                                    <Grid item >
+                                        <h3 style={{ marginLeft: '30px' }}>Select Asset</h3>
+                                    </Grid>
+
+                                </Grid>
+                                <hr />
+
+                                <Grid container spacing={2} >
+
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <Box>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={department}
+                                                onChange={(e) => onDepartmentChange(e)}>
+                                                {departmentList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                    )
+                                                })}
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            width: '300px'
+                                        }}
+                                    >
+                                        <Box>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={section}
+                                                    onChange={(e) => onSectionChange(e)}>
+                                                    {sectionList.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                                        )
+                                                    })}
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+
+                                    </Grid>
+
+
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <Box>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Selectn Asset Type</InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={assetType}
+                                                    onChange={(e) => onAssetTypeChange(e)}>
+                                                    {assetTypeList.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                                        )
+                                                    })}
+    
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+
+                                            width: '300px'
+                                        }}
+                                    >
+
+                                        <Box>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    value={assetName}
+                                                    onChange={(e) => onAssetNameChange(e)}>
+                                                    {assetNameList.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                                                        )
+                                                    })}
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+
+                                    </Grid>
+                                </Grid>
+                                <Grid container spacing={2} style={{ marginTop:'30px'}} >
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                    <DataGrid
+                                    style={{ background: 'whitesmoke',height: 200 }}
                                     rows={rows}
                                     columns={columns}
                                     pageSize={5}
                                     rowsPerPageOptions={[5]} />
-                            </div>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                           
                         </>
                     }
 
@@ -233,13 +446,25 @@ export default function HorizontalLinearStepper() {
                                         width: '300px'
                                     }}
                                 >
-                                    <TextField
-                                        fullWidth
-                                        id="Vendor-Address"
-                                        variant="outlined"
-
-                                    />
-
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Maintenance Type</InputLabel>
+                                    <Select
+                                    labelId="
+                                    Maintenance Type"
+                                    id="
+                                    Maintenance Type"
+                                    value={maintenanceType}
+                                    label="Age"
+                                    onChange={handleMaintenanceTypeChange}
+                                    >
+                                    <MenuItem value={10}>Major</MenuItem>
+                                    <MenuItem value={20}>Minor</MenuItem>
+                                    <MenuItem value={30}>AMC</MenuItem>
+                                    <MenuItem value={40}>Breakdown</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                </Box>
                                 </Grid>
                             </Grid>
                             <Grid container spacing={2} style={{ marginTop: '20px' }}>
@@ -259,12 +484,17 @@ export default function HorizontalLinearStepper() {
                                         width: '300px'
                                     }}
                                 >
-                                    <TextField
-                                        fullWidth
-                                        id="Vendor-Address"
-                                        variant="outlined"
-
-                                    />
+                                    <FormControl>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"
+                                    >
+                                        <FormControlLabel value="Critical" control={<Radio />} label="Critical" />
+                                        <FormControlLabel value="Emergency" control={<Radio />} label="Emergency" />
+                                       
+                                    </RadioGroup>
+                                    </FormControl>
 
                                 </Grid>
 
@@ -288,12 +518,13 @@ export default function HorizontalLinearStepper() {
                                         fullWidth
                                         id="Vendor-Address"
                                         variant="outlined"
+                                        multiline
 
                                     />
 
                                 </Grid>
                             </Grid>
-                            <Grid container spacing={2} style={{ marginTop: '20px' }}>
+                            <Grid container spacing={2} style= {{ marginTop: '20px' }}>
 
                                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
                                     style={{
@@ -425,175 +656,357 @@ export default function HorizontalLinearStepper() {
                     {
                         activeStep === 2 &&
                         <>
-                            <Grid container spacing={2} style={{ marginTop: '20px', marginLeft: '20px' }}>
+                            <form >
+                                <Grid container spacing={2} style={{ marginTop: '20px', marginLeft: '20px' }}>
 
-                                <Grid tem xs={12} sm={12} md={12} lg={12} xl={12}
-                                    style={{
-                                        width: '200px',
+                                    <Grid tem xs={12} sm={12} md={12} lg={12} xl={12}
+                                        style={{
+                                            width: '200px',
 
-                                    }}
-                                >
-                                    <FormControl>
-                                        <RadioGroup
-                                            row
-                                            aria-labelledby="demo-row-radio-buttons-group-label"
-                                            name="row-radio-buttons-group"
+                                        }}
+                                    >
+                                        <FormControl>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                            >
+                                                <FormControlLabel value="Parts" control={<Radio />} label="Parts" />
+                                                <FormControlLabel value=" Consumable" control={<Radio />} label="Consumable" />
+                                                <FormControlLabel value=" NA" control={<Radio />} label="NA" />
+
+                                            </RadioGroup>
+                                        </FormControl>
+
+                                    </Grid>
+                                </Grid>
+                                <Grid container style={{ display: 'box', marginTop: '30px' }}>
+                                    <Grid container item xs={12} sm={12} md={6} lg={4} xl={4} style={{ display: 'inline' }} >
+                                        <Grid container >
+                                            <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
+                                                style={{
+                                                    alignSelf: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <label>Name:</label>
+                                            </Grid>
+                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                                style={{
+                                                    alignSelf: 'center',
+
+                                                }}
+                                            >
+                                                <TextField 
+                                                    fullWidth  
+                                                    label="Enter Name:" 
+                                                    variant="outlined" 
+                                                    value={name}
+                                                    onChange={(e)=>{setName(e.target.value)}} 
+                                                />
+
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container style={{ marginTop: '20px' }} >
+                                            <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
+                                                style={{
+                                                    alignSelf: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <label>Partid:</label>
+                                            </Grid>
+                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                                style={{
+                                                    alignSelf: 'center',
+
+                                                }}
+                                            >
+                                                <TextField
+                                                    fullWidth
+                                                    label='Enter Partid'
+                                                    variant="outlined"
+                                                    value={partid}
+                                                    onChange={(e)=>{setPartid(e.target.value)}} 
+
+                                                />
+
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container style={{ marginTop: '20px' }}  >
+                                            <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
+                                                style={{
+                                                    alignSelf: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <label>Quantity:</label>
+                                            </Grid>
+                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                                style={{
+                                                    alignSelf: 'center',
+
+                                                }}
+                                            >
+                                                <TextField
+                                                    fullWidth
+                                                    label='Enter Quantity'
+                                                    variant="outlined"
+                                                    value={quantity}
+                                                    onChange={(e)=>{setQuantity(e.target.value)}} 
+                                                />
+
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container style={{ marginTop: '20px' }}  >
+                                            <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
+                                                style={{
+                                                    alignSelf: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <label>UOM:</label>
+                                            </Grid>
+                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                                style={{
+                                                    alignSelf: 'center',
+
+                                                }}
+                                            >
+                                         <Box sx={{ minWidth: 120 }}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">UOM</InputLabel>
+                                                <Select
+                                                value={UOM}
+                                                label="UOM"
+                                                onChange={handleUOMChange}
+                                                >
+                                                <MenuItem value={10}>Liter</MenuItem>
+                                                <MenuItem value={20}>Kg</MenuItem>
+                                                <MenuItem value={30}>NOS</MenuItem>
+                                             
+                                                </Select>
+                                            </FormControl>
+                                            </Box>
+
+                                            </Grid>
+                                        </Grid>
+                                        <Grid container style={{ marginTop: '20px' }} >
+                                            <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
+                                                style={{
+                                                    alignSelf: 'center',
+                                                    textAlignLast: 'center'
+                                                }}
+                                            >
+                                                <label>Unit price:</label>
+                                            </Grid>
+                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                                style={{
+                                                    alignSelf: 'center',
+
+                                                }}
+                                            >
+                                                <TextField
+                                                    fullWidth
+                                                    label='Enter Unit price'
+                                                    variant="outlined"
+                                                    value={unitPrice}
+                                                    onChange={(e)=>{setUnitPrice(e.target.value)}} 
+
+                                                />
+
+                                            </Grid>
+                                        </Grid>
+                                        <Grid>
+                                            <Button  onClick={addMaintenance} style={{ marginTop: '20px' }} variant="contained">
+                                                 {isAddUnit ? 'Add ' : 'Update '}
+                                            </Button>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container item xs={12} sm={12} md={6} lg={8} xl={8} style={{ display: 'inline', }} >
+                                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                                            style={{
+                                                alignSelf: 'center',
+                                                textAlignLast: 'center'
+                                                , marginLeft: '20px'
+                                            }}
                                         >
-                                            <FormControlLabel value="Parts" control={<Radio />} label="Parts" />
-                                            <FormControlLabel value=" Consumable" control={<Radio />} label="Consumable" />
-                                            <FormControlLabel value=" NA" control={<Radio />} label="NA" />
-
-                                        </RadioGroup>
-                                    </FormControl>
-
-                                </Grid>
-
-
-
-                            </Grid>
-
-                            <Grid container spacing={2} style={{ marginTop: '20px', marginLeft: '20px', display: 'inline' }}>
-
-                                <Grid container spacing={2} style={{ marginTop: '20px', marginLeft: '20px', width: '500px', }}>
-
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-
-                                        }}
-                                    >
-                                        Name:
-                                    </Grid>
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-
-                                        }}
-                                    > <TextField
-                                            fullWidth
-                                            id="Vendor-Address"
-                                            variant="outlined"
-
-                                        />
-
-                                    </Grid>
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-                                        }}
-                                    >
-                                        Partid:
-                                    </Grid>
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-
-                                        }}
-                                    > <TextField
-                                            fullWidth
-                                            id="Vendor-Address"
-                                            variant="outlined"
-
-                                        />
-
-                                    </Grid>
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-                                        }}
-                                    >
-                                        Quantity:
-                                    </Grid>
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-
-                                        }}
-                                    > <TextField
-                                            fullWidth
-                                            id="Vendor-Address"
-                                            variant="outlined"
-
-                                        />
-
-                                    </Grid>
-
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-                                        }}
-                                    >
-                                        UOM:
-                                    </Grid>
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-
-                                        }}
-                                    > <TextField
-                                            fullWidth
-                                            id="Vendor-Address"
-                                            variant="outlined"
-
-                                        />
-
-                                    </Grid>
-
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-                                        }}
-                                    >
-                                        Unit price:
-                                    </Grid>
-                                    <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                        style={{
-                                            width: '200px',
-                                            marginTop: '20px'
-
-                                        }}
-                                    > <TextField
-                                            fullWidth
-                                            id="Vendor-Address"
-                                            variant="outlined"
-
-                                        />
-
+                                            {
+                                                maintenance.length > 0
+                                                    ? maintenance?.map((maintenance, index) => (
+                                                   
+                                                    <Maintenance maintenance={maintenance} index={index}   key={index}
+                                                        removeMaintenance={removeMaintenance}
+                                                        updateMaintenance={updateMaintenance}
+                                                    />
+                                                    )) : ''
+                                                }
+                                        </Grid>
                                     </Grid>
 
                                 </Grid>
-
-
-                            </Grid>
-                            <Grid container spacing={2} style={{ marginTop: '20px', marginLeft: '20px', }}>
-                                <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                    style={{
-                                        width: '200px',
-                                        marginTop: '20px'
-                                    }}
-                                >
-                                    Unit price:
+                            </form>
+                        </>
+                    }
+                    {
+                        activeStep === 3 &&
+                        <>
+                            <Grid container style={{ border: 'solid', borderColor: 'whitesmoke',marginTop: '20px' }}>
+                                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ marginTop: '20px', marginLeft: '30px', marginRight: '20px' }}>
+                                    <h3>Schedule</h3>
                                 </Grid>
-                                <Grid tem xs={12} sm={12} md={6} lg={6} xl={6}
-                                    style={{
-                                        width: '200px',
-                                        marginTop: '20px'
+                                <hr />
+                                <Grid container style={{ marginRight: '20px' }}>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Affected Machine</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Affected MachineList</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                // value={}
+                                                value={section}
+                                              >
+                                                {affectedMachineList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.id} key={index}><Checkbox {...data.assetName}/></MenuItem>
+                                                        
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormControl>
 
-                                    }}
-                                > <TextField
-                                        fullWidth
-                                        id="Vendor-Address"
-                                        variant="outlined"
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        Affected Man Hours
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                        <TextField
+                                            fullWidth
+                                            id="Vendor-Address"
+                                            variant="outlined"
 
-                                    />
+                                        />
+                                    </Grid>
+
                                 </Grid>
+                                <Grid container style={{ marginTop: '20px', marginRight: '20px' }} >
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                        <FormControl style={{ marginLeft: '100px' }}>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                            >
+                                                <FormControlLabel value=" ShutDown" control={<Radio />} label=" ShutDown" />
+                                                <FormControlLabel style={{ marginLeft: '100px' }} value="male" control={<Radio />} label="Machine Utilization" />
+
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                        <FormControl>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                            >
+                                                <FormControlLabel style={{ marginLeft: '100px' }} value="Off" control={<Radio />} label="Off" />
+                                                <FormControlLabel style={{ marginLeft: '100px' }} value="Man Hours Utilization" control={<Radio />} label="Man Hours Utilization" />
+
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
+                                <Grid container style={{ marginTop: '20px', marginRight: '20px' }}>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Date: From:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                        <TextField
+                                            fullWidth
+                                            id="Vendor-Address"
+                                            variant="outlined"
+                                            type='date'
+
+                                        />
+
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        To
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                        <TextField
+                                            fullWidth
+                                            id="Vendor-Address"
+                                            variant="outlined"
+                                            type='date'
+                                        />
+                                    </Grid>
+
+                                </Grid>
+                                <Grid container style={{ marginTop: '20px', marginBottom: '40px', marginRight: '20px' }}>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>  Time: From</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                        <TextField
+                                            fullWidth
+                                            id="Vendor-Address"
+                                            variant="outlined"
+                                            type='time'
+                                        />
+
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        To
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                        <TextField
+                                            fullWidth
+                                            id="Vendor-Address"
+                                            variant="outlined"
+                                            type='time'
+
+                                        />
+                                    </Grid>
+
+                                </Grid>
+
                             </Grid>
                         </>
                     }
@@ -609,7 +1022,7 @@ export default function HorizontalLinearStepper() {
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                 <Button
                                     color="inherit"
@@ -619,14 +1032,9 @@ export default function HorizontalLinearStepper() {
                                     Back
                                 </Button>
                                 <Box sx={{ flex: '1 1 auto' }} />
-                                {isStepOptional(activeStep) && (
-                                    <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                                        Skip
-                                    </Button>
-                                )}
 
                                 <Button onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                    {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                                 </Button>
 
                             </Box>
@@ -640,9 +1048,3 @@ export default function HorizontalLinearStepper() {
     );
 
 }
-
-
-
-
-
-
