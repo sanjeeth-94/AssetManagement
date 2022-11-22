@@ -13,8 +13,7 @@ import React, { useEffect, useState } from 'react'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {  Grid, MenuItem, } from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
+import {  Grid, MenuItem, OutlinedInput, } from '@mui/material';
 import { FetchAssetNameService, 
         FetchAssetTypeService, 
         FetchDepaertmentService, 
@@ -23,6 +22,20 @@ import { FetchAssetNameService,
         FetchMachineService,
      } from '../../services/ApiServices';
 import Maintenance from './MaintenanceTable';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 
 const columns = [
     { field: 'AMC Status', headerName: 'AMC Status', width: 320 },
@@ -49,9 +62,7 @@ export default function HorizontalLinearStepper() {
     const [department, setDepartment] = useState('');
     const [section, setSection] = useState('');
     const [sectionList, setSectionList] = useState([]);
-    const [assetName, setAssetName] = useState('');
     const [assetNameList, setAssetNameList] = useState([]);
-    const [maintenanceType,setMaintenanceType] = useState('');
     const [assetTypeList, setAssetTypeList] = useState([]);
     const [assetType, setAssetType] = useState('');
     const [name, setName] = useState('');
@@ -66,8 +77,38 @@ export default function HorizontalLinearStepper() {
     const [skipped, setSkipped] = useState(new Set());
     const [targetForm, setTargetFrom] = useState('');
     const [isAddUnit, setIsAddUnit] = useState(true);
-    const [affectedMachine,setAffectedMachine]=useState([]);
     const [affectedMachineList,setAffectedMachineList]=useState([]);
+    const [affectedMachine,setAffectedMachine]=useState([]);
+    const [shutDown,setShutDown]=useState('ShutDown');
+    const [shutOff,setShutOff]=useState('Off')
+    const [maintenanceId, setMaintenanceId]=useState('');
+    const [assetName, setAssetName]=useState('');
+    const [maintenanceType, setMaintenanceType]=useState('');
+    const [severity, setSeverity]=useState('');
+    const [problemNote, setProblemNote]=useState('');
+    const [bpImages1, setBpImages1]=useState('');
+    const [bpImages2, setBpImages2]=useState('');
+    const [bpImages3, setBpImages3]=useState('');
+    const [bpImages4, setBpImages4]=useState('');
+    const [partsOrConsumable,setPartsOrConsumable]=useState('');
+    const [partOption,setPartOption]=useState('');
+    const [affectedManHours,setAffectedManHours]=useState('');
+    const [dateFrom,setDateFrom]=useState('');
+    const [dateTo,setDateTo]=useState('');
+    const [timeFrom,setTimeFrom]=useState('');
+    const [timeTo, setTimeTo]=useState('');
+    const [machineDetails,setMachineDetails]=useState('');
+    const [manHoursDetails,setSmanHoursDetails]=useState('');
+
+    const handleChange = (event) => {
+        const {
+          target: { value },
+        } = event;
+        setAffectedMachine(
+          // On autofill we get a stringified value.
+          typeof value === 'string' ? value.split(',') : value,
+        );
+      };
 
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
@@ -98,9 +139,6 @@ export default function HorizontalLinearStepper() {
     }
     const handleFetchSection = (dataObject) => {
         setSectionList(dataObject.data);
-    }
-    const  onaffectedMachineChange=(e)=>{
-        setAffectedMachine(e.target.value)
     }
 
     const handleFetchSectionException = (errorStaus, errorMessage) => {
@@ -133,15 +171,6 @@ export default function HorizontalLinearStepper() {
     }
     const onAssetNameChange = (e) => {
         setAssetName(e.target.value);
-        MaintenanceAddService({ id: e.target.value }, handleMaintenanceAddService,  handleMaintenanceAddServiceException)
-
-    }
-    const handleMaintenanceAddService= (dataObject) => {
-        console.log(dataObject.data);
-    }
-
-    const handleMaintenanceAddServiceException = (errorStaus, errorMessage) => {
-        console.log(errorMessage);
     }
 
     const isStepOptional = (step) => {
@@ -156,9 +185,40 @@ export default function HorizontalLinearStepper() {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         if(activeStep === steps.length - 1 ){
         alert('fished')
-        }
-        
+        MaintenanceAddService({ 
+        maintenanceId: maintenanceId,
+        assetName: assetName,
+        maintenanceType:  maintenanceType,
+        severity:severity,
+        problemNote: problemNote,
+        bpImages1: bpImages1,
+        bpImages2:bpImages2,
+        bpImages3:bpImages3,
+        bpImages4:bpImages4,
+        partsOrConsumable:JSON.stringify(maintenance),
+        affectedMachine: JSON.stringify(affectedMachine),
+        affectedManHours:affectedManHours,
+        shutdownOrUtilization:shutDown,
+        machineDetails:machineDetails,
+        offOrUtilization:shutOff,
+        manHoursDetails:manHoursDetails,
+        dateFrom:dateFrom,
+        dateTo:dateTo,
+        timeFrom: timeFrom,
+        timeTo: timeTo
+    }, handleMaintenanceAddService,  handleMaintenanceAddServiceException)
+
+    }
+    
     };
+    const handleMaintenanceAddService= (dataObject) => {
+        console.log(dataObject.data);
+    }
+
+    const handleMaintenanceAddServiceException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+       
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -200,7 +260,7 @@ const addMaintenance=()=>{
     }
     else if (unitId === '') {
        
-        const newMaintenance = [...maintenance, { name, partid,quantity ,UOM,unitPrice }];
+        const newMaintenance = [...maintenance, { name, partid,quantity ,UOM,unitPrice,partOption }];
         setMaintenance(newMaintenance);
         
       }
@@ -230,7 +290,9 @@ const removeMaintenance= (index) => {
         setMaintenance(newMaintenance);
    
  };
-
+const onChangeSeverity=(e)=>{
+    setSeverity(e.target.value)
+}
 const updateMaintenance= (index) => {
         setUnitId(index);
         setName(maintenance[index].name);
@@ -241,6 +303,23 @@ const updateMaintenance= (index) => {
         setIsAddUnit(false);
         
 }
+const onChangeShutDown=(e)=>{
+    setShutDown(e.target.value);
+
+}
+const onChangeShutOff=(e)=>{
+    setShutOff(e.target.value);
+
+}
+const onOptionChange=(e)=>{
+    const NA =e.target.value;
+  if(NA==='NA'){
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }else{
+    setPartOption(e.target.value);
+  }
+}
+
     return (
         <div>
             <div>
@@ -284,9 +363,7 @@ const updateMaintenance= (index) => {
 
                                 </Grid>
                                 <hr />
-
                                 <Grid container spacing={2} >
-
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                         style={{
                                             alignSelf: 'center',
@@ -332,10 +409,7 @@ const updateMaintenance= (index) => {
                                                 </Select>
                                             </FormControl>
                                         </Box>
-
                                     </Grid>
-
-
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                         style={{
                                             alignSelf: 'center',
@@ -355,7 +429,6 @@ const updateMaintenance= (index) => {
                                                             <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                                                         )
                                                     })}
-    
                                                 </Select>
                                             </FormControl>
                                         </Box>
@@ -367,7 +440,6 @@ const updateMaintenance= (index) => {
                                             width: '300px'
                                         }}
                                     >
-
                                         <Box>
                                             <FormControl fullWidth>
                                                 <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
@@ -384,7 +456,6 @@ const updateMaintenance= (index) => {
                                                 </Select>
                                             </FormControl>
                                         </Box>
-
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={2} style={{ marginTop:'30px'}} >
@@ -398,10 +469,8 @@ const updateMaintenance= (index) => {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                           
                         </>
                     }
-
                     {
                         activeStep === 1 &&
                         <>
@@ -425,7 +494,8 @@ const updateMaintenance= (index) => {
                                         fullWidth
                                         id="Vendor-Address"
                                         variant="outlined"
-
+                                        value={maintenanceId}
+                                        onChange={(e) => { setMaintenanceId(e.target.value) }}
                                     />
 
                                 </Grid>
@@ -446,25 +516,25 @@ const updateMaintenance= (index) => {
                                         width: '300px'
                                     }}
                                 >
-                            <Box sx={{ minWidth: 120 }}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Maintenance Type</InputLabel>
-                                    <Select
-                                    labelId="
-                                    Maintenance Type"
-                                    id="
-                                    Maintenance Type"
-                                    value={maintenanceType}
-                                    label="Age"
-                                    onChange={handleMaintenanceTypeChange}
-                                    >
-                                    <MenuItem value={10}>Major</MenuItem>
-                                    <MenuItem value={20}>Minor</MenuItem>
-                                    <MenuItem value={30}>AMC</MenuItem>
-                                    <MenuItem value={40}>Breakdown</MenuItem>
-                                    </Select>
-                                </FormControl>
-                                </Box>
+                                    <Box sx={{ minWidth: 120 }}>
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Maintenance Type</InputLabel>
+                                            <Select
+                                            labelId="
+                                            Maintenance Type"
+                                            id="
+                                            Maintenance Type"
+                                            value={maintenanceType}
+                                            label="Age"
+                                            onChange={handleMaintenanceTypeChange}
+                                            >
+                                            <MenuItem value={10}>Major</MenuItem>
+                                            <MenuItem value={20}>Minor</MenuItem>
+                                            <MenuItem value={30}>AMC</MenuItem>
+                                            <MenuItem value={40}>Breakdown</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        </Box>
                                 </Grid>
                             </Grid>
                             <Grid container spacing={2} style={{ marginTop: '20px' }}>
@@ -489,16 +559,14 @@ const updateMaintenance= (index) => {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        onChange={onChangeSeverity}
+                                        value={severity}
                                     >
                                         <FormControlLabel value="Critical" control={<Radio />} label="Critical" />
                                         <FormControlLabel value="Emergency" control={<Radio />} label="Emergency" />
-                                       
                                     </RadioGroup>
                                     </FormControl>
-
                                 </Grid>
-
-
                                 <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
@@ -510,7 +578,6 @@ const updateMaintenance= (index) => {
                                 <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
-
                                         width: '300px'
                                     }}
                                 >
@@ -519,13 +586,12 @@ const updateMaintenance= (index) => {
                                         id="Vendor-Address"
                                         variant="outlined"
                                         multiline
-
+v                                       value={problemNote}
+                                        onChange={(e)=>{setProblemNote(e.target.value)}}
                                     />
-
                                 </Grid>
                             </Grid>
                             <Grid container spacing={2} style= {{ marginTop: '20px' }}>
-
                                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
                                     style={{
                                         alignSelf: 'center',
@@ -534,26 +600,21 @@ const updateMaintenance= (index) => {
                                 >
                                     <label>Breakdown Parts Images:</label>
                                 </Grid>
-
                             </Grid>
                             <Grid container spacing={2} style={{ marginTop: '20px' }}>
-
                                 <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                     style={{
-
-                                        width: '200px',
-
+                                       width: '200px',
                                     }}
                                 >
                                     <TextField
                                         fullWidth
-                                        label="Canceled Cheque"
-                                        onChange={(e) => {
+                                          onChange={(e) => {
                                             if (e.target.files && e.target.files.length > 0) {
                                                 const reader = new FileReader();
                                                 reader.onload = () => {
                                                     if (reader.readyState === 2) {
-                                                        setcanceledCheque(reader.result);
+                                                        setBpImages1(reader.result);
                                                     }
                                                 };
                                                 reader.readAsDataURL(e.target.files[0]);
@@ -563,24 +624,19 @@ const updateMaintenance= (index) => {
                                         type="file"
                                     />
                                 </Grid>
-
                                 <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                     style={{
-
-
                                         width: '200px',
-
                                     }}
                                 >
                                     <TextField
                                         fullWidth
-                                        label="Canceled Cheque"
                                         onChange={(e) => {
                                             if (e.target.files && e.target.files.length > 0) {
                                                 const reader = new FileReader();
                                                 reader.onload = () => {
                                                     if (reader.readyState === 2) {
-                                                        setcanceledCheque(reader.result);
+                                                        setBpImages2(reader.result);
                                                     }
                                                 };
                                                 reader.readAsDataURL(e.target.files[0]);
@@ -590,25 +646,19 @@ const updateMaintenance= (index) => {
                                         type="file"
                                     />
                                 </Grid>
-
-
                                 <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                     style={{
-
-
                                         width: '200px',
-
                                     }}
                                 >
                                     <TextField
                                         fullWidth
-                                        label="Canceled Cheque"
                                         onChange={(e) => {
                                             if (e.target.files && e.target.files.length > 0) {
                                                 const reader = new FileReader();
                                                 reader.onload = () => {
                                                     if (reader.readyState === 2) {
-                                                        setcanceledCheque(reader.result);
+                                                        setBpImages3(reader.result);
                                                     }
                                                 };
                                                 reader.readAsDataURL(e.target.files[0]);
@@ -618,26 +668,19 @@ const updateMaintenance= (index) => {
                                         type="file"
                                     />
                                 </Grid>
-
-
-
                                 <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                     style={{
-
-
                                         width: '200px',
-
                                     }}
                                 >
                                     <TextField
                                         fullWidth
-                                        label="Canceled Cheque"
                                         onChange={(e) => {
                                             if (e.target.files && e.target.files.length > 0) {
                                                 const reader = new FileReader();
                                                 reader.onload = () => {
                                                     if (reader.readyState === 2) {
-                                                        setcanceledCheque(reader.result);
+                                                        setBpImages4(reader.result);
                                                     }
                                                 };
                                                 reader.readAsDataURL(e.target.files[0]);
@@ -658,7 +701,6 @@ const updateMaintenance= (index) => {
                         <>
                             <form >
                                 <Grid container spacing={2} style={{ marginTop: '20px', marginLeft: '20px' }}>
-
                                     <Grid tem xs={12} sm={12} md={12} lg={12} xl={12}
                                         style={{
                                             width: '200px',
@@ -670,14 +712,14 @@ const updateMaintenance= (index) => {
                                                 row
                                                 aria-labelledby="demo-row-radio-buttons-group-label"
                                                 name="row-radio-buttons-group"
+                                                value={partOption}
+                                                onChange={onOptionChange}
                                             >
                                                 <FormControlLabel value="Parts" control={<Radio />} label="Parts" />
-                                                <FormControlLabel value=" Consumable" control={<Radio />} label="Consumable" />
-                                                <FormControlLabel value=" NA" control={<Radio />} label="NA" />
-
+                                                <FormControlLabel value="Consumable" control={<Radio />} label="Consumable" />
+                                                <FormControlLabel value="NA" control={<Radio />} label="NA" />
                                             </RadioGroup>
                                         </FormControl>
-
                                     </Grid>
                                 </Grid>
                                 <Grid container style={{ display: 'box', marginTop: '30px' }}>
@@ -728,9 +770,7 @@ const updateMaintenance= (index) => {
                                                     variant="outlined"
                                                     value={partid}
                                                     onChange={(e)=>{setPartid(e.target.value)}} 
-
                                                 />
-
                                             </Grid>
                                         </Grid>
                                         <Grid container style={{ marginTop: '20px' }}  >
@@ -755,7 +795,6 @@ const updateMaintenance= (index) => {
                                                     value={quantity}
                                                     onChange={(e)=>{setQuantity(e.target.value)}} 
                                                 />
-
                                             </Grid>
                                         </Grid>
                                         <Grid container style={{ marginTop: '20px' }}  >
@@ -784,11 +823,9 @@ const updateMaintenance= (index) => {
                                                 <MenuItem value={10}>Liter</MenuItem>
                                                 <MenuItem value={20}>Kg</MenuItem>
                                                 <MenuItem value={30}>NOS</MenuItem>
-                                             
                                                 </Select>
                                             </FormControl>
                                             </Box>
-
                                             </Grid>
                                         </Grid>
                                         <Grid container style={{ marginTop: '20px' }} >
@@ -812,9 +849,7 @@ const updateMaintenance= (index) => {
                                                     variant="outlined"
                                                     value={unitPrice}
                                                     onChange={(e)=>{setUnitPrice(e.target.value)}} 
-
                                                 />
-
                                             </Grid>
                                         </Grid>
                                         <Grid>
@@ -868,23 +903,29 @@ const updateMaintenance= (index) => {
                                         <label>Affected Machine</label>
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Affected MachineList</InputLabel>
+                                      
+                                    <FormControl sx={{ m: 1, width: 300 }}>
+                                        <InputLabel id="demo-multiple-checkbox-label">Affected MachineList</InputLabel>
                                             <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                // value={}
-                                                value={section}
-                                              >
-                                                {affectedMachineList.map((data, index) => {
-                                                    return (
-                                                        <MenuItem value={data.id} key={index}><Checkbox {...data.assetName}/></MenuItem>
-                                                        
-                                                    )
-                                                })}
+                                            labelId="AffectedMachineList"
+                                            id="demo-multiple-checkbox"
+                                            multiple
+                                            label='Affected MachineList'
+                                            value={affectedMachine}
+                                            onChange={handleChange}
+                                            input={<OutlinedInput label="Tag" />}
+                                            renderValue={(selected) => selected.join(', ')}
+                                            MenuProps={MenuProps}
+                                            >
+                                            {affectedMachineList.map((data, index) => (
+                                                <MenuItem key={index} value={data.id}>
+                                                <Checkbox checked={affectedMachine.indexOf(data.assetName) > -1} />
+                                                <ListItemText primary={data.id+' '+data.assetName} />
+                                                
+                                                </MenuItem>
+                                            ))}
                                             </Select>
-                                        </FormControl>
-
+                                     </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                         style={{
@@ -899,7 +940,8 @@ const updateMaintenance= (index) => {
                                             fullWidth
                                             id="Vendor-Address"
                                             variant="outlined"
-
+                                            value={affectedManHours}
+                                            onChange={(e)=>{setAffectedManHours(e.target.value)}}
                                         />
                                     </Grid>
 
@@ -911,12 +953,31 @@ const updateMaintenance= (index) => {
                                                 row
                                                 aria-labelledby="demo-row-radio-buttons-group-label"
                                                 name="row-radio-buttons-group"
+                                                value={shutDown}
+                                                onChange={onChangeShutDown}
                                             >
-                                                <FormControlLabel value=" ShutDown" control={<Radio />} label=" ShutDown" />
-                                                <FormControlLabel style={{ marginLeft: '100px' }} value="male" control={<Radio />} label="Machine Utilization" />
+                                                <FormControlLabel value="ShutDown" control={<Radio />} label="ShutDown" />
+                                                <FormControlLabel style={{ marginLeft: '100px' }} value="MachineUtilization" control={<Radio />} label="Machine Utilization" />
 
                                             </RadioGroup>
                                         </FormControl>
+                                       
+                                        { 
+                                             shutDown !== 'ShutDown' &&
+                                             <>
+                                             <Grid style={{marginLeft:'300px',marginTop:'10px'}} item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                             <TextField
+                                                 fullWidth
+                                                 multiline
+                                                 id="Vendor-Address"
+                                                 variant="outlined"
+                                                 value={machineDetails}
+                                                 onChange={(e)=>{setMachineDetails(e.target.value)}}
+     
+                                             />
+                                         </Grid>
+                                         </>
+                                        }
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                                         <FormControl>
@@ -924,14 +985,34 @@ const updateMaintenance= (index) => {
                                                 row
                                                 aria-labelledby="demo-row-radio-buttons-group-label"
                                                 name="row-radio-buttons-group"
+                                                value={shutOff}
+                                                onChange={onChangeShutOff}
                                             >
                                                 <FormControlLabel style={{ marginLeft: '100px' }} value="Off" control={<Radio />} label="Off" />
                                                 <FormControlLabel style={{ marginLeft: '100px' }} value="Man Hours Utilization" control={<Radio />} label="Man Hours Utilization" />
 
                                             </RadioGroup>
                                         </FormControl>
+                                        {
+                                            shutOff !=='Off' &&
+                                            <>
+                                            <Grid style={{marginLeft:'300px',marginTop:'10px'}} item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                            <TextField
+                                                fullWidth
+                                                id="Vendor-Address"
+                                                variant="outlined"
+                                                multiline
+                                                value={manHoursDetails}
+                                               onChange={(e)=>{setSmanHoursDetails(e.target.value)}}
+                                            />
+                                        </Grid>
+                                        </>
+
+                                        } 
                                     </Grid>
                                 </Grid>
+                            
+                                       
                                 <Grid container style={{ marginTop: '20px', marginRight: '20px' }}>
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                         style={{
@@ -947,6 +1028,8 @@ const updateMaintenance= (index) => {
                                             id="Vendor-Address"
                                             variant="outlined"
                                             type='date'
+                                            value={dateFrom}
+                                            onChange={(e)=>{setDateFrom(e.target.value)}}
 
                                         />
 
@@ -965,9 +1048,10 @@ const updateMaintenance= (index) => {
                                             id="Vendor-Address"
                                             variant="outlined"
                                             type='date'
+                                            value={dateTo}
+                                            onChange={(e)=>{setDateTo(e.target.value)}}
                                         />
                                     </Grid>
-
                                 </Grid>
                                 <Grid container style={{ marginTop: '20px', marginBottom: '40px', marginRight: '20px' }}>
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
@@ -984,8 +1068,10 @@ const updateMaintenance= (index) => {
                                             id="Vendor-Address"
                                             variant="outlined"
                                             type='time'
-                                        />
+                                            value={timeFrom}
+                                            onChange={(e)=>{setTimeFrom(e.target.value)}}
 
+                                        />
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                         style={{
@@ -1001,16 +1087,17 @@ const updateMaintenance= (index) => {
                                             id="Vendor-Address"
                                             variant="outlined"
                                             type='time'
+                                            value={timeTo}
+                                            onChange={(e)=>{setTimeTo(e.target.value)}}
 
                                         />
                                     </Grid>
-
                                 </Grid>
-
                             </Grid>
                         </>
                     }
-                    {activeStep === steps.length ? (
+                    {
+                        activeStep === steps.length ? (
                         <React.Fragment>
                             <Typography sx={{ mt: 2, mb: 1 }}>
                             </Typography>
@@ -1041,8 +1128,6 @@ const updateMaintenance= (index) => {
                         </React.Fragment>
                     )}
                 </Box>
-
-
             </form>
         </div>
     );

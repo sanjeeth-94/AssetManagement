@@ -8,7 +8,7 @@ const Maintenance = ({ maintenance, index, removeMaintenance, updateMaintenance,
     return (
         <div>
             <Grid container>
-                <Grid xs={6} md={2}>
+                <Grid xs={6} md={1}>
                     <div className="task">
                         <div>
                             {/* eslint-disable-next-line */}
@@ -18,7 +18,7 @@ const Maintenance = ({ maintenance, index, removeMaintenance, updateMaintenance,
                     </div>
                 </Grid>
 
-                <Grid xs={6} md={2}>
+                <Grid xs={6} md={1}>
                     <div className="task">
                         <div>
                             {/* eslint-disable-next-line */}
@@ -51,6 +51,15 @@ const Maintenance = ({ maintenance, index, removeMaintenance, updateMaintenance,
                             {/* eslint-disable-next-line */}
                             <label>Unit price:</label>
                             <p className="measureUnit">{maintenance.unitPrice}</p>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid xs={6} md={2}>
+                    <div className="task">
+                        <div>
+                            {/* eslint-disable-next-line */}
+                            <label>Part or Consumable:</label>
+                            <p className="measureUnit">{maintenance.partOption}</p>
                         </div>
                     </div>
                 </Grid>

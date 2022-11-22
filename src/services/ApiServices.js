@@ -221,6 +221,9 @@ export const MaintenanceAddService = (data, successCallback, errorCallBack) => _
 export const  FetchMachineService = (successCallback, errorCallBack) => _fetchService('getMachine', 'GET', {}, successCallback, errorCallBack);
 
 
+///........Maintenance Status......////
+
+export const  FetchMaintenanceApprovedService = (successCallback, errorCallBack) => _fetchService('maintenance/aprovedShowData', 'GET', {}, successCallback, errorCallBack);
 
 
 

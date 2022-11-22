@@ -1,8 +1,10 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Maintenanceschedule from './Maintenanceschedule';
-import MaintenancePending from './MaintenancePending';
+
 import MaintenanceReject from './MaintenanceReject';
+import MaintenancePandingList from './MaintenancePandingList';
+import MaintenanceAddList from './MaintenanceAddList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,10 +59,10 @@ const MaintenanceTab = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-       <Maintenanceschedule />                 
+       <MaintenanceAddList/>                 
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <MaintenancePending />
+      <MaintenancePandingList/>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <MaintenanceReject />
