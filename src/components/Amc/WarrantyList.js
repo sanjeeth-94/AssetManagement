@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
+import { FetchWarrantyService } from '../../services/ApiServices';
 
 const WarrantyList = () => {
   const [rows, setRows] = useState([]);
@@ -13,6 +14,22 @@ const WarrantyList = () => {
     type: 'error',
     message: '',
   });
+
+  
+
+  useEffect(() => {
+    FetchWarrantyService(handleFetchSuccess, handleFetchException);
+   
+}, [refresh]);
+
+const handleFetchSuccess = (dataObject) =>{
+    setRows(dataObject.data);
+}
+
+const handleFetchException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+}
+  
   
   const handleChangefromDate = (e) => {
     setfromDate(e.target.value);

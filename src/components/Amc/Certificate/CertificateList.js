@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import NotificationBar from '../../../services/NotificationBar';
 import CretificateModel from './CretificateModel';
+import { FetchCertificateService } from '../../../services/ApiServices';
 
 const CertificateList = () => {
     const [open, setOpen] = useState(false);
@@ -17,15 +18,15 @@ const CertificateList = () => {
         message: '',
     });
     const columns = [
-        { field: 'Serial No', headerName: 'Serial No', width: 80 },
-        { field: 'Vender Name', headerName: 'Vender Name', width: 140 },
-        { field: 'Period From', headerName: 'Period From', width: 140 },
-        { field: 'Period To', headerName: 'Period To', width: 140 },
-        { field: 'ServicePattern', headerName: 'Inspection Pattern', width: 140 },
-        { field: 'Department', headerName: 'Department', width: 140 },
-        { field: 'Section', headerName: 'Section', width: 140 },
-        { field: 'Asset Type', headerName: 'Asset Type', width: 140 },
-        { field: 'Asset Name', headerName: 'Asset Name', width: 140 },
+        { field: 'id', headerName: 'Serial No', width: 80 },
+        { field: 'vendorName', headerName: 'Vender Name', width: 140 },
+        { field: 'certificateDate', headerName: 'Period From', width: 140 },
+        { field: 'expireDate', headerName: 'Period To', width: 140 },
+        { field: 'inspectionPattern', headerName: 'Inspection Pattern', width: 140 },
+        { field: 'department', headerName: 'Department', width: 140 },
+        { field: 'section', headerName: 'Section', width: 140 },
+        { field: 'assetType', headerName: 'Asset Type', width: 140 },
+        { field: 'assetName', headerName: 'Asset Name', width: 140 },
         {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -99,6 +100,7 @@ const CertificateList = () => {
        
     };
     useEffect(() => {
+        FetchCertificateService(handleFetchSuccess,handleFetchException)
        
     }, [refresh]);
 

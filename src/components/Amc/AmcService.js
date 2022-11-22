@@ -24,6 +24,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [assetType, setAssetType] = useState('');
   const [ assetNameList, setAssetNameList] = useState([]);
   const [asset, setAsset] = useState('');
+  const [rows ,setRows]=useState([]);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -32,6 +33,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) =>{
@@ -60,12 +62,8 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   const handleSuccess = (dataObject) =>{
     console.log(dataObject);
-    setRefresh(oldValue => !oldValue);
-    setNotification({
-      status: true,
-      type: 'success',
-      message: dataObject.message,
-    });
+    setRows(dataObject.data)
+   
   }
   
   const handleException = (errorObject, errorMessage) =>{
@@ -121,24 +119,24 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   }
   
   const handleFetchAssetNameServiceSuccess = (dataObject) => {
-    setAssetNameList(dataObject.data);
+    setAssetNameList(dataObject.data || []);
   }
   
   const handleFetchAssetNameServiceException= (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
   
-  const rows = [];
+  
   const columns = [
-    { field: 'Vendor Name', headerName: 'Vendor Name', width: 280 },
-    { field: 'Asset Name', headerName: 'Asset Name', width: 240 },
-    { field: 'Service Due Date', headerName: 'Service Due Date', width: 240 },
-        // { field: 'Action', headerName: 'Action', width: 240 },   
+    { field: 'vendorName', headerName: 'Vendor Name', width: 280 },
+    { field: 'assetName', headerName: 'Asset Name', width: 240 },
+    { field: 's1startDate', headerName: 'Service Due Date', width: 240 },
+    { field: 'Action', headerName: 'Action', width: 240 },   
   ];
   
   return (
     <form onSubmit={onSubmit}>
-      <div style={{border:'solid' , borderColor:'whitesmoke'}}>
+      <div >
         <Grid  container spacing={2} style={{ marginTop: '20px'}}>
           <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
@@ -215,7 +213,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 id="demo-simple-select"
                 label=""
                 onChange={(e) => onAssetChange(e)}>
-                  {assetNameList.map((data, index) => {
+                  {assetNameList?.map((data, index) => {
                     return (
                       <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
                     )
@@ -225,16 +223,25 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </Box>
           </Grid>
         </Grid>
-        <Button variant="contained" type='submit'>View</Button>
+        <Grid item style={{
+          textAlign: 'end', marginTop:'20px'
+        }}>
+          <Button variant="contained" type='submit' >View</Button>
+        </Grid>
       </div>
-      <hr/>
-      <div style={{ height: '300px', width: '80%', marginLeft:'40px', }}>
-        <DataGrid
-        rows={rows}
-        columns={columns}
-        rowsPerPageOptions={[5]}
-        onRowAdd/>
-      </div>
+      <form style={{border:'solid', borderColor:'whitesmoke'}}>
+        <div>
+          <h3 style={{marginLeft:'30px',marginTop:'10px'}}>Service DATE</h3>
+        </div>
+        <hr/>
+        <div style={{ height: 200, width: '1000px', marginLeft:'40px' }}>
+          <DataGrid
+          rows={rows}
+          columns={columns}
+          rowsPerPageOptions={[5]}
+          onRowAdd/>
+        </div>
+      </form>
     </form>
   )
 }
