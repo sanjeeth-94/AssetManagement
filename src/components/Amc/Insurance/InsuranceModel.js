@@ -12,8 +12,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NotificationBar from '../../../services/NotificationBar';
 import MenuItem from '@mui/material/MenuItem';
-import { AmcServiceAddService,
-  AmcServiceUpdateService,
+import { Grid } from '@mui/material';
+import { InsuranceAddService ,
+  InsuranceUpdateService,
   FetchDepaertmentService,
   FetchSectionService,
   FetchAssetTypeService,
@@ -25,209 +26,212 @@ import { AmcServiceAddService,
 const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [vendorName, setVendorName] = useState('');
   const [vendorNameList, setVendorNameList] = useState([]);
-  const [venderAddress, setVenderAddress] = useState();
+  const [venderAddress ,setVenderAddress]= useState();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailId, setEmailId] = useState('');
-  const [premiumCost, setPremiumCost] = useState();
-  const [department, setDepartment] = useState();
-  const [departmentList, setDepartmentList] = useState([]);
-  const [section, setSection] = useState();
+  const [premiumCost ,setpremiumCost]= useState();
+  const [insuranceDoc,setinsuranceDoc]= useState();
+  const [department, setDepartment] = useState('');
+  const [section, setSection] = useState('');
   const [sectionList, setSectionList] = useState([]);
-  const [fromDate, setfromDate] = useState('');
-  const [toDate, settoDate] = useState('');
-  const [assetType, setAssetType] = useState();
-  const [gstCertificate, setGstCertificate] = useState('');
+  const [departmentList, setDepartmentList] = useState([]);
+  const [assetType, setAssetType] = useState('');
+  const [periodFrom, setperiodFrom] = useState('');
+  const [periodTo, setperiodTo] = useState('');
   const [assetList, setAssetList] = useState([]);
   const [asset, setAsset] = useState('');
   const [vendorData, setVendorData] = useState([]);
-  const [ assetNameList, setAssetNameList] = useState([]);
+  const [assetNameList, setAssetNameList] = useState([]);
   const [openNotification, setNotification] = useState({
-        status: false,
-        type: 'error',
-        message: '',
+    status: false,
+    type: 'error',
+    message: '',
+  });
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  const handleChangeperiodFrom= (e) => {
+    setperiodFrom(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangeperiodTo = (e) => {
+    setperiodTo(e.target.value);
+    console.log(e.target.value);
+  };
+
+  useEffect(() => {
+    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    FetchVenderService(handleFetchVender, handleFetchVenderException);
+  }, [editData]);
+
+  const handleFetchSuccess = (dataObject) => {
+    setDepartmentList(dataObject.data);
+  }
+
+  const handleFetchException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
+  const handleFetchVender = (dataObject) => {
+    setVendorNameList(dataObject.data);
+  }
+
+  const handleFetchVenderException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
+  const onDepartmentChange = (e) => {
+    setDepartment(e.target.value);
+    FetchSectionService({
+      id: e.target.value
+    }, handleFetchDepartmentSuccess, handleFetchDepartmentException);
+  }
+
+  const handleFetchDepartmentSuccess = (dataObject) => {
+    setSectionList(dataObject.data);
+  }
+
+  const handleFetchDepartmentException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
+  const onSectionChange = (e) => {
+    setSection(e.target.value);
+    FetchAssetTypeService({
+      id: e.target.value
+    }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+  }
+
+  const handleFetchAssetTypeServiceSuccess = (dataObject) => {
+    setAssetList(dataObject.data);
+    
+  }
+  
+  const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
+  const onAssetChange = (e) => {
+    setAsset(e.target.value)
+  }
+
+  const onAssetTypeChange = (e) => {
+    setAssetType(e.target.value);
+    FetchAssetNameService({
+      id: e.target.value
+    }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
+  }
+
+  const handleFetchAssetNameServiceSuccess = (dataObject) => {
+    setAssetNameList(dataObject.data);
+    
+  }
+  
+  const handleFetchAssetNameServiceException= (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+
+  const onVenderChange = (e) => {
+    setVendorName(e.target.value);
+    FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
+  }
+
+  const handleFetchVenderDataService = (dataObject) => {
+    setVendorData(dataObject.data);
+    setPhoneNumber(dataObject?.data[0]?.contactNo || '');
+    setEmailId(dataObject?.data[0]?.email || '');
+    setVenderAddress(dataObject?.data[0]?.address || '');
+  }
+
+  const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
+    isAdd === true ?
+    (
+      InsuranceAddService({
+        department: department,
+        section: section,
+        vendorName: vendorName,
+        phoneNumber: phoneNumber,
+        email: emailId,
+        periodFrom:periodFrom,
+        periodTo:periodTo,
+        premiumCost:premiumCost,
+        insuranceDoc:insuranceDoc,
+        assetType:assetType,
+        assetName:asset,
+      }, handleSuccess, handleException)
+    ) : (
+      InsuranceUpdateService({
+        id: editData.id,
+        department: department,
+        section: section,
+        vendorName: vendorName,
+        phoneNumber: phoneNumber,
+        email: emailId,
+        periodFrom:periodFrom,
+        periodTo:periodTo,
+        premiumCost:premiumCost,
+        insuranceDoc:insuranceDoc,
+        assetType:assetType,
+        assetName:asset,
+      }, handleSuccess, handleException)
+    );
+  }
+    
+  const handleSuccess = (dataObject) => {
+    console.log(dataObject);
+    setRefresh(oldValue => !oldValue);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
     });
-
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    const handleChangefromDate = (e) => {
-      setfromDate(e.target.value);
-      console.log(e.target.value);
-    };
-
+  }
   
-    const handleChangetoDate = (e) => {
-      settoDate(e.target.value);
-      console.log(e.target.value);
-    };
-
-    useEffect(() => {
-      FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-      FetchVenderService(handleFetchVender, handleFetchVenderException);
-    }, [editData]);
+  const handleException = (errorObject, errorMessage) => {
+    console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+  }
   
-    const handleFetchSuccess = (dataObject) => {
-      setDepartmentList(dataObject.data);
-    }
+  const handleCloseNotify = () => {
+    setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
   
-    const handleFetchException = (errorStaus, errorMessage) => {
-      console.log(errorMessage);
-    }
-  
-    const handleFetchVender = (dataObject) => {
-      setVendorNameList(dataObject.data);
-    }
-  
-    const handleFetchVenderException = (errorStaus, errorMessage) => {
-      console.log(errorMessage);
-    }
-
-    const onDepartmentChange = (e) => {
-      setDepartment(e.target.value);
-      FetchSectionService({
-        id: e.target.value
-      }, handleFetchDepartmentSuccess, handleFetchDepartmentException);
-    }
-  
-    const handleFetchDepartmentSuccess = (dataObject) => {
-      setSectionList(dataObject.data);
-    }
-  
-    const handleFetchDepartmentException = (errorStaus, errorMessage) => {
-      console.log(errorMessage);
-    }
-  
-    const onSectionChange = (e) => {
-      setSection(e.target.value);
-      FetchAssetTypeService({
-        id: e.target.value
-      }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
-    }
-
-    const handleFetchAssetTypeServiceSuccess = (dataObject) => {
-      setAssetList(dataObject.data);
-     
-    }
-    
-    const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
-      console.log(errorMessage);
-    }
-  
-    const onAssetChange = (e) => {
-      setAsset(e.target.value)
-  
-      FetchAssetNameService({
-        id: e.target.value
-      }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
-    }
-    const handleFetchAssetNameServiceSuccess = (dataObject) => {
-      setAssetNameList(dataObject.data);
-     
-    }
-
-    const handleFetchAssetNameServiceException= (errorStaus, errorMessage) => {
-      console.log(errorMessage);
-    }
-  
-    const onAssetTypeChange = (e) => {
-      setAssetType(e.target.value);
-    }
-  
-    const onVenderChange = (e) => {
-      setVendorName(e.target.value);
-      FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
-    }
-  
-    const handleFetchVenderDataService = (dataObject) => {
-      setVendorData(dataObject.data);
-      setPhoneNumber(dataObject?.data[0]?.contactNo || '');
-      setEmailId(dataObject?.data[0]?.email || '');
-      setVenderAddress(dataObject?.data[0]?.address || '');
-    }
-
-    const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
-      console.log(errorMessage);
-    }
-  
-    const onSubmit = (e) => {
-      e.preventDefault();
-      isAdd === true ?
-      (
-        AmcServiceAddService({
-          department: department,
-          section: section,
-          vendorName: vendorName,
-          phoneNumber: phoneNumber,
-          email: emailId,
-          fromDate:fromDate,
-          toDate:toDate,
-        }, handleSuccess, handleException)
-      ) : (
-        AmcServiceUpdateService({
-          id: editData.id,
-          department: department,
-          section: section,
-          vendorName: vendorName,
-          phoneNumber: phoneNumber,
-          email: emailId,
-          fromDate:fromDate,
-          toDate:toDate,
-        }, handleSuccess, handleException)
-      );
-    }
-    
-    
-      
-    
-      
-    
-      const handleSuccess = (dataObject) =>{
-        console.log(dataObject);
-        setRefresh(oldValue => !oldValue);
-        setNotification({
-          status: true,
-          type: 'success',
-          message: dataObject.message,
-        });
-      
-      }
-    
-      const handleException = (errorObject, errorMessage) =>{
-        console.log(errorMessage);
-        setNotification({
-          status: true,
-          type: 'error',
-          message:errorMessage,
-        });
-      }
-    
-      const handleCloseNotify = () => {
-       setOpen(false)
-        setNotification({
-          status: false,
-          type: '',
-          message: '',
-        });
-      };
   return (
     <div>
-        <Dialog
+      <Dialog
       open={open}
-      maxWidth='lg'
-    >
-      <form onSubmit={onSubmit}>
-        <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
-          {'Service Due'}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <div>
-                <form>
-                <div style={{ display: 'flex', alignItems: 'center', marginTop:'20px' }}>
-                    <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name: </label>
+      maxWidth='lg'>
+        <form onSubmit={onSubmit}>
+          <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
+            {'VENDER DETAILS'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <form>
+                <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+                  <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Name: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                     <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '190px' ,marginLeft:'9px' }}>
+                      <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label"></InputLabel>
                         <Select
                         labelId="demo-simple-select-label"
@@ -243,180 +247,205 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         </Select>
                       </FormControl>
                     </Box>
-                    <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail: </label>
-                    <TextField
-                    id="Email"
-                    label=""
-                    variant="outlined"
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >E-mail: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                    <TextField id="Email" 
+                    fullwidth
+                    label="" 
+                    variant="outlined" 
                     value={emailId} />
-                    <label
-                    style={{
-                      marginLeft: '60px',
-                      marginRight: '30px'
-                    }}>
-                      Address :
-                    </label>
-                    <TextField
-                    id=""
-                    label=""
-                    variant="outlined"
-                    value={venderAddress} />
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '20px' }}>
-                    <label
-                    style={{
-                      marginLeft: '20px',
-                      marginRight: '30px'
-                    }}>
-                      Phone :
-                    </label>
-                    <TextField
-                    style = {{ width: '190px'}}
-                    id=" Phone"
-                    label=""
-                    variant="outlined"
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Address :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                    <TextField fullwidth id="" label="" variant="outlined"  value={venderAddress} />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >  Phone : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                    <TextField fullWidth
+                    id=" Phone" label="" 
+                    variant="outlined" 
                     value={phoneNumber}/>
-                  </div>
-                    <form style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px'}}>
-                        <div style={{marginTop:'20px',marginLeft:'20px',display:'flex',alignItems:'center'}}>
-                            <label style={{marginRight:'30px',marginLeft:'30px'}}>Period : FROM</label>
-                            <TextField
-                      style={{width:'200px'}}
-                      id="Vendor-Address"
-                      variant="outlined"
-                      type='date'
-                      value={fromDate}
-                      onChange={(e) => { handleChangefromDate(e) }}/>
-                            
-                            <label style={{marginRight:'100px',marginLeft:'40px'}}>To</label>
-                            <TextField
-                      style={{width:'200px'}}
-                      id="Vendor-Address"
-                      variant="outlined"
-                      type='date'
-                      value={toDate}
-                      onChange={(e) => { handleChangetoDate(e) }}/>
-                        </div>
-                        <div style={{marginTop:'20px',display:'flex',alignItems:'center'}}>
-                            <label style={{marginLeft:'50px',marginRight:'35px'}}>Premium Cost</label>
-                            <TextField
-                      id="premium"
-                      label="Premium Cost"
-                      variant="outlined"
-                      onChange={(e) => { setPremiumCost(e.target.value) }}
-                      value={premiumCost} />
-                            <label style={{marginLeft:'60px',marginRight:'20px'}}>Insurance Doc</label>
-                            <TextField
-                      style={{ width: '300px', marginLeft: '20px' }}
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files.length > 0) {
-                          const reader = new FileReader();
-                          reader.onload = () => {
-                            if (reader.readyState === 2) {
-                              setGstCertificate(reader.result);
-                            }
-                          };
-                          reader.readAsDataURL(e.target.files[0]);
-                        }
-                      }}
-                      InputLabelProps={{ shrink: true }}
-                      type="file"/>
-                    </div>
-                        <div style={{display:'flex',alignItems:'center',marginTop:'20px'}}>
-                        <label style={{marginLeft:'50px',marginRight:'45px'}}>Department :</label>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label"></InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                
-                                label="Age"
-                                
-                                onChange={(e) => onDepartmentChange(e)}>
+                  </Grid>
+                </Grid>
+                <div style={{ margin: '20px' }}>
+                  <h2>INSURANCE DETAILS</h2>
+                  <hr />
+                </div>
+                <Grid container spacing={2} style={{ marginTop: '5px', marginRight:'30px'}}>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > Period : FROM</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
+                    <TextField 
+                    fullWidth 
+                    id="Vendor-Address" 
+                    variant="outlined" 
+                    type='date'
+                    value={periodFrom}
+                    onChange={(e) => { handleChangeperiodFrom(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >TO</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
+                    <TextField
+                    style={{ alignSelf: 'left',}}
+                    fullWidth 
+                    id="Vendor-Address" 
+                    variant="outlined" 
+                    type='date'
+                    value={periodTo}
+                    onChange={(e) => { handleChangeperiodTo(e) }}/>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > Premium Cost </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <TextField 
+                    fullWidth
+                    id="premium" 
+                    label="Premium Cost" 
+                    variant="outlined"
+                    onChange={(e) => { setpremiumCost(e.target.value) }}
+                    value={premiumCost} /> 
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Insurance Doc</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <TextField 
+                    fullWidth
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          if (reader.readyState === 2) {
+                            setinsuranceDoc(reader.result);
+                          }
+                        };
+                        reader.readAsDataURL(e.target.files[0]);
+                      }
+                    }}
+                    InputLabelProps={{ shrink: true }}
+                    type="file"/> 
+                  </Grid>
+                </Grid>
+                <form>
+                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}} >
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label style={{ marginRight: '10px', marginLeft: '30px' }}>Department :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
+                      <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
+                          <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label=""
+                          onChange={(e) => onDepartmentChange(e)}>
                             {departmentList.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                               )
                             })}
-                                </Select>
-                            </FormControl>
-                            </Box>
-                            <label style={{marginLeft:'70px',marginRight:'68px'}}>Section:</label>
-                            <Box sx={{ minWidth: 120 }}>
-                            <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label"></InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                               
-                                label="Age"
-                                onChange={(e) => onSectionChange(e)}>
-                                {sectionList.map((data, index) => {
-                                  return (
-                                    <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                                  )
-                                })}
-                                </Select>
-                            </FormControl>
-                            </Box>
-                        </div>
-                        <div style={{display:'flex',alignItems:'center',marginTop:'20px',marginBottom:'30px'}}>
-                        <label style={{marginLeft:'50px',marginRight:'50px' , }}>Asset Type :</label>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label"></InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Age" 
-                                onChange={(e) => onAssetChange(e)}>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                       <label >Section:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
+                    <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
+                          <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label=""
+                          onChange={(e) => onSectionChange(e)}>
+                            {sectionList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                              )
+                            })}
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                     <label>Asset Type :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <Box>
+                        <FormControl  fullWidth>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
+                          <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label=""
+                          onChange={(e) => onAssetTypeChange(e)}>
                             {assetList.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                               )
                             })}
-                                
-                                </Select>
-                            </FormControl>
-                            </Box>
-                            <label style={{marginLeft:'60px',marginRight:'40px'}}>Asset Name :</label>
-                            <Box sx={{ minWidth: 120 }}>
-                            <FormControl style={{width:'220px'}}>
-                                <InputLabel id="demo-simple-select-label"></InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Age"
-                                onChange={(e) => onAssetChange(e)}>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >Asset Name :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
+                          <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label=""
+                          onChange={(e) => onAssetChange(e)}>
                             {assetNameList.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
                               )
                             })}
-                                
-                                </Select>
-                            </FormControl>
-                            </Box>
-                        </div>
-                    </form>              
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </Grid>
+                  </Grid>          
                 </form>
+              </form>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <div >
+              <Button type="submit" style={{ border: 'solid', width: '150px', marginTop:'10px' }}  autoFocus>Apply</Button>
             </div>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-        <div className='addbutton'>
-              <Button style={{ border: 'solid', width: '150px' }} onClick={handleClose} autoFocus>Apply</Button>
-            </div>
-          <NotificationBar
-                    handleClose={handleCloseNotify}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
-        </DialogActions>
-      </form>
-    </Dialog>
+            <NotificationBar
+            handleClose={handleCloseNotify}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
+          </DialogActions>
+        </form>
+      </Dialog>
     </div>
   )
 }

@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
+import { Grid } from '@mui/material';
 import {
   FetchDepaertmentService,
   FetchSectionService,
@@ -20,23 +21,25 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [sectionList, setSectionList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
   const [assetType, setAssetType] = useState();
+  const [assetList, setAssetList]= useState([]);
   const [assetTypeList, setAssetTypeList] = useState([]);
   const [serviceDue,setserviceDue] = useState([]);
-  const [fromDate, setfromDate] = useState('');
-  const [toDate, settoDate] = useState('');
+  const [periodFrom, setperiodFrom] = useState('');
+  const [periodTo, setperiodTo] = useState('');
+  const [rows, setRows] = useState([]);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
     message: '',
   });
   
-  const handleChangefromDate = (e) => {
-    setfromDate(e.target.value);
+  const handleChangeperiodFrom = (e) => {
+    setperiodFrom(e.target.value);
     console.log(e.target.value);
   };
 
-  const handleChangetoDate = (e) => {
-    settoDate(e.target.value);
+  const handleChangeperiodTo = (e) => {
+    setperiodTo(e.target.value);
     console.log(e.target.value);
   };
 
@@ -75,15 +78,18 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   }
 
   const onSectionChange = (e) => {
-    setSection(e.target.value); 
-    FetchAssetTypeService({ id: e.target.value },handleFetchAssetType, handleFetchAssetTypeException)   
+    setSection(e.target.value);
+    FetchAssetTypeService({
+      id: e.target.value
+    }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
   }
 
-  const handleFetchAssetType = (dataObject) => {
-    setAssetTypeList(dataObject.data);
+  const handleFetchAssetTypeServiceSuccess = (dataObject) => {
+    setAssetList(dataObject.data);
+   
   }
-
-  const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
+  
+  const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
 
@@ -91,8 +97,8 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     e.preventDefault();
     AMCServiceDueListService({ 
       id:assetType ,
-      periodFrom:fromDate,
-      periodTo:toDate,
+      periodFrom:periodFrom,
+      periodTo:periodTo,
     },handleAMCServiceDueList, handleAMCServiceDueListException)    
   }
 
@@ -119,47 +125,55 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const onAssetTypeChange = (e) => {
     setAssetType(e.target.value);
   }
-  
-  const [rows, setRows] = useState([]);
+ 
   const columns = [
-    { field: 'vendorId', headerName: 'Serial No', width: 200 },
     { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
-    { field: 'department', headerName: 'Asset Name', width: 200 },
-    { field: 'periodFrom', headerName: 'Service Due Date', width: 180 },
+    { field: 'assetName', headerName: 'Asset Name', width: 200 },
+    { field: 'serviceDueDate', headerName: 'Service Due Date', width: 180 },
     
   ];
   
   return (
-    <div>
-      <form style={{border:'solid' , borderColor:'whitesmoke'}}>
-        <div style={{marginTop:'20px'}}>
-          <div style={{display:'flex',alignItems:'center'}}>
-            <label style={{marginLeft:'20px', marginRight:'40px'}}>AmcService Date From :</label>
+    <form style={{border:'solid' , borderColor:'whitesmoke'}}>
+      <div style={{marginTop:'20px'}}>
+        <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+          <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label > AmcService Date From : </label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
             <TextField
-            style={{width:'200px'}}
+            fullWidth
             id="Vendor-Address"
             variant="outlined"
             type='date'
-            value={fromDate}
-            onChange={(e) => { handleChangefromDate(e) }}/>
-            <label style={{marginLeft:'80px', marginRight:'70px'}}> To</label>
+            value={periodFrom}
+            onChange={(e) => { handleChangeperiodFrom(e) }}/>
+          </Grid>
+          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label > To </label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <TextField
-            style={{width:'200px'}}
-            id="Vendor-Address"
-            variant="outlined"
+            fullWidth 
+            id="Vendor-Address" 
+            variant="outlined" 
             type='date'
-            value={toDate}
-            onChange={(e) => { handleChangetoDate(e) }}/>
-          </div>
-          <div style={{display:'flex',alignItems:'center', marginTop:'20px', marginBottom:'20px'}}>
-            <label style={{marginRight:'90px',marginLeft:'20px'}}>Department :</label>
-            <Box >
-              <FormControl style={{ width: '300px' }}>
-                <InputLabel id="departmentlabel">Select Department</InputLabel>
+            value={periodTo}
+            onChange={(e) => { handleChangeperiodTo(e) }}/>
+          </Grid>
+        </Grid>
+        <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+          <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label>Department:</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
-                labelId="departmentlabel"
-                id='department'
-                label="Department"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label=""
                 onChange={(e) => onDepartmentChange(e)}>
                   {departmentList.map((data, index) => {
                     return (
@@ -169,14 +183,18 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </Select>
               </FormControl>
             </Box>
-            <label style={{marginRight:'50px',marginLeft:'20px'}}>Section:</label>
-            <Box >
-              <FormControl style={{width:'255px'}} >
+          </Grid>
+          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label>Section:</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Age"
+                label=""
                 onChange={(e) => onSectionChange(e)}>
                   {sectionList.map((data, index) => {
                     return (
@@ -186,16 +204,20 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </Select>
               </FormControl>
             </Box>
-            <label style={{marginRight:'50px',marginLeft:'20px'}}>Asset Type :</label>
-            <Box >
-              <FormControl style={{width:'255px'}}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label>Asset Type</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Age"
+                id="demo-simple-select"    
+                label=""
                 onChange={(e) => onAssetTypeChange(e)}>
-                  {assetTypeList.map((data, index) => {
+                  {assetList.map((data, index) => {
                     return (
                       <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                     )
@@ -203,23 +225,25 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </Select>
               </FormControl>
             </Box>
-          </div>
-          <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-        </div>
-      </form>
+          </Grid>
+        </Grid>
+        <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
+      </div>
       <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
         <div>
           <h3 style={{marginLeft:'30px'}}>INSPECTION DUE DATE</h3>
         </div>
         <hr/>
-        <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+        <div style={{ height: '200px', width: '1000px', marginLeft: '40px', marginTop: '20px' }}>
           <DataGrid
           rows={rows}
           columns={columns}/>
         </div>
         <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
       </form>
-    </div>
+    </form>
+    
+      
   )
 }
 
