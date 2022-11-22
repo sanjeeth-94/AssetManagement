@@ -3,6 +3,7 @@ import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import NotificationBar from '../../../services/NotificationBar';
 import InsuranceModel from './InsuranceModel';
+import { FetchInsuranceService } from '../../../services/ApiServices';
 
 
 const InsuranceList = () => {
@@ -17,24 +18,70 @@ const InsuranceList = () => {
         message: '',
     });
     const columns = [
-        { field: 'Vendor Name', headerName: 'Serial No', width: 60 },
-        { field: 'Asset Name', headerName: 'Vender Name	', width: 120 },
-        { field: 'Period From', headerName: 'Period From', width: 120 },
-        { field: 'Period To', headerName: 'Period To', width: 120 },
-        { field: 'Department', headerName: 'Department', width: 120 },
-        { field: 'Section', headerName: 'Section', width: 120 },
-        { field: 'Asset Type', headerName: 'Asset Type', width: 120 },
-        { field: 'Asset Name', headerName: 'Asset Name	', width: 120 },
-        { field: 'Action', headerName: 'Action', width: 250 },
-       
+        
+        { field: 'vendorName', headerName: 'Vender Name	', width: 120 },
+        { field: 'periodFrom', headerName: 'Period From', width: 120 },
+        { field: 'periodTo', headerName: 'Period To', width: 120 },
+        { field: 'departmen', headerName: 'Department', width: 120 },
+        { field: 'section', headerName: 'Section', width: 120 },
+        { field: 'assetType', headerName: 'Asset Type', width: 120 },
+        { field: 'assetName', headerName: 'Asset Name	', width: 120 },
+        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        cellClassname: 'actions',
+        type: 'actions',
+        getActions: (params) => [
+            <EditData selectedRow={params.row} />,
+            <DeleteData selectedRow={params.row} />,
+        ],
+        }
     ];
+
+    function EditData({ selectedRow }) {
+        return (
+            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            className='prbuton'
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                setIsAdd(false);
+                setEditData(selectedRow);
+                setOpen(true);
+            }}>
+                Edit
+            </Button>
+        )
+    }
+
+    function DeleteData({ selectedRow }) {
+        return (
+            <Button style={{ width: '100px' }}
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                deleteInsurance(selectedRow.id)
+                }
+                }>
+                Delete
+            </Button>
+        )
+    }
+
+    const deleteInsurance= (id) => {
+       
+    }
     
     useEffect(() => {
-       
+        FetchInsuranceService(handleFetchSuccess,handleFetchException)
        
     }, [refresh]);
 
-   
+    const handleFetchSuccess = (dataObject) =>{
+        setRows(dataObject.data);
+    }
+
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
 
     const handleClose = () => {
         setOpen(false)

@@ -122,9 +122,9 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   const [rows, setRows] = useState([]);
   const columns = [
-    { field: 'vendorId', headerName: 'Serial No', width: 200 },
+    
     { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
-    { field: '', headerName: 'Inspection Date', width: 200 },
+    { field: 'serviceDueDate', headerName: 'Inspection Date', width: 200 },
   ];
   
   return (
@@ -207,7 +207,7 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       </form>
       <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
         <div>
-          <h3 style={{marginLeft:'30px'}}>SERVICE DUE DATE</h3>
+          <h3 style={{marginLeft:'30px'}}>INSPECTION DUE DATE</h3>
         </div>
         <hr/>
         <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>

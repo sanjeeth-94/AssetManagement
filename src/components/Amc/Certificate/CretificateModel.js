@@ -11,407 +11,710 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import dayjs from 'dayjs';
-import Stack from '@mui/material/Stack';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { AmcServiceAddService,
-   AmcServiceUpdateService,
-   FetchDepaertmentService, 
-   FetchSectionService,
-   FetchVenderService,
-   FetchVenderDataService, 
-  } from '../../../services/ApiServices';
+import { Grid } from '@mui/material';
+import { CertificateAddService,
+  CertificateUpdateService ,
+  FetchDepaertmentService, 
+  FetchSectionService,
+  FetchAssetTypeService,
+  FetchVenderService,
+  FetchVenderDataService, 
+  FetchAssetNameService,
+} from '../../../services/ApiServices';
 
 const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
-    
-    const [vendorName, setVendorName] = useState('');
-    const [vendorNameList, setVendorNameList] = useState([]);
-    const [venderEmail ,setVenderEmail]= useState();
-    const [venderAddress ,setVenderAddress]= useState();
-    const [venderCompany ,setVenderCompany]= useState();
-    const [venderPhone ,setVenderPhone]= useState();
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [emailId, setEmailId] = useState('');
-    const [periodFrom ,setPeriodFrom]= useState();
-    const [periodTo ,setPeriodTo]= useState();
-    const [premiumCost ,setPremiumCost]= useState();
-    const [AMCDoc ,setAMCDoc]= useState();
-    const [servicePattern ,setServicePattern]= useState();
-    const [department  ,setDepartment]= useState();
-    const [section ,setSection]= useState();
-    const [sectionList,setSectionList]=useState([]);
-    const [assetType ,setAssetType]= useState();
-    const [assetName ,setAssetName]= useState();
-    const [departmentList,setDepartmentList]= useState([]);
-    const [fromDate, setfromDate] = useState('');
-    const [vendorData, setVendorData] = useState([]);
-    const [toDate, settoDate] = useState(''); 
-    const [gstCertificate, setGstCertificate] = useState('');
-    
-    
-
-    const handleChangefromDate = (e) => {
-      setfromDate(e.target.value);
-      console.log(e.target.value);
-    };
+  const [vendorName, setVendorName] = useState('');
+  const [vendorNameList, setVendorNameList] = useState([]);
+  const [venderAddress ,setVenderAddress]= useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailId, setEmailId] = useState('');
+  const [premiumCost ,setPremiumCost]= useState();
+  const [certificateDoc ,setcertificateDoc]= useState();
+  const [inspectionPattern ,setinspectionPattern]= useState();
+  const [department, setDepartment] = useState('');
+  const [section, setSection] = useState('');
+  const [sectionList, setSectionList] = useState([]);
+  const [departmentList, setDepartmentList] = useState([]);
+  const [assetType, setAssetType] = useState('');
+  const [certificateDate, setcertificateDate] = useState('');
+  const [expireDate, setexpireDate] = useState('');
+  const [assetList, setAssetList] = useState([]);
+  const [asset, setAsset] = useState('');
+  const [vendorData, setVendorData] = useState([]);
+  const [assetNameList, setAssetNameList] = useState([]);
+  const [c1DateFrom, setc1DateFrom] = useState('');
+  const [c1DateTo, setc1DateTo] = useState('');
+  const [c2DateFrom, setc2DateFrom] = useState('');
+  const [c2DateTo, setc2DateTo] = useState('');
+  const [c3DateFrom, setc3DateFrom] = useState('');
+  const [c3DateTo, setc3DateTo] = useState('');
+  const [c4DateFrom, setc4DateFrom] = useState('');
+  const [c4DateTo, setc4DateTo] = useState('');
+  const [c5DateFrom, setc5DateFrom] = useState('');
+  const [c5DateTo, setc5DateTo] = useState('');
+  const handleClose = () => {
+    setOpen(false);
+  };
   
-    const handleChangetoDate = (e) => {
-      settoDate(e.target.value);
-      console.log(e.target.value);
-    };
-    
-    const handleClose = () => {
-      setOpen(false);
-    };
-    const [openNotification, setNotification] = useState({
-        status: false,
-        type: 'error',
-        message: '',
-      });
-
-      useEffect(() => {
-        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-        FetchVenderService(handleFetchVender, handleFetchVenderException);
-      }, [editData]);
-
-       const handleFetchSuccess = (dataObject) =>{
+  const handleChangecertificateDate = (e) => {
+    setcertificateDate(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangeexpireDate= (e) => {
+    setexpireDate(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec1DateFrom = (e) => {
+    setc1DateFrom(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec1DateTo = (e) => {
+    setc1DateTo(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec2DateFrom = (e) => {
+    setc2DateFrom(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec2DateTo = (e) => {
+    setc2DateTo(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec3DateFrom = (e) => {
+    setc3DateFrom(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec3DateTo = (e) => {
+    setc3DateTo(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec4DateFrom = (e) => {
+    setc4DateFrom(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec4DateTo = (e) => {
+    setc4DateTo(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec5DateFrom = (e) => {
+    setc5DateFrom(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const handleChangec5DateTo = (e) => {
+    setc5DateTo(e.target.value);
+    console.log(e.target.value);
+  };
+  
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
+  
+  useEffect(() => {
+    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    FetchVenderService(handleFetchVender, handleFetchVenderException);
+  }, [editData]);
+  
+  const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
   }
   
-  const handleFetchException = (errorStaus, errorMessage) =>{
+  const handleFetchException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
-
+  
   const handleFetchVender = (dataObject) => {
     setVendorNameList(dataObject.data);
   }
-
+  
   const handleFetchVenderException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
   
   const onDepartmentChange = (e) => {
     setDepartment(e.target.value);
-    FetchSectionService ({
+    FetchSectionService({
       id: e.target.value
-  },handleFetchDepartmentSuccess, handleFetchDepartmentException);
-
-}
-
-const onVenderChange = (e) => {
-  setVendorName(e.target.value);
-  FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
-}
-
-const handleFetchVenderDataService = (dataObject) => {
-  setVendorData(dataObject.data);
-  setPhoneNumber(dataObject?.data[0]?.contactNo || '');
-  setEmailId(dataObject?.data[0]?.email || '');
-  setVenderAddress(dataObject?.data[0]?.address || '');
-}
-
-const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
-  console.log(errorMessage);
-}
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-            isAdd === true ?
-            (
-        
-            AmcServiceAddService({
-              department: department,
+    }, handleFetchDepartmentSuccess, handleFetchDepartmentException);
+  }
+  
+  const handleFetchDepartmentSuccess = (dataObject) => {
+    setSectionList(dataObject.data);
+  }
+  
+  const handleFetchDepartmentException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+  
+  const onSectionChange = (e) => {
+    setSection(e.target.value);
+    FetchAssetTypeService({
+      id: e.target.value
+    }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+  }
+  
+  const handleFetchAssetTypeServiceSuccess = (dataObject) => {
+    setAssetList(dataObject.data);
+  }
+  
+  const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+  
+  const onAssetChange = (e) => {
+    setAsset(e.target.value)
+  }
+  
+  const onAssetTypeChange = (e) => {
+    setAssetType(e.target.value);
+    FetchAssetNameService({
+      id: e.target.value
+    }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
+  }
+  
+  const handleFetchAssetNameServiceSuccess = (dataObject) => {
+    setAssetNameList(dataObject.data);
+  }
+  
+  const handleFetchAssetNameServiceException= (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+  
+  const onVenderChange = (e) => {
+    setVendorName(e.target.value);
+    FetchVenderDataService({ id: e.target.value }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
+  }
+  
+  const handleFetchVenderDataService = (dataObject) => {
+    setVendorData(dataObject.data);
+    setPhoneNumber(dataObject?.data[0]?.contactNo || '');
+    setEmailId(dataObject?.data[0]?.email || '');
+    setVenderAddress(dataObject?.data[0]?.address || '');
+  }
+  
+  const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
+    console.log(errorMessage);
+  }
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
+    isAdd === true ?
+    (
+      CertificateAddService({
+        department: department,
         section: section,
         vendorName: vendorName,
         phoneNumber: phoneNumber,
         email: emailId,
-        fromDate:fromDate,
-        toDate:toDate,
-            },handleSuccess, handleException)
-            ) : (
-            
-            AmcServiceUpdateService({
-            id: editData.id,
-            department: department,
-            section: section,
-            vendorName: vendorName,
-            phoneNumber: phoneNumber,
-            email: emailId,
-            fromDate:fromDate,
-            toDate:toDate,
-            }, handleSuccess, handleException)
-            );
-        }
-    
-        const handleSuccess = (dataObject) =>{
-        console.log(dataObject);
-        setRefresh(oldValue => !oldValue);
-        setNotification({
-            status: true,
-            type: 'success',
-            message: dataObject.message,
-        });
-
-        }
-    
-        const handleException = (errorObject, errorMessage) =>{
-        console.log(errorMessage);
-        setNotification({
-            status: true,
-            type: 'error',
-            message:errorMessage,
-        });
-        }
-    
-        const handleCloseNotify = () => {
-        setOpen(false)
-        setNotification({
-            status: false,
-            type: '',
-            message: '',
-        });
-        };
-        const handleFetchDepartmentSuccess = (dataObject) =>{
-          setSectionList(dataObject.data);
+        certificateDate:certificateDate,
+        expireDate:expireDate,
+        premiumCost:premiumCost,
+        certificateDoc:certificateDoc,
+        inspectionPattern :inspectionPattern ,
+        c1DateFrom:c1DateFrom,
+        c1DateTo:c1DateTo,
+        c2DateFrom:c2DateFrom,
+        c2DateTo:c2DateTo,
+        c3DateFrom:c3DateFrom,
+        c3DateTo:c3DateTo,
+        c4DateFrom:c4DateFrom,
+        c4DateTo:c4DateTo,
+        c5DateFrom:c5DateFrom,
+        c5DateTo:c5DateTo,
+        assetType:assetType,
+        assetName:asset,
+      }, handleSuccess, handleException)
+    ) : (
+      CertificateUpdateService({
+        id: editData.id,
+        department: department,
+        section: section,
+        vendorName: vendorName,
+        phoneNumber: phoneNumber,
+        email: emailId,
+        certificateDate:certificateDate,
+        expireDate:expireDate,
+        premiumCost:premiumCost,
+        certificateDoc:certificateDoc,
+        inspectionPattern :inspectionPattern ,
+        c1DateFrom:c1DateFrom,
+        c1DateTo:c1DateTo,
+        c2DateFrom:c2DateFrom,
+        c2DateTo:c2DateTo,
+        c3DateFrom:c3DateFrom,
+        c3DateTo:c3DateTo,
+        c4DateFrom:c4DateFrom,
+        c4DateTo:c4DateTo,
+        c5DateFrom:c5DateFrom,
+        c5DateTo:c5DateTo,
+        assetType:assetType,
+        assetName:asset,
+      }, handleSuccess, handleException)
+    );
+  }
   
-        }
-        const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
-          console.log(errorMessage);
-        }
+  const handleSuccess = (dataObject) => {
+    console.log(dataObject);
+    setRefresh(oldValue => !oldValue);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    });
+  }
   
-        const onSectionChange = (e) => {
-          setSection(e.target.value);    
-        }
-
+  const handleException = (errorObject, errorMessage) => {
+    console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+  }
+  
+  const handleChange = (event) => {
+    setinspectionPattern (event.target.value);
+  };
+  
+  const handleCloseNotify = () => {
+    setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+  
   return (
     <div>
-           <Dialog
-        open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth='lg'>
-            <form onSubmit={onSubmit}>
+      <Dialog
+      open={open}
+      onClose={handleClose}
+      fullWidth
+      maxWidth='lg'>
+        <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
-            {"ADD ASSET"}
+            {"VENDER DETAILS"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <form>
-                <div>
-                  <div><h2>VENDER DETAILS</h2> <hr /> </div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <label style={{ marginLeft: '20px', marginRight: '30px' }}>Name: </label>
+                <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Name: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                     <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '190px' ,marginLeft:'9px' }}>
+                      <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label"></InputLabel>
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label=""
+                        value={vendorName}
                         onChange={(e) => onVenderChange(e)}>
                           {vendorNameList.map((data, index) => {
                             return (
-                              <MenuItem value={data.id} key={index}>{data.vendorName}</MenuItem>
+                              <MenuItem value={data.vendorId} key={index}>{data.vendorName}</MenuItem>
                             )
                           })}
                         </Select>
                       </FormControl>
                     </Box>
-                    <label style={{ marginLeft: '60px', marginRight: '30px' }}>E-mail: </label>
-                    <TextField
-                    id="Email"
-                    label=""
-                    variant="outlined"
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >E-mail: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                    <TextField id="Email" 
+                    fullwidth
+                    label="" 
+                    variant="outlined" 
                     value={emailId} />
-                    <label
-                    style={{
-                      marginLeft: '60px',
-                      marginRight: '30px'
-                    }}>
-                      Address :
-                    </label>
-                    <TextField
-                    id=""
-                    label=""
-                    variant="outlined"
-                    value={venderAddress} />
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '20px' }}>
-                    <label
-                    style={{
-                      marginLeft: '20px',
-                      marginRight: '30px'
-                    }}>
-                      Phone :
-                    </label>
-                    <TextField
-                    style = {{ width: '190px'}}
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Address :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                    <TextField fullwidth id="" label="" variant="outlined"  value={venderAddress} />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >  Phone : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                    <TextField fullWidth
                     id=" Phone"
-                    label=""
+                    label="" 
                     variant="outlined"
                     value={phoneNumber}/>
-                  </div>
-                  <form style={{ border: 'solid', borderColor:'whitesmoke' }}>
-                    <div style={{ margin: '20px' }}>
-                      <h2>CERTIFICATE DETAILS</h2>
-                      <hr />
-                    </div>
-                    <div style={{ margin: '20px', display: 'flex', marginTop: '20px' }}>
-                      <label style={{ marginLeft: '20px', marginRight: '80px' }}>
-                      Certificate Date
-                      </label>
-                      <TextField
-                      style={{width:'200px'}}
-                      id="Vendor-Address"
-                      variant="outlined"
-                      type='date'
-                      value={fromDate}
-                      onChange={(e) => { handleChangefromDate(e) }}/>
-                      <label style={{ marginLeft: '20px', marginRight: '80px' }}>
-                      Expire Date
-                      </label>
-                      <TextField
-                      style={{width:'200px'}}
-                      id="Vendor-Address"
-                      variant="outlined"
-                      type='date'
-                      value={toDate}
-                      onChange={(e) => { handleChangetoDate(e) }}/>
-                    </div>
-                    <div style={{ display: 'flex', marginLeft: '40px', marginTop: '20px', alignItems: 'center' }}>
-                      <label style={{ 
-                                marginRight: '90px' 
-                                }}>
-                                    Premium Cost
-                       </label>
-                      <TextField 
-                        id="premium" 
-                        label="Premium Cost" 
-                        variant="outlined" 
-                        onChange={(e) => { setPremiumCost(e.target.value) }}
-                        value={premiumCost}    
-                       />
-                      <label style={{ marginLeft: '60px', marginRight: '50px' }}>Certificate Doc</label>
-                      <TextField
-                  style={{ width: '300px', marginLeft: '20px' }}
-                  
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0) {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        if (reader.readyState === 2) {
-                          setGstCertificate(reader.result);
-                        }
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                  type="file"
-                />
-                    </div>
-                    <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center' }}>
-                      <label style={{ marginRight: '60px' }}>Inspection Pattern :</label>
-                      <Box>
-                        <FormControl style={{ width: '260px' }}>
-                          <InputLabel id="demo-simple-select-label"></InputLabel>
-                          <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          
-                          label=""
-                          >
-                            
-                          </Select>
-                        </FormControl>
-                      </Box>
+                  </Grid>
+                </Grid>
+                <div style={{ margin: '20px' }}>
+                  <h2>CERTIFICATE DETAILS</h2>
+                  <hr />
+                </div>
+                <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > Certificate Date</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
+                    <TextField 
+                    fullWidth 
+                    id="Vendor-Address" 
+                    variant="outlined" 
+                    type='date'
+                    value={certificateDate}
+                    onChange={(e) => { handleChangecertificateDate(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Expire Date</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
+                    <TextField
+                    style={{ alignSelf: 'left',}}
+                    fullWidth 
+                    id="Vendor-Address" 
+                    variant="outlined" 
+                    type='date'
+                    value={expireDate}
+                    onChange={(e) => { handleChangeexpireDate(e) }}/>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > Premium Cost </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <TextField 
+                    fullWidth
+                    id="premium" 
+                    label="Premium Cost" 
+                    variant="outlined"
+                    onChange={(e) => { setPremiumCost(e.target.value) }}
+                    value={premiumCost} />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Certificate Doc</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <TextField 
+                    fullWidth
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          if (reader.readyState === 2) {
+                            setcertificateDoc(reader.result);
+                          }
+                        };
+                        reader.readAsDataURL(e.target.files[0]);
+                      }
+                    }}
+                    InputLabelProps={{ shrink: true }}
+                    type="file"/> 
+                  </Grid>
+                </Grid>
+                <form>
+                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}} >
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                       <label style={{ marginRight: '10px', marginLeft: '30px' }}>Department :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
                       <Box>
-                        <FormControl style={{ width: '260px' }} >
+                        <FormControl fullWidth>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          
-                          label="Age"
+                          label=""
                           onChange={(e) => onDepartmentChange(e)}>
                             {departmentList.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                               )
                             })}
-                            
                           </Select>
                         </FormControl>
                       </Box>
-                    </div>
-                    <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center' }}>
-                      <label style={{ marginRight: '140px' }}>Section:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >Inspection Pattern:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
                       <Box>
-                        <FormControl style={{ width: '260px' }}>
+                        <FormControl fullWidth>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
+                          value={inspectionPattern }
+                          label=""
+                          onChange={handleChange}>
+                            <MenuItem value={1}>1 Inspection</MenuItem>
+                            <MenuItem value={2}>2 Inspection</MenuItem>
+                            <MenuItem value={3}>3 Inspection</MenuItem>
+                            <MenuItem value={4}>4 Inspection</MenuItem>
+                            <MenuItem value={5}>5 Inspection</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                  { inspectionPattern  >=1 && (
+                    <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                      <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                      style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                        <label>1 Inspection: FROM </label>
+                      </Grid>
+                      <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
+                        <TextField
+                        fullWidth
+                        id=""
+                        variant="outlined"
+                        type='date'
+                        value={c1DateFrom}
+                        onChange={(e) => { handleChangec1DateFrom(e) }}/>
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                      style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                        <label>To:</label>
+                      </Grid>
+                      <Grid item xs={12}  sm={6} md={2} lg={2} xl={2}>
+                        <TextField
+                        fullWidth
+                        id=""
+                        variant="outlined"
+                        type='date'
+                        value={c1DateTo}
+                        onChange={(e) => { handleChangec1DateTo(e) }}/>
+                      </Grid>
+                    </Grid>
+                    )
+                  }
+                  { inspectionPattern  >=2 && (
+                    <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                      <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                      style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                        <label>2 Inspection: FROM: </label>
+                        </Grid>
+                        <Grid item xs={12} sm={6}  md={2} lg={2} xl={2} >
+                          <TextField
+                          fullWidth
+                          id=""
+                          variant="outlined"
+                          type='date'
+                          value={c2DateFrom}
+                          onChange={(e) => { handleChangec2DateFrom(e) }}/>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
+                        style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                          <label>To:</label>
+                        </Grid>
+                        <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                          <TextField
+                          fullWidth
+                          id=""
+                          variant="outlined"
+                          type='date'
+                          value={c2DateTo}
+                          onChange={(e) => { handleChangec2DateTo(e) }}/>
+                        </Grid>
+                        
+                        
+                      </Grid>
+                    )
+                  }
+                  {inspectionPattern  >=3 && (
+                        <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                          <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                            style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                            <label>3 Inspection: FROM: </label>
+                          </Grid>
+                          <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
+                            <TextField
+                            fullWidth
+                            id=""
+                            variant="outlined"
+                            type='date'
+                            value={c3DateFrom}
+                            onChange={(e) => { handleChangec3DateFrom(e) }}/>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                          style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                            <label>To:</label>
+                          </Grid>
+                          <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                            <TextField
+                            fullWidth
+                            id=""
+                            variant="outlined"
+                            type='date'
+                            value={c3DateTo}
+                            onChange={(e) => { handleChangec3DateTo(e) }}/>
+                          </Grid>
                           
-                          label="Age"
+                          
+                        </Grid>
+                    )
+                  }
+                  {inspectionPattern  >=4 && (
+                        <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                          <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                            style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                            <label>4 Inspection: FROM: </label>
+                          </Grid>
+                          <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
+                          <TextField
+                          fullWidth
+                          id=""
+                          variant="outlined"
+                          type='date'
+                          value={c4DateFrom}
+                          onChange={(e) => { handleChangec4DateFrom(e) }}/>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                          style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                            <label>To:</label>
+                          </Grid>
+                          <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                            <TextField
+                            fullWidth
+                            id=""
+                            variant="outlined"
+                            type='date'
+                            value={c4DateTo}
+                            onChange={(e) => { handleChangec4DateTo(e) }}/>
+                          </Grid>
+                          
+                          
+                        </Grid>
+                    )
+                  }
+                  { inspectionPattern >=5 && (
+                        <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                          <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                            style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                            <label>5 Inspection: FROM: </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}>
+                              <TextField
+                              fullWidth
+                              id=""
+                              variant="outlined"
+                              type='date'
+                              value={c5DateFrom}
+                              onChange={(e) => { handleChangec5DateFrom(e) }}/>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                          style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                              <label>To:</label>
+                            </Grid>
+                            <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                              <TextField
+                              fullWidth
+                              id=""
+                              variant="outlined"
+                              type='date'
+                              value={c5DateTo}
+                              onChange={(e) => { handleChangec5DateTo(e) }}/>
+                            </Grid>
+                            </Grid>
+                      
+                    )
+                  }
+                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >Section:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label"></InputLabel>
+                          <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label=""
                           onChange={(e) => onSectionChange(e)}>
-                          {sectionList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                            {sectionList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
                               )
-                          })}
+                            })}
                           </Select>
                         </FormControl>
                       </Box>
-                      <label style={{ marginRight: '10px', marginLeft: '30px' }}>Asset Type :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label>Asset Type :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                       <Box>
-                        <FormControl style={{ width: '260px' }}>
+                        <FormControl  fullWidth>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          
-                          label="Age"
-                          >
-                           
+                          label=""
+                          onChange={(e) => onAssetTypeChange(e)}>
+                            {assetList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                              )
+                            })}
                           </Select>
                         </FormControl>
                       </Box>
-                    </div>
-                    <div style={{ display: 'flex', marginTop: '20px', marginLeft: '30px', alignItems: 'center', marginBottom: '30px' }}>
-                      <label style={{ marginRight: '100px' }}>Asset Name :</label>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}} >
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >Asset Name :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
                       <Box>
-                        <FormControl style={{ width: '260px' }}>
+                        <FormControl fullWidth>
                           <InputLabel id="demo-simple-select-label"></InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          
-                          label="Age"
-                          >
-                            
+                          label=""
+                          onChange={(e) => onAssetChange(e)}>
+                            {assetNameList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                              )
+                            })}
                           </Select>
                         </FormControl>
                       </Box>
-                    </div>
-                  </form>
-                </div>
+                    </Grid>
+                  </Grid>
+                </form>
               </form>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <div className='addbutton'>
-              <Button style={{ border: 'solid', width: '150px' }} onClick={handleClose} autoFocus>Apply</Button>
+            <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>Apply</Button>
             </div>
           </DialogActions>
-          </form>
-        </Dialog>
-      
+        </form>
+      </Dialog>
     </div>
   )
 }
 
-export default CretificateModel
+export default CretificateModel;

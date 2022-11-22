@@ -34,7 +34,7 @@ const AmcServiceList = () => {
         getActions: (params) => [
             <EditData selectedRow={params.row} />,
             <DeleteData selectedRow={params.row} />,
-        ],
+    ],
         }
     ];
     
