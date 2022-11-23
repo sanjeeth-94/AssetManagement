@@ -14,13 +14,14 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {  Grid, MenuItem, OutlinedInput, } from '@mui/material';
-import { FetchAssetNameService, 
-        FetchAssetTypeService, 
-        FetchDepaertmentService, 
-        FetchSectionService, 
-        MaintenanceAddService,
-        FetchMachineService,
-     } from '../../services/ApiServices';
+import { 
+    FetchAssetNameService, 
+    FetchAssetTypeService, 
+    FetchDepaertmentService, 
+    FetchSectionService, 
+    MaintenanceAddService,
+    FetchMachineService,
+} from '../../services/ApiServices';
 import Maintenance from './MaintenanceTable';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
@@ -46,6 +47,7 @@ const columns = [
 const rows = [
 
 ];
+
 const columns2 = [
     { field: 'AMC Status', headerName: 'Name ', width: 80 },
     { field: 'Warranty Status', headerName: 'Part Id', width: 80 },
@@ -108,35 +110,36 @@ export default function HorizontalLinearStepper() {
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
         );
-      };
-
+    };
+    
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchMachineService(handleFetchMachineSuccess, handleFetchMachineException);
-
     }, []);
-
+    
     const handleFetchSuccess = (dataObject) => {
         setDepartmentList(dataObject.data);
     }
+
     const handleFetchException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
+
     const handleFetchMachineSuccess = (dataObject) => {
         setAffectedMachineList(dataObject.data);
     }
+
     const handleFetchMachineException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
    
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
-
         FetchSectionService({
             id: e.target.value
         }, handleFetchSection, handleFetchSectionException)
-
     }
+
     const handleFetchSection = (dataObject) => {
         setSectionList(dataObject.data);
     }
@@ -148,8 +151,8 @@ export default function HorizontalLinearStepper() {
     const onSectionChange = (e) => {
         setSection(e.target.value);
         FetchAssetTypeService({ id: e.target.value }, handleFetchAssetType, handleFetchAssetTypeException)
-
     }
+
     const handleFetchAssetType = (dataObject) => {
         setAssetTypeList(dataObject.data);
     }
@@ -157,11 +160,12 @@ export default function HorizontalLinearStepper() {
     const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
+
     const onAssetTypeChange = (e) => {
         setAssetType(e.target.value);
         FetchAssetNameService({ id: e.target.value }, handleFetchAssetNameService,  handleFetchAssetNameException)
-
     }
+
     const handleFetchAssetNameService= (dataObject) => {
         setAssetNameList(dataObject.data);
     }
@@ -169,6 +173,7 @@ export default function HorizontalLinearStepper() {
     const handleFetchAssetNameException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
+
     const onAssetNameChange = (e) => {
         setAssetName(e.target.value);
     }
@@ -211,6 +216,7 @@ export default function HorizontalLinearStepper() {
     }
     
     };
+    
     const handleMaintenanceAddService= (dataObject) => {
         console.log(dataObject.data);
     }
@@ -218,8 +224,7 @@ export default function HorizontalLinearStepper() {
     const handleMaintenanceAddServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
-       
-
+    
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
@@ -227,7 +232,6 @@ export default function HorizontalLinearStepper() {
     const handleReset = () => {
         setActiveStep(0);
     };
-
     
     const handleMaintenanceTypeChange = (e) => {
         setMaintenanceType(e.target.value);
@@ -241,11 +245,9 @@ export default function HorizontalLinearStepper() {
         setTagAssetType(event.target.value);
     };
 
-
-const addMaintenance=()=>{
+    const addMaintenance=()=>{
     if(name === ''){
         alert("Enter name");
-       
     }else if(partid === ''){
         alert("Enter part Id");
     }
@@ -259,11 +261,11 @@ const addMaintenance=()=>{
         alert("Enter unit price");
     }
     else if (unitId === '') {
-       
+        
         const newMaintenance = [...maintenance, { name, partid,quantity ,UOM,unitPrice,partOption }];
         setMaintenance(newMaintenance);
         
-      }
+    }
     else {
         const newMaintenance = [...maintenance];
         newMaintenance[unitId].name = name;
@@ -281,14 +283,13 @@ const addMaintenance=()=>{
         setUnitId('');
         setIsAddUnit(false);
         setIsAddUnit(true);
-      }
+    }
 }
 
 const removeMaintenance= (index) => {
-        const newMaintenance = [...maintenance];
-        newMaintenance.splice(index, 1);
-        setMaintenance(newMaintenance);
-   
+    const newMaintenance = [...maintenance];
+    newMaintenance.splice(index, 1);
+    setMaintenance(newMaintenance);  
  };
 const onChangeSeverity=(e)=>{
     setSeverity(e.target.value)

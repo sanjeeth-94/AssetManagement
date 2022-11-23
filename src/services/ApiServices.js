@@ -247,9 +247,10 @@ export const ViewInsuranceRenewal = (successCallback, errorCallBack) => _fetchSe
 export const  InsuranceDueListService = (data,successCallback, errorCallBack) => _fetchService(`insurance/${data.id}/insuranceDue`, 'POST', data, successCallback, errorCallBack);
 
 
+
 /////........Warrenty.........///////
 
-export const  FetchWarrantyService = (successCallback, errorCallBack) => _fetchService('warranty/showData', 'GET', {}, successCallback, errorCallBack);
+export const  FetchWarrantyService = (data,successCallback, errorCallBack) => _fetchService('warranty/showData', 'POST', data, successCallback, errorCallBack);
 
 ///.........Maintenance......./////
 export const MaintenanceAddService = (data, successCallback, errorCallBack) => _fetchService('maintenance/add', 'POST', data, successCallback, errorCallBack);
@@ -261,5 +262,6 @@ export const  FetchMachineService = (successCallback, errorCallBack) => _fetchSe
 
 export const  FetchMaintenanceApprovedService = (successCallback, errorCallBack) => _fetchService('maintenance/aprovedShowData', 'GET', {}, successCallback, errorCallBack);
 
+/////.......Check.....///
 
-
+export const  FetchMaintenanceService = (successCallback, errorCallBack) => _fetchService('maintenance/showData', 'GET', {}, successCallback, errorCallBack);
