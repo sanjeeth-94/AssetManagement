@@ -4,7 +4,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Maintenance = ({ maintenance, index, removeMaintenance, updateMaintenance, }) => {
-
     return (
         <div>
             <Grid container>
@@ -17,7 +16,6 @@ const Maintenance = ({ maintenance, index, removeMaintenance, updateMaintenance,
                         </div>
                     </div>
                 </Grid>
-
                 <Grid xs={6} md={1}>
                     <div className="task">
                         <div>

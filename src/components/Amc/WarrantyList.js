@@ -6,8 +6,8 @@ import { FetchWarrantyService } from '../../services/ApiServices';
 
 const WarrantyList = () => {
   const [rows, setRows] = useState([]);
-  const [fromDate, setfromDate] = useState('');
-  const [toDate, settoDate] = useState('');
+  const [warrantyStartDate, setwarrantyStartDate] = useState('');
+  const [warrantyEndDate, setwarrantyEndDate] = useState('');
   const [refresh , setRefresh]=useState(false)
   const [openNotification, setNotification] = useState({
     status: false,
@@ -15,37 +15,37 @@ const WarrantyList = () => {
     message: '',
   });
 
-  
+  const onSubmit = (e) => {
+    e.preventDefault();
+    FetchWarrantyService({ 
+      warrantyStartDate: warrantyStartDate,
+      warrantyEndDate:warrantyEndDate,
+    },handleFetchWarrantyService, handleFetchWarrantyServiceException)    
+  }
 
-  useEffect(() => {
-    FetchWarrantyService(handleFetchSuccess, handleFetchException);
-   
-}, [refresh]);
+  const handleFetchWarrantyService =(dataObject)=>{
+    setRows(dataObject.data)
+  }
 
-const handleFetchSuccess = (dataObject) =>{
-    setRows(dataObject.data);
-}
-
-const handleFetchException = (errorStaus, errorMessage) =>{
-    console.log(errorMessage);
-}
+  const handleFetchWarrantyServiceException=(errorObject, errorMessage)=>{
+    console.log(errorMessage)
+  }
   
-  
-  const handleChangefromDate = (e) => {
-    setfromDate(e.target.value);
+  const handleChangewarrantyStartDate = (e) => {
+    setwarrantyStartDate(e.target.value);
     console.log(e.target.value);
   };
   
-  const handleChangetoDate = (e) => {
-    settoDate(e.target.value);
+  const handleChangewarrantyEndDate = (e) => {
+    setwarrantyEndDate(e.target.value);
     console.log(e.target.value);
   };
   
   const columns = [
     { field: 'department', headerName: 'Department	', width: 200 },
-    { field: 'machine', headerName: 'Machine', width: 200 },
-    { field: 'gray', headerName: '	Warranty start date	', width: 300 },
-    {field: 'kyo', headerName: 'Warranty end date	', width: 300 },
+    { field: 'assetName', headerName: 'Machine', width: 200 },
+    { field: 'warrantyStartDate', headerName: '	Warranty start date	', width: 300 },
+    {field: 'warrantyEndDate', headerName: 'Warranty end date	', width: 300 },
     {field: 'action', headerName: '	Action', width: 300 },
   ];
   
@@ -59,17 +59,17 @@ const handleFetchException = (errorStaus, errorMessage) =>{
           id="Vendor-Address"
           variant="outlined"
           type='date'
-          value={fromDate}
-          onChange={(e) => { handleChangefromDate(e) }}/>
+          value={warrantyStartDate}
+          onChange={(e) => { handleChangewarrantyStartDate(e) }}/>
           <label style={{marginLeft:'80px', marginRight:'70px'}}> To</label>
           <TextField
           style={{width:'200px'}}
           id="Vendor-Address"
           variant="outlined"
           type='date'
-          value={toDate}
-          onChange={(e) => { handleChangetoDate(e) }}/>
-          <Button style={{marginRight:'30px',marginLeft:'30px'}} variant="contained">View</Button>
+          value={warrantyEndDate}
+          onChange={(e) => { handleChangewarrantyEndDate(e) }}/>
+          <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
           <Button style={{marginRight:'30px',marginLeft:'30px'}} variant="contained">View Due</Button>
         </div> 
       </form>
