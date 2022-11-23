@@ -139,7 +139,7 @@ const Main = () => {
                     <div className="heading">
                       Warranty Due
                     </div>
-                    <Link to='/Warrantydue'><SettingsIcon className='icondash' style={{
+                    <Link to='/WarrantyList'><SettingsIcon className='icondash' style={{
                         height: '60px',
                         width: '60px'
                     }}/> </Link>
