@@ -54,7 +54,7 @@ const MaintenanceAddList = () => {
         return (
             <VisibilityIcon
                   onClick={() => {
-                    setIsAdd(false);
+                    setIsAdd(true);
                     setEditData(selectedRow);
                     setOpen(true);
                 }}
