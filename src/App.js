@@ -19,6 +19,7 @@ import Untagassettable from './components/Allocation/Untagassettable';
 import MaintenanceSchedule from './components/MaintenanceSchedule/MaintenanceSchedule';
 import MaintenanceSchedulList from './components/check/MaintenanceSchedulList';
 import WarrantyList from './components/Amc/WarrantyList';
+import Certificate from './components/Amc/Certificate/Certificate';
 
 
 function App() {
@@ -60,6 +61,8 @@ function App() {
           <Route path='/untagassettable' element={<Untagassettable/>}/>
           <Route path='/warrantyList' element={<WarrantyList/>}/>
           <Route path='/amcTab' element={<AmcTab/>}/>
+          <Route path='/maintenanceSchedulList' element={<MaintenanceSchedulList/>}/>
+          <Route path='/certificate' element={<Certificate/>}/>
         </Route> 
       </Route>
     </Routes> 

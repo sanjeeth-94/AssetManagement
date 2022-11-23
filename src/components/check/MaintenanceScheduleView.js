@@ -14,13 +14,13 @@ import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Grid } from '@mui/material';
 
-const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+const MaintenanceScheduleView = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [rows, setRows] = useState([]);
     const [affectingMachines,setAffectingMachines]=useState('');
     const [utilizationPlan,setUtilizationPlan]=useState('');
     const [affectingManHours,setAffectingManHours]=useState('');
     const [utilizationPlan2,setUtilizationPlan2]=useState('');
-    
+
     const columns = [
         { field: 'maintenanceId', headerName: 'Name	', width: 80 },
         { field: 'maintenanceType', headerName: 'Part Id', width: 100 },
@@ -141,6 +141,7 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
     </Dialog>
     </div>
   )
+
 }
 
-export default MaintenanceViewClose
+export default MaintenanceScheduleView;
