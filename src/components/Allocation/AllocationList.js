@@ -133,27 +133,10 @@ const AllocationList = () => {
                     <hr/>
                     <div style={{display:'flex',alignItems:'center',marginTop:'20px',marginLeft:'80px'}}>
                         <label style={{marginLeft:'20px', marginRight:'40px'}}>Date From :</label>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <Stack spacing={3}>
-                                <DesktopDatePicker
-                                label="Date desktop"
-                                inputFormat="MM/DD/YYYY"
-                                value={value}
-                                onChange={handleChangeDate}
-                                renderInput={(params) => <TextField {...params} />}/>
-                            </Stack>
-                        </LocalizationProvider>
+                        <TextField id="outlined-basic" type='date' variant="outlined" />
                         <label style={{marginLeft:'20px', marginRight:'85px'}}> To</label>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <Stack spacing={3}>
-                                <DesktopDatePicker
-                                label="Date desktop"
-                                inputFormat="MM/DD/YYYY"
-                                value={value}
-                                onChange={handleChangeDate}
-                                renderInput={(params) => <TextField {...params} />}/>
-                            </Stack>
-                        </LocalizationProvider>
+                        <TextField id="outlined-basic" type='date' variant="outlined" />
+                        
                         <Button style={{marginLeft:'50px'}} variant="contained" onClick={handleModalOpen}>Contained</Button>
                     </div>
                 </form>
