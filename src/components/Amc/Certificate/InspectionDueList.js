@@ -122,7 +122,6 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   const [rows, setRows] = useState([]);
   const columns = [
-    
     { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
     { field: 'serviceDueDate', headerName: 'Inspection Date', width: 200 },
   ];

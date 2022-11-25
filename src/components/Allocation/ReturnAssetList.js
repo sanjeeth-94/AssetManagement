@@ -18,6 +18,7 @@ const ReturnAssetList = () => {
         ],
         }
     ];
+
     function EditData({ selectedRow }) {
         return (
             <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
@@ -41,19 +42,20 @@ const ReturnAssetList = () => {
             </Button>
         )
     }
-  return (
-    <div>
-      <form>
-        <label style={{marginLeft:'500px'}}>View Asset</label>
-        <hr/>
-        <div style={{ height: '250px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-                <DataGrid
-                rows={rows}
-                columns={columns} />
-            </div>
-      </form>
-    </div>
-  )
+    
+    return (
+        <div>
+            <form>
+                <label style={{marginLeft:'500px'}}>View Asset</label>
+                <hr/>
+                <div style={{ height: '250px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+                    <DataGrid
+                    rows={rows}
+                    columns={columns} />
+                </div>
+            </form>
+        </div>
+    )
 }
 
 export default ReturnAssetList

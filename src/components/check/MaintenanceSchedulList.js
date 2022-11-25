@@ -3,11 +3,17 @@ import BuildIcon from '@mui/icons-material/Build';
 import { DataGrid } from '@mui/x-data-grid';
 import { Grid } from '@mui/material';
 import { Link } from "react-router-dom";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { FetchMaintenanceService } from '../../services/ApiServices';
+import MaintenanceScheduleView from './MaintenanceScheduleView';
 
 const MaintenanceSchedulList = () => {
-    
+    const [open, setOpen] = useState(false);
+    const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
+    const [editData, setEditData] = useState(''); 
+    const [refresh , setRefresh]=useState(false);
+   
     const columns = [
 
         { field: 'maintenanceId', headerName: 'Maintenance ID	', width: 80 },
@@ -19,8 +25,28 @@ const MaintenanceSchedulList = () => {
         { field: 'dateTo', headerName: 'Date To	', width: 140 },
         { field: 'timeFrom', headerName: 'Time From	', width: 140 },
         { field: 'timeTo', headerName: 'Time To	', width: 140 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,        }
+        {field: 'action', headerName: 'Action', width: 250, sortable: false, 
+        type: 'actions',
+        getActions: (params) => [
+            <ViewData selectedRow={params.row} />  
+        ],
+        },
+         
+
     ];
+
+    function ViewData({ selectedRow }) {
+        return (
+            <VisibilityIcon
+                  onClick={() => {
+                    setIsAdd(true);
+                    setEditData(selectedRow);
+                    setOpen(true);
+                }}
+           />
+   
+        )
+    }
     useEffect(()=>{
     FetchMaintenanceService(handleFetchMaintenanceService,handleFetchMaintenanceServiceException)
    },[]);
@@ -58,7 +84,8 @@ const MaintenanceSchedulList = () => {
                       
                     }}>
                         
-                        <BuildIcon />
+                        
+                        <Link to='/maintenanceSchedulList'><BuildIcon /></Link>
                         </div>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2.6} lg={2.8} xl={3}
@@ -80,7 +107,7 @@ const MaintenanceSchedulList = () => {
                         }}>
                             
                             
-                            <Link to='/warrantyList'><BuildIcon className='check-icon' /></Link>
+                            <Link to='/warrantyList'><BuildIcon  /></Link>
                             </div>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2.6} lg={2.8} xl={2.5}style={{
@@ -121,7 +148,8 @@ const MaintenanceSchedulList = () => {
                             justifyContent: 'right',
                         }}>
                            
-                            <BuildIcon className='check-icon' />
+                            
+                            <Link to='/certificate'> <BuildIcon /></Link>
                         </div>
                     </Grid>
                     
@@ -136,13 +164,21 @@ const MaintenanceSchedulList = () => {
                 <h/>
                 <DataGrid
                     rows={rows}
-                    columns={columns} />
+                    columns={columns}
+                    rowsPerPageOptions={[5]}
+                    onRowAdd/>
+                </Grid>
             </Grid>
-
-        </Grid>
-   
-    </div>
+            <MaintenanceScheduleView
+                        open={open}
+                        setOpen={setOpen}
+                        isAdd={isAdd}
+                        editData={editData}
+                        setRefresh={setRefresh}
+                    />
+         </div>
   )
+  
 }
 
 export default MaintenanceSchedulList
