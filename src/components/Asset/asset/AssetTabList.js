@@ -1,4 +1,4 @@
-import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
+import { Box, Button, Grid, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Addlabel from './Addlabel';
 import AddlabelList from './AddlabelList';
@@ -44,25 +44,26 @@ const AssetTabList = () => {
 
   return (
     <div>
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Add Asset" {...a11yProps(0)} />
-          <Tab label="IMPORT " {...a11yProps(1)} />
-          <Tab label="ADD LABEL" {...a11yProps(2)} />
-        </Tabs>
-      </Box>
-      <TabPanel  value={value} index={0} >
-       <AssetList/>     
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-      <Assetimport />
-      </TabPanel>
-      <TabPanel value={value} index={2}> 
-        <AddlabelList /> 
-      </TabPanel>
-     
-    </Box>
+      <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+              <Tab label="Add Asset" {...a11yProps(0)} />
+              <Tab label="IMPORT " {...a11yProps(1)} />
+              <Tab label="ADD LABEL" {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+          <TabPanel  value={value} index={0} >
+          <AssetList/>     
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+          <Assetimport />
+          </TabPanel>
+          <TabPanel value={value} index={2}> 
+            <AddlabelList /> 
+          </TabPanel>
+        </Box>
+    </Grid>
     </div>
   )
 }

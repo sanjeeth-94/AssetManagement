@@ -98,6 +98,7 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                             {"ADD SECTION"}
                         </DialogTitle>
+                        
                         <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                             <label style={{marginLeft:'5px'}}>Depatmrent:</label>
                             <Box>

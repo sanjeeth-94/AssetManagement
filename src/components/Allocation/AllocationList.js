@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AllocationModel from './AllocationModel';
+import { Grid } from '@mui/material';
 
 const AllocationList = () => {
     const [open, setOpen] = useState(false);
@@ -132,43 +124,82 @@ const handleModalOpen = () => {
 };
 
   return (
-    <div>
-        <div>
-        <div>
-            <h2 style={{marginLeft:'40px'}}>View Allocation</h2>
-        </div>
-     <form>
-        
-        <hr/>
-        <div style={{display:'flex',alignItems:'center',marginTop:'20px',marginLeft:'80px'}}>
-        <label style={{marginLeft:'20px', marginRight:'40px'}}>Date From :</label>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack spacing={3}>
-                <DesktopDatePicker
-                label="Date desktop"
-                inputFormat="MM/DD/YYYY"
-                value={value}
-                onChange={handleChangeDate}
-                renderInput={(params) => <TextField {...params} />}
-                />
-            </Stack>
-            </LocalizationProvider>
-            <label style={{marginLeft:'20px', marginRight:'85px'}}> To</label>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack spacing={3}>
-                <DesktopDatePicker
-                label="Date desktop"
-                inputFormat="MM/DD/YYYY"
-                value={value}
-                onChange={handleChangeDate}
-                renderInput={(params) => <TextField {...params} />}
-                />
-            </Stack>
-            </LocalizationProvider>
-            <Button style={{marginLeft:'50px'}} variant="contained" onClick={handleModalOpen}>Contained</Button>
+    <>
+        <Grid container>
+            <Grid item xs={6} sm={6} md={6} lg={6} lx={6}style={{
+                    alignSelf: 'center',
+                    textAlignLast: 'center'
+                }}>
+            <h3 > View Allocation</h3>
+            </Grid>
+            <Grid item xs={6} sm={6} md={6} lg={6} lx={6} style={{
+                    alignSelf: 'center',
+                    textAlignLast: 'center'
+                }}>
+            <Button  
+                styel={{width:'200px', height:'30px',alignSelf: 'center',
+                textAlignLast: 'center'}} 
+                variant="contained" 
+                onClick={handleModalOpen}
+                >Add
+            </Button>
+            </Grid>
 
-        </div>
-        </form>
+        </Grid>
+        <hr/>
+        <Grid container style={{width:'100%'}}>
+            
+            <form style={{width:'100%'}}>
+            <Grid  container spacing={2}  style={{marginTop:'20px',marginLeft:'20px'}}>
+
+                <Grid item xs={12} sm={3} md={3} lg={1.5} xl={3}
+                   style={{
+                    alignSelf: 'center',
+                    textAlignLast: 'center'
+                }}>
+                <label style={{width:'100%'}}>Date From :</label>
+                </Grid>
+                <Grid item xs={12} sm={3} md={3} lg={3.5} xl={3}>
+                <TextField
+                    fullWidth
+                 type="date" variant="outlined" />
+                </Grid>
+                <Grid item xs={12} sm={3} md={1} lg={1.5} xl={3}
+                 style={{
+                    alignSelf: 'center',
+                    textAlignLast: 'center'
+                }}>
+          
+                <label > To</label>
+                </Grid>
+                <Grid item xs={12} sm={3} md={3} lg={3.5} xl={3}>
+                <TextField 
+                    fullWidth
+                    type="date" 
+                    variant="outlined"
+                />
+                </Grid>
+                 <Grid item xs={12} sm={3} md={1} lg={1} xl={1} 
+                  style={{
+                    alignSelf: 'center',
+                    textAlignLast: 'center'
+                }}
+                 >
+                <Button  
+                styel={{width:'200px', height:'30px',alignSelf: 'center',
+                textAlignLast: 'center'}} 
+                variant="contained" 
+              
+                >View
+            </Button>
+                </Grid> 
+
+            </Grid>
+            </form>
+        </Grid>
+
+        <div>
+       
         <div>
             <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '30px' }}>
                 <DataGrid
@@ -192,7 +223,7 @@ const handleModalOpen = () => {
         </div>
         </div>
       
-    </div>
+    </>
   )
 }
 

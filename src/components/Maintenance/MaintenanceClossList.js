@@ -3,17 +3,20 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import { Grid } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import MaintenanceViewClose from './MaintenanceViewClose';
-import { FetchMaintenanceApprovedService } from '../../services/ApiServices';
 
-const MaintenanceAddList = () => {
+import { FetchMaintenanceApprovedService, FetchMaintenanceShowClosedMaintenanceService } from '../../services/ApiServices';
+
+import MaintenanceClossModel from './MaintenanceClossModel';
+
+
+const MaintenanceClossList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false);
-  
-    const columns = [
+          
+      const columns = [
         { field: 'maintenanceId', headerName: 'Maintenance Id', width: 80 },
         { field: 'maintenanceType', headerName: 'Maintenance Type', width: 100 },
         { field: 'assetName', headerName: 'Machine', width: 100 },
@@ -24,57 +27,42 @@ const MaintenanceAddList = () => {
         { field: 'timeFrom', headerName: 'Time From', width: 140 },
         { field: 'timeTo', headerName: 'Time To', width: 140 },
         { field: 'closedMaintenance', headerName: 'closed Time', width: 140 },
-        {field: 'view', headerName: 'View', width: 50, sortable: false,
-        type: 'actions',
-        getActions: (params) => [
-            <ViewData selectedRow={params.row} />  
-        ],
-        },
-        {field: 'close', headerName: 'Closee', width: 50, sortable: false,
-      type: 'actions',
-        getActions: (params) => [   
-            <ClosData selectedRow={params.row} />
-        ],
-        }
-    ]
-    useEffect(() => {
-        FetchMaintenanceApprovedService(handleMaintenanceApprovedSucess,handleMaintenanceApprovedError)
-       
-    }, [refresh]);
-
-    const handleMaintenanceApprovedSucess=(dataObject)=>{
-        setRows(dataObject.data)
-    }
-
-    const handleMaintenanceApprovedError=(errorObject, errorMessage) =>{
+          {field: 'view', headerName: 'View', width: 100, sortable: false,
+          type: 'actions',
+          getActions: (params) => [
+              <ViewData selectedRow={params.row} />  
+          ],
+          },
+        
+          
+      ]
+      useEffect(() => {
+        FetchMaintenanceShowClosedMaintenanceService(handleMaintenanceShowClosed,handleMaintenanceShowClosedException)
+         
+      }, [refresh]);
+  
+      const  handleMaintenanceShowClosed=(dataObject)=>
+      {
+        setRows(dataObject.data);
+      }
+      const handleMaintenanceShowClosedException=(errorObject, errorMessage)=>{
         console.log(errorMessage);
-    }
-
-    function ViewData({ selectedRow }) {
-        return (
-            <VisibilityIcon
-                  onClick={() => {
-                    setIsAdd(true);
-                    setEditData(selectedRow);
-                    setOpen(true);
-                }}
-           />
-   
-        )
-    }
-    function ClosData({ selectedRow }) {
-        return (
-            <VisibilityIcon
-                  onClick={() => {
-                    setIsAdd(false);
-                    setEditData(selectedRow);
-                    setOpen(true);
-                }}
-           />
-   
-        )
-    }
-
+  
+      }
+  
+      function ViewData({ selectedRow }) {
+          return (
+              <VisibilityIcon
+                    onClick={() => {
+                      setIsAdd(true);
+                      setEditData(selectedRow);
+                      setOpen(true);
+                  }}
+             />
+     
+          )
+      }
+     
   return (
     <div>
     <Grid container >
@@ -87,7 +75,7 @@ const MaintenanceAddList = () => {
             onRowAdd/>
         </Grid>
     </Grid>
-    <MaintenanceViewClose
+    <MaintenanceClossModel
                 open={open}
                 setOpen={setOpen}
                 isAdd={isAdd}
@@ -99,4 +87,4 @@ const MaintenanceAddList = () => {
   )
 }
 
-export default MaintenanceAddList
+export default MaintenanceClossList

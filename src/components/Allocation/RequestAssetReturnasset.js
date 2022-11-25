@@ -1,4 +1,4 @@
-import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
+import { Box, Button, Grid, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import RequestReturnAssetList from './RequestReturnAssetList';
 import ReturnAssetList from './ReturnAssetList';
@@ -39,6 +39,7 @@ const RequestAssetReturnasset = () => {
     
   return (
     <div>
+      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -54,6 +55,7 @@ const RequestAssetReturnasset = () => {
         <ReturnAssetList/>
       </TabPanel>
     </Box>
+    </Grid>
     </div>
   )
 }

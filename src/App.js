@@ -27,6 +27,8 @@ function App() {
   //   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
   //   return !userDetails?.access_token? navigate('/login' ) : navigate('/main')
   // },[]);
+
+
   function ProtectedRoutes() {
     const navigate = useNavigate();
     const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));

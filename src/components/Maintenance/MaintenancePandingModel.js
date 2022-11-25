@@ -14,11 +14,9 @@ import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Grid } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
-import { FetchMaintenanceStatusAprovedService } from '../../services/ApiServices';
-import MaintenanceDataTable from './MaintenanceDataTable';
+import { FetchMaintenancePendingShowDataService } from '../../services/ApiServices';
 
-
-const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [rows, setRows] = useState([]);
     const [affectingMachines,setAffectingMachines]=useState('');
     const [utilizationPlan,setUtilizationPlan]=useState('');
@@ -28,7 +26,6 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
     const [bpImages2,setBpImages2]=useState('');
     const [bpImages3,setBpImages3]=useState('');
     const [bpImages4,setBpImages4]=useState('');
-    const [maintenance, setMaintenance] = useState([]);
 
     const columns = [
         { field: 'maintenanceId', headerName: 'Name	', width: 180 },
@@ -38,8 +35,9 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
         { field: 'problemNote', headerName: 'Unit Price', width: 140 },
   
     ]
+
     useEffect(() => {
-        // FetchMaintenanceStatusAprovedService(handleMaintenanceStatus,handleMaintenanceStatusException)
+     
         setAffectingMachines(editData.affectedMachine || '');
         setUtilizationPlan(editData.shutdownOrUtilization || '');
         setAffectingManHours(editData.timeFrom ||'' );
@@ -48,18 +46,11 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
         setBpImages2(editData.bpImages2 || '');
         setBpImages3(editData.bpImages3 || '');
         setBpImages4(editData.bpImages4 || '');
-        setMaintenance(editData.maintenance || '');
         
       }, [editData]);
 
-    // const  handleMaintenanceStatus=(dataObject)=>
-    // {
-    //   setRows(dataObject.data);
-    // }
-    // const handleMaintenanceStatusException=(errorObject, errorMessage)=>{
-    //   console.log(errorMessage);
-
-    // }
+    
+    
       const handleClose = () => {
         setOpen(false);
       
@@ -69,8 +60,9 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
             e.preventDefault();
            alert(' succefull')
           }
+
   return (
-    <div>
+     <div>
       <Dialog
       open={open}
       maxWidth='lg'
@@ -81,21 +73,15 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            { 
-            
-            isAdd=== true ?
-            (
+          
          <>
          <Grid container style={{marginTop:'20px'}}>
          <Grid style={{ height: 200, width: '80%', marginLeft:'100px' }}>
-         {
-            maintenance.length > 0
-                ? maintenance?.map((maintenance, index) => (
-                <MaintenanceDataTable maintenance={maintenance} index={index}   key={index}
-                  
-                />
-                )) : ''
-        }
+        <DataGrid
+            rows={rows}
+            columns={columns}
+            rowsPerPageOptions={[5]}
+            onRowAdd/>
         </Grid>
         <div>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop:'20px', marginLeft:'250px' }}>
@@ -169,30 +155,7 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
       </Grid>
          
          </>
-            ):(
-                <>
-              <Grid container style={{marginTop:'20px', display:'box'}} >
-                    <Grid item xs={12} sm={2} md={3} lg={2} xl={3} style={{display:'inline'}}>
-                        <lable>Remarks</lable>
-                     </Grid>
-
-                    <Grid item xs={12} sm={10} md={8} lg={10} xl={8} style={{display:'inline'}}>
-
-                        <TextField fullWidth
-                            height={500}
-                            id="outlined-multiline-flexible"
-                            label="Remarks"
-                            multiline
-                            Rows={100}
-                        
-                        />
-                   
-                </Grid>
-                </Grid>
-                </>
-            
-            )
-}
+          
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -215,4 +178,4 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
   )
 }
 
-export default MaintenanceViewClose
+export default MaintenancePandingModel

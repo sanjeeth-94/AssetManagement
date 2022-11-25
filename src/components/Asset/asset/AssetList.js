@@ -16,7 +16,7 @@ const AssetList = () => {
         type: 'error',
         message: '',
     });
-    
+          
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 60 },
         { field: 'departmentName', headerName: 'Department', width: 110 },

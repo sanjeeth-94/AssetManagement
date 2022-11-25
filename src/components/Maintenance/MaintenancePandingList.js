@@ -1,59 +1,86 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import { Grid } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
+import { FetchMaintenanceApprovedService, FetchMaintenancePendingShowDataService } from '../../services/ApiServices';
+import MaintenancePandingModel from './MaintenancePandingModel';
 
 const MaintenancePandingList = () => {
-    const rows = [
-        //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-        ];
+  const [open, setOpen] = useState(false);
+  const [isAdd, setIsAdd] = useState(true);
+  const [rows, setRows] = useState([]);
+  const [editData, setEditData] = useState('');
+  const [refresh , setRefresh]=useState(false);
         
     const columns = [
-        { field: 'Maintenance Id', headerName: 'Maintenance', width: 80 },
-        { field: 'Maintenance Type', headerName: 'Maintenance Type', width: 140 },
-        { field: 'Machine', headerName: 'Machine', width: 140 },
-        { field: 'Severity', headerName: 'Severity', width: 140 },
-        { field: 'Problem Note', headerName: 'Problem Note', width: 140 },
-        { field: 'Date', headerName: 'Date', width: 140 },
-        { field: 'Time', headerName: 'Time', width: 140 },
-        { field: 'View', headerName: 'View', width: 140 },
-        { field: 'action', headerName: 'Action', width: 250 ,  sortable: false,
-            renderCell:(cellValues)=>{
-            return(
-              <div >
-              <Button
-              className='prbuton'
-              variant="contained"
-              color='primary'>
-                Edit
-              </Button>
-              <Button
-              variant="contained"
-              color='primary'>
-                Delete
-              </Button>
-              </div>
-            )
-          }
-        }
-      ];
+      { field: 'maintenanceId', headerName: 'Maintenance Id', width: 80 },
+      { field: 'maintenanceType', headerName: 'Maintenance Type', width: 100 },
+      { field: 'assetName', headerName: 'Machine', width: 100 },
+      { field: 'severity', headerName: 'Severity', width: 100 },
+      { field: 'problemNote', headerName: 'Problem Note', width: 120 },
+      { field: 'dateFrom', headerName: 'Date From', width: 140 },
+      { field: 'dateTo', headerName: 'Date To', width: 140 },
+      { field: 'timeFrom', headerName: 'Time From', width: 140 },
+      { field: 'timeTo', headerName: 'Time To', width: 140 },
+      { field: 'closedMaintenance', headerName: 'closed Time', width: 140 },
+        {field: 'view', headerName: 'View', width: 100, sortable: false,
+        type: 'actions',
+        getActions: (params) => [
+            <ViewData selectedRow={params.row} />  
+        ],
+        },
+      
+        
+    ]
+    useEffect(() => {
+      FetchMaintenancePendingShowDataService(handleMaintenancePending,handleMaintenancePendingException)
+       
+    }, [refresh]);
 
+    const  handleMaintenancePending=(dataObject)=>
+      {
+        setRows(dataObject.data);
+      }
+      const handleMaintenancePendingException=(errorObject, errorMessage)=>{
+        console.log(errorMessage);
+  
+      }
+    function ViewData({ selectedRow }) {
+        return (
+            <VisibilityIcon
+                  onClick={() => {
+                    setIsAdd(true);
+                    setEditData(selectedRow);
+                    setOpen(true);
+                }}
+           />
+   
+        )
+    }
+   
   return (
     <div>
-        <Grid container >
-        <h3> MAINTENANCE STATUS </h3>
-            <Grid style={{ height: 200, width: '100%' }}>
-           
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                rowsPerPageOptions={[5]}
-                onRowAdd/>
-            </Grid>
+    <Grid container >
+    <h3> MAINTENANCE STATUS </h3>
+        <Grid style={{ height: 200, width: '100%' }}>
+        <DataGrid
+            rows={rows}
+            columns={columns}
+            rowsPerPageOptions={[5]}
+            onRowAdd/>
         </Grid>
-     
-    </div>
+    </Grid>
+    <MaintenancePandingModel
+                open={open}
+                setOpen={setOpen}
+                isAdd={isAdd}
+                editData={editData}
+                setRefresh={setRefresh}
+            />
+   
+</div>
   )
 }
 

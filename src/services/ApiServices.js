@@ -4,7 +4,7 @@ const successCaseCode = [200, 201];
 
 const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
-  const END_POINT = 'http://192.168.1.174:8000/api/';
+  const END_POINT = 'http://192.168.1.173:8000/api/';
   const { email } = userDetails;
 
   const headers = {
@@ -55,7 +55,7 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
 
 export const LoginService = (data) => {
   const PATH = 'login';
-  const END_POINT = 'http://192.168.1.174:8000/api/';
+  const END_POINT = 'http://192.168.1.173:8000/api/';
   const SERVICE_METHOD = 'POST';
   const headers = {
     Accept: 'application/json',
@@ -257,11 +257,17 @@ export const MaintenanceAddService = (data, successCallback, errorCallBack) => _
 
 export const  FetchMachineService = (successCallback, errorCallBack) => _fetchService('getMachine', 'GET', {}, successCallback, errorCallBack);
 
-
-///........Maintenance Status......////
-
-export const  FetchMaintenanceApprovedService = (successCallback, errorCallBack) => _fetchService('maintenance/aprovedShowData', 'GET', {}, successCallback, errorCallBack);
-
 /////.......Check.....///
 
 export const  FetchMaintenanceService = (successCallback, errorCallBack) => _fetchService('maintenance/showData', 'GET', {}, successCallback, errorCallBack);
+
+///..........Maintenance Status.......//////
+export const  FetchMaintenanceApprovedService = (successCallback, errorCallBack) => _fetchService('maintenance/aprovedShowData', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchMaintenanceStatusAprovedService = (successCallback, errorCallBack) => _fetchService('maintenance/aprovedShowData', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchMaintenancePendingShowDataService = (successCallback, errorCallBack) => _fetchService('maintenance/pendingShowData', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchMaintenanceRejectedShowDataService = (successCallback, errorCallBack) => _fetchService('maintenance/rejectedShowData', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchMaintenanceShowClosedMaintenanceService = (successCallback, errorCallBack) => _fetchService('maintenance/showClosedMaintenance', 'GET', {}, successCallback, errorCallBack);

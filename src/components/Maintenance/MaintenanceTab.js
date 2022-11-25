@@ -1,10 +1,9 @@
 import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Maintenanceschedule from './Maintenanceschedule';
-
-import MaintenanceReject from './MaintenanceReject';
 import MaintenancePandingList from './MaintenancePandingList';
 import MaintenanceAddList from './MaintenanceAddList';
+import MaintenaceRejectList from './MaintenaceRejectList';
+import MaintenanceClossList from './MaintenanceClossList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,7 +43,7 @@ const MaintenanceTab = () => {
   return (
     <div>
       <div>
-        <h2>
+        <h2 style={{marginLeft:'30px'}}>
         Maintenance Status
         </h2>
       </div>
@@ -55,7 +54,8 @@ const MaintenanceTab = () => {
           <Tab label="APPORVED" {...a11yProps(0)} />
           <Tab label="PENDING" {...a11yProps(1)} />
           <Tab label="REJECTED" {...a11yProps(2)} />
-          {/* <Tab label="CLOSED" {...a11yProps(3)} /> */}
+          <Tab label="CLOSSED" {...a11yProps(3)} />
+        
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -65,7 +65,10 @@ const MaintenanceTab = () => {
       <MaintenancePandingList/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <MaintenanceReject />
+        <MaintenaceRejectList/>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <MaintenanceClossList/>
       </TabPanel>
     </Box>
     </div>
