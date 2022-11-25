@@ -5,11 +5,6 @@ import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
@@ -27,173 +22,163 @@ const AllocationList = () => {
         type: 'error',
         message: '',
     });
-const [value, setValue] = useState(dayjs('2022-08-18T21:11:54'));
+    const [value, setValue] = useState(dayjs('2022-08-18T21:11:54'));
+    const handleChangeDate = (newValue) => {
+        setValue(newValue);
+    };
 
-const handleChangeDate = (newValue) => {
-    setValue(newValue);
-};
+    const columns = [
+        { field: 'department', headerName: 'Department', width: 180 },
+        { field: 'section', headerName: 'Section', width: 180 },
+        { field: 'assetType', headerName: 'Asset Type', width: 180 },
+        { field: 'assetName', headerName: 'Asset Name', width: 180 },
+        { field: 'assetId', headerName: 'Asset Id', width: 120 },
+        { field: 'assignedUser', headerName: 'Assigned User', width: 180 },
+        {field: 'action', headerName: 'Action', width: 250, sortable: false, 
+        cellClassname: 'actions',
+        type: 'actions',
+        getActions: (params) => [
+            <EditData selectedRow={params.row} />,
+            <DeleteData selectedRow={params.row} />,
+        ],
+        }
+    ];
 
-const columns = [
-    { field: 'department', headerName: 'Department', width: 180 },
-    { field: 'section', headerName: 'Section', width: 180 },
-    { field: 'assetType', headerName: 'Asset Type', width: 180 },
-    { field: 'assetName', headerName: 'Asset Name', width: 180 },
-    { field: 'assetId', headerName: 'Asset Id', width: 120 },
-    { field: 'assignedUser', headerName: 'Assigned User', width: 180 },
-    {field: 'action', headerName: 'Action', width: 250, sortable: false,
-    cellClassname: 'actions',
-    type: 'actions',
-    getActions: (params) => [
-        <EditData selectedRow={params.row} />,
-        <DeleteData selectedRow={params.row} />,
-    ],
+    useEffect(() => {
+        FetchUserService(handleFetchSuccess, handleFetchException);
+    }, [refresh]);
+
+    const handleFetchSuccess = (dataObject) =>{
+        setRows(dataObject.data);
     }
-];
 
-useEffect(() => {
-    FetchUserService(handleFetchSuccess, handleFetchException);
-   
-}, [refresh]);
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
 
-const handleFetchSuccess = (dataObject) =>{
-    setRows(dataObject.data);
-}
+    const handleClose = () => {
+        setOpen(false)
+        setNotification({
+            status: false,
+            type: '',
+            message: '',
+        });
+    };
 
-const handleFetchException = (errorStaus, errorMessage) =>{
-    console.log(errorMessage);
-}
-
-const handleClose = () => {
-    setOpen(false)
-    setNotification({
-      status: false,
-      type: '',
-      message: '',
-    });
-  };
-
-function EditData({ selectedRow }) {
-    return (
-        <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
-        className='prbuton'
-        variant="contained"
-        color='primary'
-        onClick={() => {
-            setIsAdd(false);
-            setEditData(selectedRow);
-            setOpen(true);
-        }}>
+    function EditData({ selectedRow }) {
+        return (
+            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            className='prbuton'
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                setIsAdd(false);
+                setEditData(selectedRow);
+                setOpen(true);
+            }}>
             Edit
-        </Button>
-    )
-}
+            </Button>
+        )
+    }
 
-function DeleteData({ selectedRow }) {
-    return (
-        <Button style={{ width: '100px' }}
-        variant="contained"
-        color='primary'
-        onClick={() => {
-            deletUser(selectedRow.id)
+    function DeleteData({ selectedRow }) {
+        return (
+            <Button style={{ width: '100px' }}
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                deletUser(selectedRow.id)
             }
             }>
             Delete
-        </Button>
-    )
-}
-
-const deletUser = (id) => {
-    UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
-}
-
-const handleDeleteSuccess = (dataObject) =>{
-    console.log(dataObject);
-    setRefresh(oldValue => !oldValue);
-    setNotification({
-        status: true,
-        type: 'success',
-        message: dataObject.message,
-      });
-}
-
-const handleDeleteException = (errorObject, errorMessage) =>{
-    console.log(errorMessage);
-    setNotification({
-        status: true,
-        type: 'error',
-        message:errorMessage,
-      });
-}
-
-const handleModalOpen = () => {
-    setIsAdd(true);
-    setOpen(true);
+            </Button>
+        )
+    }
    
-};
+    const deletUser = (id) => {
+        UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+    }
 
-  return (
-    <div>
-        <div>
-        <div>
-            <h2 style={{marginLeft:'40px'}}>View Allocation</h2>
-        </div>
-     <form>
-        
-        <hr/>
-        <div style={{display:'flex',alignItems:'center',marginTop:'20px',marginLeft:'80px'}}>
-        <label style={{marginLeft:'20px', marginRight:'40px'}}>Date From :</label>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack spacing={3}>
-                <DesktopDatePicker
-                label="Date desktop"
-                inputFormat="MM/DD/YYYY"
-                value={value}
-                onChange={handleChangeDate}
-                renderInput={(params) => <TextField {...params} />}
-                />
-            </Stack>
-            </LocalizationProvider>
-            <label style={{marginLeft:'20px', marginRight:'85px'}}> To</label>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack spacing={3}>
-                <DesktopDatePicker
-                label="Date desktop"
-                inputFormat="MM/DD/YYYY"
-                value={value}
-                onChange={handleChangeDate}
-                renderInput={(params) => <TextField {...params} />}
-                />
-            </Stack>
-            </LocalizationProvider>
-            <Button style={{marginLeft:'50px'}} variant="contained" onClick={handleModalOpen}>Contained</Button>
+    const handleDeleteSuccess = (dataObject) =>{
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+        });
+    }
 
-        </div>
-        </form>
+    const handleDeleteException = (errorObject, errorMessage) =>{
+        console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message:errorMessage,
+        });
+    }
+
+    const handleModalOpen = () => {
+        setIsAdd(true);
+        setOpen(true);
+    };
+  
+    return (
         <div>
-            <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '30px' }}>
-                <DataGrid
-                rows={rows}
-                columns={columns} />
-            </div>
-            <AllocationModel
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-                setRefresh={setRefresh}
-            />
-            
-                 <NotificationBar
+            <div>
+                <div>
+                    <h2 style={{marginLeft:'40px'}}>View Allocation</h2>
+                </div>
+                <form>
+                    <hr/>
+                    <div style={{display:'flex',alignItems:'center',marginTop:'20px',marginLeft:'80px'}}>
+                        <label style={{marginLeft:'20px', marginRight:'40px'}}>Date From :</label>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <Stack spacing={3}>
+                                <DesktopDatePicker
+                                label="Date desktop"
+                                inputFormat="MM/DD/YYYY"
+                                value={value}
+                                onChange={handleChangeDate}
+                                renderInput={(params) => <TextField {...params} />}/>
+                            </Stack>
+                        </LocalizationProvider>
+                        <label style={{marginLeft:'20px', marginRight:'85px'}}> To</label>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <Stack spacing={3}>
+                                <DesktopDatePicker
+                                label="Date desktop"
+                                inputFormat="MM/DD/YYYY"
+                                value={value}
+                                onChange={handleChangeDate}
+                                renderInput={(params) => <TextField {...params} />}/>
+                            </Stack>
+                        </LocalizationProvider>
+                        <Button style={{marginLeft:'50px'}} variant="contained" onClick={handleModalOpen}>Contained</Button>
+                    </div>
+                </form>
+                <div>
+                    <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '30px' }}>
+                        <DataGrid
+                        rows={rows}
+                        columns={columns} />
+                    </div>
+                    <AllocationModel
+                    open={open}
+                    setOpen={setOpen}
+                    isAdd={isAdd}
+                    editData={editData}
+                    setRefresh={setRefresh}/>
+                    
+                    <NotificationBar
                     handleClose={handleClose}
                     notificationContent={openNotification.message}
                     openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
+                    type={openNotification.type}/>
+                </div>
+            </div>
         </div>
-        </div>
-      
-    </div>
-  )
+    )
 }
 
 export default AllocationList

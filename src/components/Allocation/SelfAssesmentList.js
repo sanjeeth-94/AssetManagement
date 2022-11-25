@@ -12,11 +12,11 @@ const SelfAssesmentList = () => {
       
   return (
     <div>
-        <div style={{marginLeft:'500px'}}>
-            <h2>View Asset</h2>
-        </div>
-        <hr/>
-       <div style={{ height: 200, width: '90%', marginLeft:'30px' }}>
+      <div style={{marginLeft:'500px'}}>
+        <h2>View Asset</h2>
+      </div>
+      <hr/>
+      <div style={{ height: 200, width: '90%', marginLeft:'30px' }}>
       <DataGrid
       rows={rows}
       columns={columns}

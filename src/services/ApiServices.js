@@ -4,7 +4,7 @@ const successCaseCode = [200, 201];
 
 const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
-  const END_POINT = 'http://192.168.1.174:8000/api/';
+  const END_POINT = 'http://192.168.1.173:8000/api/';
   const { email } = userDetails;
 
   const headers = {
@@ -30,9 +30,9 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
   };
 
   return fetch(END_POINT + PATH, bodyObject)
-    .then((response) => {
-      if (successCaseCode.indexOf(response.status) > -1) {
-        return response.json();
+  .then((response) => {
+    if (successCaseCode.indexOf(response.status) > -1) {
+       return response.json();
       }
       // eslint-disable-next-line no-throw-literal
       throw {
@@ -40,6 +40,7 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
         errorObject: response.json(),
       };
     })
+
     .then((dataResponse) => successCallback(dataResponse))
     .catch((error) => {
       error.errorObject.then((errorResponse) => {
@@ -49,13 +50,13 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
           // location.reload();
         }
         errorCallBack(error.errorStatus, errorResponse.message);
-      });
-    });
+    } );
+  });
 };
 
 export const LoginService = (data) => {
   const PATH = 'login';
-  const END_POINT = 'http://192.168.1.174:8000/api/';
+  const END_POINT = 'http://192.168.1.173:8000/api/';
   const SERVICE_METHOD = 'POST';
   const headers = {
     Accept: 'application/json',
@@ -72,11 +73,7 @@ export const LoginService = (data) => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data),
   });
-
 };
-
-
-
 
 export const LogoutService = (successCallback, errorCallBack) => _fetchService('logout', 'POST', {}, successCallback, errorCallBack);
 

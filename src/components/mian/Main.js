@@ -159,7 +159,7 @@ const Main = () => {
                     <div className="heading">
                        Inspection Due
                     </div>
-                    <Link to='/Inceptiondue'><HandymanIcon className='icondash' style= {{
+                    <Link to='/InspectionDueList'><HandymanIcon className='icondash' style= {{
                         height: '60px',
                         width: '60px',
                         margin:'40px',

@@ -4,6 +4,7 @@ import { Button } from 'reactstrap';
 
 const RequestReturnAssetList = () => {
     const [rows, setRows] = useState([]);
+
     const columns = [
         { field: '', headerName: 'Asset Id', width: 150 },
         { field: 'employee_id', headerName: 'Returned ', width: 150 },
@@ -18,6 +19,7 @@ const RequestReturnAssetList = () => {
         ],
         }
     ];
+
     function EditData({ selectedRow }) {
         return (
             <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
@@ -41,19 +43,20 @@ const RequestReturnAssetList = () => {
             </Button>
         )
     }
-  return (
-    <div>
-      <form>
-        <label style={{marginLeft:'500px'}}>View Asset</label>
-        <hr/>
-        <div style={{ height: '250px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-                <DataGrid
-                rows={rows}
-                columns={columns} />
-            </div>
-      </form>
-    </div>
-  )
+  
+    return (
+        <div>
+            <form>
+                <label style={{marginLeft:'500px'}}>View Asset</label>
+                <hr/>
+                <div style={{ height: '250px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+                    <DataGrid
+                    rows={rows}
+                    columns={columns} />
+                </div>
+            </form>
+        </div>
+    )
 }
 
 export default RequestReturnAssetList

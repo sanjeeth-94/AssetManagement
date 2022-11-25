@@ -127,8 +127,7 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
-      // <EditData selectedRow={params.row} />,
-      // <DeleteData selectedRow={params.row} />,
+      
     ]},
   ];
   

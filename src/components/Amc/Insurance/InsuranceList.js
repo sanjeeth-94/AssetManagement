@@ -72,7 +72,6 @@ const InsuranceList = () => {
     
     useEffect(() => {
         FetchInsuranceService(handleFetchSuccess,handleFetchException)
-       
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
