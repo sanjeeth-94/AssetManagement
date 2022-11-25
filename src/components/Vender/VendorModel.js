@@ -138,8 +138,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           canceledCheque: canceledCheque,
         }, handleSuccess, handleException)
       ) : (
-
-        VendorUpdateService({
+         VendorUpdateService({
           id: editData.id,
           vendorName: vendorName,
           vendorType: vendorType,
@@ -155,9 +154,8 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           gstCertificate: gstCertificate,
           canceledCheque: canceledCheque,
 
-        }, handleSuccess, handleException)
-      );
-
+      }, handleSuccess, handleException)
+    );
   }
 
 

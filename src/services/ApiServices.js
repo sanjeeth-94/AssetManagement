@@ -30,9 +30,9 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
   };
 
   return fetch(END_POINT + PATH, bodyObject)
-    .then((response) => {
-      if (successCaseCode.indexOf(response.status) > -1) {
-        return response.json();
+  .then((response) => {
+    if (successCaseCode.indexOf(response.status) > -1) {
+       return response.json();
       }
       // eslint-disable-next-line no-throw-literal
       throw {
@@ -40,6 +40,7 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
         errorObject: response.json(),
       };
     })
+
     .then((dataResponse) => successCallback(dataResponse))
     .catch((error) => {
       error.errorObject.then((errorResponse) => {
@@ -49,8 +50,8 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
           // location.reload();
         }
         errorCallBack(error.errorStatus, errorResponse.message);
-      });
-    });
+    } );
+  });
 };
 
 export const LoginService = (data) => {
@@ -72,11 +73,7 @@ export const LoginService = (data) => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data),
   });
-
 };
-
-
-
 
 export const LogoutService = (successCallback, errorCallBack) => _fetchService('logout', 'POST', {}, successCallback, errorCallBack);
 

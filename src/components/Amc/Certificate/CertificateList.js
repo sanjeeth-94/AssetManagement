@@ -35,8 +35,9 @@ const CertificateList = () => {
             <DeleteData selectedRow={params.row} />,
         ],
         }
-      ];
-      function EditData({ selectedRow }) {
+    ];
+    
+    function EditData({ selectedRow }) {
         return (
             <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
             className='prbuton'
@@ -77,7 +78,7 @@ const CertificateList = () => {
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleDeleteException = (errorObject, errorMessage) =>{
@@ -86,22 +87,22 @@ const CertificateList = () => {
             status: true,
             type: 'error',
             message:errorMessage,
-          });
+        });
     }
+
     const handleModalOpen = () => {
         setIsAdd(true);
-        setOpen(true);
-       
+        setOpen(true);  
     };
+
     const handleServiceModalOpen = () => {
         setIsAdd(false);
         setIsService(true);
-        setOpen(true);
-       
+        setOpen(true);  
     };
+
     useEffect(() => {
-        FetchCertificateService(handleFetchSuccess,handleFetchException)
-       
+        FetchCertificateService(handleFetchSuccess,handleFetchException)  
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
@@ -115,43 +116,40 @@ const CertificateList = () => {
     const handleClose = () => {
         setOpen(false)
         setNotification({
-          status: false,
-          type: '',
-          message: '',
+            status: false,
+            type: '',
+            message: '',
         });
-      };
-  return (
-    <div style={{border:'solid',borderColor:'whitesmoke'}}>
-        <div style={{display:'flex', marginLeft:'40px',}}>
-           <h3 style={{ marginLeft: '60px' }}> INSPECTION</h3>            
+    };
+  
+    return (
+        <div style={{border:'solid',borderColor:'whitesmoke'}}>
+            <div style={{display:'flex', marginLeft:'40px',}}>
+                <h3 style={{ marginLeft: '60px' }}> INSPECTION</h3>
                 <Button style={{width:'120px',height:'30px', marginLeft:'60%',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
                     Add
                 </Button>
             </div>
             <hr style={{ bottom: 'solid' , borderColor:'whitesmoke'}} />
-    <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-       <DataGrid
-       rows={rows}
-       columns={columns} />
-  </div>
-       <CretificateModel
-           open={open}
-           setOpen={setOpen}
-           isAdd={isAdd}
-           isService={isService}
-           editData={editData}
-           setRefresh={setRefresh}
-           
-       />
-       
-       <NotificationBar
-           handleClose={handleClose}
-           notificationContent={openNotification.message}
-           openNotification={openNotification.status}
-           type={openNotification.type}
-       />
-</div>
-  )
+            <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+                <DataGrid
+                rows={rows}
+                columns={columns} />
+            </div>
+            <CretificateModel
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            isService={isService}
+            editData={editData}
+            setRefresh={setRefresh}/>
+            <NotificationBar
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
+        </div>
+    )
 }
 
 export default CertificateList
