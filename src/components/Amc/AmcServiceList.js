@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import { FetchAmcServiceListService, AmcServiceDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AmcServiceModel from './AmcServiceModel';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
+import Visibility from '@mui/icons-material/Visibility';
+import FileDownload from '@mui/icons-material/FileDownload';
+import AmcServiceModalView from './AmcServiceModalView';
+import { FetchAmcServiceListService, AmcServiceDeleteService ,  } from '../../services/ApiServices';
 
 const AmcServiceList = () => {
     const [open, setOpen] = useState(false);
+    const [openView, setOpenView] = useState(false);
     const [isAdd, setIsAdd] = useState(false);
+    const [isView, setIsView] = useState(false);
     const [isService, setIsService] = useState(false);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh , setRefresh]=useState(false)
+    const [refresh , setRefresh]=useState(false);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -19,28 +26,29 @@ const AmcServiceList = () => {
     });
     
     const columns = [
-        // { field: 'Serial No', headerName: 'Serial No', width: 80 },
         { field: 'vendorName', headerName: 'Vender Name', width: 140 },
         { field: 'periodFrom', headerName: 'Period From', width: 140 },
         { field: 'periodTo', headerName: 'Period To', width: 140 },
         { field: 'servicePattern', headerName: 'Service Pattern', width: 140 },
         { field: 'department', headerName: 'Department', width: 140 },
-        { field: 'section', headerName: 'Section', width: 140 },
-        { field: 'assetType', headerName: 'Asset Type', width: 140 },
-        { field: 'assetName', headerName: 'Asset Name', width: 140 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        { field: 'section', headerName: 'Section', width: 120 },
+        { field: 'assetType', headerName: 'Asset Type', width: 120 },
+        { field: 'assetName', headerName: 'Asset Name', width: 120 },
+        {field: 'action', headerName: 'Action', width: 180, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
-            <EditData selectedRow={params.row} />,
+            <EditData selectedRow={params.row}  />,
             <DeleteData selectedRow={params.row} />,
-    ],
+            <VisibilityData selectedRow={params.row} />,
+            <FileDownloadData selectedRow={params.row} />,
+        ],
         }
     ];
     
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <Edit 
             className='prbuton'
             variant="contained"
             color='primary'
@@ -48,25 +56,61 @@ const AmcServiceList = () => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}>
-                Edit
-            </Button>
+                
+            }}/>
         )
     }
     
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <Delete  
             variant="contained"
             color='primary'
             onClick={() => {
                 deleteAmc(selectedRow.id)
-                }
-                }>
-                Delete
-            </Button>
+            }}/>
         )
     }
+
+    function FileDownloadData({ selectedRow }) {
+        return (
+            <FileDownload />
+        )
+    }
+
+    function VisibilityData({ selectedRow }) {
+        return (
+            <Visibility 
+            onClick={() => {
+                
+                setIsView(true);
+                setEditData(selectedRow);
+                setOpenView(true);
+                
+            }}
+            />
+        )
+    }
+
+    const handleViewEditSuccess = (dataObject) =>{
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+          });
+    }
+
+    const handleViewDeleteException = (errorObject, errorMessage) =>{
+        console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message:errorMessage,
+        });
+    }
+    
     
     const deleteAmc = (id) => {
         AmcServiceDeleteService ({id}, handleDeleteSuccess, handleDeleteException);
@@ -79,7 +123,7 @@ const AmcServiceList = () => {
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleDeleteException = (errorObject, errorMessage) =>{
@@ -94,11 +138,10 @@ const AmcServiceList = () => {
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
-       
     };
 
     const handleServiceModalOpen = () => {
-        setIsAdd(false);
+       
         setIsService(true);
         setOpen(true);       
     };
@@ -139,15 +182,27 @@ const AmcServiceList = () => {
                 rows={rows}
                 columns={columns} />
             </div>
-    
+
             <AmcServiceModel 
             open={open}
             setOpen={setOpen}
             isAdd={isAdd}
             isService={isService}
             editData={editData}
-            setRefresh={setRefresh}/>
+            setRefresh={setRefresh}
+            isView={isView} />  
             
+            <AmcServiceModalView
+                open={openView}
+                setOpen={setOpenView}
+                isAdd={isAdd}
+                isService={isService}
+                editData={editData}
+                setRefresh={setRefresh}
+                isView={isView}
+
+            />
+           
             <NotificationBar
             handleClose={handleClose}
             notificationContent={openNotification.message}

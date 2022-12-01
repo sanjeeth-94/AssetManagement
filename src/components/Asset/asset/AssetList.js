@@ -106,7 +106,7 @@ const AssetList = () => {
             status: true,
             type: 'error',
             message:errorMessage,
-          });
+        });
     }
     
     const handleModalOpen = () => {

@@ -133,7 +133,7 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
   const columns = [
     { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
     { field: 'c1startDate', headerName: 'Inspection Date', width: 200 },
-    { field: 'Action', headerName: 'Action', width: 240 },  
+    // { field: 'Action', headerName: 'Action', width: 240 },  
   ];
   
   return (

@@ -11,7 +11,10 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Delete from '@mui/icons-material/Delete';
 import { Grid } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import Edit from '@mui/icons-material/Edit';
 import {
   AmcServiceAddService,
   AmcServiceUpdateService,
@@ -58,10 +61,13 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [s5DateTo, sets5DateTo] = useState('');
   const [s5runHours, sets5runHours] = useState('');
   const [servicePattern, setServicePattern] = useState(0);
+
+  const [rows, setRows]=useState([]);
+
   const handleClose = () => {
     setOpen(false);
   };
- 
+
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -156,6 +162,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     FetchVenderService(handleFetchVender, handleFetchVenderException);
+    setVendorName(editData.vendorName || '');
   }, [editData]);
 
   const handleFetchSuccess = (dataObject) => {
@@ -355,6 +362,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <form>
+               
                 <Grid  container spacing={2} style={{ marginTop: '20px'}}>
                   <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                     <label >Name: </label>
@@ -808,14 +816,24 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </Box>
                     </Grid>
                   </Grid>
+                 
                 </form>
+             
               </form>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+           
             <div className='addbutton'>
-              <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>Apply</Button>
+              <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>
+                {
+                  isAdd !== true  ? 'Update' : ' Apply'
+                }
+               
+                
+              </Button>
             </div>
+      
           </DialogActions>
         </form>
       </Dialog>

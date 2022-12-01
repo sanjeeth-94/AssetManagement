@@ -130,7 +130,7 @@ main {
     background: rgb(91, 87, 87);
     width: 18.85%;
     min-width:300px;
-    height: 150px;
+    height: 100px;
     text-align: center;
     overflow:hidden;
     flex: 1 0 20%; margin: 5px;
@@ -169,7 +169,7 @@ main {
     font-size: xx-large;
     color: white;
 } 
-.dash-icon{
+/* .dash-icon{
     color: rgb(47, 233, 47);
 }
 
@@ -183,5 +183,5 @@ main {
 
 .dash-icon3{
     color: yellow;
-}
+} */
 

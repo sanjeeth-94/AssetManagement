@@ -7,14 +7,16 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   FetchDepaertmentService,
   FetchSectionService,
   FetchAssetTypeService,
   ViewAuditReportService,
 } from '../../services/ApiServices';
+import ViewAuditViewModal from './ViewAuditViewModal';
 
-const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+const ViewAuditReport = () => {
   const [department, setDepartment] = useState();
   const [section, setSection] = useState();
   const [sectionList, setSectionList] = useState([]);
@@ -24,6 +26,11 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [viewReport,setViewReport] = useState([]);
   const [fromDate, setfromDate] = useState('');
   const [toDate, settoDate] = useState('');
+  const [open, setOpen] = useState(false);
+    const [isAdd, setIsAdd] = useState(true); 
+    const [editData, setEditData] = useState('');
+    const [refresh , setRefresh]=useState(false);
+ 
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -117,6 +124,8 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   }
   
   const [rows, setRows] = useState([]);
+  
+
   const columns = [
     { field: 'id', headerName: 'Serial No', width: 180 },
     { field: 'auditName', headerName: 'Audit Name1212', width: 200 },
@@ -127,9 +136,23 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
+      <ViewData selectedRow={params.row} />  
       
     ]},
   ];
+
+  function ViewData({ selectedRow }) {
+    return (
+      <VisibilityIcon
+      onClick={() => {
+        setIsAdd(false);
+        setEditData(selectedRow);
+        setOpen(true);
+    }}
+      />
+    )
+  }
+  
   
   return (
     <div>
@@ -225,6 +248,15 @@ const ViewAuditReport = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         </div>
         <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
       </form>
+    
+     <ViewAuditViewModal
+      open={open}
+      setOpen={setOpen}
+      isAdd={isAdd}
+      editData={editData}
+      setRefresh={setRefresh}
+      
+      />
     </div>
   )
 }
