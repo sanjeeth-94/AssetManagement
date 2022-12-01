@@ -250,4 +250,4 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   )
 }
 
-export default AuditModel
+export default AuditModel;

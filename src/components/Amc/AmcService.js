@@ -128,10 +128,10 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   
   const columns = [
-    { field: 'vendorName', headerName: 'Vendor Name', width: 280 },
-    { field: 'assetName', headerName: 'Asset Name', width: 240 },
-    { field: 's1startDate', headerName: 'Service Due Date', width: 240 },
-    { field: 'Action', headerName: 'Action', width: 240 },   
+    { field: 'vendorName', headerName: 'Vendor Name', width: 300 },
+    { field: 'assetName', headerName: 'Asset Name', width: 300 },
+    { field: 's1startDate', headerName: 'Service Due Date', width: 300 },
+    // { field: 'Action', headerName: 'Action', width: 240 },   
   ];
   
   return (

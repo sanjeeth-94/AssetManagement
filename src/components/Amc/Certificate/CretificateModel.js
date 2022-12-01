@@ -12,6 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Grid } from '@mui/material';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
+import { DataGrid } from '@mui/x-data-grid';
 import { CertificateAddService,
   CertificateUpdateService ,
   FetchDepaertmentService, 
@@ -22,7 +25,7 @@ import { CertificateAddService,
   FetchAssetNameService,
 } from '../../../services/ApiServices';
 
-const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService }) => {
+const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   const [vendorName, setVendorName] = useState('');
   const [vendorNameList, setVendorNameList] = useState([]);
   const [venderAddress ,setVenderAddress]= useState();
@@ -52,10 +55,11 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
   const [c4DateTo, setc4DateTo] = useState('');
   const [c5DateFrom, setc5DateFrom] = useState('');
   const [c5DateTo, setc5DateTo] = useState('');
+  const [rows, setRows]=useState([]);
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const handleChangecertificateDate = (e) => {
     setcertificateDate(e.target.value);
     console.log(e.target.value);
@@ -708,7 +712,13 @@ const CretificateModel = ({ open, setOpen, isAdd, editData, setRefresh,isService
           </DialogContent>
           <DialogActions>
             <div className='addbutton'>
-            <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>Apply</Button>
+           <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>
+                {
+                  isAdd !== true  ? 'Update' : ' Apply'
+                }
+               
+                
+              </Button>
             </div>
           </DialogActions>
         </form>

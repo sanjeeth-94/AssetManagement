@@ -96,7 +96,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         user_name: userName,
         password: password
       }, handleSuccess, handleException)
-      );
+    );
   }
 
   const handleSuccess = (dataObject) =>{
@@ -134,11 +134,11 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       message: '',
     });
   };
+
   return (
     <Dialog
-      open={open}
-      maxWidth='lg'
-    >
+    open={open}
+    maxWidth='lg' >
       <form onSubmit={onSubmit}>
         <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
           {isAdd === true ? 'Add ' : 'Edit '}User

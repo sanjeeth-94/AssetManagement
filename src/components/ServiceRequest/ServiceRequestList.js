@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ServiceRequestView from './ServiceRequestView';
 
 const ServiceRequestList = () => {
   const [open, setOpen] = useState(false);
@@ -82,6 +83,14 @@ const ServiceRequestList = () => {
         rowsPerPageOptions={[5]}
         onRowAdd/>
       </form>
+
+      <ServiceRequestView
+      open={open}
+      setOpen={setOpen}
+      isAdd={isAdd}
+      editData={editData}
+      setRefresh={setRefresh}
+  />
     </div>
   )
 }
