@@ -11,6 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import dayjs from 'dayjs';
 import './Asset.css'
+import { Grid } from '@mui/material';
 
 
 export default function Tagassetadd() {
@@ -39,6 +40,11 @@ export default function Tagassetadd() {
 
   return (
     <div>
+      <Grid>
+        <Grid>
+          
+        </Grid>
+      </Grid>
       <hr style={{bottom:'solid'}}/>
       <div style={{background:'whitesmoke'}}>
       TAG ASSET

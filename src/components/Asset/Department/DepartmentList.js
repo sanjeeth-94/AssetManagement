@@ -4,6 +4,9 @@ import { Button } from 'reactstrap';
 import { FetchDepartmentListService , DepartmentDeleteService  } from '../../../services/ApiServices';
 import DepartmentModel from './DepartmentModel';
 import NotificationBar from '../../../services/NotificationBar';
+import { Grid } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const DepartmentList = () => {
     const [open, setOpen] = useState(false);
@@ -21,7 +24,7 @@ const DepartmentList = () => {
         { field: 'id', headerName: 'Dep No', width: 120 },
         { field: 'department_name', headerName: 'Department Name', width: 180 },
         { field: 'description', headerName: 'Description', width: 220 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        {field: 'action', headerName: 'Action', width: 200, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -53,7 +56,7 @@ const DepartmentList = () => {
     
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+           < EditIcon
             className='prbuton'
             variant="contained"
             color='primary'
@@ -61,22 +64,20 @@ const DepartmentList = () => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}>
-                Edit
-            </Button>
+            }}/>
+                
         )
     }
     
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <DeleteIcon      
             variant="contained"
             color='primary'
             onClick={() => {
                 deleteDepartment(selectedRow.id)
-            }}>
-              Delete
-            </Button>
+            }}/>
+          
         )
     }
     
@@ -113,12 +114,19 @@ const DepartmentList = () => {
   
     return (
         <div>
-            <h1 style={{ marginLeft: '50px' }}>Department</h1>
-            <hr style={{ bottom: 'solid' }} />
-            <Button style={{marginLeft:'83%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
+            <Grid container>
+                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+                <h3 >Department</h3>
+                </Grid>
+                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+                <Button style={{marginLeft:'43%',width:'120px',height:'30px', marginTop:'25px'}} variant="outlined" onClick={handleModalOpen}>
                 Add
             </Button>
-            <div style={{ height: '500px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
+                </Grid>                
+            </Grid>
+            <hr style={{ bottom: 'solid' }} />
+           
+            <div style={{ height: '400px', width: '60%', marginLeft: '100px', marginTop: '20px' }}>
                 <DataGrid
                 rows={rows}
                 columns={columns} />

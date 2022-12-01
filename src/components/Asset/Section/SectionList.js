@@ -3,7 +3,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import { FetchSectionListService,SectionDeleteService} from '../../../services/ApiServices';
 import SectionModel from '../Section/SectionModel'
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import NotificationBar from '../../../services/NotificationBar';
 
 const SectionList = () => {
   const [open, setOpen] = useState(false);
@@ -12,12 +15,18 @@ const SectionList = () => {
   const [editData, setEditData] = useState('');
   const [refresh , setRefresh]=useState(false)
   const [departmentList, setDepartmentList] = useState([]);
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+});
+
 
   const columns = [
     { field: 'id', headerName: 'Section No', width: 80 },
     { field: 'department', headerName: 'Department', width: 170, },
     { field: 'section', headerName: 'Section', width: 140 },
-    {field: 'action', headerName: 'Action', width: 250, sortable: false,
+    {field: 'action', headerName: 'Action', width: 200, sortable: false,
       cellClassname: 'actions',
       type: 'actions',
       getActions: (params) => [
@@ -49,29 +58,27 @@ const SectionList = () => {
   
   function EditData({ selectedRow }) {
     return (
-      <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+      <EditIcon
       className='prbuton'
       variant="contained"
       color='primary'
       onClick={() => {
         setIsAdd(false);
         setEditData(selectedRow);
-        setOpen(true);}}>
-        Edit
-      </Button>
+        setOpen(true);}}/>
+     
     )
   }
 
   function DeleteData({ selectedRow }) {
     return (
-      <Button style={{ width: '100px' }}
+      <DeleteIcon
       variant="contained"
       color='primary'
       onClick={() => {
         deleteSection(selectedRow.id)
-        }}>
-        Delete
-      </Button>
+        }}/>
+      
     )
   }
 
@@ -101,6 +108,11 @@ const SectionList = () => {
   const handleDeleteSuccess = (dataObject) =>{
     console.log(dataObject);
     setRefresh(oldValue => !oldValue);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    });
   }
 
   const handleDeleteException = (errorObject, errorMessage) =>{
@@ -111,25 +123,46 @@ const SectionList = () => {
     setIsAdd(true);
     setOpen(true);
   };
+  const handleClose = () => {
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
 
   return (
     <div>
-      <h1 style={{ marginLeft: '50px' }}>Section</h1>
+      <Grid container>
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+         <h3 >Section</h3>
+      </Grid>
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+        <Button style={{marginLeft:'43%',width:'120px',height:'30px', marginTop:'25px'}} variant="outlined" onClick={handleModalOpen}>
+          Add
+        </Button>
+      </Grid> 
+      </Grid>
       <hr style={{ bottom: 'solid' }} />
-      <Button style={{marginLeft:'83%',width:'120px',height:'30px', marginBottom:'20px'}} variant="outlined" onClick={handleModalOpen}>
-        Add
-      </Button>
-      <div className='adduser' style={{ height: 270, width: '90%' }}>
+     
+      <div className='adduser' style={{ height: 270, width: '50%',marginLeft:'30px' }}>
         <DataGrid
         rows={rows}
         columns={columns} />
       </div>
       <SectionModel
-      open={open}
-      setOpen={setOpen}
-      isAdd={isAdd}
-      editData={editData}
-      setRefresh={setRefresh}/>
+          open={open}
+          setOpen={setOpen}
+          isAdd={isAdd}
+          editData={editData}
+          setRefresh={setRefresh}/>
+          
+      <NotificationBar
+          handleClose={handleClose}
+          notificationContent={openNotification.message}
+          openNotification={openNotification.status}
+          type={openNotification.type}
+      />
     </div>
   )
 }

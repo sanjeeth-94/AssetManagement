@@ -62,7 +62,7 @@ const MaintenaceRejectList = () => {
     <div>
     <Grid container >
     <h3> MAINTENANCE STATUS </h3>
-        <Grid style={{ height: 200, width: '100%' }}>
+        <Grid style={{ height: 350, width: '100%' }}>
         <DataGrid
             rows={rows}
             columns={columns}

@@ -88,6 +88,13 @@ export const FetchVenderDataService = (data,successCallback, errorCallBack) => _
 
 export const FetchAsstTransferService = (data,successCallback, errorCallBack) => _fetchService(`transferAsset/${data.id}`, 'POST', data, successCallback, errorCallBack);
 
+export const FetchEmployeeIdService = (successCallback, errorCallBack) => _fetchService('allocation/getEmpId', 'GET', {}, successCallback, errorCallBack);
+
+export const FetchEmployeeNameService = (data,successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/getEmpName`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchUserNameService = (data,successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/getUser`, 'POST', data, successCallback, errorCallBack);
+
+
 
 // // --------- User--------------//
 export const FetchUserService = (successCallback, errorCallBack) => _fetchService('user/showData', 'GET', {}, successCallback, errorCallBack);
@@ -243,8 +250,6 @@ export const ViewInsuranceRenewal = (successCallback, errorCallBack) => _fetchSe
 
 export const  InsuranceDueListService = (data,successCallback, errorCallBack) => _fetchService(`insurance/${data.id}/insuranceDue`, 'POST', data, successCallback, errorCallBack);
 
-
-
 /////........Warrenty.........///////
 
 export const  FetchWarrantyService = (data,successCallback, errorCallBack) => _fetchService('warranty/showData', 'POST', data, successCallback, errorCallBack);
@@ -253,6 +258,11 @@ export const  FetchWarrantyService = (data,successCallback, errorCallBack) => _f
 export const MaintenanceAddService = (data, successCallback, errorCallBack) => _fetchService('maintenance/add', 'POST', data, successCallback, errorCallBack);
 
 export const  FetchMachineService = (successCallback, errorCallBack) => _fetchService('getMachine', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchGetMaintenanceId = (successCallback, errorCallBack) => _fetchService('maintenance/getMaintenanceId', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchMaintenanceSchedule = (data,successCallback, errorCallBack) => _fetchService(`maintenance/${data.id}/showStatus`, 'POST',data, successCallback, errorCallBack);
+
 
 /////.......Check.....///
 
@@ -268,3 +278,17 @@ export const  FetchMaintenancePendingShowDataService = (successCallback, errorCa
 export const  FetchMaintenanceRejectedShowDataService = (successCallback, errorCallBack) => _fetchService('maintenance/rejectedShowData', 'GET', {}, successCallback, errorCallBack);
 
 export const  FetchMaintenanceShowClosedMaintenanceService = (successCallback, errorCallBack) => _fetchService('maintenance/showClosedMaintenance', 'GET', {}, successCallback, errorCallBack);
+
+////...........Allocation........//////
+
+export const AlloctionAddService = (data, successCallback, errorCallBack) => _fetchService('allocation/add', 'POST', data, successCallback, errorCallBack);
+
+export const AlloctionViewService = (data, successCallback, errorCallBack) => _fetchService('allocation/showData', 'POST', data, successCallback, errorCallBack);
+
+export const AlloctionExportService = (data, successCallback, errorCallBack) => _fetchService('allocation/export', 'POST', data, successCallback, errorCallBack);
+
+///...........UNTAG......////
+export const UntagAssetService = (data, successCallback, errorCallBack) => _fetchService(`untagAsset/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const UntagAssetViewService = (data, successCallback, errorCallBack) => _fetchService('untagAsset/showData', 'POST', data, successCallback, errorCallBack);
+

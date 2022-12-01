@@ -16,7 +16,9 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { UserAddService, UserUpdateService,FetchDepaertmentService } from '../../services/ApiServices';
+import { UserAddService, UserUpdateService,FetchDepaertmentService, FetchAssetNameService, FetchAssetTypeService, FetchSectionService, UntagAssetService } from '../../services/ApiServices';
+import { Grid } from '@mui/material';
+import { SentimentVerySatisfiedOutlined } from '@mui/icons-material';
 
 const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([])
@@ -28,7 +30,15 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [emailId, setemailId] = useState('')
     const [userName, setuserName] = useState('')
     const [password, setpassword] = useState('')
-   
+    const [ assetNameList, setAssetNameList]=useState([]);
+    const [assetName,setAssetName]=useState('');
+    const [section, setSection]=useState('');
+    const [sectionList,setSectionList]=useState([]);
+    const [assetType,setAssetType]=useState('');
+    const [assetTypeList,setAssetTypeList]=useState([]);
+    const [reason,setReason]=useState('');
+    const [tag , setTag]=useState('');
+
     const [openNotification, setNotification] = useState({
       status: false,
       type: 'error',
@@ -50,194 +60,235 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
     const onDepartmentChange = (e) => {
       setDepartment(e.target.value);
+      FetchSectionService({id:e.target.value},handleSectionServiceSuccess, handleSectionServiceException);
+    }
+  
+    const handleSectionServiceSuccess = (dataObject) =>{
+      setSectionList(dataObject.data);
     }
     
-   
-  
-    const onSubmit = (e) => {
-      e.preventDefault();
-       isAdd === true ?
-        (
-      
-        UserAddService({
-      
-        },handleSuccess, handleException)
-        ) : (
-       
-        UserUpdateService({
-          id: editData.id,
-     
-        }, handleSuccess, handleException)
-        );
-    }
-  
-    const handleSuccess = (dataObject) =>{
-      console.log(dataObject);
-      setRefresh(oldValue => !oldValue);
-      setNotification({
-        status: true,
-        type: 'success',
-        message: dataObject.message,
-      });
-      setemployeeId('');
-      setemployeeNamed('');
-      setDepartment('');
-      setdesignation('');
-      setemailId('');
-      setmobile_number('');
-      setuserName('');
-      setpassword('');
-    }
-  
-    const handleException = (errorObject, errorMessage) =>{
+    const handleSectionServiceException= (errorStaus, errorMessage) =>{
       console.log(errorMessage);
-      setNotification({
-        status: true,
-        type: 'error',
-        message:errorMessage,
-      });
     }
-  
-    const handleCloseNotify = () => {
-     setOpen(false)
-      setNotification({
-        status: false,
-        type: '',
-        message: '',
-      });
-    };
-    const [age, setAge] = useState('');
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+
+    const onSectionChange = (e) => {
+        setSection(e.target.value);
+        FetchAssetTypeService({id: e.target.value},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+      }
+      
+      const handleFetchAssetTypeSuccess = (dataObject) =>{
+        setAssetTypeList(dataObject.data);
+       
+      }
+      
+      const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
+      
+      const onAssetTypeChange = (e) => {
+        setAssetType(e.target.value);
+        FetchAssetNameService({id: e.target.value},handleAssetNameSuccess, handleAssetNameAssetException);
+      }
+      const handleAssetNameSuccess = (dataObject) =>{
+        setAssetNameList(dataObject.data);
+       
+      }
+      
+      const handleAssetNameAssetException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+      }
+      const onAssetNameChange= (e) => {
+        setAssetName(e.target.value);
+      }
+ 
     const handleClose = () => {
         setOpen(false);
     };
+const onSubmit =(e)=>{
+    e.preventDefault();
+    UntagAssetService({
+        id:assetName,    
+        reasonForUntag:reason,
+        tag:tag,
+    },handleUntagAssetService, handleUntagAssetExecption)
+}
+const handleUntagAssetService=(dataObject)=>{
+    console.log(dataObject);
+    
+}
+const handleUntagAssetExecption=(errorObject, errorMessage)=>{
+    console.log(errorMessage);
+}
 
   return (
     <div>
-           <div>
-                <Dialog 
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description" fullWidth>
-                    <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                        {"UNTAG ASSET"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            <form>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label>Department:</label>
-                                    <Box >
-                                        <FormControl style={{width:'250px', marginLeft:'80px'}}>
-                                            <InputLabel id="demo-simple-select-label"></InputLabel>
-                                            <Select 
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="Age"
-                                            onChange={handleChange}>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label>Section : </label>
-                                    <Box >
-                                        <FormControl style={{width:'250px', marginLeft:'105px'}}>
-                                            <InputLabel id="demo-simple-select-label"></InputLabel>
-                                            <Select 
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="Age"
-                                            onChange={handleChange}>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label>Asset Type :</label>
-                                    <Box>
-                                        <FormControl style={{width:'250px', marginLeft:'78px'}}>
-                                            <InputLabel id="demo-simple-select-label"></InputLabel>
-                                            <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="Age"
-                                            onChange={handleChange}>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label>Asset Name : </label>
-                                    <Box>
-                                        <FormControl style={{width:'250px', marginLeft:'70px'}}>
-                                            <InputLabel id="demo-simple-select-label"></InputLabel>
-                                            <Select 
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="Age"
-                                            onChange={handleChange}>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label>Reason For Untag:</label>
-                                    <Box>
-                                        <FormControl style={{width:'250px', marginLeft:'30px'}}>
-                                            <InputLabel id="demo-simple-select-label"></InputLabel>
-                                            <Select 
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="Age"
-                                            onChange={handleChange}>
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                    <label>Tag : </label>
-                                    <FormControl style={{width:'250px', marginLeft:'30px'}}>
-                                        <RadioGroup 
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group">
-                                            <FormControlLabel style={{marginLeft:'20px'}} value="Block" control={<Radio />} label="Block" />
-                                            <FormControlLabel style={{marginLeft:'20px'}} value="Reuse" control={<Radio />} label="Reuse" />
-                                        </RadioGroup>
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <Button style={{marginLeft:'60px', marginTop:'10px'}} variant="contained">Untag</Button>
-                                </div>
-                            </form>
-                        </DialogContentText>
-                    </DialogContent>
-                </Dialog>
-            </div>
+
+    <Dialog 
+    open={open}
+    onClose={handleClose}
+    fullWidth
+     >
+        <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
+            {"UNTAG ASSET"}
+        </DialogTitle>
+        <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+                <form onSubmit={onSubmit}>
+                    <Grid container style={{marginTop:'10px'}}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
+                        <label>Department:</label>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                        <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="departmentlabel">Select Department</InputLabel>
+                        <Select
+                        labelId="departmentlabel"
+                        id='department'
+                        label="Department"
+                        value={department}
+                        onChange={(e) => onDepartmentChange(e)}>
+                          {departmentList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                            )
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                        </Grid>
+                        
+
+                    </Grid>
+                    <Grid container style={{marginTop:'10px'}}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
+                        <label>Section : </label>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                        <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="sectionList">Select section</InputLabel>
+                        <Select
+                        labelId="sectionList"
+                        id='section'
+                        label="Section"
+                        value={section}
+                        onChange={(e) => onSectionChange(e)}>
+                          {sectionList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                            )
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                        </Grid>
+                        
+
+                    </Grid>
+                    <Grid container style={{marginTop:'10px'}}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
+                        <label>Asset Type :</label>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                        <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
+                        <Select
+                        labelId="assetTypeList"
+                        id='assetType'
+                        label="AssetType"
+                        value={assetType}
+                        onChange={(e) => onAssetTypeChange(e)}>
+                          {assetTypeList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                            )
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                        </Grid>
+                        
+
+                    </Grid>
+                    <Grid container style={{marginTop:'10px'}}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
+                        <label>Asset Name : </label>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                        <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="assetTypeList">Select Asset Name</InputLabel>
+                        <Select
+                        labelId="assetTypeList"
+                        id='assetType'
+                        label="AssetType"
+                        value={assetName}
+                        onChange={(e) => onAssetNameChange(e)}>
+                          {assetNameList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                            )
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                        </Grid>
+                        
+
+                    </Grid>
+
+                    <Grid container style={{marginTop:'10px'}}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
+                        <label>Reason For Untag:</label>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                        <Box>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
+                                <Select 
+                         
+                                value={reason}
+                                label="Reason"
+                                onChange={(e)=>setReason(e.target.value)}>
+                                    <MenuItem value={10}>Scrap</MenuItem>
+                                    <MenuItem value={20}>Defect</MenuItem>
+                                    <MenuItem value={30}>Stolen</MenuItem>
+                                    <MenuItem value={40}>Sale</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        </Grid>
+                        
+
+                    </Grid>
+
+                    <Grid container style={{marginTop:'10px'}}>
+                        <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
+                        <label>Tag : </label>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                        <FormControl >
+                            <RadioGroup 
+                            row
+                            value={tag}
+                            onChange={(e)=>setTag(e.target.value)}
+                            >
+                                <FormControlLabel style={{marginLeft:'20px'}} value="Block" control={<Radio />} label="Block" />
+                                <FormControlLabel style={{marginLeft:'20px'}} value="Reuse" control={<Radio />} label="Reuse" />
+                            </RadioGroup>
+                        </FormControl>
+                        </Grid>
+                    </Grid>
+                    <div>
+                        <Button style={{marginLeft:'60px', marginTop:'10px'}} type='submit' variant="contained">Untag</Button>
+                    </div>
+                </form>
+            </DialogContentText>
+        </DialogContent>
+    </Dialog>
+
       
     </div>
   )

@@ -14,59 +14,70 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import { LogoutService } from "../../services/ApiServices";
 
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
-        return (
-                <div className={sidebarOpen === false ? "sidebar_responsive" : " "} id="sidebar" style={{
-                        height: '98vh', width: '11vh'
-                }}>
-                       
-                        <div className="sidebar__title"></div>
-                        <div className="sidebar__menu">
-                                <div className="sidebar__link active_menu_link">
-                                        <FullscreenIcon className='icon' />
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/main'><PieChartIcon className='icon' /></Link>
 
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/asset'><AddchartIcon className='icon' /></Link>
-
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/audit'><AssignmentIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/Amc'><HandymanIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/maintenanceschedule'><ManageAccountsIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/maintainceaproval'><CheckCircleIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/maintaincestatus'><QueryStatsIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/alloction'><AccountTreeIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/servicerequest'><SettingsIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/vender'><GroupAddIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <Link to='/user'><PersonIcon className='icon' /></Link>
-                                </div>
-                                <div className="sidebar__link">
-                                        <LogoutIcon className='icon' />
-                                </div>
-                        </div>
-                </div>
-        )
+const onClickLogOut = (e) => {
+        e.preventDefault();
+        LogoutService(handleLogoutService, handleLogoutServiceExeption)
+}
+const handleLogoutService = (dataObject) => {
+        console.log(dataObject);
+        sessionStorage.clear();
+        window.location.reload(true);
+}
+const handleLogoutServiceExeption = (errorObject, errorMessage) => {
+        console.log(errorMessage);
+}
+return (
+<div className={sidebarOpen === false ? "sidebar_responsive" : " "} id="sidebar" style={{
+        height: '98vh', width: '11vh'
+}}>
+        <div className="sidebar__title"></div>
+        <div className="sidebar__menu">
+        <div className="sidebar__link active_menu_link">
+                <FullscreenIcon className='icon' />
+        </div>
+        <div className="sidebar__link">
+                <Link to='/main'><PieChartIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/asset'><AddchartIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/audit'><AssignmentIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/Amc'><HandymanIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/maintenanceschedule'><ManageAccountsIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/maintainceaproval'><CheckCircleIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/maintaincestatus'><QueryStatsIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/alloction'><AccountTreeIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/servicerequest'><SettingsIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/vender'><GroupAddIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <Link to='/user'><PersonIcon className='icon' /></Link>
+        </div>
+        <div className="sidebar__link">
+                <LogoutIcon className='icon' onClick={onClickLogOut} />
+        </div>
+        </div>
+</div>
+)
 }
 
 export default Sidebar;

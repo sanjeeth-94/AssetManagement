@@ -9,11 +9,18 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { SectionAddService,SectionUpdateService,FetchDepaertmentService  } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
 
 const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([])
     const [department,setDepartment]=useState("");
     const [section,setSection]=useState("");
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+    });
+    
     
     const handleClose = () => {
         setOpen(false);
@@ -21,6 +28,8 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+        setDepartment(editData.department);
+        setSection(editData.section);
 
     }, [editData]);
     
@@ -57,12 +66,26 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const handleSuccess = (dataObject) =>{
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
-        setOpen(false);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+           
+          });
+     
+
     }
     
     const handleException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
     }
+    const handleCloseNotify = () => {
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+      };
     
     return (
         <div>
@@ -84,6 +107,7 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     label="Select Department"
+                                    value={department}
                                     onChange={(e) => onDepartmentChange(e)}>
                                         {departmentList.map((data, index) => {
                                             return (
@@ -100,7 +124,8 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             style={{marginLeft:'60px', width:'300px'}} 
                             id="outlined-basic" 
                             label="" 
-                            variant="outlined" 
+                            variant="outlined"
+                            value={section} 
                             onChange={(e) => {setSection(e.target.value)}}/>
                         </div>
                         <div style={{alignItem:'left', marginTop:'20px'}}>
@@ -111,7 +136,14 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         </div>
                     </div>
                 </form>
-            </Dialog>           
+            </Dialog>   
+                    
+      <NotificationBar
+          handleClose={handleCloseNotify}
+          notificationContent={openNotification.message}
+          openNotification={openNotification.status}
+          type={openNotification.type}
+      />        
         </div>
     )
 }

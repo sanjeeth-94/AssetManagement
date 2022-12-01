@@ -4,6 +4,9 @@ import { Button } from 'reactstrap';
 import { FetchAssetTypeListService , AssetTypeDeleteService,FetchAssetTypeSection} from '../../../services/ApiServices'
 import AssetTypeModel from './AssetTypeModel'
 import NotificationBar from '../../../services/NotificationBar';
+import { Grid } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const AssetTypeList= () => {
   const [open, setOpen] = useState(false);
@@ -36,7 +39,7 @@ const AssetTypeList= () => {
   
   function EditData({ selectedRow }) {
     return (
-      <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+      <EditIcon
       className='prbuton'
       variant="contained"
       color='primary'
@@ -44,22 +47,20 @@ const AssetTypeList= () => {
         setIsAdd(false);
         setEditData(selectedRow);
         setOpen(true);
-      }}>
-        Edit
-      </Button>
+      }}/>
+   
     )
   }
   
   function DeleteData({ selectedRow }) {
     return (
-      <Button style={{ width: '100px' }}
+      <DeleteIcon
       variant="contained"
       color='primary'
       onClick={() => {
         deleteAssetType(selectedRow.id)
-      }}>
-        Delete
-      </Button>
+      }}/>
+      
     )
   }
   
@@ -114,12 +115,19 @@ const AssetTypeList= () => {
   
   return (
     <div>
-      <h1 style={{ marginLeft: '50px' }}>Asset Type</h1>
+      <Grid container>
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+      <h3 >Asset Type</h3>
+     </Grid>
+        <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+        <Button style={{marginLeft:'43%',width:'120px',height:'30px', marginTop:'25px'}} variant="outlined" onClick={handleModalOpen}>
+            Add
+        </Button>
+        </Grid>    
+      </Grid> 
       <hr style={{ bottom: 'solid' }} />
-      <Button style={{marginLeft:'83%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
-        Add
-      </Button>
-      <div style={{ height: '500px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
+     
+      <div style={{ height: '350px', width: '70%', marginLeft: '40px', marginTop: '20px' }}>
         <DataGrid
         rows={rows}
         columns={columns} />

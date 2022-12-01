@@ -19,11 +19,11 @@ const MaintenanceAddList = () => {
         { field: 'assetName', headerName: 'Machine', width: 100 },
         { field: 'severity', headerName: 'Severity', width: 100 },
         { field: 'problemNote', headerName: 'Problem Note', width: 120 },
-        { field: 'dateFrom', headerName: 'Date From', width: 140 },
-        { field: 'dateTo', headerName: 'Date To', width: 140 },
-        { field: 'timeFrom', headerName: 'Time From', width: 140 },
-        { field: 'timeTo', headerName: 'Time To', width: 140 },
-        { field: 'closedMaintenance', headerName: 'closed Time', width: 140 },
+        { field: 'dateFrom', headerName: 'Date From', width: 120 },
+        { field: 'dateTo', headerName: 'Date To', width: 120 },
+        { field: 'timeFrom', headerName: 'Time From', width: 120 },
+        { field: 'timeTo', headerName: 'Time To', width: 120 },
+        { field: 'closedMaintenance', headerName: 'closed Time', width: 120 },
         {field: 'view', headerName: 'View', width: 50, sortable: false,
         type: 'actions',
         getActions: (params) => [
@@ -79,7 +79,7 @@ const MaintenanceAddList = () => {
     <div>
     <Grid container >
     <h3> MAINTENANCE STATUS </h3>
-        <Grid style={{ height: 200, width: '100%' }}>
+        <Grid style={{ height: 350, width: '100%' }}>
         <DataGrid
             rows={rows}
             columns={columns}

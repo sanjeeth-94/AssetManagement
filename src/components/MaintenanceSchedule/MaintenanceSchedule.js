@@ -21,6 +21,8 @@ import {
     FetchSectionService, 
     MaintenanceAddService,
     FetchMachineService,
+    FetchGetMaintenanceId,
+    FetchMaintenanceSchedule,
 } from '../../services/ApiServices';
 import Maintenance from './MaintenanceTable';
 import ListItemText from '@mui/material/ListItemText';
@@ -38,24 +40,6 @@ const MenuProps = {
 };
 
 
-const columns = [
-    { field: 'AMC Status', headerName: 'AMC Status', width: 320 },
-    { field: 'Warranty Status', headerName: 'Warranty Status', width: 320 },
-    { field: 'Warranty Type', headerName: 'Warranty Type', width: 380 },
-];
-
-const rows = [
-
-];
-
-const columns2 = [
-    { field: 'AMC Status', headerName: 'Name ', width: 80 },
-    { field: 'Warranty Status', headerName: 'Part Id', width: 80 },
-    { field: 'Warranty Type', headerName: 'Quantity	', width: 80 },
-    { field: 'Warranty Type', headerName: '	Units	', width: 80 },
-    { field: 'Warranty Type', headerName: '	Amount	', width: 80 },
-    { field: 'Warranty Type', headerName: '	Action', width: 80 },
-];
 
 const steps = ['Step 1', 'Step 2', 'Step 3', 'Complete'];
 
@@ -101,6 +85,17 @@ export default function HorizontalLinearStepper() {
     const [timeTo, setTimeTo]=useState('');
     const [machineDetails,setMachineDetails]=useState('');
     const [manHoursDetails,setSmanHoursDetails]=useState('');
+    const [rows , setRows]=useState([]);
+    const [amcStatus,setAmcStatus]=useState('');
+    const [warrantyStatus,setWarrantyStatus]=useState('');
+    const [warrantyType,setWarrantyType]=useState('');
+
+    const columns = [
+        { field: 'amc', headerName: 'AMC Status', width: 320 },
+        { field: 'warranty', headerName: 'Warranty Status', width: 320 },
+        { field: 'warrantyType', headerName: 'Warranty Type', width: 380 },
+    ];
+    
 
     const handleChange = (event) => {
         const {
@@ -115,10 +110,12 @@ export default function HorizontalLinearStepper() {
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchMachineService(handleFetchMachineSuccess, handleFetchMachineException);
+        FetchGetMaintenanceId(handleGetMaintenanceId,handleGetMaintenanceIdException);
     }, []);
     
     const handleFetchSuccess = (dataObject) => {
         setDepartmentList(dataObject.data);
+        
     }
 
     const handleFetchException = (errorStaus, errorMessage) => {
@@ -133,6 +130,13 @@ export default function HorizontalLinearStepper() {
         console.log(errorMessage);
     }
    
+    const handleGetMaintenanceId=(dataObject)=>{
+        setMaintenanceId(dataObject.data)
+    }
+    const handleGetMaintenanceIdException=(errorStaus, errorMessage)=>{
+        console.log(errorMessage);
+    }
+
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
         FetchSectionService({
@@ -176,6 +180,15 @@ export default function HorizontalLinearStepper() {
 
     const onAssetNameChange = (e) => {
         setAssetName(e.target.value);
+        FetchMaintenanceSchedule({ id: e.target.value },handleFetchMaintenanceSchedule,handleFetchMaintenanceScheduleExeption)
+    }
+    const handleFetchMaintenanceSchedule=(dataObject)=>{
+        setRows(dataObject.data);
+        setAmcStatus(dataObject?.data?.amc);
+        console.log("dadta"+amcStatus);
+    }
+    const handleFetchMaintenanceScheduleExeption=(errorStaus, errorMessage)=>{
+        console.log(errorMessage);
     }
 
     const isStepOptional = (step) => {
@@ -189,11 +202,10 @@ export default function HorizontalLinearStepper() {
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         if(activeStep === steps.length - 1 ){
-        alert('fished')
         MaintenanceAddService({ 
-        maintenanceId: maintenanceId,
+        maintenanceId:maintenanceId,
         assetName: assetName,
-        maintenanceType:  maintenanceType,
+        maintenanceType:maintenanceType,
         severity:severity,
         problemNote: problemNote,
         bpImages1: bpImages1,
@@ -210,7 +222,13 @@ export default function HorizontalLinearStepper() {
         dateFrom:dateFrom,
         dateTo:dateTo,
         timeFrom: timeFrom,
-        timeTo: timeTo
+        timeTo: timeTo,
+        department:department,
+        section:section,
+        assetType:assetType,
+        amcStatus: amcStatus,
+        // warrantyStatus:
+        // warrantyType:
     }, handleMaintenanceAddService,  handleMaintenanceAddServiceException)
 
     }
@@ -219,6 +237,33 @@ export default function HorizontalLinearStepper() {
     
     const handleMaintenanceAddService= (dataObject) => {
         console.log(dataObject.data);
+        setDepartment('');
+        setSection('');
+        setAssetType('');
+        setName('');
+        setPartid('');
+        setQuantity('');   
+        setUnitPrice('');
+        setUnitId('');
+        setcanceledCheque('');
+        setMaintenanceId('');
+        setAssetName('');
+        setMaintenanceType('');
+        setSeverity('');
+        setProblemNote('');
+        setBpImages1('');
+        setBpImages2('');
+        setBpImages3('');
+        setBpImages4('');
+        setPartsOrConsumable('');
+        setPartOption('');
+        setAffectedManHours('');
+        setDateFrom('');
+        setDateTo('');
+        setTimeFrom('');
+        setTimeTo('');
+        setMachineDetails('');
+        setSmanHoursDetails('');
     }
 
     const handleMaintenanceAddServiceException = (errorStaus, errorMessage) => {
@@ -331,7 +376,7 @@ const onOptionChange=(e)=>{
                     <h3 style={{ marginLeft: '30px' }}>Create Maintenance Schedule</h3>
                 </div>
                 <hr />
-                <Box sx={{ width: '90%', marginLeft: '100px', marginTop: '30px' }}>
+                <Box sx={{ width: '90%', marginLeft: '100px', marginTop: '10px' }}>
                     <Stepper activeStep={activeStep}>
                         {steps.map((label, index) => {
                             const stepProps = {};
@@ -364,8 +409,9 @@ const onOptionChange=(e)=>{
 
                                 </Grid>
                                 <hr />
-                                <Grid container spacing={2} >
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid container spacing={3} >
+                                <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}></Grid>
+                                    <Grid item xs={12} sm={6} md={3} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
                                             textAlignLast: 'center'
@@ -377,6 +423,7 @@ const onOptionChange=(e)=>{
                                                 <Select
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
+                                                    label='Select Department'
                                                     value={department}
                                                 onChange={(e) => onDepartmentChange(e)}>
                                                 {departmentList.map((data, index) => {
@@ -388,7 +435,7 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                    <Grid item  xs={12} sm={6} md={3} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
                                             width: '300px'
@@ -400,6 +447,7 @@ const onOptionChange=(e)=>{
                                                 <Select
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
+                                                    label='Select Section'
                                                     value={section}
                                                     onChange={(e) => onSectionChange(e)}>
                                                     {sectionList.map((data, index) => {
@@ -411,7 +459,7 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                    <Grid item  xs={12} sm={6} md={3} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
                                             textAlignLast: 'center'
@@ -423,6 +471,7 @@ const onOptionChange=(e)=>{
                                                 <Select
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
+                                                    label='Selectn Asset Type'
                                                     value={assetType}
                                                     onChange={(e) => onAssetTypeChange(e)}>
                                                     {assetTypeList.map((data, index) => {
@@ -434,7 +483,7 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                    <Grid item  xs={12} sm={6} md={3} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
 
@@ -447,6 +496,7 @@ const onOptionChange=(e)=>{
                                                 <Select
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
+                                                    label='Select Asset Name'
                                                     value={assetName}
                                                     onChange={(e) => onAssetNameChange(e)}>
                                                     {assetNameList.map((data, index) => {
@@ -458,8 +508,9 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
+                                    <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}></Grid>
                                 </Grid>
-                                <Grid container spacing={2} style={{ marginTop:'30px'}} >
+                                <Grid container spacing={2} style={{ marginTop:'10px'}} >
                                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                                     <DataGrid
                                     style={{ background: 'whitesmoke',height: 200 }}
@@ -496,12 +547,11 @@ const onOptionChange=(e)=>{
                                         id="Vendor-Address"
                                         variant="outlined"
                                         value={maintenanceId}
-                                        onChange={(e) => { setMaintenanceId(e.target.value) }}
+                                        
                                     />
 
                                 </Grid>
-
-
+                                
                                 <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
@@ -701,7 +751,7 @@ v                                       value={problemNote}
                         activeStep === 2 &&
                         <>
                             <form >
-                                <Grid container spacing={2} style={{ marginTop: '20px', marginLeft: '20px' }}>
+                                <Grid container spacing={2} style={{ marginTop: '10px', marginLeft: '20px' }}>
                                     <Grid tem xs={12} sm={12} md={12} lg={12} xl={12}
                                         style={{
                                             width: '200px',
@@ -723,7 +773,7 @@ v                                       value={problemNote}
                                         </FormControl>
                                     </Grid>
                                 </Grid>
-                                <Grid container style={{ display: 'box', marginTop: '30px' }}>
+                                <Grid container style={{ display: 'box', marginTop: '10px' }}>
                                     <Grid container item xs={12} sm={12} md={6} lg={4} xl={4} style={{ display: 'inline' }} >
                                         <Grid container >
                                             <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
@@ -750,7 +800,7 @@ v                                       value={problemNote}
 
                                             </Grid>
                                         </Grid>
-                                        <Grid container style={{ marginTop: '20px' }} >
+                                        <Grid container style={{ marginTop: '10px' }} >
                                             <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
                                                 style={{
                                                     alignSelf: 'center',
@@ -774,7 +824,7 @@ v                                       value={problemNote}
                                                 />
                                             </Grid>
                                         </Grid>
-                                        <Grid container style={{ marginTop: '20px' }}  >
+                                        <Grid container style={{ marginTop: '10px' }}  >
                                             <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
                                                 style={{
                                                     alignSelf: 'center',
@@ -798,7 +848,7 @@ v                                       value={problemNote}
                                                 />
                                             </Grid>
                                         </Grid>
-                                        <Grid container style={{ marginTop: '20px' }}  >
+                                        <Grid container style={{ marginTop: '10px' }}  >
                                             <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
                                                 style={{
                                                     alignSelf: 'center',
@@ -829,7 +879,7 @@ v                                       value={problemNote}
                                             </Box>
                                             </Grid>
                                         </Grid>
-                                        <Grid container style={{ marginTop: '20px' }} >
+                                        <Grid container style={{ marginTop: '10px' }} >
                                             <Grid item xs={12} sm={12} md={6} lg={5} xl={5}
                                                 style={{
                                                     alignSelf: 'center',
@@ -854,7 +904,7 @@ v                                       value={problemNote}
                                             </Grid>
                                         </Grid>
                                         <Grid>
-                                            <Button  onClick={addMaintenance} style={{ marginTop: '20px' }} variant="contained">
+                                            <Button  onClick={addMaintenance} style={{ marginTop: '10px' }} variant="contained">
                                                  {isAddUnit ? 'Add ' : 'Update '}
                                             </Button>
                                         </Grid>
@@ -919,7 +969,7 @@ v                                       value={problemNote}
                                             MenuProps={MenuProps}
                                             >
                                             {affectedMachineList.map((data, index) => (
-                                                <MenuItem key={index} value={data.id}>
+                                                <MenuItem key={index} value={data.assetName}>
                                                 <Checkbox checked={affectedMachine.indexOf(data.assetName) > -1} />
                                                 <ListItemText primary={data.id+' '+data.assetName} />
                                                 

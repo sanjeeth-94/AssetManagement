@@ -18,8 +18,8 @@ const AddlabelList = () => {
     });
 
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 50 },
-        { field: 'employee_id', headerName: 'Department	', width: 120 },
+        { field: 'id', headerName: 'Serial No', width: 40 },
+        { field: 'employee_id', headerName: 'Department	', width: 100 },
         { field: 'employee_name', headerName: 'Section	', width: 120 },
         { field: 'department', headerName: 'Asset Type	', width: 120 },
         { field: 'designation', headerName: 'Asset Id	', width: 120 },

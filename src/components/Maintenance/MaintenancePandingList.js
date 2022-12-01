@@ -64,7 +64,7 @@ const MaintenancePandingList = () => {
     <div>
     <Grid container >
     <h3> MAINTENANCE STATUS </h3>
-        <Grid style={{ height: 200, width: '100%' }}>
+        <Grid style={{ height: 350, width: '100%' }}>
         <DataGrid
             rows={rows}
             columns={columns}
@@ -78,8 +78,7 @@ const MaintenancePandingList = () => {
                 isAdd={isAdd}
                 editData={editData}
                 setRefresh={setRefresh}
-            />
-   
+            />  
 </div>
   )
 }

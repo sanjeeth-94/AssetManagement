@@ -16,25 +16,36 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { UserAddService, UserUpdateService,FetchDepaertmentService,FetchAuditAssetTypeService } from '../../services/ApiServices';
+import { UserAddService, UserUpdateService,FetchDepaertmentService,FetchAuditAssetTypeService, FetchSectionService, FetchAssetTypeService, FetchAssetNameService, AlloctionAddService, FetchEmployeeIdService, FetchEmployeeNameService, FetchUserNameService } from '../../services/ApiServices';
+import { Grid } from '@mui/material';
 
 const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-  const [departmentList, setDepartmentList] = useState([])
-  const [department, setDepartment] = useState('')
-  const [employeeId, setemployeeId] = useState('')
-  const [employeeName, setemployeeNamed] = useState('')
-  const [designation, setdesignation] = useState('')
-  const [mobile_number, setmobile_number] = useState('')
-  const [emailId, setemailId] = useState('')
-  const [userName, setuserName] = useState('')
-  const [password, setpassword] = useState('')
+  const [departmentList, setDepartmentList] = useState([]);
+  const [department, setDepartment] = useState('');
+  const [employeeId, setEmployeeId] = useState('');
+  const [employeeName, setemployeeNamed] = useState('');
+  const [designation, setdesignation] = useState('');
+  const [mobile_number, setmobile_number] = useState('');
+  const [employeeIdList,setEmployeeIdList] = useState([]);
+  const [emailId, setemailId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [password, setpassword] = useState('');
   const [auditdate,setAuditDate] = useState('');
-  const [sectionList, setSectioonList]=useState([]);
+  const [sectionList, setSectionList]=useState([]);
   const [section, setSection]=useState('');
   const [assetTypeList, setAssetTypeList]=useState([]);
   const [assetType, setAssetType]=useState('');
   const [auditName,setAuditName]=useState('');
-  
+  const [ assetNameList, setAssetNameList]=useState([]);
+  const [assetName,setAssetName]=useState('');
+  const [user, setuser] = useState("EmpId");
+  const [temporary, setTemporary] = useState("Temporary");
+  const [tempFromDate , setTempFromDate] = useState('');
+  const [tempTomDate , setTempToDate] = useState('');
+  const [employeeNameList,setEmployeeNameList]= useState([]);
+  const [userDepartmentList, setUserDepartmentList]=useState([]);
+  const [ userNameList,   setUserNameList]=useState([]);
+  const [userDepartment,setUserDepartment]=useState();
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -43,46 +54,126 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    FetchEmployeeIdService(handleEmployeeSuccess, handleEmployeeException);
+
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) =>{
     setDepartmentList(dataObject.data);
+    setUserDepartmentList(dataObject.data);
   }
   
   const handleFetchException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
   }
-  
-  const onDepartmentChange = (e) => {
-    setDepartment(e.target.value);
+
+  const handleEmployeeSuccess = (dataObject) =>{
+    setEmployeeIdList(dataObject.data);
   }
   
+  const handleEmployeeException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+
+  const onUerDepartmentChange=(e)=>{
+    setUserDepartment(e.target.value);
+    FetchUserNameService(({id:e.target.value},handleUserNameSuccess, handleUserNameException));
+  }
+
+  const handleUserNameSuccess =(dataObject)=>{
+    setUserNameList(dataObject);
+  }
+  const handleUserNameException=(errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+
+  const onDepartmentChange = (e) => {
+    setDepartment(e.target.value);
+    FetchSectionService({id:e.target.value},handleSectionServiceSuccess, handleSectionServiceException);
+  }
+
+  const handleSectionServiceSuccess = (dataObject) =>{
+    setSectionList(dataObject.data);
+  }
+  
+  const handleSectionServiceException= (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+  const onSectionChange = (e) => {
+    setSection(e.target.value);
+    FetchAssetTypeService({id: e.target.value},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+  }
+  
+  const handleFetchAssetTypeSuccess = (dataObject) =>{
+    setAssetTypeList(dataObject.data);
+   
+  }
+  
+  const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+  
+  const onAssetTypeChange = (e) => {
+    setAssetType(e.target.value);
+    FetchAssetNameService({id: e.target.value},handleAssetNameSuccess, handleAssetNameAssetException);
+  }
+  const handleAssetNameSuccess = (dataObject) =>{
+    setAssetNameList(dataObject.data);
+   
+  }
+  
+  const handleAssetNameAssetException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+  const onAssetNameChange= (e) => {
+    setAssetName(e.target.value);
+  }
+
+  const onChangeRedio = (event) => {
+    setuser(event.target.value);
+};
+const onChangeTemporary = (event) => {
+  setTemporary(event.target.value);
+};
+
+const onEmployeeChange=(e)=>{
+      setEmployeeId(e.target.value);
+      FetchEmployeeNameService({id:e.target.value},handelEmployeeName,handelEmployeeNameException)
+}
+const handelEmployeeName=(dataObject)=>{
+  setemployeeNamed(dataObject.empName);
+
+}
+const handelEmployeeNameException=(errorObject, errorMessage) =>{
+  console.log(errorMessage);
+}
+
   const handleClose = () => {
-    setOpen(false);
-    setemployeeId('');
-    setemployeeNamed('');
-    setDepartment('');
-    setdesignation('');
-    setemailId('');
-    setmobile_number('');
-    setuserName('');
-    setpassword('')
+    setOpen(false);  
   };
   
+  const onChangeUserName=(e)=>{
+    setUserName(e.target.value);
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
     isAdd === true ?
     (
       
-      UserAddService({
-        employee_id: employeeId,
-        employee_name: employeeName,
-        department: department,
-        designation: designation,
-        mobile_number: mobile_number,
-        email: emailId,
-        user_name: userName,
-        password: password,
+      AlloctionAddService({
+        department:department,
+        section:section,
+        assetType:assetType,
+        assetName:assetName,
+        userType:user,
+        empId:employeeId,
+        empName:employeeName,
+        userDepartment:userDepartment,
+        user:user,
+        position:temporary,
+        fromDate:tempFromDate,
+        toDate:tempTomDate,
       },handleSuccess, handleException)
     ) : (
       UserUpdateService({
@@ -108,14 +199,8 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       message: dataObject.message,
     });
     
-    setemployeeId('');
-    setemployeeNamed('');
-    setDepartment('');
-    setdesignation('');
-    setemailId('');
-    setmobile_number('');
-    setuserName('');
-    setpassword('');
+  
+  
   }
   
   const handleException = (errorObject, errorMessage) =>{
@@ -136,23 +221,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     });
   }; 
   
-  const onSectionChange = (e) => {
-    setSection(e.target.value);
-    FetchAuditAssetTypeService ({id: e.target.value},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
-  }
-  
-  const handleFetchAssetTypeSuccess = (dataObject) =>{
-    setAssetTypeList(dataObject.data);
-    console.log(dataObject.data);  
-  }
-  
-  const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
-    console.log(errorMessage);
-  }
-  
-  const onAssetTypeChange = (e) => {
-    setAssetType(e.target.value);
-  }
+
       
   return (
     <div>
@@ -165,6 +234,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
+
               <div style={{display:'flex'}}>
                 <div style={{marginTop:'80px', marginLeft:'40px',border:'solid',width:'500px'}}>
                   <h2 style={{marginLeft:'200px'}}>ASSET</h2>
@@ -178,6 +248,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         labelId="departmentlabel"
                         id='department'
                         label="Department"
+                        value={department}
                         onChange={(e) => onDepartmentChange(e)}>
                           {departmentList.map((data, index) => {
                             return (
@@ -195,6 +266,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         labelId="sectionList"
                         id='section'
                         label="Section"
+                        value={section}
                         onChange={(e) => onSectionChange(e)}>
                           {sectionList.map((data, index) => {
                             return (
@@ -212,6 +284,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         labelId="assetTypeList"
                         id='assetType'
                         label="AssetType"
+                        value={assetType}
                         onChange={(e) => onAssetTypeChange(e)}>
                           {assetTypeList.map((data, index) => {
                             return (
@@ -221,18 +294,19 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         </Select>
                       </FormControl>
                     </Box>
-                    <label style={{marginLeft:'50px', marginRight:'35px'}}>Asset Type : </label>
+                    <label style={{marginLeft:'50px', marginRight:'35px'}}>Asset Name:</label>
                     <Box sx={{ minWidth: 120 }}>
                       <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
-                        <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
+                        <InputLabel id="assetTypeList">Select Asset Name</InputLabel>
                         <Select
                         labelId="assetTypeList"
                         id='assetType'
                         label="AssetType"
-                        onChange={(e) => onAssetTypeChange(e)}>
-                          {assetTypeList.map((data, index) => {
+                        value={assetName}
+                        onChange={(e) => onAssetNameChange(e)}>
+                          {assetNameList.map((data, index) => {
                             return (
-                              <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                              <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
                             )
                           })}
                         </Select>
@@ -248,14 +322,49 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       <FormControl>
                         <RadioGroup
                         row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="row-radio-buttons-group">
+                          onChange={onChangeRedio}
+                        value={user}
+                        >
                           <FormControlLabel value="EmpId" control={<Radio />} label="Emp Id" />
                           <FormControlLabel value="Department" control={<Radio />} label="Department" />
                       </RadioGroup>
                     </FormControl>
-                  </div>
+                    </div>
+                    {
+                      user ==='EmpId' &&
+                      <>
+                   
                   <label style={{marginLeft:'40px', marginRight:'40px'}}>Emp Id: </label>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
+                      <InputLabel id="departmentlabel">Select Employee Id</InputLabel>
+                      <Select
+                      labelId="departmentlabel"
+                      id='department'
+                      label="Select Employee Id"
+                      value={employeeId}
+                      onChange={(e) => onEmployeeChange(e)}>
+                        {employeeIdList?.map((data, index) => {
+                          return (
+                            <MenuItem value={data.employee_id} key={index}>{data.employee_id}</MenuItem>
+                          )
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <div style={{display:'flex'}}>
+                  <label style={{marginLeft:'40px',  marginTop:'20px'}}>Emp Name: </label>
+                  <TextField 
+                          variant="outlined" 
+                          value={employeeName}
+                    />
+                 </div>
+                  </>
+                }{
+                  user !=='EmpId' &&
+                  <>
+                   
+                  <label style={{marginLeft:'40px', marginRight:'40px'}}>Department: </label>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
                       <InputLabel id="departmentlabel">Select Department</InputLabel>
@@ -263,8 +372,9 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       labelId="departmentlabel"
                       id='department'
                       label="Department"
-                      onChange={(e) => onDepartmentChange(e)}>
-                        {departmentList.map((data, index) => {
+                      value={userDepartment}
+                      onChange={(e) => onUerDepartmentChange(e)}>
+                        {userDepartmentList.map((data, index) => {
                           return (
                             <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                           )
@@ -272,7 +382,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </Select>
                     </FormControl>
                   </Box>
-                  <label style={{marginLeft:'40px',  marginTop:'20px'}}>Emp Name: </label>
+                  <label style={{marginLeft:'40px',  marginTop:'20px'}}>User: </label>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
                       <InputLabel id="sectionList">Select section</InputLabel>
@@ -281,26 +391,58 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       id='section'
                       label="Section"
                       onChange={(e) => onSectionChange(e)}>
-                        {sectionList.map((data, index) => {
+                        {userNameList.map((data, index) => {
                           return (
-                            <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                            <MenuItem value={data.id} key={index}>{data.userName}</MenuItem>
                           )
                         })}
                       </Select>
                     </FormControl>
                   </Box>
+                  </>
+
+                }
                   <div style={{marginLeft:'40px'}}>
                     <FormControl>
                       <RadioGroup
-                      row
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group">
+                      row                   
+                      onChange={onChangeTemporary}
+                      value={temporary}
+                      >
                         <FormControlLabel value="Temporary" control={<Radio />} label="Temporary" />
                         <FormControlLabel value="Permanent" control={<Radio />} label="Permanent" />
                       </RadioGroup>
                     </FormControl>
                   </div>
-                  <Button style={{marginLeft:'200px',marginTop:'40px'}} variant="contained">Allocate</Button>
+                  {
+                      temporary === 'Temporary' &&
+                      <>
+                      <div>
+                      <label style={{marginLeft:'40px', marginRight:'40px',alignContent:'center'}}>From:</label>
+                      <TextField 
+                          id="outlined-basic"  
+                          type='date' 
+                          variant="outlined" 
+                          value={tempFromDate}
+                          onChange={(e)=>setTempFromDate(e.target.value)}
+                          />
+                      </div>
+                      <div style={{marginTop:'10px'}}>
+                      <label style={{marginLeft:'40px', marginRight:'66px',alignContent:'center'}}>to:</label>
+                      <TextField style={{marginBottom:'10px'}}
+                          id="outlined-basic"  
+                          type='date' 
+                          variant="outlined" 
+                          value={tempTomDate}
+                          onChange={(e)=>setTempToDate(e.target.value)}
+                          />
+                      </div>
+                      </>
+
+                  }
+                  {
+                        
+                  }
                 </div>
               </div>
             </div>
@@ -310,7 +452,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <div className='addbutton'>
             <Button type='reset' onClick={handleClose}>Cancel</Button>
             <Button type='submit'>
-              {isAdd === true ? 'Add' : 'Update'}
+              {isAdd === true ? 'Allocate' : 'Update Allocate'}
             </Button>
           </div>
           <NotificationBar

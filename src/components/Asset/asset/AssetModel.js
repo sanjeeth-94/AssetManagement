@@ -86,7 +86,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         FetchAssetIdService(handleFetchAssetId, handleFetchAssetIdException);
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchVenderService(handleFetchVender, handleFetchVenderException);
-
         setAssetId(editData.assetId || '');
         setDepartment(editData?.department || '');
         setSection(editData?.section ||'');

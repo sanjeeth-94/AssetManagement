@@ -4,6 +4,8 @@ import { Button } from 'reactstrap';
 import { AssetDeleteService, FetchAssetListService,FetchSectionService } from '../../../services/ApiServices';
 import AssetModel from './AssetModel';
 import NotificationBar from '../../../services/NotificationBar';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const AssetList = () => {
     const [open, setOpen] = useState(false);
@@ -18,16 +20,16 @@ const AssetList = () => {
     });
           
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 60 },
-        { field: 'departmentName', headerName: 'Department', width: 110 },
-        { field: 'sectionName', headerName: 'Section', width: 120 },
-        { field: 'assetName', headerName: 'Machine', width: 120 },
+        { field: 'id', headerName: 'Serial No', width: 40 },
+        { field: 'departmentName', headerName: 'Department', width: 100 },
+        { field: 'sectionName', headerName: 'Section', width: 100 },
+        { field: 'assetName', headerName: 'Machine', width: 100 },
         { field: 'assetTypeName', headerName: 'Asset Type', width: 120 },
         { field: 'manufacturer', headerName: 'Manufacturer', width: 120 },
         { field: 'assetModel', headerName: 'Asset Model', width: 120 },
         { field: 'warrantyStartDate', headerName: 'Warranty Start Date', width: 120 },
         { field: 'warrantyEndDate', headerName: 'Warranty End Date', width: 120 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        {field: 'action', headerName: 'Action', width: 200, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -59,7 +61,7 @@ const AssetList = () => {
     
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <EditIcon          
             className='prbuton'
             variant="contained"
             color='primary'
@@ -67,23 +69,21 @@ const AssetList = () => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}>
-                Edit
-            </Button>
+            }}/>
+        
         )
     }
 
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <DeleteIcon
             variant="contained"
             color='primary'
             onClick={() => {
                 deletAsset(selectedRow.id)
                 }
-                }>
-              Delete
-            </Button>
+                }/>
+         
         )
     }
     const deletAsset = (id) => {

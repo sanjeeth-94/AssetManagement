@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DataGrid } from '@mui/x-data-grid';
+
 import TextField from '@mui/material/TextField';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -14,7 +14,8 @@ import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Grid } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
-import { FetchMaintenancePendingShowDataService } from '../../services/ApiServices';
+
+import MaintenanceDataTable from './MaintenanceDataTable';
 
 const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [rows, setRows] = useState([]);
@@ -26,19 +27,16 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
     const [bpImages2,setBpImages2]=useState('');
     const [bpImages3,setBpImages3]=useState('');
     const [bpImages4,setBpImages4]=useState('');
+    const [approvedData , setApprovedData]= useState('');
+    const [tempData , setTempData]= useState('');
+    const [approvalUnitList, setApprovalUnitList] = useState([]);
+    const [totalAmount, setTotalAmount]=useState(0);
 
-    const columns = [
-        { field: 'maintenanceId', headerName: 'Name	', width: 180 },
-        { field: 'maintenanceType', headerName: 'Part Id', width: 180 },
-        { field: 'assetName', headerName: 'Quantity	', width: 180 },
-        { field: 'severity', headerName: 'UOM', width: 180 },
-        { field: 'problemNote', headerName: 'Unit Price', width: 140 },
-  
-    ]
 
     useEffect(() => {
-     
-        setAffectingMachines(editData.affectedMachine || '');
+        var tenpAffectMachine= editData?.affectedMachine?.replaceAll('\\',' ');
+        
+        setAffectingMachines(tenpAffectMachine|| '');
         setUtilizationPlan(editData.shutdownOrUtilization || '');
         setAffectingManHours(editData.timeFrom ||'' );
         setUtilizationPlan2(editData.offOrUtilization || '');
@@ -46,19 +44,32 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
         setBpImages2(editData.bpImages2 || '');
         setBpImages3(editData.bpImages3 || '');
         setBpImages4(editData.bpImages4 || '');
+        setApprovedData(editData.partsOrConsumable);  
+        var tempDataSet = '';
+        var tempList = [];
+        tempDataSet = editData?.partsOrConsumable?.replaceAll('\\', '');
+        tempList = tempDataSet && JSON.parse(tempDataSet);
+        setApprovalUnitList(tempList || []);
+        setTotalAmount(()=>{
+          var oldData = 0;
+          tempList?.map((tempList, index)=>{ 
+            const unitSum= tempList.quantity * tempList.unitPrice;
+             oldData = unitSum + oldData;
+          })
+          return oldData
+        })
         
       }, [editData]);
 
-    
-    
       const handleClose = () => {
-        setOpen(false);
-      
+         setOpen(false);  
+        
+        
         };
     
         const onSubmit = (e) => {
             e.preventDefault();
-           alert(' succefull')
+           alert('succefull')
           }
 
   return (
@@ -76,12 +87,20 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
           
          <>
          <Grid container style={{marginTop:'20px'}}>
-         <Grid style={{ height: 200, width: '80%', marginLeft:'100px' }}>
-        <DataGrid
-            rows={rows}
-            columns={columns}
-            rowsPerPageOptions={[5]}
-            onRowAdd/>
+         <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ marginLeft:'250px',alignSelf:'center' }}>
+         {
+            approvalUnitList.length > 0
+                ? approvalUnitList?.map((approvalUnitList, index) => (
+                                  
+                <MaintenanceDataTable approvalUnitList={approvalUnitList} index={index}   key={index}    
+                />
+                )) : ''
+        }
+        <div>
+          <label style={{marginTop:'20px', marginRight:'30px'}}><b>Total Estimated Cost:</b></label>
+          <TextField style={{width:'50px'}} value={totalAmount} variant="standard" />
+    
+        </div>
         </Grid>
         <div>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop:'20px', marginLeft:'250px' }}>
@@ -102,7 +121,11 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
            </div>
            <div style={{display:'flex' ,marginTop:'5px'}}>
            <label style={{marginLeft:'50px', marginRight:'100px'}}>Utilization Plan: </label>
-           <TextField style={{marginLeft:'80px', marginRight:'100px'}} value={utilizationPlan} variant="standard" />
+           <TextField 
+              style={{
+                      marginLeft:'80px',
+                      marginRight:'100px'
+                    }} value={utilizationPlan} variant="standard" />
           
            </div>
            <div style={{display:'flex',marginTop:'5px'}}>
@@ -112,7 +135,11 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
            </div>
            <div style={{display:'flex',marginTop:'5px'}}>
            <label style={{marginLeft:'50px', marginRight:'100px'}}>Utilization Plan: </label>
-           <TextField style={{marginLeft:'80px', marginRight:'100px'}} value={utilizationPlan2} variant="standard" />
+           <TextField 
+                style={{
+                        marginLeft:'80px', 
+                        marginRight:'100px'
+                      }} value={utilizationPlan2} variant="standard" />
           
            </div>
            </div>
@@ -128,7 +155,7 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
         fullwith 
           expandIcon={<VisibilityIcon />}
         >
-          <Typography style={{marginLeft:'200px'}}>Impact and Plans</Typography>
+          <Typography style={{marginLeft:'40%'}}>Breakdown Parts Images</Typography>
           <hr/>
         </AccordionSummary>
         <AccordionDetails>     
