@@ -4,6 +4,8 @@ import { Button } from 'reactstrap';
 import { AssetDeleteService, FetchAssetListService,FetchSectionService } from '../../../services/ApiServices';
 import AssetModel from './AssetModel';
 import NotificationBar from '../../../services/NotificationBar';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
 
 const AssetList = () => {
     const [open, setOpen] = useState(false);
@@ -59,7 +61,7 @@ const AssetList = () => {
     
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <Edit style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
             className='prbuton'
             variant="contained"
             color='primary'
@@ -67,23 +69,19 @@ const AssetList = () => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}>
-                Edit
-            </Button>
+            }}/>
         )
     }
 
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <Delete style={{ width: '100px' }}
             variant="contained"
             color='primary'
             onClick={() => {
                 deletAsset(selectedRow.id)
                 }
-                }>
-              Delete
-            </Button>
+                }/>
         )
     }
     const deletAsset = (id) => {
@@ -106,7 +104,7 @@ const AssetList = () => {
             status: true,
             type: 'error',
             message:errorMessage,
-          });
+        });
     }
     
     const handleModalOpen = () => {

@@ -202,9 +202,9 @@ export const  FetchAmcServiceListService = (successCallback, errorCallBack) => _
 
 export const AmcServiceAddService = (data, successCallback, errorCallBack) => _fetchService('amc/add', 'POST', data, successCallback, errorCallBack);
 
-export const AmcServiceUpdateService = (data, successCallback, errorCallBack) => _fetchService(`AmcService/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+export const AmcServiceUpdateService = (data, successCallback, errorCallBack) => _fetchService(`amc/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
-export const AmcServiceDeleteService = (data, successCallback, errorCallBack) => _fetchService(`AmcService/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+export const AmcServiceDeleteService = (data, successCallback, errorCallBack) => _fetchService(`amc/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 export const AssetTypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assettype/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
@@ -213,6 +213,8 @@ export const  AMCServiceDueListService = (data,successCallback, errorCallBack) =
 export const  ViewAmcService = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/showService`, 'GET', {}, successCallback, errorCallBack);
 
 export const  ViewAmcRenewal = (successCallback, errorCallBack) => _fetchService('amc/viewAmcRenewal', 'GET', {}, successCallback, errorCallBack);
+
+export const  ViewAmcServiceService = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
 
 /////........Certificate................./////
 
@@ -228,6 +230,7 @@ export const  ViewInspection = (data,successCallback, errorCallBack) => _fetchSe
 
 export const  ViewCertificateRenewal = (successCallback, errorCallBack) => _fetchService('certificate/viewCertificateRenewal', 'GET', {}, successCallback, errorCallBack);
 
+export const  ViewCertificateService = (data,successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
 
 ////.......Insurance....//////
 
@@ -248,6 +251,8 @@ export const  InsuranceDueListService = (data,successCallback, errorCallBack) =>
 /////........Warrenty.........///////
 
 export const  FetchWarrantyService = (data,successCallback, errorCallBack) => _fetchService('warranty/showData', 'POST', data, successCallback, errorCallBack);
+
+export const  ViewWarranty = (data,successCallback, errorCallBack) => _fetchService(`warranty/${data.id}/viewAsset`, 'GET', {}, successCallback, errorCallBack);
 
 ///.........Maintenance......./////
 export const MaintenanceAddService = (data, successCallback, errorCallBack) => _fetchService('maintenance/add', 'POST', data, successCallback, errorCallBack);

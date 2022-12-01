@@ -126,6 +126,7 @@ const AuditList = () => {
                 <DataGrid
                 rows={rows}
                 columns={columns} />
+                rowsPerPageOptions
             </div>
             <AuditModel
             open={open}

@@ -3,11 +3,18 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import NotificationBar from '../../../services/NotificationBar';
 import CretificateModel from './CretificateModel';
-import { FetchCertificateService } from '../../../services/ApiServices';
+import { CertificateDeleteService, FetchCertificateService} from '../../../services/ApiServices';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
+import Visibility from '@mui/icons-material/Visibility';
+import FileDownload from '@mui/icons-material/FileDownload';
+import CertificateModalView from './CertificateModalView';
 
 const CertificateList = () => {
     const [open, setOpen] = useState(false);
+    const [openView, setOpenView] = useState(false);
     const [isAdd, setIsAdd] = useState(false);
+    const [isView, setIsView] = useState(false);
     const [isService, setIsService] = useState(false);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
@@ -20,26 +27,28 @@ const CertificateList = () => {
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 80 },
         { field: 'vendorName', headerName: 'Vender Name', width: 140 },
-        { field: 'certificateDate', headerName: 'Period From', width: 140 },
-        { field: 'expireDate', headerName: 'Period To', width: 140 },
+        { field: 'certificateDate', headerName: 'Period From', width: 120 },
+        { field: 'expireDate', headerName: 'Period To', width: 120 },
         { field: 'inspectionPattern', headerName: 'Inspection Pattern', width: 140 },
         { field: 'department', headerName: 'Department', width: 140 },
-        { field: 'section', headerName: 'Section', width: 140 },
-        { field: 'assetType', headerName: 'Asset Type', width: 140 },
-        { field: 'assetName', headerName: 'Asset Name', width: 140 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        { field: 'section', headerName: 'Section', width: 120 },
+        { field: 'assetType', headerName: 'Asset Type', width: 120 },
+        { field: 'assetName', headerName: 'Asset Name', width: 120 },
+        {field: 'action', headerName: 'Action', width: 150, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
             <EditData selectedRow={params.row} />,
             <DeleteData selectedRow={params.row} />,
+            <VisibilityData selectedRow={params.row} />,
+            <FileDownloadData selectedRow={params.row} />,
         ],
         }
     ];
     
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <Edit 
             className='prbuton'
             variant="contained"
             color='primary'
@@ -47,28 +56,45 @@ const CertificateList = () => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}>
-                Edit
-            </Button>
+            }}/>
         )
     }
     
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <Delete  
             variant="contained"
             color='primary'
             onClick={() => {
                 deleteAmc(selectedRow.id)
-                }
-                }>
-                Delete
-            </Button>
+            }}/>
+        )
+    }
+
+    
+    function FileDownloadData({ selectedRow }) {
+        return (
+            <FileDownload />
+        )
+    }
+
+    function VisibilityData({ selectedRow }) {
+        return (
+            <Visibility 
+            onClick={() => {
+                
+                setIsView(true);
+                setEditData(selectedRow);
+                setOpenView(true);
+                
+            }}
+            />
         )
     }
     
+    
     const deleteAmc = (id) => {
-       
+        CertificateDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
 
     const handleDeleteSuccess = (dataObject) =>{
@@ -142,7 +168,20 @@ const CertificateList = () => {
             isAdd={isAdd}
             isService={isService}
             editData={editData}
-            setRefresh={setRefresh}/>
+            setRefresh={setRefresh}
+            isView={isView}/>
+
+                <CertificateModalView
+                open={openView}
+                setOpen={setOpenView}
+                isAdd={isAdd}
+                isService={isService}
+                editData={editData}
+                setRefresh={setRefresh}
+                isView={isView}
+
+            />
+
             <NotificationBar
             handleClose={handleClose}
             notificationContent={openNotification.message}

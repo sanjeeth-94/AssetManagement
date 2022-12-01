@@ -2,13 +2,21 @@ import React, { useState , useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
+import Visibility from '@mui/icons-material/Visibility';
+import FileDownload from '@mui/icons-material/FileDownload';
 import { FetchWarrantyService } from '../../services/ApiServices';
+import WarrantyView from './WarrantyView';
 
 const WarrantyList = () => {
   const [rows, setRows] = useState([]);
+  const [isAdd, setIsAdd] = useState(false);
+  
   const [warrantyStartDate, setwarrantyStartDate] = useState('');
   const [warrantyEndDate, setwarrantyEndDate] = useState('');
-  const [refresh , setRefresh]=useState(false)
+  const [refresh , setRefresh]=useState(false);
+  const [isView, setIsView] = useState(false);
+  const [editData, setEditData] = useState('');
+  const [openView, setOpenView] = useState(false);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -46,8 +54,36 @@ const WarrantyList = () => {
     { field: 'assetName', headerName: 'Machine', width: 200 },
     { field: 'warrantyStartDate', headerName: '	Warranty start date	', width: 300 },
     {field: 'warrantyEndDate', headerName: 'Warranty end date	', width: 300 },
-    {field: 'action', headerName: '	Action', width: 300 },
-  ];
+    {field: 'action', headerName: 'Action', width: 180, sortable: false,
+        cellClassname: 'actions',
+        type: 'actions',
+        getActions: (params) => [
+            <VisibilityData selectedRow={params.row} />,
+            <FileDownloadData selectedRow={params.row} />,
+        ],
+        }
+    ];
+
+    function VisibilityData({ selectedRow }) {
+      return (
+          <Visibility 
+          onClick={() => {
+              
+             
+              setEditData(selectedRow);
+              setOpenView(true);
+              
+          }}
+          />
+      )
+  }
+
+  function FileDownloadData({ selectedRow }) {
+    return (
+        <FileDownload />
+    )
+}
+
   
   return (
     <div>
@@ -82,6 +118,17 @@ const WarrantyList = () => {
         columns={columns} />
       </div>
     </div>
+    <WarrantyView
+                open={openView}
+                setOpen={setOpenView}
+              
+                editData={editData}
+                setRefresh={setRefresh}
+                
+
+            />
+
+
     </div>     
   )
 }
