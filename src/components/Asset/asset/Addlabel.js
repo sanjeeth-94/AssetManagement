@@ -10,7 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
-import { FetchAssetTypeService, FetchDepaertmentService, FetchSectionService, UserAddService, UserUpdateService } from '../../../services/ApiServices';
+import { FetchAssetNameService, FetchAssetTypeService, FetchDepaertmentService, FetchSectionService, UserAddService, UserUpdateService } from '../../../services/ApiServices';
 
 export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh }) {
     const [departmentList, setDepartmentList] = useState([]);
@@ -21,6 +21,9 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
     const [ assetType,  setAssetType] = useState('');
     const [ assetId,  setAssetId] = useState('');
     const [redio, setRedio] = useState("asset");
+    const [assetNameList , setAssetNameList]=useState([]);
+    const [assetName , setAssetName]=useState('');
+    const [barCode , setBarCode]=useState('')
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -76,8 +79,14 @@ const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
 
 const onAssetTypeChange = (e) => {
     setAssetType(e.target.value);
+    FetchAssetNameService({id:e.target.value},handleAssetNameService, handleAssetNameServiceException)
 }
-  
+  const handleAssetNameService=(dataObject)=>{
+    setAssetNameList(dataObject.data);
+  }
+  const  handleAssetNameServiceException=(erroeStatus , errorMessage)=>{
+    console.log(errorMessage);
+  }
   const handleClose = () => {
     setOpen(false);
    
@@ -129,14 +138,18 @@ const onAssetTypeChange = (e) => {
     });
   };
 
-    const [age, setAge] = React.useState('');
+    
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setAssetName(event.target.value);
     };
   
   
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } 
     };
+
+    const onBarCodeChange=(e)=>{
+        setBarCode(e.target.value);
+    }
 
     return (
         <div >
@@ -247,13 +260,19 @@ const onAssetTypeChange = (e) => {
                                     <label  style={{marginLeft:'15px'}}>Select Asset : </label>
                                     <Box sx={{ minWidth: 120 }}>
                                         <FormControl  style={{width:'250px' ,marginLeft:'50px'}}>
-                                            <InputLabel id="demo-simple-select-label">Select Asset Type First</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
                                             <Select 
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={age}
-                                            label="Age"
-                                            onChange={handleChange}>
+                                            label="Asset Name"
+                                            value={assetName}
+                                            onChange={(e) => handleChange(e)}>
+                                            {
+                                                assetNameList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                                                )
+                                            })}   
                                             </Select>
                                         </FormControl>
                                     </Box>
@@ -261,15 +280,17 @@ const onAssetTypeChange = (e) => {
                                 }
                                 {
                                     redio=== "assetId" &&
-                                    <div>
-                                    <label>Asset ID</label>
-                                    <TextField
+
+                                    <div style={{ display:'flex',marginTop:'5px'}}>
+                                          <label  style={{marginLeft:'15px',marginRight:'80px'}}>Asset ID : </label>
+                                       
+                                        <TextField
+        
+                                            id="Vendor-Address"
+                                            variant="outlined"
+                                            onChange={(e) => { setAssetId(e.target.value) }}
                                         
-                                        id="Vendor-Address"
-                                        variant="outlined"
-                                        onChange={(e) => { setAssetId(e.target.value) }}
-                                    
-                                    />
+                                        />
                                     </div>
                                 }
                                
@@ -277,8 +298,10 @@ const onAssetTypeChange = (e) => {
                                     <FormControl>
                                     <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
                                     <RadioGroup
-                                    row aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="row-radio-buttons-group">
+                                    row 
+                                    onChange={onBarCodeChange}
+                                    value={barCode}
+                                    >
                                         <FormControlLabel style={{marginLeft:'5px'}} value="BARCODE" control={<Radio />} label="BARCODE" />
                                         <FormControlLabel style={{marginLeft:'50px'}} value="QRCODE" control={<Radio />} label="QRCODE" />
                                     </RadioGroup>

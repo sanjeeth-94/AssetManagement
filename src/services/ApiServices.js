@@ -107,6 +107,8 @@ export const UserUpdateService = (data, successCallback, errorCallBack) => _fetc
 
 export const UserDeleteService = (data, successCallback, errorCallBack) => _fetchService(`user/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
+export const FetchUserIdService = (successCallback, errorCallBack) => _fetchService('user/empId', 'GET', {}, successCallback, errorCallBack);
+
 // //...........vender...........////
 export const FetchVendorService = (successCallback, errorCallBack) => _fetchService('vendor/showData', 'GET', {}, successCallback, errorCallBack);
 
@@ -148,6 +150,10 @@ export const  AssetDeleteService = (data, successCallback, errorCallBack) => _fe
 
 export const  FetchAssetLableService = (successCallback, errorCallBack) => _fetchService('label/showData', 'GET', {}, successCallback, errorCallBack);
 
+export const  FetchSelectAssetIdService = (successCallback, errorCallBack) => _fetchService('tagAsset/selectAssetId', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchIdAssetIdService = (data,successCallback, errorCallBack) => _fetchService(`tagAsset/${data.id}/getAssetId`, 'GET', data, successCallback, errorCallBack);
+
 ////....Department..../////
 
 export const  FetchDepartmentListService = (successCallback, errorCallBack) => _fetchService('department/showData', 'GET', {}, successCallback, errorCallBack);
@@ -188,6 +194,10 @@ export const TagAssetAddService = (data, successCallback, errorCallBack) => _fet
 export const TagAssetUpdateService = (data, successCallback, errorCallBack) => _fetchService(`tagasset/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 export const TagAssetDeleteService = (data, successCallback, errorCallBack) => _fetchService(`tagasset/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const  FetchTagAssetRfIdService = (successCallback, errorCallBack) => _fetchService('tagAsset/rfid', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchTagAssetIdService = (data,successCallback, errorCallBack) => _fetchService('tagAsset/add', 'POST', data, successCallback, errorCallBack);
 
 ////..........Audit........////
 export const  FetchAuditListService = (successCallback, errorCallBack) => _fetchService('audit/showData', 'GET', {}, successCallback, errorCallBack);
@@ -296,4 +306,12 @@ export const AlloctionExportService = (data, successCallback, errorCallBack) => 
 export const UntagAssetService = (data, successCallback, errorCallBack) => _fetchService(`untagAsset/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 export const UntagAssetViewService = (data, successCallback, errorCallBack) => _fetchService('untagAsset/showData', 'POST', data, successCallback, errorCallBack);
+
+////.........Scrap............////
+
+export const ScrapAssetAddService = (data, successCallback, errorCallBack) => _fetchService('scrapAsset/add', 'POST', data, successCallback, errorCallBack);
+
+export const  FetchScrapAssetShowDataService = (successCallback, errorCallBack) => _fetchService('scrapAsset/showData', 'GET', {}, successCallback, errorCallBack);
+
+
 

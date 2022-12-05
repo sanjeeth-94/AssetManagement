@@ -4,6 +4,9 @@ import { Button } from 'reactstrap';
 import UserModel from './UserModel';
 import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
+import { Grid } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const UserList = (props) => {
     const [open, setOpen] = useState(false);
@@ -19,14 +22,14 @@ const UserList = (props) => {
 
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 50 },
-        { field: 'employee_id', headerName: 'Employee Id', width: 120 },
-        { field: 'employee_name', headerName: 'Employee Name', width: 120 },
-        { field: 'department', headerName: 'Department', width: 120 },
+        { field: 'employee_id', headerName: 'Employee Id', width: 100 },
+        { field: 'employee_name', headerName: 'Employee Name', width: 100 },
+        { field: 'department', headerName: 'Department', width: 100 },
         { field: 'designation', headerName: 'Designation', width: 120 },
         { field: 'mobile_number', headerName: 'Mobile', width: 120 },
         { field: 'email', headerName: 'Email', width: 120 },
         { field: 'user_name', headerName: 'UserName', width: 120 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        {field: 'action', headerName: 'Action', width: 200, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -60,7 +63,7 @@ const UserList = (props) => {
 
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <EditIcon
             className='prbuton'
             variant="contained"
             color='primary'
@@ -68,23 +71,21 @@ const UserList = (props) => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}>
-                Edit
-            </Button>
+            }}/>
+           
         )
     }
     
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <DeleteIcon
             variant="contained"
             color='primary'
             onClick={() => {
                 deletUser(selectedRow.id)
                 }
-                }>
-                Delete
-            </Button>
+                }/>
+           
         )
     }
     
@@ -119,12 +120,35 @@ const UserList = (props) => {
 
     return (
         <div>
-            <h1 style={{ marginLeft: '50px' }}> Manage user</h1>
-            <hr style={{ bottom: 'solid' }} />
-            <Button style={{marginLeft:'83%',width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
+            <Grid container>
+                <Grid xs={12} sm={6} md={6} lg={6} xl={6}
+                     style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                        marginTop: '20px',
+                      }}
+                >
+                    <h3 > Manage user</h3>
+                </Grid>
+                <Grid xs={12} sm={6} md={6} lg={6} xl={6}
+                    style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                        marginTop: '20px',
+                      }}
+                >
+                <Button 
+                        style={{width:'120px',height:'30px'}} 
+                        variant="outlined" onClick={handleModalOpen}
+                >
                 Add
             </Button>
-            <div style={{ height: '500px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+                </Grid>
+            </Grid>
+           
+            <hr style={{ bottom: 'solid' }} />
+            
+            <div style={{ height: '350px', width: '85%', marginLeft: '5%', marginTop: '20px' }}>
                 <DataGrid
                 rows={rows}
                 columns={columns} />

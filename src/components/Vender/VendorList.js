@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-
 import { FetchVendorService,VendorDeleteService } from '../../services/ApiServices';
 import VendorModel from './VendorModel';
 import NotificationBar from '../../services/NotificationBar';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { Grid } from '@mui/material';
 
 export default function VendorList() {
     const [open, setOpen] = useState(false);
@@ -58,7 +60,7 @@ export default function VendorList() {
 
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <EditIcon
                 className='prbuton'
                 variant="contained"
                 color='primary'
@@ -66,24 +68,22 @@ export default function VendorList() {
                     setIsAdd(false);
                     setEditData(selectedRow);
                     setOpen(true);
-                }}>
-                Edit
-            </Button>
+                }}/>
+          
         )
     }
 
 
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <DeleteIcon
                 variant="contained"
                 color='primary'
                 onClick={() => {
                     deletVender(selectedRow.id)
                 }
-                }>
-                Delete
-            </Button>
+                }/>
+             
         )
     }
 
@@ -120,12 +120,24 @@ export default function VendorList() {
 
     return (
         <div>
-            <h1 style={{ marginLeft: '50px' }}>MANAGE VENDOR</h1>
-            <hr style={{ bottom: 'solid' }} />
-            <Button style={{ marginLeft: '83%', width: '120px', height: '30px' }} variant="outlined" onClick={handleModalOpen}>
+            <Grid container>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                    style={{alignSelf:'center',textAlignLast: 'center',}}
+                >
+                    <h3 >MANAGE VENDOR</h3>
+                </Grid>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                    style={{alignSelf:'center',textAlignLast: 'center',}}
+                >
+                    <Button style={{ width: '120px', height: '30px' }} variant="outlined" onClick={handleModalOpen}>
                 Add
             </Button>
-            <div style={{ height: '500px', width: '95%', marginLeft: '40px', marginTop: '20px' }}>
+                </Grid>
+            </Grid>
+           
+            <hr style={{ bottom: 'solid' }} />
+           
+            <div style={{ height: '350px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
                 <DataGrid
                     rows={rows}
                     columns={columns} />

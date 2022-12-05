@@ -14,6 +14,7 @@ import Select from '@mui/material/Select';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { VendorAddService, VendorUpdateService, FetchVendorTypeService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
+import { Grid } from '@mui/material';
 
 
 const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
@@ -171,162 +172,308 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                <label>Vendor Name :</label>
-                <TextField style={{ marginLeft: '40px', width: '250px' }} id="outlined-basic" label="Vendor Name" variant="outlined"
-                  onChange={(e) => { setvendorName(e.target.value) }}
-                  value={vendorName}
-                />
-                <label style={{ marginLeft: '40px' }}>Vendor Type :</label>
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl style={{ width: '250px', marginLeft: '50px' }}>
-                    <InputLabel id="venderTypelabel">Select Vender Type</InputLabel>
-                    <Select
-                      labelId="venderType"
-                      id="venderType"
-                      label="Vender Type"
-                      onChange={(e) => onVendorTypeChange(e)}>
-                      {vendorTypeList.map((data, index) => {
-                        return (
-                          <MenuItem value={data.id} key={index}>{data.vendorType}</MenuItem>
-                        )
-                      })}
-                    </Select>
-                  </FormControl>
-                </Box>
-              </div>
-              <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                <label style={{ marginRight: '80px' }}>Address :</label>
-                <TextareaAutosize
-                  style={{ width: '250', height: '40px', marginleft: '100px' }}
-                  aria-label="empty textarea"
-                  placeholder="Empty"
-                  onChange={(e) => { setAddress(e.target.value) }}
-                  value={address}
-                />
-                <label style={{ alignitems: 'start', marginLeft: '170px' }}>Email :</label>
-                <TextField style={{ marginLeft: '50px' }} id="Email" label="Email" variant="outlined" sx={{ alignitems: 'end' }}
-                  onChange={(e) => { setEmail(e.target.value) }}
-                  value={email}
-                />
-              </div>
-              <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }}>
-                <label>Alt Email :</label>
-                <TextField style={{ marginLeft: '75px' }}
-                  id="AltEmail "
-                  label="Alt Email "
-                  variant="outlined"
-                  onChange={(e) => { setAltEmail(e.target.value) }}
-                  value={altEmail}
-                />
-                <label style={{ marginLeft: '80px' }}>Contact No :</label>
-                <TextField
-                  style={{ marginLeft: '55px' }}
-                  id="ContactNo "
-                  label="Contact No "
-                  variant="outlined"
-                  onChange={(e) => { setContactNo(e.target.value) }}
-                  value={contactNo}
-                />
-              </div>
-              <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }} >
-                <label>Alt Contact No:</label>
-                <TextField
-                  style={{ marginLeft: '40px' }}
-                  id="AltContactNo"
-                  label="Alt Contact No"
-                  variant="outlined"
-                  onChange={(e) => { setAltContactNo(e.target.value) }}
-                  value={altContactNo}
-                />
-                <label style={{ marginLeft: '60px' }}>Contact Person :</label>
-                <TextField
-                  style={{ marginLeft: '50px' }}
-                  id="ContactPerson"
-                  label="Contact Person"
-                  variant="outlined"
-                  onChange={(e) => { setContactPerson(e.target.value) }}
-                  value={contactPerson}
-                />
-              </div>
-              <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center' }} >
-                <label>Remarks :</label>
-                <TextField
-                  style={{ marginLeft: '75px' }}
-                  id="remark"
-                  label="Remarks"
-                  variant="outlined"
-                  onChange={(e) => { setRemark(e.target.value) }}
-                  value={remark}
-                />
-                <label style={{ marginLeft: '110px' }}>GST No:</label>
-                <TextField
-                  style={{ marginLeft: '55px' }}
-                  id="GSTNo"
-                  label="GST No"
-                  variant="outlined"
-                  onChange={(e) => { setGstNo(e.target.value) }}
-                  value={gstNo}
-                />
-              </div>
+              <div>
+                <Grid container style={{marginTop:'20px'}}>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{
+                      alignSelf: 'center',
+                      textAlignLast: 'center',
+                     
+                    }}
+                  >
+                    <label>Vendor Name :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextField 
+                        fullWidth 
+                        label="Vendor Name" 
+                        variant="outlined"
+                        onChange={(e) => { setvendorName(e.target.value) }}
+                        value={vendorName}
+                  />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                       style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                       
+                      }}
+                  >
+                        <label >Vendor Type :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <FormControl fullWidth>
+                        <InputLabel id="venderTypelabel">Select Vender Type</InputLabel>
+                        <Select
+                          labelId="venderType"
+                          label="Vender Type"
+                          onChange={(e) => onVendorTypeChange(e)}>
+                          {
+                            vendorTypeList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.vendorType}</MenuItem>
+                            )
+                          })}
+                        </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
 
-              <div style={{ marginTop: '20px', marginLeft: '5px', width: '150vh', display: 'flex', alignItems: 'center', marginBottom: '20px' }} >
-                <label>GST Certificate:</label>
-                <TextField
-                  style={{ width: '300px', marginLeft: '20px' }}
-                  label="GST Certificate"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0) {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        if (reader.readyState === 2) {
-                          setGstCertificate(reader.result);
+                <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{
+                      alignSelf: 'center',
+                      textAlignLast: 'center',
+                     
+                    }}
+                  >
+                    <label>Address :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextareaAutosize
+                      style={{ width: '250', height: '40px'}}
+                      aria-label="empty textarea"
+                      placeholder="Empty"
+                      onChange={(e) => { setAddress(e.target.value) }}
+                      value={address}
+                  />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                       style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                       
+                      }}
+                  >
+                    <label >Email :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextField 
+                        fullWidth 
+                        id="Email" 
+                        label="Email" 
+                        variant="outlined" 
+                        onChange={(e) => { setEmail(e.target.value) }}
+                        value={email}
+                  />
+                  </Grid>
+                </Grid>
+
+                <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{
+                      alignSelf: 'center',
+                      textAlignLast: 'center',
+                     
+                    }}
+                  >
+                      <label>Alt Email :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <TextField 
+                          fullWidth
+                          id="AltEmail "
+                          label="Alt Email "
+                          variant="outlined"
+                          onChange={(e) => { setAltEmail(e.target.value) }}
+                          value={altEmail}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                       style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                       
+                      }}
+                  >
+                   <label >Contact No :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <TextField
+                        fullWidth
+                        id="ContactNo "
+                        label="Contact No "
+                        variant="outlined"
+                        onChange={(e) => { setContactNo(e.target.value) }}
+                        value={contactNo}
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{
+                      alignSelf: 'center',
+                      textAlignLast: 'center',
+                     
+                    }}
+                  >
+                      <label>Alt Contact No:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <TextField
+                        fullWidth
+                        id="AltContactNo"
+                        label="Alt Contact No"
+                        variant="outlined"
+                        onChange={(e) => { setAltContactNo(e.target.value) }}
+                        value={altContactNo}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                       style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                       
+                      }}
+                  >
+                    <label >Contact Person :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextField
+                      fullWidth
+                      id="ContactPerson"
+                      label="Contact Person"
+                      variant="outlined"
+                      onChange={(e) => { setContactPerson(e.target.value) }}
+                      value={contactPerson}
+                  />
+                  </Grid>
+                </Grid>
+
+                <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{
+                      alignSelf: 'center',
+                      textAlignLast: 'center',
+                     
+                    }}
+                  >
+                       <label>Remarks :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextField
+                      fullWidth
+                      id="remark"
+                      label="Remarks"
+                      variant="outlined"
+                      onChange={(e) => { setRemark(e.target.value) }}
+                      value={remark}
+                  />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                       style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                       
+                      }}
+                  >
+                    <label >GST No:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextField
+                      fullWidth
+                      id="GSTNo"
+                      label="GST No"
+                      variant="outlined"
+                      onChange={(e) => { setGstNo(e.target.value) }}
+                      value={gstNo}
+                  />
+                  </Grid>
+                </Grid>
+
+                <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{
+                      alignSelf: 'center',
+                      textAlignLast: 'center',
+                     
+                    }}
+                  >
+                         <label>GST Certificate:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextField
+                      fullWidth
+                      label="GST Certificate"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          const reader = new FileReader();
+                          reader.onload = () => {
+                            if (reader.readyState === 2) {
+                              setGstCertificate(reader.result);
+                            }
+                          };
+                          reader.readAsDataURL(e.target.files[0]);
                         }
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                  type="file"
-                />
-                <label style={{ marginLeft: '20px' }}>MSME Certificate:</label>
-                <TextField
-                  style={{ width: '300px', marginLeft: '10px' }}
-                  label="MSME Certificate<"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0) {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        if (reader.readyState === 2) {
-                          setMsmeCertificate(reader.result);
+                      }}
+                      InputLabelProps={{ shrink: true }}
+                      type="file"
+                  />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                       style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center',
+                       
+                      }}
+                  >
+                   <label >MSME Certificate:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                  <TextField
+                      fullWidth
+                      label="MSME Certificate<"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          const reader = new FileReader();
+                          reader.onload = () => {
+                            if (reader.readyState === 2) {
+                              setMsmeCertificate(reader.result);
+                            }
+                          };
+                          reader.readAsDataURL(e.target.files[0]);
                         }
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                  type="file"
-                />
-              </div>
-              <div style={{ marginLeft: '5px', display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                <label>Canceled Cheque:</label>
-                <TextField
-                  style={{ width: '750px', marginLeft: '10px' }}
-                  label="Canceled Cheque"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files.length > 0) {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        if (reader.readyState === 2) {
-                          setcanceledCheque(reader.result);
-                        }
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }
-                  }}
-                  InputLabelProps={{ shrink: true }}
-                  type="file"
-                />
+                      }}
+                      InputLabelProps={{ shrink: true }}
+                      type="file"
+                  />
+                  </Grid>
+                </Grid>
+
+                <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{
+                      alignSelf: 'center',
+                      textAlignLast: 'center',
+                     
+                    }}
+                  >
+                       <label>Canceled Cheque:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <TextField
+                        fullWidth
+                        label="Canceled Cheque"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files.length > 0) {
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                              if (reader.readyState === 2) {
+                                setcanceledCheque(reader.result);
+                              }
+                            };
+                            reader.readAsDataURL(e.target.files[0]);
+                          }
+                        }}
+                        InputLabelProps={{ shrink: true }}
+                        type="file"
+                     />
+                  </Grid>
+                 
+                 
+                </Grid>
+              
               </div>
             </DialogContentText>
           </DialogContent>

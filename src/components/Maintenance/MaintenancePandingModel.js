@@ -34,8 +34,8 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
 
 
     useEffect(() => {
-        var tenpAffectMachine= editData?.affectedMachine?.replaceAll('\\',' ');
-        
+      
+        var tenpAffectMachine= editData?.affectedMachine?.replaceAll('\\',' ');       
         setAffectingMachines(tenpAffectMachine|| '');
         setUtilizationPlan(editData.shutdownOrUtilization || '');
         setAffectingManHours(editData.timeFrom ||'' );

@@ -11,7 +11,6 @@ import AllocationTab from './components/Allocation/AllocationTab';
 import VenderAdd from './components/Vender/VenderAdd';
 import UserList from './components/User/UserList';
 import Servicedue from './components/DashboardItems/Servicedue';
-
 import Tagassettable from './components/Asset/Tagassettable';
 import Untagassettable from './components/Allocation/Untagassettable';
 import MaintenanceSchedule from './components/MaintenanceSchedule/MaintenanceSchedule';
@@ -46,7 +45,7 @@ function App() {
       <Route element={<ProtectedRoutes/>}>
         <Route path="/" element={<DashBoard/>}>
           <Route path="/main" element={<Main/>}/>
-          <Route path="/asset" element={<AssetTab/>}/>
+          <Route path="/asset" element={<AssetTab />}/>
           <Route path='/audit' element={<AuditTab/>}/>
           <Route path='/amc' element={<AmcTab/>}/>
           <Route path='/maintenanceschedule' element={<MaintenanceSchedule/>}/>
