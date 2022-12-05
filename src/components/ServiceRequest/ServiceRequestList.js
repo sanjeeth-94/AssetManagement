@@ -3,26 +3,25 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ServiceRequestView from './ServiceRequestView';
+import { FetchServiceRequestService } from '../../services/ApiServices';
 
 const ServiceRequestList = () => {
   const [open, setOpen] = useState(false);
   const [isAdd, setIsAdd] = useState(true);
   const [editData, setEditData] = useState(''); 
   const [refresh , setRefresh]=useState(false)
-  const [rows , setRows]= useState([
-    { id: 1, Department: 'Snow',Section: 'Jon', AssetName: 'Snow',AMCStatus: 'Jon',WarrantyStatus: 'Snow',
-    section: 'Jon', },
-  ])
+  const [rows , setRows]= useState("");
+    
   
   const columns = [
-    { field: 'Department', headerName: 'Department', width: 140 },
-    { field: 'Section', headerName: 'Section', width: 120 },
-    { field: 'AssetName', headerName: 'AssetName', width: 120 },
-    { field: 'AMC Status', headerName: 'AMC Status', width: 120 },
-    { field: 'Warranty Status', headerName: 'Warranty Status', width: 140 },
-    { field: 'Insurance Status', headerName: 'Insurance Status', width: 140 },
-    { field: 'Problem Note', headerName: 'Problem Note', width: 140 },
-    { field: 'UserName', headerName: 'UserName', width: 120 },
+    { field: 'department', headerName: 'Department', width: 140 },
+    { field: 'section', headerName: 'Section', width: 120 },
+    { field: 'assetName', headerName: 'AssetName', width: 120 },
+    { field: 'amcStatus', headerName: 'AMC Status', width: 120 },
+    { field: 'warrantyStatus', headerName: 'Warranty Status', width: 140 },
+    { field: 'insuranceStatus', headerName: 'Insurance Status', width: 140 },
+    { field: 'problemNote', headerName: 'Problem Note', width: 140 },
+    { field: 'userName', headerName: 'UserName', width: 120 },
     {field: 'action', headerName: 'Action', width: 250, sortable: false,
     cellClassname: 'actions',
     type: 'actions',
@@ -44,8 +43,18 @@ const ServiceRequestList = () => {
   }
   
   useEffect(() => {
-    
-  }, [refresh]);
+    FetchServiceRequestService(handleServiceRequestResult,handleServiceRequestError)
+
+  },[]);
+
+  const handleServiceRequestResult=(dataObject)=>{
+    setRows(dataObject.data);
+    console.log("data"+dataObject.data);
+  }
+
+  const handleServiceRequestError=(errorStaus, errorMessage)=>{
+    console.log("error"+errorMessage)
+  }
   
   function DeleteData({ selectedRow }) {
     return (
@@ -67,6 +76,8 @@ const ServiceRequestList = () => {
       </Button>
     )
   }
+
+
 
   return (
     <div >

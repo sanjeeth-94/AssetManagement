@@ -10,7 +10,6 @@ import WarrantyView from './WarrantyView';
 const WarrantyList = () => {
   const [rows, setRows] = useState([]);
   const [isAdd, setIsAdd] = useState(false);
-  
   const [warrantyStartDate, setwarrantyStartDate] = useState('');
   const [warrantyEndDate, setwarrantyEndDate] = useState('');
   const [refresh , setRefresh]=useState(false);
@@ -53,37 +52,32 @@ const WarrantyList = () => {
     { field: 'department', headerName: 'Department	', width: 200 },
     { field: 'assetName', headerName: 'Machine', width: 200 },
     { field: 'warrantyStartDate', headerName: '	Warranty start date	', width: 300 },
-    {field: 'warrantyEndDate', headerName: 'Warranty end date	', width: 300 },
+    {field: 'warrantyEndDate', headerName: 'Warranty end date	', width: 280 },
     {field: 'action', headerName: 'Action', width: 180, sortable: false,
-        cellClassname: 'actions',
-        type: 'actions',
-        getActions: (params) => [
-            <VisibilityData selectedRow={params.row} />,
-            <FileDownloadData selectedRow={params.row} />,
-        ],
-        }
-    ];
-
-    function VisibilityData({ selectedRow }) {
-      return (
-          <Visibility 
-          onClick={() => {
-              
-             
-              setEditData(selectedRow);
-              setOpenView(true);
-              
-          }}
-          />
-      )
+    cellClassname: 'actions',
+    type: 'actions',
+    getActions: (params) => [
+      <VisibilityData selectedRow={params.row} />,
+      <FileDownloadData selectedRow={params.row} />,
+    ],
+    }
+  ];
+  
+  function VisibilityData({ selectedRow }) {
+    return (
+      <Visibility 
+      onClick={() => {
+        setEditData(selectedRow);
+        setOpenView(true);
+      }}/>
+    )
   }
-
+  
   function FileDownloadData({ selectedRow }) {
     return (
-        <FileDownload />
+      <FileDownload />
     )
-}
-
+  }
   
   return (
     <div>
@@ -111,24 +105,18 @@ const WarrantyList = () => {
       </form>
       <div style={{border:'solid',marginTop:'30px',borderColor:'whitesmoke'}}>
         <h3 style={{marginLeft:'30px'}}>View Warranty</h3>
-      <hr/>
-      <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-        <DataGrid
-        rows={rows}
-        columns={columns} />
+        <hr/>
+        <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+          <DataGrid
+          rows={rows}
+          columns={columns} />
+        </div>
       </div>
-    </div>
-    <WarrantyView
-                open={openView}
-                setOpen={setOpenView}
-              
-                editData={editData}
-                setRefresh={setRefresh}
-                
-
-            />
-
-
+      <WarrantyView
+      open={openView}
+      setOpen={setOpenView}
+      editData={editData}
+      setRefresh={setRefresh}/>
     </div>     
   )
 }

@@ -4,6 +4,8 @@ import { Button } from 'reactstrap';
 import { FetchAuditListService, AuditDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AuditModel from './AuditModel';
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
 
 const AuditList = () => {
     const [open, setOpen] = useState(false);
@@ -28,11 +30,37 @@ const AuditList = () => {
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
-            <EditData selectedRow={params.row} />,
+            <EditData selectedRow={params.row}  />,
             <DeleteData selectedRow={params.row} />,
         ],
         }
     ];
+
+    function EditData({ selectedRow }) {
+        return (
+            <Edit 
+            className='prbuton'
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                setIsAdd(false);
+                setEditData(selectedRow);
+                setOpen(true);
+                
+            }}/>
+        )
+    }
+    
+    function DeleteData({ selectedRow }) {
+        return (
+            <Delete  
+            variant="contained"
+            color='primary'
+            onClick={() => {
+                deleteAudit(selectedRow.id)
+            }}/>
+        )
+    }
 
     useEffect(() => {
         FetchAuditListService(handleFetchSuccess, handleFetchException);
@@ -54,36 +82,6 @@ const AuditList = () => {
           message: '',
         });
     };
-
-    function EditData({ selectedRow }) {
-        return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
-            className='prbuton'
-            variant="contained"
-            color='primary'
-            onClick={() => {
-                setIsAdd(false);
-                setEditData(selectedRow);
-                setOpen(true);
-            }}>
-                Edit
-            </Button>
-        )
-    }
-    
-    function DeleteData({ selectedRow }) {
-        return (
-            <Button style={{ width: '100px' }}
-            variant="contained"
-            color='primary'
-            onClick={() => {
-                deleteAudit(selectedRow.id)
-                }
-                }>
-                Delete
-            </Button>
-        )
-    }
     
     const deleteAudit = (id) => {
         AuditDeleteService({id}, handleDeleteSuccess, handleDeleteException);

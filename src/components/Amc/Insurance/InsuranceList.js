@@ -22,12 +22,12 @@ const InsuranceList = () => {
     const columns = [
         
         { field: 'vendorName', headerName: 'Vender Name	', width: 150 },
-        { field: 'periodFrom', headerName: 'Period From', width: 150 },
-        { field: 'periodTo', headerName: 'Period To', width: 150 },
-        { field: 'department', headerName: 'Department', width: 150 },
-        { field: 'section', headerName: 'Section', width: 150 },
-        { field: 'assetType', headerName: 'Asset Type', width: 150 },
-        { field: 'assetName', headerName: 'Asset Name	', width: 150 },
+        { field: 'periodFrom', headerName: 'Period From', width: 130 },
+        { field: 'periodTo', headerName: 'Period To', width: 130 },
+        { field: 'department', headerName: 'Department', width: 130 },
+        { field: 'section', headerName: 'Section', width: 120 },
+        { field: 'assetType', headerName: 'Asset Type', width: 130 },
+        { field: 'assetName', headerName: 'Asset Name	', width: 130 },
         {field: 'action', headerName: 'Action', width: 200, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -125,7 +125,7 @@ const InsuranceList = () => {
     <div>
     <div style={{border:'solid',borderColor:'whitesmoke'}}>
         <div style={{display:'flex',}}>
-          <h3 style={{ marginLeft: '80px',marginBottom:'0px' }}>VENDER DETAILS</h3>
+          <h3 style={{ marginLeft: '60px',marginBottom:'0px' }}>VENDER DETAILS</h3>
           
           <Button style={{marginLeft:'70%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
               Add

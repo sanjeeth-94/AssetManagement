@@ -12,9 +12,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Grid } from '@mui/material';
-import Edit from '@mui/icons-material/Edit';
-import Delete from '@mui/icons-material/Delete';
-import { DataGrid } from '@mui/x-data-grid';
 import { CertificateAddService,
   CertificateUpdateService ,
   FetchDepaertmentService, 
@@ -711,15 +708,18 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+           
             <div className='addbutton'>
-           <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>
+              <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>
                 {
                   isAdd !== true  ? 'Update' : ' Apply'
                 }
                
                 
               </Button>
+              <Button type='reset' onClick={handleClose}>Cancel</Button>
             </div>
+      
           </DialogActions>
         </form>
       </Dialog>

@@ -435,15 +435,19 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <div >
-              <Button type="submit" style={{ border: 'solid', width: '150px', marginTop:'10px' }}  autoFocus>Apply</Button>
-            </div>
-            <NotificationBar
-            handleClose={handleCloseNotify}
-            notificationContent={openNotification.message}
-            openNotification={openNotification.status}
-            type={openNotification.type}/>
-          </DialogActions>
+           
+           <div className='addbutton'>
+             <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>
+               {
+                 isAdd !== true  ? 'Update' : ' Apply'
+               }
+              
+               
+             </Button>
+             <Button type='reset' onClick={handleClose}>Cancel</Button>
+           </div>
+     
+         </DialogActions>
         </form>
       </Dialog>
     </div>

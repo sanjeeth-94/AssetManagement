@@ -10,12 +10,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
-import Stack from '@mui/material/Stack';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import DialogActions from '@mui/material/DialogActions';
+import { Grid } from '@mui/material';
 import NotificationBar from '../../services/NotificationBar';
 import {
   FetchDepaertmentService,
@@ -157,10 +153,13 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             {"AUDIT ASSETS"}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText >
-              <div style={{marginLeft:'0px'}}>
-                <div  style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
-                  <label style={{marginLeft:'30px'}}>Audit Date : </label>
+            <DialogContentText id="alert-dialog-description">
+              <form>
+              <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label>Audit Date : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
                   <TextField
                   style={{width:'200px'}}
                   id="Vendor-Address"
@@ -168,9 +167,13 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   type='date'
                   value={auditDate}
                   onChange={(e) => { handleChangeauditDate(e) }}/>
-                  <label style={{marginLeft:'40px', marginRight:'40px'}}>Department : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label>Department : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
                   <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{ width: '300px' }}>
+                    <FormControl style={{width:'200px'}}>
                       <InputLabel id="departmentlabel">Select Department</InputLabel>
                       <Select
                       labelId="departmentlabel"
@@ -185,11 +188,15 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </Select>
                     </FormControl>
                   </Box>
-                </div>
-                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                  <label style={{marginLeft:'30px',marginRight:'60px'}}>Section : </label>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{ width: '300px' }}>
+                  </Grid>
+                  </Grid>
+                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>Section : </label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
+                    <Box sx={{ minWidth: 120 }}>
+                    <FormControl style={{width:'200px'}}>
                       <InputLabel id="sectionList">Select section</InputLabel>
                       <Select
                       labelId="sectionList"
@@ -204,9 +211,13 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </Select>
                     </FormControl>
                   </Box>
-                  <label style={{marginLeft:'50px', marginRight:'35px'}}>Asset Type : </label>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{ width: '300px' }}>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>Asset Type : </label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <Box sx={{ minWidth: 120 }}>
+                    <FormControl style={{width:'200px'}}>
                       <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
                       <Select
                       labelId="assetTypeList"
@@ -221,16 +232,27 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </Select>
                     </FormControl>
                   </Box>
-                </div>
-                <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                  <label style={{marginLeft:'25px'}}>Audit Name:</label>
-                  <TextField 
-                  style={{marginLeft:'40px', width:'300px'}}
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}} >
+                      <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label style={{marginLeft:'25px'}}>Audit Name:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
+                    <TextField 
+                  style={{width:'200px'}}
                   label="Audit Name" 
                   variant="outlined" 
                   onChange={(e)=>{setAuditName(e.target.value) }} />
-                </div>
-                <div style={{marginLeft:'20px' , marginTop:'20px'}}>
+                    </Grid>
+                    </Grid>
+              </form>                     
+              
+                              
+               </DialogContentText>
+               </DialogContent>
+               <DialogActions>
+               <div style={{marginLeft:'20px' , marginTop:'20px'}}>
                   <Button type='reset' onClick={handleClose}>Cancel</Button>
                   <Button type='submit'>
                     {isAdd === true ? 'Add' : 'Update'}
@@ -241,12 +263,16 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 notificationContent={openNotification.message}
                 openNotification={openNotification.status}
                 type={openNotification.type}/>
+              </DialogActions>
+              </form>
+               
+               </Dialog>
+             
               </div>
-            </DialogContentText>
-          </DialogContent>   
-        </form>                         
-      </Dialog>
-    </div>
+
+   
+  
+                              
   )
 }
 

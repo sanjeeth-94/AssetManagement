@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { ViewWarranty } from '../../services/ApiServices';
 
-
 const WarrantyView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
     const [rows, setRows]=useState([]);
     const[description,setDescription]=useState("");
@@ -44,8 +43,7 @@ const WarrantyView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
         <div>
             <Dialog  
             open={open}
-             maxWidth='lg'
-             >
+            maxWidth='lg'>
                 <form>
                 <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                       {"VIEW ASSET DETAILS"}
@@ -57,43 +55,36 @@ const WarrantyView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
                                 <TextField style={{marginLeft:'20px', width:'250px'}}
                                 label=""
                                 variant="outlined"
-                                value={assetId}
-                                />
+                                value={assetId}/>
                             </div>
                              <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Asset Type:</label>
                                 <TextField style={{marginLeft:'20px', width:'250px'}}
                                 label=""
                                 variant="outlined"
-                                value={assetType}
-                                />
+                                value={assetType}/>
                             </div>
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Section:</label>
                                 <TextField style={{marginLeft:'20px', width:'250px'}}
                                 label=""
                                 variant="outlined"
-                                value={section}
-                                />
+                                value={section}/>
                             </div>
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Manufacture:</label>
                                 <TextField style={{marginLeft:'20px', width:'250px'}}
                                 label=""
                                 variant="outlined"
-                                value={manufacturer}
-                                />
+                                value={manufacturer}/>
                             </div>
                             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label style={{marginLeft:'1px'}}>Asset Model:</label>
                                 <TextField style={{marginLeft:'20px', width:'250px'}}
                                 label=""
                                 variant="outlined"
-                                value={assetModel}
-                                />
+                                value={assetModel}/>
                             </div>
-                            
-
                             <div style={{marginTop:'10px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
                                 <label>Description:</label>
                                 <TextareaAutosize
@@ -101,21 +92,16 @@ const WarrantyView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
                                 aria-label="empty textarea"
                                 placeholder="Address"
                                 onChange={((e)=>{setDescription(e.target.value)})}
-                                value={description}
-                                />
+                                value={description}/>
                             </div>
-                            
                             <div>
                                 <Button type='reset' onClick={handleClose}>Cancel</Button>
-                                <Button type='submit'>
-                                    
-                                </Button>
+                                <Button type='submit'></Button>
                             </div>
                         </DialogContentText>
                     </DialogContent>
                 </form>
-            </Dialog>
-            
+            </Dialog>  
         </div>
     )
 }
