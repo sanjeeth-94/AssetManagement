@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { ViewAmcRenewal, AmcServiceDeleteService } from '../../services/ApiServices';
-import Edit from '@mui/icons-material/Edit';
-import Delete from '@mui/icons-material/Delete';
+import RenevalAmc from './RenevalAmc';
 
 const AmcRenewalList = () => {
   const [open, setOpen] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
-  const [rows , setRows]=useState([]);
   const [editData, setEditData] = useState('');
   const [refresh , setRefresh]=useState(false)
+  const [open1, setOpen1] = useState(false);
+  const [isService, setIsService] = useState(false);
+  const [rows, setRows] = useState([]);
+  const [editData2, setEditData2] = useState('');
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -18,54 +20,39 @@ const AmcRenewalList = () => {
   });
 
   const columns = [
-    { field: 'department', headerName: 'Department', width: 250 },
-    { field: 'machineName', headerName: 'Machine', width: 250 },
+    { field: 'department', headerName: 'Department', width: 200 },
+    { field: 'machineName', headerName: 'Machine', width: 200 },
     { field: 'amcStartDate', headerName: 'AMC Start Date', width: 250 },
     { field: 'amcEndDate', headerName: 'AMC End Date', width: 250 },
-    {field: 'action', headerName: 'Action', width: 250, sortable: false,
+    {field: 'action', headerName: 'Action', width: 200, sortable: false,
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
+      
+
       <EditData selectedRow={params.row} />,
-      <DeleteData selectedRow={params.row} />,
     ],
     }
   ];
 
   function EditData({ selectedRow }) {
     return (
-      <Edit />
+        <label 
+        className='prbuton'
+        variant="contained"
+        color='primary'
+        onClick={() => {
+        
+            setEditData(selectedRow);
+            setOpen(true);
+
+        }}>
+          Reneval
+        </label >
     )
   }
 
-  function DeleteData({ selectedRow }) {
-    return (
-      <Delete />
-    )
-  }
-
-  const deleteAmc = (id) => {
-    AmcServiceDeleteService ({id}, handleDeleteSuccess, handleDeleteException);
-  }
-
-  const handleDeleteSuccess = (dataObject) =>{
-    console.log(dataObject);
-    setRefresh(oldValue => !oldValue);
-    setNotification({
-      status: true,
-      type: 'success',
-      message: dataObject.message,
-    });
-  }
-
-  const handleDeleteException = (errorObject, errorMessage) =>{
-    console.log(errorMessage);
-    setNotification({
-      status: true,
-      type: 'error',
-      message:errorMessage,
-    });
-  }
+  
  
   useEffect(()=>{
     ViewAmcRenewal(handleViewAmcRenewalResult,handleViewAmcRenewalError)
@@ -93,6 +80,14 @@ const AmcRenewalList = () => {
           rowsPerPageOptions={[5]}/>
         </Box>
       </div>
+      <RenevalAmc
+      open={open}
+      setOpen={setOpen}
+      editData={editData}
+  />
+
+      
+    
     </div>
   )
 }

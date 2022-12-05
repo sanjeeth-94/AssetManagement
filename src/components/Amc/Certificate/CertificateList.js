@@ -25,14 +25,13 @@ const CertificateList = () => {
         message: '',
     });
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 80 },
         { field: 'vendorName', headerName: 'Vender Name', width: 140 },
         { field: 'certificateDate', headerName: 'Period From', width: 120 },
-        { field: 'expireDate', headerName: 'Period To', width: 120 },
+        { field: 'expireDate', headerName: 'Period To', width: 100 },
         { field: 'inspectionPattern', headerName: 'Inspection Pattern', width: 140 },
-        { field: 'department', headerName: 'Department', width: 140 },
+        { field: 'department', headerName: 'Department', width: 120 },
         { field: 'section', headerName: 'Section', width: 120 },
-        { field: 'assetType', headerName: 'Asset Type', width: 120 },
+        { field: 'assetType', headerName: 'Asset Type', width: 110 },
         { field: 'assetName', headerName: 'Asset Name', width: 120 },
         {field: 'action', headerName: 'Action', width: 150, sortable: false,
         cellClassname: 'actions',

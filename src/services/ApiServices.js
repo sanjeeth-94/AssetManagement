@@ -223,27 +223,29 @@ export const  ViewAmcRenewal = (successCallback, errorCallBack) => _fetchService
 
 export const  ViewAmcServiceService = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
 
+export const  AMCrenewalAmc = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/renewalAmc`, 'POST', data, successCallback, errorCallBack);
+
 /////........Certificate................./////
 
 export const CertificateAddService = (data, successCallback, errorCallBack) => _fetchService('certificate/add', 'POST', data, successCallback, errorCallBack);
 
-export const  FetchCertificateService = (successCallback, errorCallBack) => _fetchService('certificate/showData', 'GET', {}, successCallback, errorCallBack);
+export const FetchCertificateService = (successCallback, errorCallBack) => _fetchService('certificate/showData', 'GET', {}, successCallback, errorCallBack);
 
 export const CertificateUpdateService = (data, successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 export const CertificateDeleteService = (data, successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
-export const  ViewInspection = (data,successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/showInspection`, 'GET', {}, successCallback, errorCallBack);
+export const ViewInspection = (data,successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/showInspection`, 'GET', {}, successCallback, errorCallBack);
 
-export const  ViewCertificateRenewal = (successCallback, errorCallBack) => _fetchService('certificate/viewCertificateRenewal', 'GET', {}, successCallback, errorCallBack);
+export const ViewCertificateRenewal = (successCallback, errorCallBack) => _fetchService('certificate/viewCertificateRenewal', 'GET', {}, successCallback, errorCallBack);
 
-export const  ViewCertificateService = (data,successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
+export const ViewCertificateService = (data,successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
 
 ////.......Insurance....//////
 
 export const InsuranceAddService = (data, successCallback, errorCallBack) => _fetchService('insurance/add', 'POST', data, successCallback, errorCallBack);
 
-export const  FetchInsuranceService = (successCallback, errorCallBack) => _fetchService('insurance/showData', 'GET', {}, successCallback, errorCallBack);
+export const FetchInsuranceService = (successCallback, errorCallBack) => _fetchService('insurance/showData', 'GET', {}, successCallback, errorCallBack);
 
 export const InsuranceUpdateService = (data, successCallback, errorCallBack) => _fetchService(`insurance/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
@@ -260,6 +262,7 @@ export const  FetchWarrantyService = (data,successCallback, errorCallBack) => _f
 export const  ViewWarranty = (data,successCallback, errorCallBack) => _fetchService(`warranty/${data.id}/viewAsset`, 'GET', {}, successCallback, errorCallBack);
 
 ///.........Maintenance......./////
+
 export const MaintenanceAddService = (data, successCallback, errorCallBack) => _fetchService('maintenance/add', 'POST', data, successCallback, errorCallBack);
 
 export const  FetchMachineService = (successCallback, errorCallBack) => _fetchService('getMachine', 'GET', {}, successCallback, errorCallBack);
@@ -274,6 +277,7 @@ export const  FetchMaintenanceSchedule = (data,successCallback, errorCallBack) =
 export const  FetchMaintenanceService = (successCallback, errorCallBack) => _fetchService('maintenance/showData', 'GET', {}, successCallback, errorCallBack);
 
 ///..........Maintenance Status.......//////
+
 export const  FetchMaintenanceApprovedService = (successCallback, errorCallBack) => _fetchService('maintenance/aprovedShowData', 'GET', {}, successCallback, errorCallBack);
 
 export const  FetchMaintenanceStatusAprovedService = (successCallback, errorCallBack) => _fetchService('maintenance/aprovedShowData', 'GET', {}, successCallback, errorCallBack);
@@ -297,3 +301,8 @@ export const UntagAssetService = (data, successCallback, errorCallBack) => _fetc
 
 export const UntagAssetViewService = (data, successCallback, errorCallBack) => _fetchService('untagAsset/showData', 'POST', data, successCallback, errorCallBack);
 
+/////.......Request Service......//////
+
+export const  FetchServiceRequestService = (successCallback, errorCallBack) => _fetchService('requestService/showMaintenance', 'GET', {}, successCallback, errorCallBack);
+
+export const  ViewRequestService = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showServiceRequest1`, 'GET', {}, successCallback, errorCallBack);
