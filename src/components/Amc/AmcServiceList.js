@@ -27,10 +27,10 @@ const AmcServiceList = () => {
     
     const columns = [
         { field: 'vendorName', headerName: 'Vender Name', width: 140 },
-        { field: 'periodFrom', headerName: 'Period From', width: 140 },
-        { field: 'periodTo', headerName: 'Period To', width: 140 },
-        { field: 'servicePattern', headerName: 'Service Pattern', width: 140 },
-        { field: 'department', headerName: 'Department', width: 140 },
+        { field: 'periodFrom', headerName: 'Period From', width: 110 },
+        { field: 'periodTo', headerName: 'Period To', width: 100 },
+        { field: 'servicePattern', headerName: 'Service Pattern', width: 110 },
+        { field: 'department', headerName: 'Department', width: 120 },
         { field: 'section', headerName: 'Section', width: 120 },
         { field: 'assetType', headerName: 'Asset Type', width: 120 },
         { field: 'assetName', headerName: 'Asset Name', width: 120 },
@@ -177,7 +177,7 @@ const AmcServiceList = () => {
                 </Button>  
             </div>
             <hr style={{ bottom: 'solid' , borderColor:'whitesmoke'}} />
-            <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+            <div style={{ height: '300px', width: '96%', marginLeft: '10px', marginTop: '20px' }}>
                 <DataGrid
                 rows={rows}
                 columns={columns} />

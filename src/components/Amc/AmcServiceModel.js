@@ -11,10 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import Delete from '@mui/icons-material/Delete';
 import { Grid } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import Edit from '@mui/icons-material/Edit';
 import {
   AmcServiceAddService,
   AmcServiceUpdateService,
@@ -832,6 +829,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                
                 
               </Button>
+              <Button type='reset' onClick={handleClose}>Cancel</Button>
             </div>
       
           </DialogActions>
