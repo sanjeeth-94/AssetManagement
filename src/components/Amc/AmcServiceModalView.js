@@ -106,14 +106,14 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
         if(editData?.id){
             ViewAmcServiceService({id:editData?.id},handleViewAmcService, handleViewAmcServiceException)
         }
-      }, [editData]);
-
-      const handleViewAmcService = (dataObject) => {
+    }, [editData]);
+    
+    const handleViewAmcService = (dataObject) => {
         setRows(dataObject?.data);
         console.log(dataObject?.data);
-      }
+    }
     
-      const handleViewAmcServiceException = (errorStaus, errorMessage) => {
+    const handleViewAmcServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     } 
      

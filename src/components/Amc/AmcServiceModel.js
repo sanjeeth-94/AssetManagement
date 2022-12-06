@@ -24,19 +24,19 @@ import {
 } from '../../services/ApiServices';
 
 const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-  const [vendorName, setVendorName] = useState('');
+  const [vendorName, setVendorName] = useState(editData?.vendorId || '');
   const [vendorNameList, setVendorNameList] = useState([]);
-  const [venderAddress, setVenderAddress] = useState('');
+  const [venderAddress, setVenderAddress] = useState(editData?.venderAddress || '');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailId, setEmailId] = useState('');
-  const [premiumCost, setPremiumCost] = useState('');
+  const [premiumCost, setPremiumCost] = useState( editData?.premiumCost || '');
   const [amcDoc, setamcDoc] = useState('');
-  const [department, setDepartment] = useState('');
+  const [department, setDepartment] = useState(editData?.department|| '');;
   const [section, setSection] = useState('');
   const [sectionList, setSectionList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
   const [assetType, setAssetType] = useState('');
-  const [fromDate, setfromDate] = useState('');
+  const [fromDate, setfromDate] = useState(editData?.periodFrom || '');
   const [toDate, settoDate] = useState('');
   const [assetList, setAssetList] = useState([]);
   const [asset, setAsset] = useState('');
@@ -60,6 +60,18 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [servicePattern, setServicePattern] = useState(0);
 
   const [rows, setRows]=useState([]);
+
+  useEffect(() => {
+    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    FetchVenderService(handleFetchVender, handleFetchVenderException);
+    // setVendorName(editData?.vendorId || '');
+    // setEmailId(editData?.emailId || ' ');
+    // setVenderAddress(editData?.venderAddress || ' ')
+    // setPremiumCost( editData?.premiumCost || '');
+    // setDepartment(editData?.department|| '');
+    // setSection(editData?.section|| '');
+
+  }, [editData]);
 
   const handleClose = () => {
     setOpen(false);
@@ -156,11 +168,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     console.log(e.target.value);
   };
   
-  useEffect(() => {
-    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-    FetchVenderService(handleFetchVender, handleFetchVenderException);
-    setVendorName(editData.vendorName || '');
-  }, [editData]);
+  
 
   const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
@@ -172,6 +180,8 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleFetchVender = (dataObject) => {
     setVendorNameList(dataObject.data);
+    setVendorName(editData?.vendorId || '');
+
   }
 
   const handleFetchVenderException = (errorStaus, errorMessage) => {
@@ -316,6 +326,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleSuccess = (dataObject) => {
     console.log(dataObject);
     setRefresh(oldValue => !oldValue);
+    
     setNotification({
       status: true,
       type: 'success',

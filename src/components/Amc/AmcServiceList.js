@@ -99,7 +99,7 @@ const AmcServiceList = () => {
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleViewDeleteException = (errorObject, errorMessage) =>{
@@ -140,15 +140,13 @@ const AmcServiceList = () => {
         setOpen(true);
     };
 
-    const handleServiceModalOpen = () => {
-       
+    const handleServiceModalOpen = () => {  
         setIsService(true);
         setOpen(true);       
     };
 
     useEffect(() => {
-        FetchAmcServiceListService(handleFetchSuccess, handleFetchException);
-       
+        FetchAmcServiceListService(handleFetchSuccess, handleFetchException);  
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
@@ -199,9 +197,7 @@ const AmcServiceList = () => {
                 isService={isService}
                 editData={editData}
                 setRefresh={setRefresh}
-                isView={isView}
-
-            />
+                isView={isView}/>
            
             <NotificationBar
             handleClose={handleClose}

@@ -24,126 +24,120 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
     const [assetNameList , setAssetNameList]=useState([]);
     const [assetName , setAssetName]=useState('');
     const [barCode , setBarCode]=useState('')
-  const [openNotification, setNotification] = useState({
+    const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
     message: '',
-});
+    });
 
+    useEffect(() => {
+        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+    }, [editData]);
 
-useEffect(() => {
-    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-   
-  }, [editData]);
+    const handleFetchSuccess = (dataObject) =>{
+        setDepartmentList(dataObject.data);
+    }
 
-  const handleFetchSuccess = (dataObject) =>{
-    setDepartmentList(dataObject.data);
-  }
-  const handleFetchException = (errorStaus, errorMessage) =>{
-    console.log(errorMessage);
-  }
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
 
-  const onChangeRedio = (event) => {
-    setRedio(event.target.value);
-};
-
-  const onDepartmentChange = (e) => {
-    setDepartment(e.target.value);
-
-    FetchSectionService({
-        id: e.target.value
-    }, handleFetchSection, handleFetchSectionException)
-
-}
-const handleFetchSection = (dataObject) => {
-    setSectionList(dataObject.data);
-}
-
-const handleFetchSectionException = (errorStaus, errorMessage) => {
-    console.log(errorMessage);
-}
-
-const onSectionChange = (e) => {
-    setSection(e.target.value);
-    FetchAssetTypeService({ id: e.target.value }, handleFetchAssetType, handleFetchAssetTypeException)
-
-}
-const handleFetchAssetType = (dataObject) => {
-    setAssetTypeList(dataObject.data);
-}
-
-const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
-    console.log(errorMessage);
-}
-
-
-const onAssetTypeChange = (e) => {
-    setAssetType(e.target.value);
-    FetchAssetNameService({id:e.target.value},handleAssetNameService, handleAssetNameServiceException)
-}
-  const handleAssetNameService=(dataObject)=>{
-    setAssetNameList(dataObject.data);
-  }
-  const  handleAssetNameServiceException=(erroeStatus , errorMessage)=>{
-    console.log(errorMessage);
-  }
-  const handleClose = () => {
-    setOpen(false);
-   
+    const onChangeRedio = (event) => {
+        setRedio(event.target.value);
     };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-     isAdd === true ?
-      (
-    
-      UserAddService({
-       
-      },handleSuccess, handleException)
-      ) : (
-     
-      UserUpdateService({
-        id: editData.id,
-       
-      }, handleSuccess, handleException)
-      );
-  }
+    const onDepartmentChange = (e) => {
+        setDepartment(e.target.value);
+        FetchSectionService({
+            id: e.target.value
+        }, handleFetchSection, handleFetchSectionException)
+    }
 
-  const handleSuccess = (dataObject) =>{
-    console.log(dataObject);
-    setRefresh(oldValue => !oldValue);
-    setNotification({
-      status: true,
-      type: 'success',
-      message: dataObject.message,
-    });
-   
-  }
+    const handleFetchSection = (dataObject) => {
+        setSectionList(dataObject.data);
+    }
 
-  const handleException = (errorObject, errorMessage) =>{
-    console.log(errorMessage);
-    setNotification({
-      status: true,
-      type: 'error',
-      message:errorMessage,
-    });
-  }
+    const handleFetchSectionException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
 
-  const handleCloseNotify = () => {
-   setOpen(false)
-    setNotification({
-      status: false,
-      type: '',
-      message: '',
-    });
-  };
+    const onSectionChange = (e) => {
+        setSection(e.target.value);
+        FetchAssetTypeService({ id: e.target.value }, handleFetchAssetType, handleFetchAssetTypeException)
+    }
 
+    const handleFetchAssetType = (dataObject) => {
+        setAssetTypeList(dataObject.data);
+    }
+
+    const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+
+    const onAssetTypeChange = (e) => {
+        setAssetType(e.target.value);
+        FetchAssetNameService({id:e.target.value},handleAssetNameService, handleAssetNameServiceException)
+    }
+
+    const handleAssetNameService=(dataObject)=>{
+        setAssetNameList(dataObject.data);
+    }
+
+    const  handleAssetNameServiceException=(erroeStatus , errorMessage)=>{
+        console.log(errorMessage);
+    }
+  
+    const handleClose = () => {
+        setOpen(false); 
+    };
+  
+    const onSubmit = (e) => {
+        e.preventDefault();
+        isAdd === true ?
+        (
+            UserAddService({
+                
+            },handleSuccess, handleException)
+        ) : (
+            
+            UserUpdateService({
+                id: editData.id,
+            }, handleSuccess, handleException)
+        );
+    }
+  
+    const handleSuccess = (dataObject) =>{
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+        });
+    }
+  
+    const handleException = (errorObject, errorMessage) =>{
+        console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message:errorMessage,
+        });
+    }
+ 
+    const handleCloseNotify = () => {
+        setOpen(false)
+        setNotification({
+            status: false,
+            type: '',
+            message: '',
+        });
+    };
     
     const handleChange = (event) => {
         setAssetName(event.target.value);
     };
-  
-  
+    
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } 
     };
 
@@ -229,90 +223,80 @@ const onAssetTypeChange = (e) => {
                                     <FormControl>
                                         <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
                                         <RadioGroup
-                                                row aria-labelledby="demo-row-radio-buttons-group-label"
-                                                name="row-radio-buttons-group"
-                                                value={redio}
-                                                onChange={onChangeRedio}>
-                                            
+                                        row aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"
+                                        value={redio}
+                                        onChange={onChangeRedio}>
                                             <FormControlLabel 
                                                 style={{
-                                                        marginLeft:'5px'
-                                                        }} 
-                                                        value="asset" 
-                                                        control={<Radio />
-                                                        } label="Select Asset"
-                                                     />
-                                            <FormControlLabel 
-                                                style={{
-                                                        marginLeft:'50px'
-                                                        }} 
-                                                        value="assetId"
-                                                        control={<Radio />
-                                                        } label="Select Asset Id" 
+                                                    marginLeft:'5px'
+                                                }} 
+                                                value="asset" 
+                                                control={<Radio />
+                                                } label="Select Asset"
                                             />
+                                            <FormControlLabel 
+                                            style={{
+                                            marginLeft:'50px'
+                                            }} 
+                                            value="assetId"
+                                            control={<Radio />
+                                            } label="Select Asset Id"/>
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
-
                                 {
                                     redio=== "asset" &&
                                     <div style={{marginTop:'20px',marginLeft:'5px',  display:'flex', alignItems:'center'}}>
-                                    <label  style={{marginLeft:'15px'}}>Select Asset : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl  style={{width:'250px' ,marginLeft:'50px'}}>
-                                            <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
-                                            <Select 
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            label="Asset Name"
-                                            value={assetName}
-                                            onChange={(e) => handleChange(e)}>
-                                            {
-                                                assetNameList.map((data, index) => {
-                                                return (
-                                                    <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
-                                                )
-                                            })}   
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
+                                        <label  style={{marginLeft:'15px'}}>Select Asset : </label>
+                                        <Box sx={{ minWidth: 120 }}>
+                                            <FormControl  style={{width:'250px' ,marginLeft:'50px'}}>
+                                                <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
+                                                <Select 
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                label="Asset Name"
+                                                value={assetName}
+                                                onChange={(e) => handleChange(e)}>
+                                                    {
+                                                        assetNameList.map((data, index) => {
+                                                            return (
+                                                                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                                                            )
+                                                        })
+                                                    }   
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+                                    </div>
                                 }
                                 {
                                     redio=== "assetId" &&
-
                                     <div style={{ display:'flex',marginTop:'5px'}}>
-                                          <label  style={{marginLeft:'15px',marginRight:'80px'}}>Asset ID : </label>
-                                       
+                                        <label  style={{marginLeft:'15px',marginRight:'80px'}}>Asset ID : </label>
                                         <TextField
-        
-                                            id="Vendor-Address"
-                                            variant="outlined"
-                                            onChange={(e) => { setAssetId(e.target.value) }}
-                                        
-                                        />
+                                        id="Vendor-Address"
+                                        variant="outlined"
+                                        onChange={(e) => { setAssetId(e.target.value) }}/>
                                     </div>
                                 }
-                               
                                 <div>
                                     <FormControl>
-                                    <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
-                                    <RadioGroup
-                                    row 
-                                    onChange={onBarCodeChange}
-                                    value={barCode}
-                                    >
-                                        <FormControlLabel style={{marginLeft:'5px'}} value="BARCODE" control={<Radio />} label="BARCODE" />
-                                        <FormControlLabel style={{marginLeft:'50px'}} value="QRCODE" control={<Radio />} label="QRCODE" />
-                                    </RadioGroup>
+                                        <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
+                                        <RadioGroup
+                                        row 
+                                        onChange={onBarCodeChange}
+                                        value={barCode}>
+                                            <FormControlLabel style={{marginLeft:'5px'}} value="BARCODE" control={<Radio />} label="BARCODE" />
+                                            <FormControlLabel style={{marginLeft:'50px'}} value="QRCODE" control={<Radio />} label="QRCODE" />
+                                        </RadioGroup>
                                     </FormControl>
                                 </div>
                                 <div>
                                     <Button style={{marginLeft:'150px', marginTop:'20px'}}variant="contained">Submit</Button>
                                 </div>
-                           
-                        </DialogContentText>
-                    </DialogContent>
+                            </DialogContentText>
+                        </DialogContent>
                     </form>
                 </Dialog>
             </div>
