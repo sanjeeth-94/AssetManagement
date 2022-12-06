@@ -156,7 +156,7 @@ const UntageAseetList = () => {
                     textAlignLast: 'center'
                 }}>
 
-                <Button variant="contained" type='submit'>View</Button>
+                <Button variant="contained" style={{height:'40px', width:'100px'}} type='submit'>View</Button>
                 </Grid>
             </Grid>
             <Grid container spacing={2} >
@@ -170,7 +170,11 @@ const UntageAseetList = () => {
                      <Button variant="contained" onClick={{onClickExport}}>Export</Button>
                 </Grid>
             </Grid> 
-
+                <UntageAssetModel
+                    open={open}
+                    setOpen={setOpen}
+                    setIsAdd={setIsAdd}
+                />
                  <NotificationBar
                     handleClose={handleClose}
                     notificationContent={openNotification.message}

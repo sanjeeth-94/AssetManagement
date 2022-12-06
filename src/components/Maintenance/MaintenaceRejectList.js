@@ -16,20 +16,20 @@ const MaintenaceRejectList = () => {
     const columns = [
         { field: 'maintenanceId', headerName: 'Maintenance Id', width: 80 },
         { field: 'maintenanceType', headerName: 'Maintenance Type', width: 100 },
+        { field: 'department', headerName: 'Department', width: 100 },
         { field: 'assetName', headerName: 'Machine', width: 100 },
         { field: 'severity', headerName: 'Severity', width: 100 },
-        { field: 'problemNote', headerName: 'Problem Note', width: 120 },
-        { field: 'dateFrom', headerName: 'Date From', width: 140 },
-        { field: 'dateTo', headerName: 'Date To', width: 140 },
-        { field: 'timeFrom', headerName: 'Time From', width: 140 },
-        { field: 'timeTo', headerName: 'Time To', width: 140 },
-        { field: 'closedMaintenance', headerName: 'closed Time', width: 140 },
-          {field: 'view', headerName: 'View', width: 100, sortable: false,
-          type: 'actions',
-          getActions: (params) => [
-              <ViewData selectedRow={params.row} />  
-          ],
-          },
+        { field: 'problemNote', headerName: 'Problem Note', width: 100 },
+        { field: 'dateFrom', headerName: 'Date From', width: 100 },
+        { field: 'dateTo', headerName: 'Date To', width: 100 },
+        { field: 'timeFrom', headerName: 'Time From', width: 100 },
+        { field: 'timeTo', headerName: 'Time To', width: 100 }, 
+        {field: 'view', headerName: 'View', width: 100, sortable: false,
+        type: 'actions',
+        getActions: (params) => [
+            <ViewData selectedRow={params.row} />  
+        ],
+        },
         
           
       ]
@@ -55,7 +55,7 @@ const MaintenaceRejectList = () => {
                       setOpen(true);
                   }}
              />
-     
+  
           )
       }
   return (

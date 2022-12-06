@@ -6,11 +6,13 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
   const END_POINT = 'http://192.168.1.173:8000/api/';
   const { email } = userDetails;
+  const { id } = userDetails;
 
   const headers = {
     'Content-Type': 'application/json',
     authorization: `Bearer ${access_token}`,
     email: `${email}`,
+    id:`${id}`,
   };
   const body = (serviceMethod === 'GET') || (serviceMethod === 'DELETE') ? {} : { body: JSON.stringify(data) };
 
@@ -153,6 +155,9 @@ export const  FetchAssetLableService = (successCallback, errorCallBack) => _fetc
 export const  FetchSelectAssetIdService = (successCallback, errorCallBack) => _fetchService('tagAsset/selectAssetId', 'GET', {}, successCallback, errorCallBack);
 
 export const  FetchIdAssetIdService = (data,successCallback, errorCallBack) => _fetchService(`tagAsset/${data.id}/getAssetId`, 'GET', data, successCallback, errorCallBack);
+
+export const  FetchAssetMasterService = (data,successCallback, errorCallBack) => _fetchService(`assetMaster/${data.id}/showData`, 'GET', {}, successCallback, errorCallBack);
+
 
 ////....Department..../////
 

@@ -27,6 +27,7 @@ import {
 import Maintenance from './MaintenanceTable';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
+import NotificationBar from '../../services/NotificationBar';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -89,6 +90,13 @@ export default function HorizontalLinearStepper() {
     const [amcStatus,setAmcStatus]=useState('');
     const [warrantyStatus,setWarrantyStatus]=useState('');
     const [warrantyType,setWarrantyType]=useState('');
+    const [refresh , setRefresh]=useState(false);
+
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+      });
 
     const columns = [
         { field: 'amc', headerName: 'AMC Status', width: 320 },
@@ -111,7 +119,7 @@ export default function HorizontalLinearStepper() {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchMachineService(handleFetchMachineSuccess, handleFetchMachineException);
         FetchGetMaintenanceId(handleGetMaintenanceId,handleGetMaintenanceIdException);
-    }, []);
+    }, [refresh]);
     
     const handleFetchSuccess = (dataObject) => {
         setDepartmentList(dataObject.data);
@@ -184,7 +192,9 @@ export default function HorizontalLinearStepper() {
     }
     const handleFetchMaintenanceSchedule=(dataObject)=>{
         setRows(dataObject.data);
-        setAmcStatus(dataObject?.data?.amc);
+        setAmcStatus(dataObject?.data[0]?.amc);
+        setWarrantyStatus(dataObject?.data[0]?.warranty);
+        setWarrantyType(dataObject?.data[0]?.warrantyType);
         console.log("dadta"+amcStatus);
     }
     const handleFetchMaintenanceScheduleExeption=(errorStaus, errorMessage)=>{
@@ -227,8 +237,9 @@ export default function HorizontalLinearStepper() {
         section:section,
         assetType:assetType,
         amcStatus: amcStatus,
-        // warrantyStatus:
-        // warrantyType:
+        warrantyStatus: warrantyStatus,
+        warrantyType: warrantyType,
+       
     }, handleMaintenanceAddService,  handleMaintenanceAddServiceException)
 
     }
@@ -237,6 +248,7 @@ export default function HorizontalLinearStepper() {
     
     const handleMaintenanceAddService= (dataObject) => {
         console.log(dataObject.data);
+        setRefresh(oldValue => !oldValue);
         setDepartment('');
         setSection('');
         setAssetType('');
@@ -264,11 +276,31 @@ export default function HorizontalLinearStepper() {
         setTimeTo('');
         setMachineDetails('');
         setSmanHoursDetails('');
+        
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+          });
     }
 
     const handleMaintenanceAddServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
-    }
+        setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+  }
+
+  const handleCloseNotify = () => {
+    
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
     
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -309,6 +341,12 @@ export default function HorizontalLinearStepper() {
         
         const newMaintenance = [...maintenance, { name, partid,quantity ,UOM,unitPrice,partOption }];
         setMaintenance(newMaintenance);
+        setName('');
+        setPartid('');
+        setQuantity('');
+        setUOM('');
+        setUnitPrice('');
+        setUnitId('');
         
     }
     else {
@@ -571,12 +609,9 @@ const onOptionChange=(e)=>{
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Maintenance Type</InputLabel>
                                             <Select
-                                            labelId="
-                                            Maintenance Type"
-                                            id="
-                                            Maintenance Type"
+                                          
                                             value={maintenanceType}
-                                            label="Age"
+                                            label="Maintenance Type"
                                             onChange={handleMaintenanceTypeChange}
                                             >
                                             <MenuItem value={10}>Major</MenuItem>
@@ -956,19 +991,19 @@ v                                       value={problemNote}
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
                                       
                                     <FormControl sx={{ m: 1, width: 300 }}>
-                                        <InputLabel id="demo-multiple-checkbox-label">Affected MachineList</InputLabel>
+                                        <InputLabel >Affected MachineList</InputLabel>
                                             <Select
-                                            labelId="AffectedMachineList"
-                                            id="demo-multiple-checkbox"
+                                           
                                             multiple
                                             label='Affected MachineList'
                                             value={affectedMachine}
                                             onChange={handleChange}
-                                            input={<OutlinedInput label="Tag" />}
+                                            input={<OutlinedInput label="Affected MachineList" />}
                                             renderValue={(selected) => selected.join(', ')}
                                             MenuProps={MenuProps}
                                             >
-                                            {affectedMachineList.map((data, index) => (
+                                            {
+                                                affectedMachineList.map((data, index) => (
                                                 <MenuItem key={index} value={data.assetName}>
                                                 <Checkbox checked={affectedMachine.indexOf(data.assetName) > -1} />
                                                 <ListItemText primary={data.id+' '+data.assetName} />
@@ -1180,6 +1215,12 @@ v                                       value={problemNote}
                     )}
                 </Box>
             </form>
+            <NotificationBar
+                handleClose={handleCloseNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+            />
         </div>
     );
 

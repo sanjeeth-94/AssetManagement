@@ -18,19 +18,19 @@ const MaintenanceAddList = () => {
         { field: 'maintenanceType', headerName: 'Maintenance Type', width: 100 },
         { field: 'assetName', headerName: 'Machine', width: 100 },
         { field: 'severity', headerName: 'Severity', width: 100 },
-        { field: 'problemNote', headerName: 'Problem Note', width: 120 },
-        { field: 'dateFrom', headerName: 'Date From', width: 120 },
-        { field: 'dateTo', headerName: 'Date To', width: 120 },
-        { field: 'timeFrom', headerName: 'Time From', width: 120 },
-        { field: 'timeTo', headerName: 'Time To', width: 120 },
-        { field: 'closedMaintenance', headerName: 'closed Time', width: 120 },
-        {field: 'view', headerName: 'View', width: 50, sortable: false,
+        { field: 'problemNote', headerName: 'Problem Note', width: 100 },
+        { field: 'dateFrom', headerName: 'Date From', width: 100 },
+        { field: 'dateTo', headerName: 'Date To', width: 100 },
+        { field: 'timeFrom', headerName: 'Time From', width: 100 },
+        { field: 'timeTo', headerName: 'Time To', width: 100 },
+        { field: 'closedMaintenance', headerName: 'closed Time', width: 100 },
+        {field: 'view', headerName: 'View', width: 100, sortable: false,
         type: 'actions',
         getActions: (params) => [
             <ViewData selectedRow={params.row} />  
         ],
         },
-        {field: 'close', headerName: 'Closee', width: 50, sortable: false,
+        {field: 'close', headerName: 'Close', width: 100, sortable: false,
       type: 'actions',
         getActions: (params) => [   
             <ClosData selectedRow={params.row} />

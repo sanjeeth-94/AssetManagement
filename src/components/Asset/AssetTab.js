@@ -70,7 +70,6 @@ const AssetTab = () => {
           <Tab label="TAG ASSET" {...a11yProps(4)} />
         {
           user === true &&
-
           <Tab label="SCRAP ASSET" {...a11yProps(5)} />
         }
           <Tab label=" TRANSFER ASSET" {...a11yProps(6)} />

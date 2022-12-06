@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import dayjs from 'dayjs';
 import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
-import { AlloctionExportService, AlloctionViewService, FetchUserService, UserDeleteService } from '../../services/ApiServices';
+import {  AlloctionViewService,  UserDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AllocationModel from './AllocationModel';
 import { Grid } from '@mui/material';
 import { DownloadAlloction } from '../../services/DownloadService';
+import EditIcon from '@mui/icons-material/Edit';
 
 const AllocationList = () => {
     const [open, setOpen] = useState(false);
@@ -27,13 +24,13 @@ const AllocationList = () => {
     });
    
     const columns = [
-        { field: 'department', headerName: 'Department', width: 180 },
-        { field: 'section', headerName: 'Section', width: 180 },
-        { field: 'assetType', headerName: 'Asset Type', width: 180 },
-        { field: 'assetName', headerName: 'Asset Name', width: 180 },
-        { field: 'assetId', headerName: 'Asset Id', width: 120 },
-        { field: 'assignedUser', headerName: 'Assigned User', width: 180 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false, 
+        { field: 'department', headerName: 'Department', width: 150 },
+        { field: 'section', headerName: 'Section', width: 150 },
+        { field: 'assetType', headerName: 'Asset Type', width: 150 },
+        { field: 'assetName', headerName: 'Asset Name', width: 150 },
+        { field: 'assetId', headerName: 'Asset Id', width: 150 },
+        { field: 'user', headerName: 'Assigned User', width: 150 },
+        {field: 'action', headerName: 'Action', width: 200, sortable: false, 
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -58,7 +55,7 @@ const AllocationList = () => {
 
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <EditIcon
             className='prbuton'
             variant="contained"
             color='primary'
@@ -67,9 +64,8 @@ const AllocationList = () => {
                 setEditData(selectedRow);
                 setOpen(true);
 
-            }}>
-            Edit
-            </Button>
+            }}/>
+           
         )
     }
 const onSubmitView =(e)=>{
@@ -136,7 +132,7 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
                         alignSelf: 'center',
                         textAlignLast: 'center'
                     }}>
-                 <Button  variant="contained" onClick={handleModalOpen}>Add Alloction</Button>
+                 <Button  variant="contained" style={{height:'40px'}} onClick={handleModalOpen}>Add Alloction</Button>
                  </Grid>
                  </Grid>
                 <hr/>
@@ -167,7 +163,7 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
                     textAlignLast: 'center'
                 }}>
 
-                <Button variant="contained" type='submit'>View</Button>
+                <Button style={{height:'40px', width:'100px'}} variant="contained" type='submit'>View</Button>
                 </Grid>
           
 

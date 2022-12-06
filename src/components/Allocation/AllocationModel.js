@@ -198,9 +198,6 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
       type: 'success',
       message: dataObject.message,
     });
-    
-  
-  
   }
   
   const handleException = (errorObject, errorMessage) =>{
@@ -220,9 +217,6 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
       message: '',
     });
   }; 
-  
-
-      
   return (
     <div>
       <Dialog
@@ -234,7 +228,6 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-
               <div style={{display:'flex'}}>
                 <div style={{marginTop:'80px', marginLeft:'40px',border:'solid',width:'500px'}}>
                   <h2 style={{marginLeft:'200px'}}>ASSET</h2>
@@ -268,7 +261,8 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                         label="Section"
                         value={section}
                         onChange={(e) => onSectionChange(e)}>
-                          {sectionList.map((data, index) => {
+                          {
+                            sectionList.map((data, index) => {
                             return (
                               <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
                             )
@@ -286,7 +280,8 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                         label="AssetType"
                         value={assetType}
                         onChange={(e) => onAssetTypeChange(e)}>
-                          {assetTypeList.map((data, index) => {
+                          {
+                            assetTypeList.map((data, index) => {
                             return (
                               <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                             )
@@ -304,7 +299,8 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                         label="AssetType"
                         value={assetName}
                         onChange={(e) => onAssetNameChange(e)}>
-                          {assetNameList.map((data, index) => {
+                          {
+                            assetNameList.map((data, index) => {
                             return (
                               <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
                             )

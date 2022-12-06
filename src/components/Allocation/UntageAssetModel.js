@@ -145,7 +145,7 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                         <Select
                         labelId="departmentlabel"
                         id='department'
-                        label="Department"
+                        label="Select Department"
                         value={department}
                         onChange={(e) => onDepartmentChange(e)}>
                           {departmentList.map((data, index) => {
@@ -171,7 +171,7 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                         <Select
                         labelId="sectionList"
                         id='section'
-                        label="Section"
+                        label="Select section"
                         value={section}
                         onChange={(e) => onSectionChange(e)}>
                           {sectionList.map((data, index) => {
@@ -197,7 +197,7 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                         <Select
                         labelId="assetTypeList"
                         id='assetType'
-                        label="AssetType"
+                        label="Select Asset Type"
                         value={assetType}
                         onChange={(e) => onAssetTypeChange(e)}>
                           {assetTypeList.map((data, index) => {
@@ -223,7 +223,7 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                         <Select
                         labelId="assetTypeList"
                         id='assetType'
-                        label="AssetType"
+                        label="Select Asset Name"
                         value={assetName}
                         onChange={(e) => onAssetNameChange(e)}>
                           {assetNameList.map((data, index) => {
@@ -235,10 +235,7 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                       </FormControl>
                     </Box>
                         </Grid>
-                        
-
-                    </Grid>
-
+                   </Grid>
                     <Grid container style={{marginTop:'10px'}}>
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
                         <label>Reason For Untag:</label>
@@ -246,11 +243,10 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                         <Box>
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label"></InputLabel>
+                                <InputLabel id="demo-simple-select-label">Select Reson</InputLabel>
                                 <Select 
-                         
                                 value={reason}
-                                label="Reason"
+                                label="Select Reson"
                                 onChange={(e)=>setReason(e.target.value)}>
                                     <MenuItem value={10}>Scrap</MenuItem>
                                     <MenuItem value={20}>Defect</MenuItem>
@@ -260,10 +256,7 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                             </FormControl>
                         </Box>
                         </Grid>
-                        
-
                     </Grid>
-
                     <Grid container style={{marginTop:'10px'}}>
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
                         <label>Tag : </label>
@@ -287,9 +280,7 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                 </form>
             </DialogContentText>
         </DialogContent>
-    </Dialog>
-
-      
+    </Dialog>  
     </div>
   )
 }
