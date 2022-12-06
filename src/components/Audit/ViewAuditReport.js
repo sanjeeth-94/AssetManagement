@@ -129,7 +129,7 @@ const ViewAuditReport = () => {
 
   const columns = [
     { field: 'id', headerName: 'Serial No', width: 180 },
-    { field: 'auditName', headerName: 'Audit Name1212', width: 200 },
+    { field: 'auditName', headerName: 'Audit Name', width: 200 },
     { field: 'department', headerName: 'Department', width: 200 },
     { field: 'section', headerName: 'Section', width: 180 },
     { field: 'assetType', headerName: 'Asset Type', width: 180 },

@@ -127,9 +127,9 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   }
  
   const columns = [
-    { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
-    { field: 'assetName', headerName: 'Asset Name', width: 200 },
-    { field: 'serviceDueDate', headerName: 'Service Due Date', width: 180 },
+    { field: 'vendorName', headerName: 'Vendor Name', width: 300 },
+    { field: 'assetName', headerName: 'Asset Name', width: 300 },
+    { field: 'serviceDueDate', headerName: 'Service Due Date', width: 300 },
     
   ];
   
@@ -137,10 +137,10 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     <form style={{border:'solid' , borderColor:'whitesmoke'}}>
       <div style={{marginTop:'20px'}}>
         <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
-          <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-            <label > AmcService Date From : </label>
+          <Grid xs={12} sm={2.5} md={2.5} lg={2.5} xl={2.5} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label > AmcService Date From :</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <TextField
             fullWidth
             id="Vendor-Address"
@@ -150,7 +150,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             onChange={(e) => { handleChangeperiodFrom(e) }}/>
           </Grid>
           <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-            <label > To </label>
+            <label > To:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <TextField
@@ -163,7 +163,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </Grid>
         </Grid>
         <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-          <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid xs={12} sm={2.5} md={2.5} lg={2.5} xl={2.5} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -228,19 +228,25 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </Grid>
         </Grid>
         <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-      </div>
-      <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
-        <div>
-          <h3 style={{marginLeft:'30px'}}>INSPECTION DUE DATE</h3>
-        </div>
-        <hr/>
-        <div style={{ height: '200px', width: '1000px', marginLeft: '40px', marginTop: '20px' }}>
-          <DataGrid
+      
+      <Grid container>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+        <h3 >INSPECTION DUE DATE</h3>
+        </Grid>
+      </Grid>
+      <hr/>
+      <Grid container>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+        style={{ height: '200px',  marginTop: '20px' }}
+        >
+        <DataGrid
           rows={rows}
           columns={columns}/>
-        </div>
+        </Grid>
+      </Grid>
+ 
         <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
-      </form>
+        </div>
     </form>
     
       
