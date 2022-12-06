@@ -28,8 +28,6 @@ const AmcRenewalList = () => {
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
-      
-
       <EditData selectedRow={params.row} />,
     ],
     }
@@ -37,23 +35,19 @@ const AmcRenewalList = () => {
 
   function EditData({ selectedRow }) {
     return (
-        <label 
-        className='prbuton'
-        variant="contained"
-        color='primary'
-        onClick={() => {
-        
-            setEditData(selectedRow);
-            setOpen(true);
-
+      <label 
+      className='prbuton'
+      variant="contained"
+      color='primary'
+      onClick={() => {
+        setEditData(selectedRow);
+          setOpen(true);
         }}>
           Reneval
-        </label >
+      </label >
     )
   }
-
   
- 
   useEffect(()=>{
     ViewAmcRenewal(handleViewAmcRenewalResult,handleViewAmcRenewalError)
   },[]);
@@ -70,7 +64,7 @@ const AmcRenewalList = () => {
   return (
     <div>
       <h3 style={{marginLeft:'40%'}}> View AMC </h3>
-        <hr/>
+      <hr/>
       <div>
         <Box sx={{ height: 300, width: '100%' }}>
           <DataGrid
@@ -83,11 +77,7 @@ const AmcRenewalList = () => {
       <RenevalAmc
       open={open}
       setOpen={setOpen}
-      editData={editData}
-  />
-
-      
-    
+      editData={editData}/>
     </div>
   )
 }

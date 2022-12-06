@@ -45,11 +45,7 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
     setfifthService(e.target.value);
     console.log(e.target.value);
   };
-
-
-
-
-
+  
   return (
     <div>
       <Dialog 
@@ -63,126 +59,118 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-             <form>
-             <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-             <label >Name: </label>
-             </Grid>
-             <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-             <TextField id="" 
-              fullwidth
-              label="" 
-              variant="outlined" 
-              value="" />
-             </Grid>
-             <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label >Date From: </label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                    <TextField id="" 
+              <form>
+                <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Name: </label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                      <TextField id="" 
                       fullwidth
                       label="" 
                       variant="outlined" 
                       value="" />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label >Date To :</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                  <TextField id="" 
-                  fullwidth
-                  label="" 
-                  variant="outlined" 
-                  value="" />
-                  </Grid>
-             </Grid>
-             <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label > 1st Service </label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                    <TextField 
-                    fullWidth 
-                    id="Vendor-Address" 
-                    variant="outlined" 
-                    type='date'
-                    value={firstService}
-                    onChange={(e) => { handleChangefirstService(e) }}/>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label >2nd Service</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                    <TextField
-                    style={{ alignSelf: 'left',}}
-                    fullWidth 
-                    id="Vendor-Address" 
-                    variant="outlined" 
-                    type='date'
-                    value={secondService}
-                    onChange={(e) => { handleChangesecondService(e) }}/>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label >3rd Service :</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                  <TextField
-                    style={{ alignSelf: 'left',}}
-                    fullWidth 
-                    id="Vendor-Address" 
-                    variant="outlined" 
-                    type='date'
-                    value={thirdService}
-                    onChange={(e) => { handleChangethirdService(e) }}/>
-                  </Grid>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >Date From: </label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField id="" 
+                      fullwidth
+                      label="" 
+                      variant="outlined" 
+                      value="" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >Date To :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField id="" 
+                      fullwidth
+                      label="" 
+                      variant="outlined" 
+                      value="" />
+                    </Grid>
                   </Grid>
                   <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label > 4th Service </label>
+                    <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label > 1st Service </label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                      <TextField 
+                      fullWidth 
+                      id="Vendor-Address" 
+                      variant="outlined" 
+                      type='date'
+                      value={firstService}
+                      onChange={(e) => { handleChangefirstService(e) }}/>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >2nd Service</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField
+                      style={{ alignSelf: 'left',}}
+                      fullWidth 
+                      id="Vendor-Address" 
+                      variant="outlined" 
+                      type='date'
+                      value={secondService}
+                      onChange={(e) => { handleChangesecondService(e) }}/>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >3rd Service :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField
+                      style={{ alignSelf: 'left',}}
+                      fullWidth 
+                      id="Vendor-Address" 
+                      variant="outlined" 
+                      type='date'
+                      value={thirdService}
+                      onChange={(e) => { handleChangethirdService(e) }}/>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                    <TextField 
-                    fullWidth 
-                    id="Vendor-Address" 
-                    variant="outlined" 
-                    type='date'
-                    value={fourthService}
-                    onChange={(e) => { handleChangefourthService(e) }}/>
+                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                    <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label > 4th Service </label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                      <TextField 
+                      fullWidth 
+                      id="Vendor-Address"
+                      variant="outlined" 
+                      type='date'
+                      value={fourthService}
+                      onChange={(e) => { handleChangefourthService(e) }}/>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >5th Service</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField
+                      style={{ alignSelf: 'left',}}
+                      fullWidth 
+                      id="Vendor-Address" 
+                      variant="outlined" 
+                      type='date'
+                      value={fifthService}
+                      onChange={(e) => { handleChangefifthService(e) }}/>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label >5th Service</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                    <TextField
-                    style={{ alignSelf: 'left',}}
-                    fullWidth 
-                    id="Vendor-Address" 
-                    variant="outlined" 
-                    type='date'
-                    value={fifthService}
-                    onChange={(e) => { handleChangefifthService(e) }}/>
-                  </Grid>
-                  </Grid>
-
-             </form>
-            </DialogContentText>
-          </DialogContent>
+                </form>
+              </DialogContentText>
+            </DialogContent>
           <DialogActions>
-           
             <div className='addbutton'>
               <Button type="submit" style={{ border: 'solid', width: '150px' }}  autoFocus>
                 Update
-               
-                
               </Button>
               <Button type='reset' onClick={handleClose}>Cancel</Button>
             </div>
-      
           </DialogActions>
-
-         
         </form>
-
       </Dialog>
     </div>
   )

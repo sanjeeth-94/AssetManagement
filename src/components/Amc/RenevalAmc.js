@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
+import { AMCrenewalAmc } from '../../services/ApiServices';
 
 const RenevalAmc = ({open , setOpen, editData }) => {
   const [amcStartDate,setamcStartDate] = useState('');
@@ -37,8 +38,6 @@ const RenevalAmc = ({open , setOpen, editData }) => {
     setamcEndDate(editData.amcEndDate || ''); 
   }, [editData]);
 
-
-
   const handleChangeamcStartDate = (e) => {
     setamcStartDate(e.target.value);
     console.log(e.target.value);
@@ -49,14 +48,11 @@ const RenevalAmc = ({open , setOpen, editData }) => {
     console.log(e.target.value);
   }; 
 
-
   const handleChanges1DateFrom = (e) => {
     sets1DateFrom(e.target.value);
     console.log(e.target.value);
   };
 
-
- 
   const handleChanges1DateTo = (e) => {
     sets1DateTo(e.target.value);
     console.log(e.target.value);
@@ -137,30 +133,40 @@ const RenevalAmc = ({open , setOpen, editData }) => {
 
   const onSubmit=(e)=> 
   {
-    // e.preventDefault();
-    // isAdd === true ?
-    // (
-    //   AMCrenewalAmc({
-    //     servicePattern:servicePattern,
-    //     s1DateFrom:s1DateFrom,
-    //     s1DateTo:s1DateTo,
-    //     s1runHours:s1runHours,
-    //     s2DateFrom:s2DateFrom,
-    //     s2DateTo:s2DateTo,
-    //     s2runHours:s2runHours,
-    //     s3DateFrom:s3DateFrom,
-    //     s3DateTo:s3DateTo,
-    //     s3runHours:s3runHours,
-    //     s4DateFrom:s4DateFrom,
-    //     s4DateTo:s4DateTo,
-    //     s4runHours:s4runHours,
-    //     s5DateFrom:s5DateFrom,
-    //     s5DateTo:s5DateTo,
-    //     s5runHours:s5runHours,
-    //   })
-    // ) :
-    
+    e.preventDefault();
+    alert("hello ")
+    AMCrenewalAmc({
+      id:editData.id,
+      servicePattern:servicePattern,
+      periodFrom:amcStartDate,
+      periodTo:amcEndDate,
+      s1DateFrom:s1DateFrom,
+      s1DateTo:s1DateTo,
+      s1runHours:s1runHours,
+      s2DateFrom:s2DateFrom,
+      s2DateTo:s2DateTo,
+      s2runHours:s2runHours,
+      s3DateFrom:s3DateFrom,
+      s3DateTo:s3DateTo,
+      s3runHours:s3runHours,
+      s4DateFrom:s4DateFrom,
+      s4DateTo:s4DateTo,
+      s4runHours:s4runHours,
+      s5DateFrom:s5DateFrom,
+      s5DateTo:s5DateTo,
+      s5runHours:s5runHours,
+    },handleAmcRenewalAmc,handleAmcRenewalAmcException)
   };
+
+  const handleAmcRenewalAmc=(dataObject)=>
+  {
+    console.log(dataObject);
+  }
+
+  const handleAmcRenewalAmcException=(errorStatus ,errorMessage)=>{
+    console.log(errorMessage);
+  }
+
   return (
     <div>
       <Dialog
@@ -168,326 +174,314 @@ const RenevalAmc = ({open , setOpen, editData }) => {
        fullWidth
        maxWidth='lg'>
         <form onSubmit={onSubmit}>
-           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
+          <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
             {"RENEVAL AMC"}
-
-           </DialogTitle>
-           <DialogContent>
+          </DialogTitle>
+          <DialogContent>
             <DialogContentText>
-              <form>
               <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-             <label >Department: </label>
-             </Grid>
-             <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-             <TextField id="" 
-              fullwidth
-              label="" 
-              variant="outlined" 
-              value={department} />
-             </Grid>
-             
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-             <label >Machine: </label>
-             </Grid>
-             <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-             <TextField id="" 
-              fullwidth
-              label="" 
-              variant="outlined" 
-              value={machine}/>
-             </Grid>
-             
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label > AMC Start Date:</label>
+                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label >Department: </label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                  <TextField id="" 
+                  fullwidth
+                  label=""
+                  variant="outlined" 
+                  value={department} />
+                </Grid>
+                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label >Machine: </label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                  <TextField id="" 
+                  fullwidth
+                  label="" 
+                  variant="outlined" 
+                  value={machine}/>
+                </Grid>
+                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label > AMC Start Date:</label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                  <TextField 
+                  fullWidth 
+                  id="Vendor-Address" 
+                  variant="outlined" 
+                  type='date'
+                  value={amcStartDate}
+                  onChange={(e) => { handleChangeamcStartDate(e) }}/>
+                </Grid>
+              </Grid>
+              <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label > AMC End Date:</label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                  <TextField 
+                  fullWidth 
+                  id="Vendor-Address" 
+                  variant="outlined" 
+                  type='date'
+                  value={amcEndDate}
+                  onChange={(e) => { handleChangeamcEndDate(e) }}/>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label >Service Pattern:</label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
+                  <Box>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label"></InputLabel>
+                      <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={servicePattern}
+                      label=""
+                      onChange={handleChange}>
+                        <MenuItem value={1}>Service 1</MenuItem>
+                        <MenuItem value={2}>Service 2</MenuItem>
+                        <MenuItem value={3}>Service 3</MenuItem>
+                        <MenuItem value={4}>Service 4</MenuItem>
+                        <MenuItem value={5}>Service 5</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Grid>
+              </Grid>
+              { servicePattern >=1 && (
+                <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>1 Service: FROM: </label>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                    <TextField 
-                    fullWidth 
-                    id="Vendor-Address" 
-                    variant="outlined" 
+                  <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
                     type='date'
-                    value={amcStartDate}
-                    onChange={(e) => { handleChangeamcStartDate(e) }}/>
+                    value={s1DateFrom}
+                    onChange={(e) => { handleChanges1DateFrom(e) }}/>
                   </Grid>
-                  </Grid>
-
-                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label > AMC End Date:</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                    <TextField 
-                    fullWidth 
-                    id="Vendor-Address" 
-                    variant="outlined" 
-                    type='date'
-                    value={amcEndDate}
-                    onChange={(e) => { handleChangeamcEndDate(e) }}/>
-                  </Grid>
-
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
-                    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label >Service Pattern:</label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
-                      <Box>
-                        <FormControl fullWidth>
-                          <InputLabel id="demo-simple-select-label"></InputLabel>
-                          <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={servicePattern}
-                          label=""
-                          onChange={handleChange}>
-                            <MenuItem value={1}>Service 1</MenuItem>
-                            <MenuItem value={2}>Service 2</MenuItem>
-                            <MenuItem value={3}>Service 3</MenuItem>
-                            <MenuItem value={4}>Service 4</MenuItem>
-                            <MenuItem value={5}>Service 5</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Box>
-                    </Grid>
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                    <label>To:</label>
                   </Grid>
-                  { servicePattern >=1 && (
-                    <Grid container spacing={2} style={{ marginTop: '20px'}}>
-                      <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
-                      style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                        <label>1 Service: FROM: </label>
-                      </Grid>
-                      <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
-                        <TextField
-                        fullWidth
-                        id=""
-                        variant="outlined"
-                        type='date'
-                        value={s1DateFrom}
-                        onChange={(e) => { handleChanges1DateFrom(e) }}/>
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
-                      style={{ alignSelf: 'center', textAlignLast: 'center' }}>
-                        <label>To:</label>
-                      </Grid>
-                      <Grid item xs={12}  sm={6} md={2} lg={2} xl={2}>
-                        <TextField
-                        fullWidth
-                        id=""
-                        variant="outlined"
-                        type='date'
-                        value={s1DateTo}
-                        onChange={(e) => { handleChanges1DateTo(e) }}/>
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
-                      style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                        <label>RunHours: </label>
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={1} lg={1} xl={1}
-                      style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
-                        <TextField
-                        fullWidth
-                        id=""
-                        label=""
-                        variant="outlined"
-                        onChange={(e) => { sets1runHours(e.target.value) }}
-                        value={s1runHours}/>
-                      </Grid>
-                    </Grid>
-                    )
-                  }
-                  { servicePattern >=2 && (
-                    <Grid container spacing={2} style={{ marginTop: '20px'}}>
-                      <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
-                      style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                        <label>2 Service: FROM: </label>
-                        </Grid>
-                        <Grid item xs={12} sm={6}  md={2} lg={2} xl={2} >
-                          <TextField
-                          fullWidth
-                          id=""
-                          variant="outlined"
-                          type='date'
-                          value={s2DateFrom}
-                          onChange={(e) => { handleChanges2DateFrom(e) }}/>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
-                        style={{ alignSelf: 'center', textAlignLast: 'center' }}>
-                          <label>To:</label>
-                        </Grid>
-                        <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
-                          <TextField
-                          fullWidth
-                          id=""
-                          variant="outlined"
-                          type='date'
-                          value={s2DateTo}
-                          onChange={(e) => { handleChanges2DateTo(e) }}/>
-                        </Grid>
-                        <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
-                        style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                          <label>RunHours: </label>
-                        </Grid>
-                        <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
-                        style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
-                          <TextField
-                          fullWidth
-                          id=""
-                          label=""
-                          variant="outlined"
-                          onChange={(e) => { sets2runHours(e.target.value) }}
-                          value={s2runHours}/>
-                        </Grid>
-                      </Grid>
-                    )
-                  }
-                  {servicePattern >=3 && (
-                        <Grid container spacing={2} style={{ marginTop: '20px'}}>
-                          <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
-                            style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                            <label>3 Service: FROM: </label>
-                          </Grid>
-                          <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
-                            <TextField
-                            fullWidth
-                            id=""
-                            variant="outlined"
-                            type='date'
-                            value={s3DateFrom}
-                            onChange={(e) => { handleChanges3DateFrom(e) }}/>
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
-                          style={{ alignSelf: 'center', textAlignLast: 'center' }}>
-                            <label>To:</label>
-                          </Grid>
-                          <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
-                            <TextField
-                            fullWidth
-                            id=""
-                            variant="outlined"
-                            type='date'
-                            value={s3DateTo}
-                            onChange={(e) => { handleChanges3DateTo(e) }}/>
-                          </Grid>
-                          <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
-                          style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                            <label>RunHours: </label>
-                          </Grid>
-                          <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
-                          style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
-                            <TextField
-                            fullWidth
-                            id=""
-                            label=""
-                            variant="outlined"
-                            onChange={(e) => { sets3runHours(e.target.value) }}
-                            value={s3runHours}/>
-                          </Grid>
-                        </Grid>
-                    )
-                  }
-                  {servicePattern >=4 && (
-                        <Grid container spacing={2} style={{ marginTop: '20px'}}>
-                          <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
-                            style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                            <label>4 Service: FROM: </label>
-                          </Grid>
-                          <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
-                          <TextField
-                          fullWidth
-                          id=""
-                          variant="outlined"
-                          type='date'
-                          value={s4DateFrom}
-                          onChange={(e) => { handleChanges4DateFrom(e) }}/>
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
-                          style={{ alignSelf: 'center', textAlignLast: 'center' }}>
-                            <label>To:</label>
-                          </Grid>
-                          <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
-                            <TextField
-                            fullWidth
-                            id=""
-                            variant="outlined"
-                            type='date'
-                            value={s4DateTo}
-                            onChange={(e) => { handleChanges4DateTo(e) }}/>
-                          </Grid>
-                          <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
-                          style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                            <label>RunHours: </label>
-                          </Grid>
-                          <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
-                          style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
-                            <TextField
-                            fullWidth
-                            id=""
-                            label=""
-                            variant="outlined"
-                            onChange={(e) => { sets4runHours(e.target.value) }}
-                            value={s4runHours}/>
-                          </Grid>
-                        </Grid>
-                    )
-                  }
-                  { servicePattern >=5 && (
-                        <Grid container spacing={2} style={{ marginTop: '20px'}}>
-                          <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
-                            style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                            <label>5 Service: FROM: </label>
-                            </Grid>
-                            <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}>
-                              <TextField
-                              fullWidth
-                              id=""
-                              variant="outlined"
-                              type='date'
-                              value={s5DateFrom}
-                              onChange={(e) => { handleChanges5DateFrom(e) }}/>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
-                          style={{ alignSelf: 'center', textAlignLast: 'center' }}>
-                              <label>To:</label>
-                            </Grid>
-                            <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
-                              <TextField
-                              fullWidth
-                              id=""
-                              variant="outlined"
-                              type='date'
-                              value={s5DateTo}
-                              onChange={(e) => { handleChanges5DateTo(e) }}/>
-                            </Grid>
-                            <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
-                            style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                              <label>RunHours: </label>
-                            </Grid>
-                            <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
-                            style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
-                              <TextField
-                              fullWidth
-                              id=""
-                              label=""
-                              variant="outlined"
-                              onChange={(e) => { sets5runHours(e.target.value) }}
-                              value={s5runHours}/>
-                            </Grid>
-                        </Grid>
-                    )
-                  }
-                  <Grid>
-                    <Button type="submit">submit</Button>
+                  <Grid item xs={12}  sm={6} md={2} lg={2} xl={2}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s1DateTo}
+                    onChange={(e) => { handleChanges1DateTo(e) }}/>
                   </Grid>
-              </form>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                    <label>RunHours: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1}
+                  style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    label=""
+                    variant="outlined"
+                    onChange={(e) => { sets1runHours(e.target.value) }}
+                    value={s1runHours}/>
+                  </Grid>
+                </Grid>
+                )
+              }
+              { servicePattern >=2 && (
+                <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>2 Service: FROM: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6}  md={2} lg={2} xl={2} >
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s2DateFrom}
+                    onChange={(e) => { handleChanges2DateFrom(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                    <label>To:</label>
+                  </Grid>
+                  <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s2DateTo}
+                    onChange={(e) => { handleChanges2DateTo(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                    <label>RunHours: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
+                  style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    label=""
+                    variant="outlined"
+                    onChange={(e) => { sets2runHours(e.target.value) }}
+                    value={s2runHours}/>
+                  </Grid>
+                </Grid>
+                )
+              }
+              {servicePattern >=3 && (
+                <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>3 Service: FROM: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s3DateFrom}
+                    onChange={(e) => { handleChanges3DateFrom(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                    <label>To:</label>
+                  </Grid>
+                  <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s3DateTo}
+                    onChange={(e) => { handleChanges3DateTo(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                    <label>RunHours: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
+                  style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    label=""
+                    variant="outlined"
+                    onChange={(e) => { sets3runHours(e.target.value) }}
+                    value={s3runHours}/>
+                  </Grid>
+                </Grid>
+                  )
+              }
+              {servicePattern >=4 && (
+                <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>4 Service: FROM: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s4DateFrom}
+                    onChange={(e) => { handleChanges4DateFrom(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                    <label>To:</label>
+                  </Grid>
+                  <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s4DateTo}
+                    onChange={(e) => { handleChanges4DateTo(e) }}/>
+                  </Grid>
+                  <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                    <label>RunHours: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
+                  style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    label=""
+                    variant="outlined"
+                    onChange={(e) => { sets4runHours(e.target.value) }}
+                    value={s4runHours}/>
+                  </Grid>
+                </Grid>
+                )
+              }
+              { servicePattern >=5 && (
+                <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
+                  style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>5 Service: FROM: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}>
+                    <TextField
+                    fullWidth
+                    id=""
+                    variant="outlined"
+                    type='date'
+                    value={s5DateFrom}
+                    onChange={(e) => { handleChanges5DateFrom(e) }}/>
+                  </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
+                style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                  <label>To:</label>
+                </Grid>
+                <Grid item xs={12}  sm={9} md={2} lg={2} xl={2}>
+                  <TextField
+                  fullWidth
+                  id=""
+                  variant="outlined"
+                  type='date'
+                  value={s5DateTo}
+                  onChange={(e) => { handleChanges5DateTo(e) }}/>
+                </Grid>
+                <Grid item xs={12} sm={3} md={2} lg={2} xl={2}
+                style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                  <label>RunHours: </label>
+                </Grid>
+                <Grid item xs={12} sm={9} md={2} lg={1} xl={3}
+                style={{ alignSelf: 'center', textAlignLast: 'center',marginRight:'30px'  }}>
+                  <TextField
+                  fullWidth
+                  id=""
+                  label=""
+                  variant="outlined"
+                  onChange={(e) => { sets5runHours(e.target.value) }}
+                  value={s5runHours}/>
+                </Grid>
+               </Grid>
+                )
+              }
             </DialogContentText>
-           </DialogContent>
-           <div>
+          </DialogContent>
+          <div>
             <Button onClick={handleClose}>close</Button>
-           </div>
-          
-       
+            <Button type="submit">submit</Button>
+          </div>
         </form>
-       
       </Dialog>
     </div>
   )

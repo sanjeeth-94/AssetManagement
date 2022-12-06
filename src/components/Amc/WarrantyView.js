@@ -45,7 +45,7 @@ const WarrantyView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
             open={open}
             maxWidth='lg'>
                 <form>
-                <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
+                    <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                       {"VIEW ASSET DETAILS"}
                     </DialogTitle>
                     <DialogContent>
