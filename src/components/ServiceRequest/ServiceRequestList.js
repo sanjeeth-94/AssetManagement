@@ -14,7 +14,7 @@ const ServiceRequestList = () => {
     
   
   const columns = [
-    { field: 'department', headerName: 'Department', width: 140 },
+    { field: 'department', headerName: 'Department', width: 110 },
     { field: 'section', headerName: 'Section', width: 120 },
     { field: 'assetName', headerName: 'AssetName', width: 120 },
     { field: 'amcStatus', headerName: 'AMC Status', width: 120 },
@@ -22,7 +22,7 @@ const ServiceRequestList = () => {
     { field: 'insuranceStatus', headerName: 'Insurance Status', width: 140 },
     { field: 'problemNote', headerName: 'Problem Note', width: 140 },
     { field: 'userName', headerName: 'UserName', width: 120 },
-    {field: 'action', headerName: 'Action', width: 250, sortable: false,
+    {field: 'action', headerName: 'Action', width: 150, sortable: false,
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
