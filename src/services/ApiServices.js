@@ -286,6 +286,8 @@ export const  FetchGetMaintenanceId = (successCallback, errorCallBack) => _fetch
 
 export const  FetchMaintenanceSchedule = (data,successCallback, errorCallBack) => _fetchService(`maintenance/${data.id}/showStatus`, 'POST',data, successCallback, errorCallBack);
 
+export const  MaintenanceUpdateAction = (data,successCallback, errorCallBack) => _fetchService(`maintenance/${data.id}/updateAction`, 'POST',data, successCallback, errorCallBack);
+
 
 /////.......Check.....///
 

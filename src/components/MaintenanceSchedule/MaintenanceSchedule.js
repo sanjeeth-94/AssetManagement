@@ -119,6 +119,8 @@ export default function HorizontalLinearStepper() {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchMachineService(handleFetchMachineSuccess, handleFetchMachineException);
         FetchGetMaintenanceId(handleGetMaintenanceId,handleGetMaintenanceIdException);
+       
+
     }, [refresh]);
     
     const handleFetchSuccess = (dataObject) => {
