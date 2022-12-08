@@ -107,8 +107,6 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
         setIsAdd(true);
         setOpen(true);
     };
-  
-
     const onClickExport=(e)=>{
         e.preventDefault();
         DownloadAlloction({fromDate:dateFrom,toDate:dateTo},handleAlloctionExport,handleAlloctionExportException)
@@ -165,8 +163,6 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
 
                 <Button style={{height:'40px', width:'100px'}} variant="contained" type='submit'>View</Button>
                 </Grid>
-          
-
             </Grid>
             <Grid container spacing={2} >
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
@@ -177,8 +173,6 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
                 </Grid>
                 <Grid style={{marginTop:'10px',marginLeft:'20px'}}>
                      <Button variant="contained" onClick={(e)=>{onClickExport(e)}}>Export</Button>
-
-                  
                 </Grid>
             </Grid>       
             <AllocationModel
@@ -188,7 +182,6 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
                 editData={editData}
                 setRefresh={setRefresh}
             />
-            
             <NotificationBar
                 handleClose={handleClose}
                 notificationContent={openNotification.message}

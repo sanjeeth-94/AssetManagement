@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { FetchVendorTypeListService, VendorTypeDeleteService } from '../../services/ApiServices';
 import VendorTypeModel from './VendorTypeModel';
 import NotificationBar from '../../services/NotificationBar';
+import { Grid } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const VendorTypeList = () => {
     const [open, setOpen] = useState(false);
@@ -57,7 +60,7 @@ const VendorTypeList = () => {
 
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <EditIcon
                 className='prbuton'
                 variant="contained"
                 color='primary'
@@ -65,24 +68,22 @@ const VendorTypeList = () => {
                     setIsAdd(false);
                     setEditData(selectedRow);
                     setOpen(true);
-                }}>
-                Edit
-            </Button>
+                }}/>
+             
         )
     }
 
 
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <DeleteIcon
                 variant="contained"
                 color='primary'
                 onClick={() => {
                     deletVenderType(selectedRow.id)
                 }}
-            >
-                Delete
-            </Button>
+            />
+              
         )
     }
 
@@ -121,13 +122,22 @@ const VendorTypeList = () => {
 
     return (
         <div>
-            <div style={{ marginLeft: '20px' }}>
-                <h2>VIEW VENDOR TYPE</h2>
-            </div>
-            <hr />
-            <Button style={{ marginLeft: '50%', width: '120px', height: '30px' }} variant="outlined" onClick={handleModalOpen}>
+            <Grid container>
+                <Grid item xs={12} sm={6} md={6} lg={6} lx={6}
+                    style={{alignSelf:'center', textAlign:'center'}}
+                >
+                <h3>VIEW VENDOR TYPE</h3>
+                </Grid>
+                <Grid item xs={12} sm={6} md={6} lg={6} lx={6}
+                style={{alignSelf:'center', textAlign:'center'}}
+                >
+                <Button style={{  width: '120px', height: '30px' }} variant="outlined" onClick={handleModalOpen}>
                 Add
             </Button>
+                </Grid>
+            </Grid>
+            <hr />
+            
             <div className='adduser' style={{ height: 400, width: '63%', marginTop: '20px' }}>
                 <DataGrid
                     rows={rows}

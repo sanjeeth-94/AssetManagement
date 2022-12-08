@@ -102,7 +102,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setInvoiceNo(editData?.invoiceNo || '');
         setWarrantyStartDate(editData?.warrantyStartDate || '');
         setwarrantyEndDate(editData?.warrantyEndDate || '');
-
+      
     }, [editData, refresh]);
 
     const handleFetchSuccess = (dataObject) => {
@@ -344,7 +344,8 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                                 label="Select Department"
                                                 value={department}
                                                 onChange={(e) => onDepartmentChange(e)}>
-                                                {departmentList.map((data, index) => {
+                                                {
+                                                    departmentList.map((data, index) => {
                                                     return (
                                                         <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                                                     )

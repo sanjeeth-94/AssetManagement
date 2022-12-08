@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import React from 'react'
+import React, { useEffect } from 'react'
 import PieChartIcon from '@mui/icons-material/PieChart';
 import AddchartIcon from '@mui/icons-material/Addchart';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -15,8 +15,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { LogoutService } from "../../services/ApiServices";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { useState } from "react";
 
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
+
+const [isFullscreen, setIsFullscreen] = useState(false);
 
 const onClickLogOut = (e) => {
         e.preventDefault();
@@ -30,6 +34,20 @@ const handleLogoutService = (dataObject) => {
 const handleLogoutServiceExeption = (errorObject, errorMessage) => {
         console.log(errorMessage);
 }
+
+const onFullScreen =()=>{
+        // document.body.requestFullscreen(); 
+        if(isFullscreen === true){
+                document.body.requestFullscreen();
+                setIsFullscreen(false); 
+        }
+        if(isFullscreen === false){
+                document.exitFullscreen();
+                setIsFullscreen(true);
+        }
+}
+
+
 return (
 <div className={sidebarOpen === false ? "sidebar_responsive" : " "} id="sidebar" style={{
         height: '98vh', width: '11vh'
@@ -37,7 +55,7 @@ return (
         <div className="sidebar__title"></div>
         <div className="sidebar__menu">
         <div className="sidebar__link active_menu_link">
-                <FullscreenIcon className='icon' />
+                <FullscreenIcon onClick={onFullScreen} className='icon' />
         </div>
         <div className="sidebar__link">
                 <Link to='/main'><PieChartIcon className='icon' /></Link>

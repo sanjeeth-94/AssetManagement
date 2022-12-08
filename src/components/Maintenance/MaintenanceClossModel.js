@@ -45,7 +45,7 @@ const MaintenanceClossModel = ({ open, setOpen, isAdd, editData, setRefresh }) =
         var tempList = [];
         tempDataSet = editData?.partsOrConsumable?.replaceAll('\\', '');
         tempList = tempDataSet && JSON.parse(tempDataSet);
-        setApprovalUnitList(tempList || []);
+         setApprovalUnitList(tempList || []);
         setTotalAmount(()=>{
           var oldData = 0;
           tempList?.map((tempList, index)=>{ 

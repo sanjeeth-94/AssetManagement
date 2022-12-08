@@ -16,12 +16,11 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { UserAddService, UserUpdateService,FetchDepaertmentService,FetchAuditAssetTypeService, FetchSectionService, FetchAssetTypeService, FetchAssetNameService, AlloctionAddService, FetchEmployeeIdService, FetchEmployeeNameService, FetchUserNameService } from '../../services/ApiServices';
-import { Grid } from '@mui/material';
+import {  UserUpdateService,FetchDepaertmentService,FetchAuditAssetTypeService, FetchSectionService, FetchAssetTypeService, FetchAssetNameService, AlloctionAddService, FetchEmployeeIdService, FetchEmployeeNameService, FetchUserNameService } from '../../services/ApiServices';
 
 const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([]);
-  const [department, setDepartment] = useState('');
+  const [department, setDepartment] = useState(editData?.department || '');
   const [employeeId, setEmployeeId] = useState('');
   const [employeeName, setemployeeNamed] = useState('');
   const [designation, setdesignation] = useState('');
@@ -55,13 +54,55 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     FetchEmployeeIdService(handleEmployeeSuccess, handleEmployeeException);
-
+    setDepartment(editData?.departmentId || '');
+    setSection(editData?.sectionsId || '');  
+    setAssetType(editData?.assetTypesId || '');
+    setAssetName(editData?.assetNameId || '');
+   
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) =>{
     setDepartmentList(dataObject.data);
     setUserDepartmentList(dataObject.data);
+    if(editData?.departmentId)
+    {
+      FetchSectionService({
+        id: editData?.departmentId
+      }, handleFetchSectionEdit, handleFetchSectionEditException)
+    } 
   }
+  const  handleFetchSectionEdit=(dataObject)=>{
+    setSectionList(dataObject.data);
+    if(editData?.sectionsId)
+    {
+      FetchAssetTypeService({ id:editData?.sectionsId}, handleFetchAssetTypeSectionEdit, handleFetchAssetTypeSectionEditException)
+      
+    }
+    
+  }
+ 
+  const handleFetchAssetTypeSectionEdit = (dataObject) => {
+    setAssetTypeList(dataObject.data);
+    if(editData?.assetTypesId)
+    {
+      FetchAssetNameService({ id:editData?.assetTypesId}, handleFetchAssetNameServiceEdit, handleFetchAssetNameServiceException)
+      
+    }
+ }
+ const handleFetchAssetNameServiceEdit=(dataObject)=>{
+  setAssetNameList(dataObject.data);
+ }
+ const handleFetchAssetNameServiceException=(errorStaus, errorMessage)=> {
+  console.log(errorMessage);
+}
+
+ const handleFetchAssetTypeSectionEditException = (errorStaus, errorMessage) => {
+     console.log(errorMessage);
+ }
+  const handleFetchSectionEditException=(errorStatus , errorMassege)=>{   
+    console.log(errorMassege);
+  }
+
   
   const handleFetchException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
@@ -166,11 +207,10 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
         section:section,
         assetType:assetType,
         assetName:assetName,
-        userType:user,
+        user:user,
         empId:employeeId,
         empName:employeeName,
         userDepartment:userDepartment,
-        user:user,
         position:temporary,
         fromDate:tempFromDate,
         toDate:tempTomDate,
@@ -238,12 +278,12 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                       <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
                         <InputLabel id="departmentlabel">Select Department</InputLabel>
                         <Select
-                        labelId="departmentlabel"
-                        id='department'
-                        label="Department"
+                       
+                        label="Select Department"
                         value={department}
                         onChange={(e) => onDepartmentChange(e)}>
-                          {departmentList.map((data, index) => {
+                          {
+                            departmentList.map((data, index) => {
                             return (
                               <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                             )
@@ -258,7 +298,7 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                         <Select
                         labelId="sectionList"
                         id='section'
-                        label="Section"
+                        label="Select section"
                         value={section}
                         onChange={(e) => onSectionChange(e)}>
                           {
