@@ -15,17 +15,15 @@ const MaintenanceSchedulList = () => {
     const [refresh , setRefresh]=useState(false);
    
     const columns = [
-
-        { field: 'maintenanceId', headerName: 'Maintenance ID	', width: 80 },
-        { field: 'maintenanceType', headerName: 'Maintenance Type	', width: 180 },
-        { field: 'assetName', headerName: 'Machine	', width: 180 },
-        { field: 'severity', headerName: 'Severity	', width: 140 },
-        { field: 'problemNote', headerName: 'Problem Note	', width: 180 },
-        { field: 'dateFrom', headerName: 'Date From	', width: 140 },
-        { field: 'dateTo', headerName: 'Date To	', width: 140 },
-        { field: 'timeFrom', headerName: 'Time From	', width: 140 },
-        { field: 'timeTo', headerName: 'Time To	', width: 140 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false, 
+        { field: 'maintenanceType', headerName: 'Maintenance Type	', width: 150 },
+        { field: 'assetName', headerName: 'Machine	', width: 150 },
+        { field: 'severity', headerName: 'Severity	', width: 120 },
+        { field: 'problemNote', headerName: 'Problem Note	', width: 120 },
+        { field: 'dateFrom', headerName: 'Date From	', width: 120 },
+        { field: 'dateTo', headerName: 'Date To	', width: 120 },
+        { field: 'timeFrom', headerName: 'Time From	', width: 120 },
+        { field: 'timeTo', headerName: 'Time To	', width: 120 },
+        {field: 'action', headerName: 'Action', width: 150, sortable: false, 
         type: 'actions',
         getActions: (params) => [
             <ViewData selectedRow={params.row} />  
@@ -65,26 +63,22 @@ const MaintenanceSchedulList = () => {
     <div>
         <Grid container >
             <Grid container spacing={2}  style={{marginTop:'20px', marginLeft:'40px', marginRight:'0px'}}>
-                    <Grid item xs={12} sm={6} md={2.8} lg={2.8} xl={3}
-                    style={{
-                        color: 'white',
-                        display: 'box'  ,
-                        background:'rgb(91, 87, 87)',
-                        marginRight:'20px',
-                        marginTop:'10px',
-                        border: 'solid',
-                        borderColor: 'aqua',
-
-                    }}>
+                <Grid item xs={12} sm={6} md={2.8} lg={2.8} xl={3}
+                style={{
+                    color: 'white',
+                    display: 'box'  ,
+                    background:'rgb(91, 87, 87)',
+                    marginRight:'20px',
+                    marginTop:'10px',
+                    border: 'solid',
+                    borderColor: 'aqua',
+                }}>
                     <p >MAINTENANCE</p>
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'right',
-                      
                     }}>
-                        
-                        
                         <Link to='/maintenanceSchedulList'><BuildIcon /></Link>
                         </div>
                     </Grid>

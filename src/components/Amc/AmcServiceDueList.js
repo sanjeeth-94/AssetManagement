@@ -206,7 +206,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-            <label>Asset Type</label>
+            <label>Asset Type:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <Box sx={{ minWidth: 120 }}>

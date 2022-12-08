@@ -17,23 +17,21 @@ const WarrantyView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
 
     useEffect(() => {
         ViewWarranty({id:editData.id},handleViewAmcService, handleViewAmcServiceException)
-      }, [editData]);
-
-      const handleViewAmcService = (dataObject) => {
-      
+    }, [editData]);
+    
+    const handleViewAmcService = (dataObject) => {
         setAssetId(editData?.id|| '');
         setAssetType(dataObject?.data[0]?.assetType|| '');
         setSection(dataObject?.data[0]?.section|| '');
         setManufacturer(dataObject?.data[0]?.manufacturer|| '');
         setAssetModel(dataObject?.data[0]?.manufacturer|| '');
         setDescription(dataObject?.data[0]?.description|| '');
-      }
+    }
     
-      const handleViewAmcServiceException = (errorStaus, errorMessage) => {
+    const handleViewAmcServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
-      }
+    }
     
-
     const handleClose = () => {              
         setOpen(false);
         setDescription('');

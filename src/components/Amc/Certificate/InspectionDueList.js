@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
+import { Grid } from '@mui/material';
 import {
   FetchDepaertmentService,
   FetchSectionService,
@@ -18,6 +19,7 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department, setDepartment] = useState();
   const [section, setSection] = useState();
   const [sectionList, setSectionList] = useState([]);
+  const [assetList, setAssetList]= useState([]);
   const [departmentList, setDepartmentList] = useState([]);
   const [assetType, setAssetType] = useState();
   const [assetTypeList, setAssetTypeList] = useState([]);
@@ -127,11 +129,13 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   ];
   
   return (
-    <div>
-      <form style={{border:'solid' , borderColor:'whitesmoke'}}>
-        <div style={{marginTop:'20px'}}>
-          <div style={{display:'flex',alignItems:'center'}}>
-            <label style={{marginLeft:'20px', marginRight:'40px'}}>Inspection Date From :</label>
+    <form style={{border:'solid' , borderColor:'whitesmoke'}}>
+      <div style={{marginTop:'20px'}}>
+        <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+          <Grid xs={12} sm={2.5} md={2.5} lg={2.5} xl={2.5} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label>Inspection Date From :</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <TextField
             style={{width:'200px'}}
             id="Vendor-Address"
@@ -139,7 +143,11 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             type='date'
             value={fromDate}
             onChange={(e) => { handleChangefromDate(e) }}/>
-            <label style={{marginLeft:'80px', marginRight:'70px'}}> To</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label > To</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <TextField
             style={{width:'200px'}}
             id="Vendor-Address"
@@ -147,16 +155,20 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             type='date'
             value={toDate}
             onChange={(e) => { handleChangetoDate(e) }}/>
-          </div>
-          <div style={{display:'flex',alignItems:'center', marginTop:'20px', marginBottom:'20px'}}>
-            <label style={{marginRight:'90px',marginLeft:'20px'}}>Department :</label>
-            <Box >
-              <FormControl style={{ width: '300px' }}>
-                <InputLabel id="departmentlabel">Select Department</InputLabel>
+          </Grid>
+        </Grid>
+        <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+          <Grid xs={12} sm={2.5} md={2.5} lg={2.5} xl={2.5} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label>Department:</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
-                labelId="departmentlabel"
-                id='department'
-                label="Department"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label=""
                 onChange={(e) => onDepartmentChange(e)}>
                   {departmentList.map((data, index) => {
                     return (
@@ -166,14 +178,18 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </Select>
               </FormControl>
             </Box>
-            <label style={{marginRight:'50px',marginLeft:'20px'}}>Section:</label>
-            <Box >
-              <FormControl style={{width:'255px'}} >
+          </Grid>
+          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label>Section:</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Age"
+                label=""
                 onChange={(e) => onSectionChange(e)}>
                   {sectionList.map((data, index) => {
                     return (
@@ -183,16 +199,20 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </Select>
               </FormControl>
             </Box>
-            <label style={{marginRight:'50px',marginLeft:'20px'}}>Asset Type :</label>
-            <Box >
-              <FormControl style={{width:'255px'}}>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <label>Asset Type:</label>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Age"
+                id="demo-simple-select"    
+                label=""
                 onChange={(e) => onAssetTypeChange(e)}>
-                  {assetTypeList.map((data, index) => {
+                  {assetList.map((data, index) => {
                     return (
                       <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                     )
@@ -200,23 +220,29 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </Select>
               </FormControl>
             </Box>
-          </div>
+          </Grid>
+        </Grid>
           <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-        </div>
-      </form>
-      <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
-        <div>
-          <h3 style={{marginLeft:'30px'}}>INSPECTION DUE DATE</h3>
-        </div>
-        <hr/>
-        <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-          <DataGrid
+        
+          <Grid container>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+        <h3 >INSPECTION DUE DATE</h3>
+        </Grid>
+      </Grid>
+      <hr/>
+      <Grid container>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+        style={{ height: '200px',  marginTop: '20px' }}
+        >
+        <DataGrid
           rows={rows}
           columns={columns}/>
-        </div>
+        </Grid>
+      </Grid>
         <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
-      </form>
-    </div>
+        </div>
+    </form>
+    
   )
 }
 
