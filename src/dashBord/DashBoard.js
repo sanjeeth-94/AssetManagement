@@ -14,7 +14,7 @@ const DashBoard = () => {
         
         }}>
       <Sidebar className='sidebar'/> 
-        <div style={{height:'100vh', width:'100%',overflow:'auto',background:'whitesmoke'}}>
+        <div style={{height:'100vh', width:'100%', overflow:'auto',background:'white'}}>
         <Outlet/>
         </div>  
       </div>  

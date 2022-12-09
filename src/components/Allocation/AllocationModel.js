@@ -40,7 +40,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [user, setuser] = useState("EmpId");
   const [temporary, setTemporary] = useState("Temporary");
   const [tempFromDate , setTempFromDate] = useState('');
-  const [tempTomDate , setTempToDate] = useState('');
+  const [tempToDate , setTempToDate] = useState('');
   const [employeeNameList,setEmployeeNameList]= useState([]);
   const [userDepartmentList, setUserDepartmentList]=useState([]);
   const [ userNameList,   setUserNameList]=useState([]);
@@ -58,7 +58,10 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setSection(editData?.sectionsId || '');  
     setAssetType(editData?.assetTypesId || '');
     setAssetName(editData?.assetNameId || '');
-   
+    setUserDepartment(editData?.departmentId || '');
+    setEmployeeId(editData?.employee_id|| '');
+    setUserName(editData?.employeeName || '' );
+    
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) =>{
@@ -68,8 +71,21 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     {
       FetchSectionService({
         id: editData?.departmentId
-      }, handleFetchSectionEdit, handleFetchSectionEditException)
+      }, handleFetchSectionEdit, handleFetchSectionEditException);
+      
+      FetchUserNameService({
+        id: editData?.departmentId
+      },UserNameService,UserNameServiceExeption);
+
     } 
+  }
+
+  const UserNameService=(dataObject)=>{
+    setUserNameList(dataObject.data);
+  }
+  const UserNameServiceExeption=(errorStaus, errorMessage)=> {
+    console.log(errorMessage);
+
   }
   const  handleFetchSectionEdit=(dataObject)=>{
     setSectionList(dataObject.data);
@@ -110,6 +126,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleEmployeeSuccess = (dataObject) =>{
     setEmployeeIdList(dataObject.data);
+
   }
   
   const handleEmployeeException = (errorStaus, errorMessage) =>{
@@ -118,11 +135,12 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const onUerDepartmentChange=(e)=>{
     setUserDepartment(e.target.value);
-    FetchUserNameService(({id:e.target.value},handleUserNameSuccess, handleUserNameException));
+   
+    FetchUserNameService({id:e.target.value},handleUserNameSuccess, handleUserNameException);
   }
 
   const handleUserNameSuccess =(dataObject)=>{
-    setUserNameList(dataObject);
+    setUserNameList(dataObject.data);
   }
   const handleUserNameException=(errorStaus, errorMessage) =>{
     console.log(errorMessage);
@@ -194,7 +212,7 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
   };
   
   const onChangeUserName=(e)=>{
-    setUserName(e.target.value);
+    setemployeeNamed(e.target.value);
   }
 
   const onSubmit = (e) => {
@@ -207,25 +225,30 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
         section:section,
         assetType:assetType,
         assetName:assetName,
-        user:user,
+        userType:user,
+        user:employeeName,
         empId:employeeId,
         empName:employeeName,
         userDepartment:userDepartment,
         position:temporary,
         fromDate:tempFromDate,
-        toDate:tempTomDate,
+        toDate:tempToDate,
       },handleSuccess, handleException)
     ) : (
       UserUpdateService({
         id: editData.id,
-        employee_id: employeeId,
-        employee_name: employeeName,
-        department: department,
-        designation: designation,
-        mobile_number: mobile_number,
-        email: emailId,
-        user_name: userName,
-        password: password
+        department:department,
+        section:section,
+        assetType:assetType,
+        assetName:assetName,
+        userType:user,
+        user:employeeName,
+        empId:employeeId,
+        empName:employeeName,
+        userDepartment:userDepartment,
+        position:temporary,
+        fromDate:tempFromDate,
+        toDate:tempToDate,
       }, handleSuccess, handleException)
     );
   }
@@ -380,7 +403,8 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                       label="Select Employee Id"
                       value={employeeId}
                       onChange={(e) => onEmployeeChange(e)}>
-                        {employeeIdList?.map((data, index) => {
+                        {
+                          employeeIdList?.map((data, index) => {
                           return (
                             <MenuItem value={data.employee_id} key={index}>{data.employee_id}</MenuItem>
                           )
@@ -407,12 +431,13 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                       <Select
                       labelId="departmentlabel"
                       id='department'
-                      label="Department"
+                      label="Select Department"
                       value={userDepartment}
                       onChange={(e) => onUerDepartmentChange(e)}>
-                        {userDepartmentList.map((data, index) => {
-                          return (
-                            <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                        {
+                            userDepartmentList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                           )
                         })}
                       </Select>
@@ -425,11 +450,14 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                       <Select
                       labelId="sectionList"
                       id='section'
-                      label="Section"
-                      onChange={(e) => onSectionChange(e)}>
-                        {userNameList.map((data, index) => {
+                      label="Select section"
+                      value={employeeName}
+
+                      onChange={(e) => onChangeUserName(e)}>
+                        {
+                          userNameList.map((data, index) => {
                           return (
-                            <MenuItem value={data.id} key={index}>{data.userName}</MenuItem>
+                            <MenuItem value={data.id} key={index}>{data.user_name}</MenuItem>
                           )
                         })}
                       </Select>
@@ -469,16 +497,14 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           id="outlined-basic"  
                           type='date' 
                           variant="outlined" 
-                          value={tempTomDate}
+                          value={tempToDate}
                           onChange={(e)=>setTempToDate(e.target.value)}
                           />
                       </div>
                       </>
 
                   }
-                  {
-                        
-                  }
+                
                 </div>
               </div>
             </div>

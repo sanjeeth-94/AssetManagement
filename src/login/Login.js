@@ -94,9 +94,7 @@ const Login = () => {
             handleLogin(e)
           }
           value={data.password}/>
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember_me" style={{ display: 'flex' }}/>
+        
           <Button
           type="submit"
           fullWidth

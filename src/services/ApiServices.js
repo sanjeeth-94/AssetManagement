@@ -94,7 +94,7 @@ export const FetchEmployeeIdService = (successCallback, errorCallBack) => _fetch
 
 export const FetchEmployeeNameService = (data,successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/getEmpName`, 'POST', data, successCallback, errorCallBack);
 
-export const FetchUserNameService = (data,successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/getUser`, 'POST', data, successCallback, errorCallBack);
+export const FetchUserNameService = (data,successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/getUser`, 'GET', {}, successCallback, errorCallBack);
 
 
 
@@ -331,3 +331,28 @@ export const  FetchScrapAssetShowDataService = (successCallback, errorCallBack) 
 export const  FetchServiceRequestService = (successCallback, errorCallBack) => _fetchService('requestService/showMaintenance', 'GET', {}, successCallback, errorCallBack);
 
 export const  ViewRequestService = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showServiceRequest1`, 'GET', {}, successCallback, errorCallBack);
+
+
+/////.......DashBord count..../////
+
+export const AssetsCountService = (successCallback, errorCallBack) => _fetchService('assetsCount', 'POST', {}, successCallback, errorCallBack);
+
+export const TagAssetsCountService = (successCallback, errorCallBack) => _fetchService('tagAssetsCount', 'POST', {}, successCallback, errorCallBack);
+
+export const UntagCountService = (successCallback, errorCallBack) => _fetchService('untagCount', 'POST', {}, successCallback, errorCallBack);
+
+export const WarrantyDueCountService = (successCallback, errorCallBack) => _fetchService('warrantyDueCount', 'POST', {}, successCallback, errorCallBack);
+
+export const AmcDueCountService = (successCallback, errorCallBack) => _fetchService('amcDueCount', 'POST', {}, successCallback, errorCallBack);
+
+export const CertificateDueCountService = (successCallback, errorCallBack) => _fetchService('certificateDueCount', 'POST', {}, successCallback, errorCallBack);
+
+export const InsuranceDueCountService = (successCallback, errorCallBack) => _fetchService('insuranceDueCount', 'POST', {}, successCallback, errorCallBack);
+
+export const AuditDueCountService = (successCallback, errorCallBack) => _fetchService('auditDueCount', 'POST', {}, successCallback, errorCallBack);
+
+export const EolCountService = (successCallback, errorCallBack) => _fetchService('eolCount', 'POST', {}, successCallback, errorCallBack);
+
+export const DamageCountService = (successCallback, errorCallBack) => _fetchService('damageCount', 'POST', {}, successCallback, errorCallBack);
+
+export const SalesCountService = (successCallback, errorCallBack) => _fetchService('salesCount', 'POST', {}, successCallback, errorCallBack);

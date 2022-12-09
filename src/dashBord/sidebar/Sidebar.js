@@ -50,7 +50,7 @@ const onFullScreen =()=>{
 
 return (
 <div className={sidebarOpen === false ? "sidebar_responsive" : " "} id="sidebar" style={{
-        height: '98vh', width: '11vh'
+        height: '110vh', width: '11vh'
 }}>
         <div className="sidebar__title"></div>
         <div className="sidebar__menu">
