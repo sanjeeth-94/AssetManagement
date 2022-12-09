@@ -3,32 +3,40 @@ import Dialog from '@mui/material/Dialog';
 import { DialogContent, DialogContentText, DialogTitle} from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-
 import { Grid } from '@mui/material';
-import { ViewRequestService } from '../../services/ApiServices';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ImageList from '@mui/material/ImageList';
+
 
 const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
   const [rows, setRows]=useState([]);
-  const[description,setDescription]=useState("");
-  const[assetId,setAssetId]=useState("");
-  const [assetType,setAssetType] = useState("");
-  const [section,setSection] = useState("");
-  const [manufacturer,setManufacturer]=useState("");
-  const [assetModel,setAssetModel]=useState("");
+  const [assetName ,setAssetName]=useState('');
+  const [department,setDepartment]=useState('');
+  const [assetType,setAssetType]=useState('');
+  const [section,setSection]=useState('');
+  const [amcStatus,setAmcStatus]=useState('');
+  const [warrantyStatus,setwarrantyStatus]=useState('');
+  const [insuranceStatus,setInsuranceStatus]=useState('');
+  const [problemNote,setProblemNote]=useState('');
+  const [bpImages1,setBpImages1]=useState('');
+  const [bpImages2,setBpImages2]=useState('');
   
   useEffect(() => {
-    ViewRequestService({id:editData.id},handleViewRequestService, handleViewRequestServiceException)
+   setAssetName(editData.assetName || '');
+   setDepartment(editData.department ||'');
+   setAssetType(editData.assetType || '');
+   setSection(editData.section ||'');
+   setAmcStatus(editData.amcStatus ||'');
+   setwarrantyStatus(editData.warrantyStatus||'');
+   setInsuranceStatus(editData.insuranceStatus||'');
+   setProblemNote(editData.problemNote||'');
+   setBpImages1(editData.bpImages1 || '');
+   setBpImages2(editData.bpImages2 || '');
+
   }, [editData]);
   
-  const handleViewRequestService = (dataObject) => {
-    setAssetId(editData?.id|| '');
-    setAssetType(dataObject?.data[0]?.assetType|| '');
-    setSection(dataObject?.data[0]?.section|| '');
-    setManufacturer(dataObject?.data[0]?.manufacturer|| '');
-    setAssetModel(dataObject?.data[0]?.manufacturer|| '');
-    setDescription(dataObject?.data[0]?.description|| '');
-  }
+
   
   const handleViewRequestServiceException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
@@ -36,7 +44,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
   
   const handleClose = () => { 
     setOpen(false);
-    setDescription('');
+    
   };
   return (
     <div>
@@ -56,16 +64,16 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
               <TextField  fullWidth
               label=""
               variant="outlined"
-              value={assetId}/>
+              value={assetName}/>
               </Grid>
               <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                <label>Department</label>
+                <label>Department:</label>
               </Grid>
               <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
               <TextField fullWidth
               label=""
               variant="outlined"
-              value={assetType}/>
+              value={department}/>
               </Grid>
               <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                 <label>Asset Type:</label>
@@ -74,7 +82,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
               <TextField  fullWidth
                  label=""
                  variant="outlined"
-                 value={section}/>
+                 value={assetType}/>
               </Grid>
             </Grid>
             <Grid container spacing={2} style={{ marginTop: '20px'}}>
@@ -85,15 +93,86 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
               <TextField fullWidth
                  label=""
                  variant="outlined"
-                 value={manufacturer}/>
+                 value={section}/>
               </Grid>
-              <Grid>
-                <label>Asset Model:</label>
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Amc Status:</label>
               </Grid>
-              <Grid>
-                
+              <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+              <TextField fullWidth
+                 label=""
+                 variant="outlined"
+                value={amcStatus}/>
+              </Grid>
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Warranty Status:</label>
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+              <TextField fullWidth
+                 label=""
+                 variant="outlined"
+                 value={warrantyStatus}/>
+              </Grid>
+              </Grid>
+              <Grid container spacing={2} style={{ marginTop: '20px'}}>
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Insurance Status:</label>
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+              <TextField fullWidth
+                 label=""
+                 variant="outlined"
+                 value={insuranceStatus}/>
+              </Grid>
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Problem Note:</label>
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+              <TextField fullWidth
+                 label=""
+                 variant="outlined"
+                 value={problemNote}/>
               </Grid>
             </Grid>
+            <div style={{ margin: '30px' , border:'solid', borderColor:'whitesmoke'}}>
+                  <h2>Break Down Images</h2>
+                  <hr />
+                
+                <Grid container spacing={2} style={{ marginTop: '20px'}}>
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Image 1:</label>
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+              <AccordionDetails>
+                <Typography>
+                  <ImageList x={{ width: 500, height: 450 }} cols={4} rowHeight={164}>
+                     <img
+                      style={{width:'50px',height:'50px'}}
+                      src={`http://192.168.1.173:8000 ${bpImages1}`}/>
+                      </ImageList>
+                      </Typography>
+                      </AccordionDetails> 
+
+              </Grid>
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Image 2:</label>
+              </Grid>
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+              <AccordionDetails>
+                <Typography>
+                  <ImageList x={{ width: 500, height: 450 }} cols={4} rowHeight={164}>
+              <img  style={{width:'50px',height:'50px'}}
+                        src={`http://192.168.1.173:8000${bpImages2}`}/>
+                         </ImageList>
+                      </Typography>
+                      </AccordionDetails>
+              </Grid>
+              </Grid>
+              </div>
+              <div>
+                 <Button style={{marginLeft:'800px'}}type='reset' onClick={handleClose}>Cancel</Button>
+              
+             </div>
           </DialogContent>
         </form>
 
@@ -105,95 +184,5 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
 }
 export default ServiceRequestView;
 
-   
-// return (
-  //   <div>
-  //     <Dialog 
-  //     open={open}
-  //     maxWidth='lg'>
-  //       <form>
-  //         <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-  //           {"Service view"}
-  //         </DialogTitle>
-  //         <DialogContent>
-            
-  //           <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-  //           <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-  //           <label>Asset Name:</label>
-  //         </Grid>
-          
-  //         <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={assetId}/>
-  //            </Grid>
-  //             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label style={{marginLeft:'1px'}}>Department:</label>
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={assetType}/>
-  //             </div>
-  //             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label style={{marginLeft:'1px'}}>Asset Type:</label>
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={section}/>
-  //             </div>
-  //             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label style={{marginLeft:'1px'}}>Section:</label>
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={manufacturer}/>
-  //             </div>
-  //             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label style={{marginLeft:'1px'}}>Asset Model:</label>
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={assetModel}/>
-  //             </div>
-  //             <div style={{marginTop:'10px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label>AMC Status:</label>
-  //               <TextareaAutosize
-  //               style={{ width:'250px', height:'40px',marginLeft:'70px', marginTop:'20px'}}
-  //               aria-label="empty textarea"
-  //               placeholder="Address"
-  //               onChange={((e)=>{setDescription(e.target.value)})}
-  //               value={description}/>
-  //             </div>
-  //             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label style={{marginLeft:'1px'}}>Warrenty Status:</label>
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={assetModel}/>
-  //             </div>
-  //             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label style={{marginLeft:'1px'}}>Insurance Status:</label>
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={assetModel}/>
-  //             </div>
-  //             <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-  //               <label style={{marginLeft:'1px'}}>Problem Note:</label>
-  //               <TextField style={{marginLeft:'20px', width:'250px'}}
-  //               label=""
-  //               variant="outlined"
-  //               value={assetModel}/>
-  //             </div>
-  //             <div>
-  //               <Button type='reset' onClick={handleClose}>Cancel</Button>
-  //               <Button type='submit'></Button>
-  //             </div>
-  //           </Grid>
-  //         </DialogContent>
-  //       </form>
-  //     </Dialog>       
-  //   </div>
-  // )
+
 

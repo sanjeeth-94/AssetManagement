@@ -195,16 +195,16 @@ console.log(errorMessage)
                       <ImageList x={{ width: 500, height: 450 }} cols={4} rowHeight={164}>
                         <img
                         style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.174:8000${bpImages1}`}/>
+                        src={`http://192.168.1.173:8000${bpImages1}`}/>
                         
                         <img  style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.174:8000${bpImages2}`}/>
+                        src={`http://192.168.1.173:8000${bpImages2}`}/>
 
                         <img  style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.174:8000${bpImages3}`}/>
+                        src={`http://192.168.1.173:8000${bpImages3}`}/>
 
                         <img  style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.174:8000${bpImages4}`}/>
+                        src={`http://192.168.1.173:8000${bpImages4}`}/>
                       </ImageList>
                     </Typography>
                   </AccordionDetails>
@@ -214,6 +214,7 @@ console.log(errorMessage)
               <Button onClick={onSubmit}>
                 Aprove
               </Button>
+              <Button type='reset' onClick={handleClose}>Cancel</Button> 
               <Button type='reset' onClick={onReject}>Reject</Button>
               {
                 reject === true &&

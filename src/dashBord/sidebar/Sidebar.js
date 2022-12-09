@@ -15,7 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { LogoutService } from "../../services/ApiServices";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
+
 import { useState } from "react";
 
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {

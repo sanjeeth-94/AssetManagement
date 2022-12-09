@@ -2,11 +2,15 @@ import React, { useState,useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+
+import BuildIcon from '@mui/icons-material/Build';
 import ServiceRequestView from './ServiceRequestView';
 import { FetchServiceRequestService } from '../../services/ApiServices';
+import ServiceRequest from './ServiceRequest';
 
 const ServiceRequestList = () => {
   const [open, setOpen] = useState(false);
+  const [open1,setOpen1]=useState(false);
   const [isAdd, setIsAdd] = useState(true);
   const [editData, setEditData] = useState(''); 
   const [refresh , setRefresh]=useState(false)
@@ -26,7 +30,8 @@ const ServiceRequestList = () => {
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
-      <ViewData selectedRow={params.row} />
+      <ViewData selectedRow={params.row} />,
+      <BuildData selectedRow={params.row}/>
     ],
     }   
   ];
@@ -41,6 +46,19 @@ const ServiceRequestList = () => {
       }}/>
     )
   }
+
+  function BuildData({ selectedRow }) {
+    return (
+      <BuildIcon
+      onClick={() => {
+       
+        setOpen1(true);
+      }}/>
+    )
+  }
+
+
+
   
   useEffect(() => {
     FetchServiceRequestService(handleServiceRequestResult,handleServiceRequestError)
@@ -102,7 +120,14 @@ const ServiceRequestList = () => {
       editData={editData}
       setRefresh={setRefresh}
   />
-    </div>
+  <ServiceRequest
+    open1={open1}
+    setOpen1={setOpen1}
+    editData={editData}
+    setRefresh={setRefresh}
+  />
+
+  </div>
   )
 }
 
