@@ -17,7 +17,7 @@ import {
     ScrapAssetAddService, 
 } from '../../services/ApiServices';
 
-import ScrapLog from '../Asset/Scraplog';
+import ScrapLog from '../Asset/ScrapLog'
 
 const ScrapAssetList = () => {
 const [departmentList,setDepartmentList] =useState([]);
