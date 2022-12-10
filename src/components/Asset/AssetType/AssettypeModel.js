@@ -152,11 +152,11 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             {isAdd === true ? 'Add' : 'Update'}
                             </Button>
                         </div>
-                        </form>
-                    </Dialog>
-                </div>
+                    </form>
+                </Dialog>
             </div>
-        )
-    }
+        </div>
+    )
+}
 
 export default AssetTypeModel;

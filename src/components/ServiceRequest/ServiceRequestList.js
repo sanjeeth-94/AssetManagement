@@ -2,21 +2,21 @@ import React, { useState,useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-
 import BuildIcon from '@mui/icons-material/Build';
 import ServiceRequestView from './ServiceRequestView';
 import { FetchServiceRequestService } from '../../services/ApiServices';
+import HandymanIcon from '@mui/icons-material/Handyman';
 import ServiceRequest from './ServiceRequest';
+import ServiceStatusUpdate from './ServiceStatusUpdate';
 
 const ServiceRequestList = () => {
   const [open, setOpen] = useState(false);
   const [open1,setOpen1]=useState(false);
+  const [open2,setOpen2]=useState(false)
   const [isAdd, setIsAdd] = useState(true);
-  const [editData, setEditData] = useState(''); 
+  const [editData, setEditData] = useState([]); 
   const [refresh , setRefresh]=useState(false)
   const [rows , setRows]= useState("");
-    
-  
   const columns = [
     { field: 'department', headerName: 'Department', width: 110 },
     { field: 'section', headerName: 'Section', width: 120 },
@@ -31,7 +31,8 @@ const ServiceRequestList = () => {
     type: 'actions',
     getActions: (params) => [
       <ViewData selectedRow={params.row} />,
-      <BuildData selectedRow={params.row}/>
+      <BuildData selectedRow={params.row}/>,
+      <HandymanData selectedRow={params.row}/>
     ],
     }   
   ];
@@ -46,23 +47,29 @@ const ServiceRequestList = () => {
       }}/>
     )
   }
-
+  
   function BuildData({ selectedRow }) {
     return (
       <BuildIcon
       onClick={() => {
-       
+        setEditData(selectedRow);
         setOpen1(true);
       }}/>
     )
   }
 
-
-
+  function HandymanData({ selectedRow}) {
+    return (
+      <HandymanIcon
+      onClick={() => {
+        setEditData(selectedRow);
+        setOpen2(true);
+      }}/>
+    )
+  }
   
   useEffect(() => {
     FetchServiceRequestService(handleServiceRequestResult,handleServiceRequestError)
-
   },[]);
 
   const handleServiceRequestResult=(dataObject)=>{
@@ -95,8 +102,6 @@ const ServiceRequestList = () => {
     )
   }
 
-
-
   return (
     <div >
       <h2>REQUESTED SERVICE</h2>
@@ -118,16 +123,23 @@ const ServiceRequestList = () => {
       setOpen={setOpen}
       isAdd={isAdd}
       editData={editData}
-      setRefresh={setRefresh}
-  />
-  <ServiceRequest
-    open1={open1}
-    setOpen1={setOpen1}
-    editData={editData}
-    setRefresh={setRefresh}
-  />
+      setRefresh={setRefresh}/>
+      
+      <ServiceRequest
+      open1={open1}
+      setOpen1={setOpen1}
+      editData={editData}
+      setRefresh={setRefresh}/>
 
-  </div>
+      <ServiceStatusUpdate
+      open2={open2}
+      setOpen2={setOpen2}
+      editData={editData}
+      setRefresh={setRefresh}
+      />
+
+
+    </div>
   )
 }
 
