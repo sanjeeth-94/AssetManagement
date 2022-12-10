@@ -333,6 +333,8 @@ export const  FetchServiceRequestService = (successCallback, errorCallBack) => _
 export const  ViewRequestService = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showServiceRequest1`, 'GET', {}, successCallback, errorCallBack);
 
 
+export const RequestServiceAdd = (data, successCallback, errorCallBack) => _fetchService('requestService/add', 'POST', data, successCallback, errorCallBack);
+
 /////.......DashBord count..../////
 
 export const AssetsCountService = (successCallback, errorCallBack) => _fetchService('assetsCount', 'POST', {}, successCallback, errorCallBack);
