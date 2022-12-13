@@ -64,13 +64,14 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     FetchVenderService(handleFetchVender, handleFetchVenderException);
-    // setVendorName(editData?.vendorId || '');
-    // setEmailId(editData?.emailId || ' ');
-    // setVenderAddress(editData?.venderAddress || ' ')
-    // setPremiumCost( editData?.premiumCost || '');
-    // setDepartment(editData?.department|| '');
-    // setSection(editData?.section|| '');
-
+    setVendorName(editData?.vendorId || '');
+    setfromDate(editData?.periodFrom || '');
+    settoDate(editData?.periodTo || '');
+    setPremiumCost(editData?.premiumCost || '');
+    setDepartment(editData?.departmentId || '');
+    setSection(editData?.sectionsId || '' );
+    setAssetType(editData?.assetType || '');
+    console.log("data"+editData?.assetTypesId);
   }, [editData]);
 
   const handleClose = () => {
@@ -172,16 +173,43 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
+    if(editData?.departmentId)
+    {
+      FetchSectionService({id:editData?.departmentId},handleFetchSectionService,handleFetchSectionException);
+    }
   }
 
+  const handleFetchSectionService=(dataObject)=>{
+    setSectionList(dataObject.data);
+    if(editData?.sectionsId)
+    {
+      FetchAssetTypeService({id:editData?.sectionsId},handleFetchAssetTypeService,handleFetchAssetTypeException);
+    }
+  }
+
+  const handleFetchAssetTypeService=(dataObject)=>{
+    setAssetList(dataObject.data);
+  }
+  const handleFetchAssetTypeException=(errorStaus,errorMessage)=>{
+    console.log(errorMessage);
+  }
+
+  const handleFetchSectionException=(errorStaus,errorMessage)=>{
+    console.log(errorMessage);
+  }
   const handleFetchException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
 
   const handleFetchVender = (dataObject) => {
     setVendorNameList(dataObject.data);
-    setVendorName(editData?.vendorId || '');
-
+    if(editData?.vendorId)
+    {
+      setPhoneNumber(dataObject?.data[0]?.contactNo || '');
+      setEmailId(dataObject?.data[0]?.email || '');
+      setVenderAddress(dataObject?.data[0]?.address || '');
+    }
+   
   }
 
   const handleFetchVenderException = (errorStaus, errorMessage) => {
@@ -385,7 +413,8 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         label=""
                         value={vendorName}
                         onChange={(e) => onVenderChange(e)}>
-                          {vendorNameList.map((data, index) => {
+                          {
+                            vendorNameList.map((data, index) => {
                             return (
                               <MenuItem value={data.vendorId} key={index}>{data.vendorName}</MenuItem>
                             )
@@ -415,7 +444,8 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                     <TextField fullWidth
-                      id=" Phone" label="" 
+                      id=" Phone" 
+                      label="" 
                       variant="outlined" 
                       value={phoneNumber}/>
                   </Grid>
@@ -493,13 +523,13 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
                       <Box>
                         <FormControl fullWidth>
-                          <InputLabel id="demo-simple-select-label"></InputLabel>
+                          <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                           <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          label=""
+                          value={department}
+                          label="Select Department"
                           onChange={(e) => onDepartmentChange(e)}>
-                            {departmentList.map((data, index) => {
+                            {
+                              departmentList.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                               )
@@ -769,6 +799,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={section}
                           onChange={(e) => onSectionChange(e)}>
                             {sectionList.map((data, index) => {
                               return (
@@ -790,8 +821,10 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={assetType}
                           onChange={(e) => onAssetTypeChange(e)}>
-                            {assetList.map((data, index) => {
+                            {
+                              assetList.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                               )
@@ -813,6 +846,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={asset}
                           onChange={(e) => onAssetChange(e)}>
                             {assetNameList.map((data, index) => {
                               return (

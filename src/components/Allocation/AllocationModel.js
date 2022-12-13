@@ -38,7 +38,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [ assetNameList, setAssetNameList]=useState([]);
   const [assetName,setAssetName]=useState('');
   const [user, setuser] = useState("EmpId");
-  const [temporary, setTemporary] = useState("Temporary");
+  const [temporary, setTemporary] = useState("temporary");
   const [tempFromDate , setTempFromDate] = useState('');
   const [tempToDate , setTempToDate] = useState('');
   const [employeeNameList,setEmployeeNameList]= useState([]);
@@ -473,13 +473,13 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                       onChange={onChangeTemporary}
                       value={temporary}
                       >
-                        <FormControlLabel value="Temporary" control={<Radio />} label="Temporary" />
-                        <FormControlLabel value="Permanent" control={<Radio />} label="Permanent" />
+                        <FormControlLabel value="temporary" control={<Radio />} label="Temporary" />
+                        <FormControlLabel value="permanent" control={<Radio />} label="Permanent" />
                       </RadioGroup>
                     </FormControl>
                   </div>
                   {
-                      temporary === 'Temporary' &&
+                      temporary === 'temporary' &&
                       <>
                       <div>
                       <label style={{marginLeft:'40px', marginRight:'40px',alignContent:'center'}}>From:</label>

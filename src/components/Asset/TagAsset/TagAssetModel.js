@@ -24,6 +24,7 @@ import { TagAssetAddService,
     FetchTagAssetRfIdService
 } from '../../../services/ApiServices';
 import { Grid, MenuItem } from '@mui/material';
+import NotificationBar from '../../../services/NotificationBar';
 
 export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefresh }) {
     const [departmentList,setDepartmentList] =useState([]);
@@ -39,7 +40,16 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     const [assetId, setAssetId]=useState('');
     const [rfIdNo1,setRfIdNo1]=useState('');
     const [rfIdNo2,setRfIdNo2]=useState('');
+    const [departmentId, setDepartmentId] = useState('');
+    const [sectionId, setSectionId] = useState('');
+    const [assetTypeId, setAssetTypeId] = useState('');
+    const [assetNameId, setAssetNameId] = useState('');
 
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+    });
     const onTagAssetType = (event) => {
         setTageAssetType(event.target.value);
     };
@@ -72,6 +82,15 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     const handleFetchException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
     }
+
+    const handleCloseNotify = () => {
+        setOpen(false)
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+      };
     
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
@@ -82,6 +101,7 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
 
     const handleFetchSection = (dataObject) => {
         setSectionList(dataObject.data);
+
     }
 
     const handleFetchSectionException = (errorStaus, errorMessage) => {
@@ -119,11 +139,15 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
         FetchIdAssetIdService({id:e.target.value},handleIdAssetIdService,handleIdAssetIdServiceException)
     }
     const handleIdAssetIdService=(dataObject)=>{
-        setDepartment(dataObject?.data[0]?.department);
-        setSection(dataObject?.data[0]?.section);
-        setAssetType(dataObject?.data[0]?.assetype);
-        setAssetName(dataObject?.data[0]?.assetName);
-    
+        setDepartment(dataObject?.data[0]?.departmentId);
+        setSection(dataObject?.data[0]?.sectionId);
+        setAssetType(dataObject?.data[0]?.assetTypeId);
+        setAssetName(dataObject?.data[0]?.assetNameId);
+        setDepartmentId(dataObject?.data[0]?.department);
+        setSectionId(dataObject?.data[0]?.section);
+        setAssetTypeId(dataObject?.data[0]?.assetype);
+        setAssetNameId(dataObject?.data[0]?.assetName);
+       
     }
     const handleIdAssetIdServiceException =(errorStaus, errorMessage)=>{
         console.log(errorMessage);
@@ -138,19 +162,49 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
             assetId:assetId,
             department:department,
             section:section,
-            assettype: assetType,
+            assetType: assetType,
             assetName:assetName,
             scanRfidNo:rfIdNo1,
             rfidNo:rfIdNo2,
+            
+             
             
         },handleTagAssetId,handleTagAssetIdExeption)
     }
     const handleTagAssetId=(dataObject)=>{
         console.log(dataObject);
-      
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+          });
+          setDepartment('');
+          setSection('');
+          setAssetType('');
+          setAssetName('');
+          setDepartmentId('');
+          setSectionId('');
+          setAssetTypeId('');
+          setAssetNameId('');
+        
     }
     const handleTagAssetIdExeption=(errorStaus, errorMessage)=>{
         console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message: errorMessage,
+          });
+          setDepartment('');
+          setSection('');
+          setAssetType('');
+          setAssetName('');
+          setDepartmentId('');
+          setSectionId('');
+          setAssetTypeId('');
+          setAssetNameId('');
+         
+      
     }
     return (
         <div>
@@ -164,9 +218,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
         <form onSubmit={onSubmit}>
             <hr style={{bottom:'solid'}}/>
 
-            <Grid container>
+            <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                style={{alignSelf:'center', alignItems:'center', marginLeft:'35%'}}
+                style={{alignSelf:'center', alignItems:'center', marginLeft:'18%'}}
                 >
                 <FormControl>
                     <FormLabel id="Department"></FormLabel>
@@ -188,19 +242,19 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                 tagAssetType === 'Department' &&
             <>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                  
+                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                        style={{alignSelf:'center',textAlign:'center'}}
                     >
                     <label >Department :</label>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
                     <Box>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth
+                      
+                        >
                             <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
                                     label="Select Department"
                                     value={department}
                                     onChange={(e) => onDepartmentChange(e)}>
@@ -216,10 +270,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
 
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                    
+                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                       style={{alignSelf:'center',textAlign:'center'}}
                     >
                     <label >Section : </label>
                     </Grid>
@@ -245,10 +298,10 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
 
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
+                   
 
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center'}}
+                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                    style={{alignSelf:'center',textAlign:'center'}}
                     >
                     <label >Asset Type : </label>
                     </Grid>
@@ -275,10 +328,10 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
 
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
+                  
 
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center'}}
+                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                  style={{alignSelf:'center',textAlign:'center'}}
                     >
                         <label >Asset Name : </label>
                     </Grid>
@@ -303,10 +356,10 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
 
                 </Grid>          
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
+                  
 
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center'}}
+                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                   style={{alignSelf:'center',textAlign:'center'}}
                     >
                         <label >RFID NO :  </label>
                     </Grid>
@@ -320,16 +373,18 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                         
                         />   
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>          
+                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{alignSelf:'center',textAlign:'center'}}
+                    >          
                         <Button variant="contained">Scan</Button>
                     </Grid>
 
 
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center'}}
+                    
+                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                  style={{alignSelf:'center',textAlign:'center'}}
                     >
                         <label>RFID NO :  </label>
                     </Grid>
@@ -343,7 +398,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                                        
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                    style={{alignSelf:'center',textAlign:'center'}}
+                    >
                     <Button variant="contained">Write</Button>
                     </Grid>
                 </Grid>
@@ -353,9 +410,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
              tagAssetType === 'AssetId' && 
              <>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                    
+                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                       style={{alignSelf:'center',textAlign:'center'}}
                         >
                         <label >Asset Id : </label>
                         </Grid>
@@ -369,7 +426,8 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                                 label="Select Asset Id"
                                 value={assetId}
                                 onChange={(e) => onAssetIdChange(e)}>
-                                {assetIdList.map((data, index) => {
+                                {
+                                    assetIdList.map((data, index) => {
                                     return (
                                         <MenuItem value={data.id} key={index}>{data.assetId}</MenuItem>
                                     )
@@ -380,9 +438,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                    
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                       style={{alignSelf:'center',textAlign:'center'}}
                         >
                         <label >Department :  </label>
                         </Grid>
@@ -391,14 +449,14 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                             fullWidth 
                             id="outlined-basic" 
                             variant="outlined" 
-                            value={department}
+                            value={departmentId}
                             />
                         </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                   
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                       style={{alignSelf:'center',textAlign:'center'}}
                         >
                         <label >Section :</label>
                         </Grid>
@@ -407,14 +465,14 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                             fullWidth 
                             id="outlined-basic"  
                             variant="outlined" 
-                            value={section}
+                            value={sectionId}
                         />
                         </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                  
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                        style={{alignSelf:'center',textAlign:'center'}}
                         >
                         <label >Asset Type :  </label>
                         </Grid>
@@ -423,14 +481,14 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                             fullWidth 
                             id="outlined-basic"  
                             variant="outlined" 
-                            value={assetType}
+                            value={assetTypeId}
                         />
                         </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                   
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                      style={{alignSelf:'center',textAlign:'center'}}
                         >
                             <label >Asset Name:  </label>
                         </Grid>
@@ -439,14 +497,14 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                             fullWidth 
                             id="outlined-basic"  
                             variant="outlined" 
-                            value={assetName}
+                            value={assetNameId}
                         />
                         </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                   
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                        style={{alignSelf:'center',textAlign:'center'}}
                         >
                         <label> RFID NO :  </label>
                         </Grid>
@@ -459,14 +517,16 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                             onChange={(e)=>setRfIdNo1(e.target.value)}
                         />
                         </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                        style={{alignSelf:'center',textAlign:'center'}}
+                        >
                         <Button  variant="contained">Scan</Button>
                         </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    <Grid item xs={0} sm={6} md={3} lg={3} xl={3}/>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center'}}
+                    
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                        style={{alignSelf:'center',textAlign:'center'}}
                         >
                         <label> RFID NO :  </label>
                         </Grid>
@@ -479,7 +539,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                            
                         />
                         </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                        style={{alignSelf:'center',textAlign:'center'}}
+                        >
                         <Button variant="contained">Write</Button>
                         </Grid>
                 </Grid>
@@ -498,6 +560,13 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                 </div>
                 </div>
             </form>
+            <NotificationBar
+                handleClose={handleCloseNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+            />
+
   
         </div>
        

@@ -156,51 +156,59 @@ const ViewAuditReport = () => {
   
   
   return (
-    <div>
-      <form style={{border:'solid' , borderColor:'whitesmoke'}}>
-        <div>
-          <h3 style={{marginLeft:'30px'}}>VIEW AUDITED REPORT</h3>
-          <hr/>
-        </div>
-        <form>
-        <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
-                  <Grid item xs={12} sm={6} md={6} lg={3} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                  <label>Audited Date From :</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={3} xl={3} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
-                  <TextField
-            style={{width:'200px'}}
+    <div style={{border:'solid' , borderColor:'whitesmoke'}}>
+      <Grid container>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+         style={{alignself:'center' , textAlign:'center'}}
+        >
+        <h3 >VIEW AUDITED REPORT</h3>
+        </Grid>
+      </Grid>
+      <hr/>
+
+      <Grid container spacing={2} style={{marginTop:'15px'}}>
+        <Grid item xs={12} sm={6} md={3} lg={3} xl={3} 
+         style={{alignself:'center' , textAlign:'center'}}
+        >
+        <label>Audited Date From :</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={3} xl={3} >
+        <TextField
+            fullWidth
             id="Vendor-Address"
             variant="outlined"
             type='date'
             value={fromDate}
             onChange={(e) => { handleChangefromDate(e) }}/>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                  <label > To</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
-                  <TextField
-            style={{width:'200px'}}
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={2} xl={2} 
+         style={{alignself:'center' , textAlign:'center'}}
+        >
+        <label > To</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={3} xl={3} 
+        >
+        <TextField
+            fullWidth
             id="Vendor-Address"
             variant="outlined"
             type='date'
             value={toDate}
             onChange={(e) => { handleChangetoDate(e) }}/>
-                  </Grid>
-                  </Grid>
-                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                  <label>Department :</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                  <Box >
-              <FormControl style= {{width:'200px'}}>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} style={{ marginTop:'15px'}} >
+        <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2}
+        style={{alignSelf:'center',txetAling:'center'}}
+        >
+        <label>Department :</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+        <FormControl fullWidth>
                 <InputLabel id="departmentlabel">Select Department</InputLabel>
                 <Select
-                labelId="departmentlabel"
-                id='department'
-                label="Department"
+              
+                label="Select Department"
                 onChange={(e) => onDepartmentChange(e)}>
                   {departmentList.map((data, index) => {
                     return (
@@ -209,19 +217,18 @@ const ViewAuditReport = () => {
                   })}
                 </Select>
               </FormControl>
-            </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                  <label>Section:</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                  <Box >
-              <FormControl style= {{width:'200px'}} >
-                <InputLabel id="demo-simple-select-label"></InputLabel>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={1} xl={1}
+         style={{alignSelf:'center',txetAling:'center'}}
+        >
+        <label>Section:</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+        <FormControl fullWidth >
+                <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
                 <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Age"
+            
+                label="Select Section"
                 onChange={(e) => onSectionChange(e)}>
                   {sectionList.map((data, index) => {
                     return (
@@ -230,19 +237,18 @@ const ViewAuditReport = () => {
                   })}
                 </Select>
               </FormControl>
-            </Box>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label >Asset Type :</label>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                  <Box >
-              <FormControl style= {{width:'200px'}}>
-                <InputLabel id="demo-simple-select-label"></InputLabel>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2}
+         style={{alignSelf:'center',txetAling:'center'}}
+        >
+        <label >Asset Type :</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+        <FormControl style= {{width:'200px'}}>
+                <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
                 <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Age"
+       
+                label="Select Asset Type "
                 onChange={(e) => onAssetTypeChange(e)}>
                   {assetTypeList.map((data, index) => {
                     return (
@@ -251,14 +257,13 @@ const ViewAuditReport = () => {
                   })}
                 </Select>
               </FormControl>
-            </Box>
-                    </Grid>
-                  </Grid>
-        </form>
-        <div>
-          <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-        </div>
-      </form>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={1.5} xl={1.5}>
+        <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
+
+        </Grid>
+      </Grid>
+
       <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
         <div>
           <h3 style={{marginLeft:'30px'}}>AUDITED REPORT</h3>

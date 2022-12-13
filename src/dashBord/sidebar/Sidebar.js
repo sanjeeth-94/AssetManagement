@@ -15,11 +15,16 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { LogoutService } from "../../services/ApiServices";
-
 import { useState } from "react";
+import NotificationBar from "../../services/NotificationBar";
 
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
-
+const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+        });
+            
 const [isFullscreen, setIsFullscreen] = useState(false);
 
 const onClickLogOut = (e) => {
@@ -28,13 +33,34 @@ const onClickLogOut = (e) => {
 }
 const handleLogoutService = (dataObject) => {
         console.log(dataObject);
-        sessionStorage.clear();
-        window.location.reload(true);
+        setNotification({
+                status: true,
+                type: 'success',
+                message: dataObject.message,
+              });
+        setTimeout(()=>{
+                sessionStorage.clear();
+                window.location.reload(true);
+        },3000);
+        
 }
 const handleLogoutServiceExeption = (errorObject, errorMessage) => {
         console.log(errorMessage);
+        setNotification({
+                status: true,
+                type: 'error',
+                message: errorMessage,
+              });
 }
-
+const handleCloseNotify = () => {
+        
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+      };
+    
 const onFullScreen =()=>{
         // document.body.requestFullscreen(); 
         if(isFullscreen === true){
@@ -94,6 +120,13 @@ return (
                 <LogoutIcon className='icon' onClick={onClickLogOut} />
         </div>
         </div>
+        <NotificationBar
+            handleClose={handleCloseNotify}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}
+           
+          />
 </div>
 )
 }

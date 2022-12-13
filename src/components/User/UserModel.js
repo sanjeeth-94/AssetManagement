@@ -41,16 +41,18 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     FetchUserIdService(handleFetchUserIdService,handleFetchUserIdServiceException);
     setemployeeId(editData.employee_id || '');
     setemployeeNamed(editData.employee_name || '');
-    setDepartment(editData.department || '');
+    setDepartment(editData.departmentId || '');
     setdesignation(editData.designation || '');
     setemailId(editData.email || '');
     setmobile_number(editData.mobile_number || '');
     setuserName(editData.user_name || '');
     setpassword(editData.password || '');
+    setUserRole(editData.userType || '');
   }, [editData]);
 
   const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
+
   }
   const handleFetchException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
@@ -76,7 +78,8 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setemailId('');
     setmobile_number('');
     setuserName('');
-    setpassword('')
+    setpassword('');
+    setUserRole('');
   };
 
   const onSubmit = (e) => {
@@ -127,6 +130,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setmobile_number('');
     setuserName('');
     setpassword('');
+    setUserRole('');
   }
   const handleException = (errorObject, errorMessage) => {
     console.log(errorMessage);
@@ -135,6 +139,14 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       type: 'error',
       message: errorMessage,
     });
+    setemployeeNamed('');
+    setDepartment('');
+    setdesignation('');
+    setemailId('');
+    setmobile_number('');
+    setuserName('');
+    setpassword('');
+    setUserRole('');
   }
   const handleCloseNotify = () => {
     setOpen(false)
@@ -155,7 +167,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <div>
-              <Grid container style={{ marginTop: '20px' }}>
+              <Grid container spacing={2} style={{ marginTop: '20px' }}>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
                   style={{
                     alignSelf: 'center',
@@ -164,7 +176,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 >
                   <label>Employee ID :</label>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={3} xl={3} style={{ marginTop: '20px' }}>
+                <Grid item xs={12} sm={6} md={6} lg={3} xl={3} >
                   <TextField fullWidth id="employeeId" label="Employee ID" variant="outlined"
                    
                     value={employeeId}
@@ -174,13 +186,13 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   style={{
                     alignSelf: 'center',
                     textAlignLast: 'center',
-                    marginTop: '20px'
+                    
                   }}
                 >
                   <label >Employee Name :</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
-                  style={{ marginTop: '20px' }}
+                  
                 >
                   <TextField fullWidth id="employeeName" label="Employee Name" variant="outlined"
                     onChange={(e) => { setemployeeNamed(e.target.value) }}
@@ -188,7 +200,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   />
                 </Grid>
               </Grid>
-              <Grid container style={{ marginTop: '20px' }}>
+              <Grid container spacing={2} style={{ marginTop: '20px' }} >
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
                   style={{
                     alignSelf: 'center',
@@ -201,9 +213,8 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <FormControl fullWidth>
                     <InputLabel id="departmentlabel">Select Department</InputLabel>
                     <Select
-                      labelId="departmentlabel"
-                      id='department'
-                      label="Department"
+                      label="Select Department"
+                      value={department}
                       onChange={(e) => onDepartmentChange(e)}>
                       {departmentList.map((data, index) => {
                         return (
@@ -217,7 +228,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   style={{
                     alignSelf: 'center',
                     textAlignLast: 'center',
-                    marginTop: '20px',
+                    
                   }}
                 >
                   <label >Designation :</label>
@@ -232,7 +243,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     value={designation} />
                 </Grid>
               </Grid>
-              <Grid container style={{ marginTop: '20px' }}>
+              <Grid container spacing={2} style={{ marginTop: '20px' }}>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
                   style={{
                     alignSelf: 'center',
@@ -266,7 +277,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     value={emailId} />
                 </Grid>
               </Grid>
-              <Grid container style={{ marginTop: '20px' }}>
+              <Grid container spacing={2} style={{ marginTop: '20px' }}>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
                   style={{
                     alignSelf: 'center',
@@ -277,7 +288,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
 
-                  <TextField
+                  <TextField 
                     fullWidth
                     id="userName"
                     label="User Name"
@@ -295,13 +306,13 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <label >Password :</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
-                  <TextField fullWidth id="password" label="Password" variant="outlined"
+                  <TextField  fullWidth id="password" label="Password" variant="outlined"
                     onChange={(e) => { setpassword(e.target.value) }}
                     value={password}
                   />
                 </Grid>
               </Grid>
-              <Grid container style={{ marginTop: '20px' }}>
+              <Grid container spacing={2} style={{ marginTop: '20px' }} >
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
                   style={{
                     alignSelf: 'center',
@@ -314,13 +325,12 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">User Role</InputLabel>
                     <Select
-
                       value={userRole}
                       label="User Role"
                       onChange={handleUserRole}
                     >
-                      <MenuItem value={10}>Admin</MenuItem>
-                      <MenuItem value={20}>User</MenuItem>
+                      <MenuItem value={'Admin'}>Admin</MenuItem>
+                      <MenuItem value={'User'}>User</MenuItem>
 
                     </Select>
                   </FormControl>

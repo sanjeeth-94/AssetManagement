@@ -30,11 +30,15 @@ import {
         CertificateDueCountService, 
         DamageCountService, 
         EolCountService, 
+        InServiceCountService, 
         InsuranceDueCountService, 
         SalesCountService, 
+        ScrapCountService, 
         TagAssetsCountService, 
+        TransferCountService, 
         UntagCountService, 
-        WarrantyDueCountService 
+        WarrantyDueCountService,
+       
       } from "../../services/ApiServices";
 
 const Main = () => {
@@ -49,6 +53,9 @@ const Main = () => {
     const [eolCount,setEolCount]= useState('');
     const [damageCount,setDamageCount]= useState('');
     const [salesCount,setSalesCount]= useState('');
+    const [inServiceCount,setInServiceCount]=useState('');
+    const [scrapCount,setScrapCount]=useState('');
+    const [transferCount,setTransferCount]=useState('');
     
     useEffect(()=>{
         AssetsCountService(handleAssetsCountService,handleAssetsCountException);
@@ -62,6 +69,9 @@ const Main = () => {
         EolCountService(handleEolCountService,handleEolCountException);
         DamageCountService(handleDamageCountService,handleDamageCountException);
         SalesCountService(handleSalesCountService,handleSalesCountException);
+        InServiceCountService(handleInServiceCountService,handleInServiceCountException);
+        ScrapCountService(handleScrapCountService,handleScrapCountException);
+        TransferCountService(handleTransferCountService,TransferCountException);
     },[]);
 
     const handleAssetsCountService = (dataObject) => {
@@ -124,6 +134,26 @@ const Main = () => {
     }
     const handleSalesCountException=()=>{}
 
+    const handleInServiceCountService=(dataObject)=>{
+        setInServiceCount(dataObject?.inService);
+       
+    }
+    const handleInServiceCountException=()=>{
+        setInServiceCount('0');
+    }
+
+    const handleScrapCountService=(dataObject)=>{
+        setScrapCount(dataObject?.scrapAssets );
+        
+    }
+    const handleScrapCountException=()=>{
+        setScrapCount('0');
+    }
+
+    const handleTransferCountService=(dataObject)=>{
+        setTransferCount(dataObject?.transfer);
+    }
+    const TransferCountException=()=>{}
     return (
         <>
         <Grid container spacing={2} style={{marginTop:'20px', marginLeft:'20px'}}>
@@ -346,41 +376,31 @@ const Main = () => {
                 display: 'box'  ,
                 background:'rgb(91, 87, 87)',
                 marginRight:'20px',
-             
                 border: 'solid',
                 borderColor: 'aqua',
                 marginTop:'30px'
- 
             }}>
               <p>AMC Due </p>
                     <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    
                 }}>
                      <label style={{ marginRight:'60%' , color:'aqua', }}>{amcDueCount}</label>
                    
                     <Link to='/Amcdue'><BuildIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
-                      
-
                     }}/></Link>
                     </div>
         </Grid>
-      
-
      </Grid>
-   
      <Grid container spacing={2} style={{marginLeft:'20px'}}>
-      
         <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
                 background:'rgb(91, 87, 87)',
                 marginRight:'20px',
-             
                 border: 'solid',
                 borderColor: 'aqua',
                 marginTop:'30px'
@@ -390,7 +410,6 @@ const Main = () => {
                 <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            
                     }}>
                     <label style={{ marginRight:'35%' , color:'aqua', }}>{certificateDueCount}</label>
                     <Link to='/Certificatedue'><NewReleasesIcon className='icondash' style={{
@@ -400,24 +419,20 @@ const Main = () => {
                     }}/></Link>
                     </div>
         </Grid>
-      
         <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
                 background:'rgb(91, 87, 87)',
                 marginRight:'20px',
-              
                 border: 'solid',
                 borderColor: 'aqua',
                 marginTop:'30px'
- 
             }}>
         <p>Insurance Due </p>
         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            
                     }}>
                     <label style={{ marginRight:'35%' , color:'aqua', }}>{insuranceDueCount}</label>
                     <Link to='/Insurancedue'><HourglassFullIcon className='icondash' style={{
@@ -425,10 +440,8 @@ const Main = () => {
                         width: '60px',
                         margin:'20px',
                      }} /></Link>
-
                      </div>
         </Grid>
-      
         <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
                 style={{
                 color: 'white',
@@ -585,14 +598,22 @@ const Main = () => {
                 marginTop:'30px'
  
             }}>
-        <div >
+        <p>
                       Transfer
-                    </div>
+                    </p>
+                    <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            
+                    }}>
+                          <label style={{ marginRight:'40%' , color:'aqua', }}>{transferCount}</label>
+                    
                     <Link to='/Transfer'><ShuffleIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'20px',
                     }}/></Link>
+                    </div>
         </Grid>
       
         <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
@@ -607,14 +628,20 @@ const Main = () => {
                 marginTop:'30px'
  
             }}>
-       <div >
-                      In Service
-                    </div>
+                
+       <p > In Service </p>
+                    <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            
+                    }}>
+                    <label style={{ marginRight:'40%' , color:'aqua', }}>{inServiceCount}</label>
                     <Link to='/Inservice'><SettingsSuggestIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'20px',
                     }}/></Link>
+                    </div>
         </Grid>
       
         <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
@@ -654,13 +681,22 @@ const Main = () => {
                marginTop:'30px'
 
            }}>
-                  <div >
+                  <p >
                       Scrap
-                    </div>
+                    </p>
+
+                    <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            
+                    }}>
+                    <label style={{ marginRight:'45%' , color:'aqua', }}>{ scrapCount}</label>
+                   
                     <Link to='/Scrap'><DeleteIcon  className='icondash' style={{
                         height: '70px',
                         width: '70px'
                     }}/></Link>
+                    </div>
        </Grid>
 
      </Grid>

@@ -6,6 +6,7 @@ import NotificationBar from '../../services/NotificationBar';
 import AuditModel from './AuditModel';
 import Edit from '@mui/icons-material/Edit';
 import Delete from '@mui/icons-material/Delete';
+import { Grid } from '@mui/material';
 
 const AuditList = () => {
     const [open, setOpen] = useState(false);
@@ -112,19 +113,27 @@ const AuditList = () => {
     };
   
     return (
-        <div style={{border:'solid', borderColor:'whitesmoke'}}>
-            <div style={{display:'flex'}}>
-                <h3 style={{ marginLeft: '50px' }}> Audit View Assets </h3>
-                <Button style={{marginLeft:'63%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
+        <div>
+            <Grid container>
+                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
+                 style={{alignSelf:'center', textAlign:'center'}}
+                >
+                <h3 > Audit View Assets </h3>
+                </Grid>
+                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                 style={{alignSelf:'center', textAlign:'center'}}
+                >
+                <Button style={{width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
                     Add
                 </Button>
-            </div>
+                </Grid>
+            </Grid>
             <hr style={{ bottom: 'solid' }} />
             <div style={{ height: '400px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
                 <DataGrid
                 rows={rows}
                 columns={columns} />
-                rowsPerPageOptions
+               
             </div>
             <AuditModel
             open={open}

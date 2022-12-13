@@ -26,6 +26,7 @@ import {
     FetchAssetIdService,
    
 } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => {
     const [assetId, setAssetId] = useState();
@@ -54,6 +55,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const [assetImage, setAssetImage] = useState('');
     const [vendorData, setVendorData] = useState([]);
     const [warranty, setWarranty] = useState("warranty");
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+      });
 
     const handleChangeWarrantyStartDate = (e) => {
         setWarrantyStartDate(e.target.value);
@@ -264,7 +270,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const handleSuccess = (dataObject) => {
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
-        setOpen(false);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+          });
         setAssetId('');
         setDepartment('');
         setSection('');
@@ -283,7 +293,21 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
     const handleException = (errorObject, errorMessage) => {
         console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message: errorMessage,
+          });
+      
     }
+    const handleCloseNotify = () => {
+        setOpen(false)
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+      };
 
     return (
         <div>
@@ -1009,6 +1033,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                     </DialogActions>
                 </form>
             </Dialog>
+            <NotificationBar
+                handleClose={handleCloseNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+            />
         </div>
     )
 }

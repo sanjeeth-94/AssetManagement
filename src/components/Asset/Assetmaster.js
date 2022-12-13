@@ -108,7 +108,8 @@ export default function Assetmaster() {
                   label="Select Department"
                   value={department}
                   onChange={(e) => onDepartmentChange(e)}>
-                          {departmentList.map((data, index) => {
+                          {
+                            departmentList.map((data, index) => {
                               return (
                                   <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                               )
@@ -117,12 +118,14 @@ export default function Assetmaster() {
                 </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={3} lg={1} xl={1}
-             style={{alignSelf:"center", textAlign:'center'}}
+             style={{alignSelf:"center", textAlign:'center' ,marginTop:'10px'}}
           >
           <label >Section:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
-              <FormControl fullWidth>
+              <FormControl fullWidth
+                style={{marginTop:'10px'}}
+              >
                   <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
                   <Select
                 
@@ -143,7 +146,7 @@ export default function Assetmaster() {
           >
           <label >Asset Type:</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={3} lg={2} xl={2} style={{marginTop:'10px'}}>
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
                 <Select

@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { DepartmentAddService, DepartmentUpdateService } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
+import { Grid } from '@mui/material';
 
 const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentName,setDepartmentName]=useState("")
@@ -78,37 +79,53 @@ const DepartmentModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         <div>
             <Dialog 
             open={open}
-            onClose={handleClose}fullWidth>
+            onClose={handleClose}
+            fullWidth
+            >
                 <form onSubmit={onSubmit}> 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                       {"ADD DEPARTMENT"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                <label style={{marginLeft:'1px'}}>Department Name:</label>
-                                <TextField style={{marginLeft:'20px', width:'250px'}}
-                                label=""
-                                variant="outlined"
-                                onChange={((e)=>{setDepartmentName(e.target.value)})}
-                                value={departmentName}
-                                />
-                            </div>
-                            <div style={{marginTop:'10px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                                <label>Description:</label>
-                                <TextareaAutosize
-                                style={{ width:'250px', height:'40px',marginLeft:'70px', marginTop:'20px'}}
-                                aria-label="empty textarea"
-                                placeholder="Address"
-                                onChange={((e)=>{setDescription(e.target.value)})}
-                                value={description}
-                                />
-                            </div>
                             <div>
-                                <Button type='reset' onClick={handleClose}>Cancel</Button>
+                                <Grid container  style={{marginTop:'20px'}}>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                                     style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
+                                    >
+                                    <label >Department Name:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <TextField fullWidth 
+                                        label=""
+                                        variant="outlined"
+                                        onChange={((e)=>{setDepartmentName(e.target.value)})}
+                                        value={departmentName}
+                                    />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container  style={{marginTop:'20px'}}>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                                     style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
+                                    >
+                                   <label>Description:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <TextField 
+                                        fullWidth
+                                        multiline
+                                        onChange={((e)=>{setDescription(e.target.value)})}
+                                        value={description}
+                                    />
+                                    </Grid>
+                                </Grid>
+                                <div style={{marginLeft:'70%',marginTop:'20px'}}>
+                             <Button type='reset' onClick={handleClose}>Cancel</Button>
                                 <Button type='submit'>
                                     {isAdd === true ? 'Add' : 'Update'}
                                 </Button>
+                                </div>
                             </div>
                         </DialogContentText>
                     </DialogContent>

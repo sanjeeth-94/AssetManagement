@@ -3,14 +3,19 @@ import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import NotificationBar from '../../../services/NotificationBar';
 import Addlabel from './Addlabel';
-import { FetchAssetLableService, UserDeleteService } from '../../../services/ApiServices';
+import { AssetLabelDeletService, FetchAssetLableService, UserDeleteService } from '../../../services/ApiServices';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import DeleteIcon from '@mui/icons-material/Delete';
+import QrCode from './QrCode';
 
 const AddlabelList = () => {
     const [open, setOpen] = useState(false);
+    const [open1, setOpen1] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false);
+    const [loading, setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -19,13 +24,13 @@ const AddlabelList = () => {
 
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 40 },
-        { field: 'employee_id', headerName: 'Department	', width: 100 },
-        { field: 'employee_name', headerName: 'Section	', width: 120 },
-        { field: 'department', headerName: 'Asset Type	', width: 120 },
-        { field: 'designation', headerName: 'Asset Id	', width: 120 },
-        { field: 'mobile_number', headerName: 'Code	', width: 120 },
-        { field: 'email', headerName: 'Date', width: 120 },
-        { field: 'user_name', headerName: '	Asset Name', width: 120 },
+        { field: 'department', headerName: 'Department	', width: 100 },
+        { field: 'section', headerName: 'Section	', width: 120 },
+        { field: 'assetType', headerName: 'Asset Type	', width: 120 },
+        { field: 'selectAssetId', headerName: 'Asset Id	', width: 120 },
+        { field: 'code', headerName: 'Code	', width: 120 },
+        { field: 'date', headerName: 'Date', width: 120 },
+        { field: 'assetName', headerName: '	Asset Name', width: 120 },
         {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -42,6 +47,7 @@ const AddlabelList = () => {
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
         setRows(dataObject.data);
     }
 
@@ -60,36 +66,33 @@ const AddlabelList = () => {
 
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <RemoveRedEyeIcon
             className='prbuton'
             variant="contained"
             color='primary'
-            onClick={() => {
-                setIsAdd(false);
-                setEditData(selectedRow);
-                setOpen(true);
-            }}>
-                Edit
-            </Button>
+            onClick={() => {      
+                setOpen1(true);
+                setEditData(selectedRow)
+            }}/>
+                
         )
     }
     
     function DeleteData({ selectedRow }) {
         return (
-            <Button style={{ width: '100px' }}
+            <DeleteIcon
             variant="contained"
             color='primary'
             onClick={() => {
                 deletUser(selectedRow.id)
                 }
-                }>
-                Delete
-            </Button>
+                }/>
+            
         )
     }
     
     const deletUser = (id) => {
-        UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+        AssetLabelDeletService({id}, handleDeleteSuccess, handleDeleteException);
     }
 
     const handleDeleteSuccess = (dataObject) =>{
@@ -126,8 +129,9 @@ const AddlabelList = () => {
             </div>
             <hr style={{ bottom: 'solid' }} />
           
-            <div style={{ height: '500px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+            <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
                 <DataGrid
+                loading={loading}
                 rows={rows}
                 columns={columns} />
             </div>
@@ -138,6 +142,12 @@ const AddlabelList = () => {
                 editData={editData}
                 setRefresh={setRefresh}
             />
+            <QrCode
+                open1={open1}
+                setOpen1={setOpen1}
+                editData={editData}
+            />
+
                  <NotificationBar
                     handleClose={handleClose}
                     notificationContent={openNotification.message}

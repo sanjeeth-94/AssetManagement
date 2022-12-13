@@ -14,7 +14,8 @@ const VendorTypeList = () => {
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh, setRefresh] = useState(false)
+    const [refresh, setRefresh] = useState(false);
+    const [loading, setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -22,7 +23,7 @@ const VendorTypeList = () => {
       });
 
     const columns = [
-        { field: 'id', headerName: 'Vendor Id', width: 120 },
+        { field: 'id', headerName: 'Vendor Id', width: 200 },
         { field: 'vendorType', headerName: 'Vendor Type', width: 200 },
         { field: 'description', headerName: 'Description', width: 200 },
         {
@@ -49,7 +50,8 @@ const VendorTypeList = () => {
 
     }, [refresh]);
 
-    const handleFetchSuccess = (dataObject) => {
+    const handleFetchSuccess = (dataObject) => { 
+        setLoading(false);
         setRows(dataObject.data);
     }
 
@@ -138,8 +140,9 @@ const VendorTypeList = () => {
             </Grid>
             <hr />
             
-            <div className='adduser' style={{ height: 400, width: '63%', marginTop: '20px' }}>
+            <div style={{ height: 400, width: '90%', marginTop: '20px' }}>
                 <DataGrid
+                    loading={loading}
                     rows={rows}
                     columns={columns}
                     rowsPerPageOptions={[5]}

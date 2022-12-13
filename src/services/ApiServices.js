@@ -142,7 +142,7 @@ export const  FetchAssetListService = (successCallback, errorCallBack) => _fetch
 
 export const  FetchVenderService = (successCallback, errorCallBack) => _fetchService('getVendor', 'GET', {}, successCallback, errorCallBack);
 
-export const  FetchAssetIdService = (successCallback, errorCallBack) => _fetchService('asset/assetId', 'POST', {}, successCallback, errorCallBack);
+export const  FetchAssetIdService = (successCallback, errorCallBack) => _fetchService('asset/assetId', 'GET', {}, successCallback, errorCallBack);
 
 export const  AssetAddService = (data, successCallback, errorCallBack) => _fetchService('asset/add', 'POST', data, successCallback, errorCallBack);
 
@@ -158,6 +158,11 @@ export const  FetchIdAssetIdService = (data,successCallback, errorCallBack) => _
 
 export const  FetchAssetMasterService = (data,successCallback, errorCallBack) => _fetchService(`assetMaster/${data.id}/showData`, 'GET', {}, successCallback, errorCallBack);
 
+export const  AssetLabelAddService = (data, successCallback, errorCallBack) => _fetchService('label/add', 'POST', data, successCallback, errorCallBack);
+
+export const  AssetShowLabelService = (data, successCallback, errorCallBack) => _fetchService(`label/${data.id}/showLabel`, 'GET', {}, successCallback, errorCallBack);
+
+export const  AssetLabelDeletService = (data, successCallback, errorCallBack) => _fetchService(`label/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 ////....Department..../////
 
@@ -228,7 +233,7 @@ export const AmcServiceUpdateService = (data, successCallback, errorCallBack) =>
 
 export const AmcServiceDeleteService = (data, successCallback, errorCallBack) => _fetchService(`amc/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
-export const AssetTypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assettype/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+export const AssetTypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assetType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 export const  AMCServiceDueListService = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/serviceDue`, 'POST', data, successCallback, errorCallBack);
 
@@ -356,3 +361,9 @@ export const EolCountService = (successCallback, errorCallBack) => _fetchService
 export const DamageCountService = (successCallback, errorCallBack) => _fetchService('damageCount', 'POST', {}, successCallback, errorCallBack);
 
 export const SalesCountService = (successCallback, errorCallBack) => _fetchService('salesCount', 'POST', {}, successCallback, errorCallBack);
+
+export const InServiceCountService = (successCallback, errorCallBack) => _fetchService('inServiceCount', 'POST', {}, successCallback, errorCallBack);
+
+export const ScrapCountService = (successCallback, errorCallBack) => _fetchService('scrapCount', 'POST', {}, successCallback, errorCallBack);
+
+export const TransferCountService = (successCallback, errorCallBack) => _fetchService('transferCount', 'POST', {}, successCallback, errorCallBack);

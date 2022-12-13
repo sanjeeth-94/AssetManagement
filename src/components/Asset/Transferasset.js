@@ -12,6 +12,7 @@ import {
         FetchAsstTransferService
      } from '../../services/ApiServices';
 import { MenuItem } from '@mui/material';
+import NotificationBar from '../../services/NotificationBar';
 
 const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([]);
@@ -32,8 +33,12 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [assetTypeList,setAssetTypeList] = useState([]);
     const [assetType,setAssetType] = useState('');
     const [assetTypeMove,setAssetTypeMove] = useState('');
-    
-    
+    const [openNotification, setNotification] = useState({
+        status: false,
+        type: 'error',
+        message: '',
+    });
+
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
 
@@ -125,6 +130,15 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
            
         };
         
+  const handleCloseNotify = () => {
+    setOpen(false);
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+        
        
   const onSubmit = (e) => {
     e.preventDefault();
@@ -135,7 +149,7 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
        assetType:assetTypeMove,
       },handleFetchAsstTransferServiceSuccess, handleFetchAsstTransferServiceException)
     }
-    const handleFetchAsstTransferServiceSuccess = () =>{
+    const handleFetchAsstTransferServiceSuccess = (dataObject) =>{
         setAssetTypeMove('');
         setSectionMove('');
         setDepartmentMove('');
@@ -143,9 +157,19 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         setAssetName('');
         setSection('');
         setDepartment('');
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+          });
       }
       const handleFetchAsstTransferServiceException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message: errorMessage,
+        });
       }
 
     return(
@@ -216,7 +240,7 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             </FormControl>
                         </Box>
                     </div>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
+                    <div style={{marginTop:'20px',marginLeft:'5px', width:'70vh', display:'flex', alignItems:'center'}}>
                         <label style={{marginLeft:'5px'}}>Asset Name:</label>
                         <Box>
                             <FormControl style={{width:'300px' ,marginLeft:'27px'}}>
@@ -313,6 +337,12 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     </div>
                 </form>
             </div>
+            <NotificationBar
+                handleClose={handleCloseNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+            />
         </div>       
     )
 }

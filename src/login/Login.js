@@ -1,14 +1,20 @@
 import React, { useEffect, useState, } from 'react'
-import { Grid, Paper, Avatar, TextField, Checkbox, FormControlLabel, Button } from '@mui/material'
+import { Grid,  Avatar, TextField,  Button } from '@mui/material'
 import HttpsIcon from '@mui/icons-material/Https';
 
-import { Link, useNavigate, } from 'react-router-dom';
+import {  useNavigate, } from 'react-router-dom';
 import { LoginService } from '../services/ApiServices';
 import ApplicationStore from '../utils/ApplicationStore';
+import NotificationBar from '../services/NotificationBar';
 
 const Login = () => {
   const navigate = useNavigate();
-  
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
+
   useEffect(()=>{
     const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
     return userDetails?.access_token? navigate("/main") : navigate("/login")
@@ -26,6 +32,12 @@ const Login = () => {
       .then((response) => {
         if (successCaseCode.indexOf(response.status) > -1) {
           console.log('Login Succesfull..!');
+          setNotification({
+            status: true,
+            type: 'success',
+            message: 'Login Succesfull..!',
+          });
+      
           return response.json();
         }
         throw {
@@ -38,6 +50,11 @@ const Login = () => {
       }).catch((error) => {
         error?.errorObject?.then((errorResponse) => {
           console.log(errorResponse.error ? errorResponse.error : errorResponse.message);
+          setNotification({
+            status: true,
+            type: 'error',
+            message: errorResponse.error,
+          });
         });
       });
         
@@ -49,19 +66,22 @@ const Login = () => {
     setData(newdata)
     console.log(newdata)
   }
-
-  const paperStyle = {
-    padding: 40,
-    height: '60vh',
-    width: 350,
-    margin: "0px auto",
-    backgroundColor: 'lightgrey'
-  }
-  
   const avatarStyle = { backgroundColor: 'blue' }
+  const handleCloseNotify = () => {
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
   return (
-    <Paper elevation={10} style={paperStyle}>
+
+    <Grid container sapcing={2} >
+      <Grid style={{ margin:"0px auto",  backgroundColor: 'lightgrey', padding: 40,}} 
+      xs={12} sm={12} md={6} lg={3} xl={3} >
       <form onSubmit={submit}>
+        
         <Grid align='center'>
           <Avatar style={avatarStyle}><HttpsIcon /></Avatar>
           <h3> Login In </h3>
@@ -103,7 +123,15 @@ const Login = () => {
           Sign In
         </Button>      
       </form>
-    </Paper>
+      </Grid>
+      <NotificationBar
+            handleClose={handleCloseNotify}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}
+      />
+      </Grid>
+   
   )
 }
 

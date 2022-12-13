@@ -14,6 +14,7 @@ export default function VendorList() {
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh, setRefresh] = useState(false);
+    const [loading , setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -44,6 +45,7 @@ export default function VendorList() {
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) => {
+        setLoading(false);
         setRows(dataObject.data);
     }
 
@@ -68,12 +70,9 @@ export default function VendorList() {
                     setIsAdd(false);
                     setEditData(selectedRow);
                     setOpen(true);
-                }}/>
-          
+                }}/> 
         )
     }
-
-
     function DeleteData({ selectedRow }) {
         return (
             <DeleteIcon
@@ -83,15 +82,12 @@ export default function VendorList() {
                     deletVender(selectedRow.id)
                 }
                 }/>
-             
         )
     }
-
     const deletVender = (id) => {
 
         VendorDeleteService({ id }, handleDeleteSuccess, handleDeleteException);
     }
-
     const handleDeleteSuccess = (dataObject) => {
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
@@ -139,6 +135,7 @@ export default function VendorList() {
            
             <div style={{ height: '350px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
                 <DataGrid
+                    loading={loading}
                     rows={rows}
                     columns={columns} />
             </div>

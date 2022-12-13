@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { SectionAddService,SectionUpdateService,FetchDepaertmentService  } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
+import { Grid } from '@mui/material';
 
 const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([])
@@ -24,17 +25,20 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     
     const handleClose = () => {
         setOpen(false);
+        setSection('');
+        setDepartment('');
+   
     };
     
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-        setDepartment(editData.department);
-        setSection(editData.section);
-
+        setSection(editData?.section || '');
+        setDepartment(editData?.departmentId || '');
     }, [editData]);
     
     const handleFetchSuccess = (dataObject) =>{
         setDepartmentList(dataObject.data);
+       
     }
     
     const handleFetchException = (errorStaus, errorMessage) =>{
@@ -72,12 +76,17 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             message: dataObject.message,
            
           });
+          setSection('');
+          setDepartment('');
      
 
     }
     
     const handleException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
+        setSection('');
+        setDepartment('');
+   
     }
     const handleCloseNotify = () => {
         setNotification({
@@ -92,43 +101,56 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             <Dialog
             open={open}
             onClose={handleClose}
-            maxWidth='lg'>
+            fullWidth
+            >
                 <form onSubmit={onSubmit}>
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ADD SECTION"}
                     </DialogTitle>
-                    <div style={{width:'600px'}}>
-                        <div style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
-                            <label style={{marginLeft:'5px'}}>Department:</label>
-                            <Box>
-                                <FormControl style={{width:'250px' ,marginLeft:'55px'}}>
-                                    <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                    <div>
+                        <Grid container spacing={2} style={{marginTop:'20px'}}>
+                            <Grid item xs={12} sm={4} md={4} lg={4} xl={4}
+                             style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                            <label>Department:</label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                              style={{alignSelf:'center', }}
+                            >
+                            <FormControl 
+                                    fullWidth>
+                                    <InputLabel >Select Department</InputLabel>
                                     <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
                                     label="Select Department"
                                     value={department}
                                     onChange={(e) => onDepartmentChange(e)}>
-                                        {departmentList.map((data, index) => {
+                                        {   
+                                            departmentList.map((data, index) => {
                                             return (
                                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                                             )
                                         })}
                                     </Select>
                                 </FormControl>
-                            </Box>
-                        </div>
-                        <div style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
-                            <label style={{marginLeft:'1px'}}>Section:</label>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={2} style={{marginTop:'20px'}}>
+                            <Grid item xs={12} sm={4} md={4} lg={4} xl={4}
+                             style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                            <label >Section:</label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                             <TextField
-                            style={{marginLeft:'60px', width:'300px'}} 
-                            id="outlined-basic" 
-                            label="" 
-                            variant="outlined"
-                            value={section} 
-                            onChange={(e) => {setSection(e.target.value)}}/>
-                        </div>
-                        <div style={{alignItem:'left', marginTop:'20px'}}>
+                                fullWidth
+                                variant="outlined"
+                                value={section} 
+                                onChange={(e) => {setSection(e.target.value)}}/>
+                            </Grid>
+                        </Grid>
+                    
+                        <div style={{marginLeft:'70%',marginTop:'20px'}}>
                             <Button type='reset' onClick={handleClose}>Cancel</Button>
                             <Button type='submit'>
                                 {isAdd === true ? 'Add'   : 'Update'}

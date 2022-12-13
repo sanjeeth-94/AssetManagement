@@ -13,6 +13,7 @@ const AssetList = () => {
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState({});
     const [refresh , setRefresh]=useState(false);
+    const [ loading, setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -44,6 +45,7 @@ const AssetList = () => {
     }, [refresh]);
     
     const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
         setRows(dataObject.data);
     }
 
@@ -127,6 +129,7 @@ const AssetList = () => {
             <hr style={{ bottom: 'solid' }} />
             <div style={{ height: 270, }}>
                 <DataGrid
+                loading={loading}
                 rows={rows}
                 columns={columns} />
             </div>

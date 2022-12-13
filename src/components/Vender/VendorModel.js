@@ -48,7 +48,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setContactNo(editData.contactNo || '');
     setAltContactNo(editData.altContactNo || '');
     setContactPerson(editData.contactPerson || '');
-    setRemark(editData.remark || '');
+    setRemark(editData.reMarks || '');
     setGstNo(editData.gstNo || '');
   }, [editData]);
 
@@ -173,7 +173,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <div>
-                <Grid container style={{marginTop:'20px'}}>
+                <Grid container spacing={2} style={{marginTop:'20px'}}>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                     style={{
                       alignSelf: 'center',
@@ -206,7 +206,8 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <InputLabel id="venderTypelabel">Select Vender Type</InputLabel>
                         <Select
                           labelId="venderType"
-                          label="Vender Type"
+                          label="Select Vender Type"
+                          value={vendorType}
                           onChange={(e) => onVendorTypeChange(e)}>
                           {
                             vendorTypeList.map((data, index) => {
@@ -219,7 +220,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                 </Grid>
 
-                <Grid container style={{marginTop:'10px'}}>
+                <Grid container spacing={2} style={{marginTop:'10px'}}>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                     style={{
                       alignSelf: 'center',
@@ -230,10 +231,9 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     <label>Address :</label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                  <TextareaAutosize
-                      style={{ width: '250', height: '40px'}}
-                      aria-label="empty textarea"
-                      placeholder="Empty"
+                  <TextField 
+                      fullWidth
+                      multiline
                       onChange={(e) => { setAddress(e.target.value) }}
                       value={address}
                   />
@@ -259,7 +259,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                 </Grid>
 
-                <Grid container style={{marginTop:'10px'}}>
+                <Grid container spacing={2} style={{marginTop:'10px'}}>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                     style={{
                       alignSelf: 'center',
@@ -300,7 +300,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                 </Grid>
 
-                <Grid container style={{marginTop:'10px'}}>
+                <Grid container spacing={2} style={{marginTop:'10px'}}>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                     style={{
                       alignSelf: 'center',
@@ -341,7 +341,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                 </Grid>
 
-                <Grid container style={{marginTop:'10px'}}>
+                <Grid container spacing={2} style={{marginTop:'10px'}}>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                     style={{
                       alignSelf: 'center',
@@ -382,7 +382,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                 </Grid>
 
-                <Grid container style={{marginTop:'10px'}}>
+                <Grid container spacing={2} style={{marginTop:'10px'}}>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                     style={{
                       alignSelf: 'center',
@@ -441,7 +441,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                 </Grid>
 
-                <Grid container style={{marginTop:'10px'}}>
+                <Grid container spacing={2} style={{marginTop:'10px'}}>
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                     style={{
                       alignSelf: 'center',
@@ -470,10 +470,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         type="file"
                      />
                   </Grid>
-                 
-                 
                 </Grid>
-              
               </div>
             </DialogContentText>
           </DialogContent>

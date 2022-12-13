@@ -13,7 +13,8 @@ const SectionList = () => {
   const [isAdd, setIsAdd] = useState(true);
   const [rows, setRows] = useState([]);
   const [editData, setEditData] = useState('');
-  const [refresh , setRefresh]=useState(false)
+  const [refresh , setRefresh]=useState(false);
+  const [loading , setLoading]= useState(true);
   const [departmentList, setDepartmentList] = useState([]);
   const [openNotification, setNotification] = useState({
     status: false,
@@ -23,10 +24,10 @@ const SectionList = () => {
 
 
   const columns = [
-    { field: 'id', headerName: 'Section No', width: 80 },
-    { field: 'department', headerName: 'Department', width: 170, },
-    { field: 'section', headerName: 'Section', width: 140 },
-    {field: 'action', headerName: 'Action', width: 200, sortable: false,
+    { field: 'id', headerName: 'Section No', width: 200 },
+    { field: 'department', headerName: 'Department', width: 200 },
+    { field: 'section', headerName: 'Section', width: 200 },
+    {field: 'action', headerName: 'Action', width: 250, sortable: false,
       cellClassname: 'actions',
       type: 'actions',
       getActions: (params) => [
@@ -49,6 +50,7 @@ const SectionList = () => {
 
   const handleDepartmentException = () =>{}
   const handleFetchSuccess = (dataObject) =>{
+    setLoading(false);
     setRows(dataObject.data);
   }
   
@@ -134,19 +136,24 @@ const SectionList = () => {
   return (
     <div>
       <Grid container>
-      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
+          style={{alignSelf:'center', textAlign:'center'}}
+      >
          <h3 >Section</h3>
       </Grid>
-      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
-        <Button style={{marginLeft:'43%',width:'120px',height:'30px', marginTop:'25px'}} variant="outlined" onClick={handleModalOpen}>
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
+        style={{alignSelf:'center', textAlign:'center'}}
+      >
+        <Button style={{width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
           Add
         </Button>
       </Grid> 
       </Grid>
       <hr style={{ bottom: 'solid' }} />
      
-      <div className='adduser' style={{ height: 270, width: '50%',marginLeft:'30px' }}>
+      <div className='adduser' style={{ height: 270, width: '90%',marginLeft:'30px' }}>
         <DataGrid
+        loading={loading}
         rows={rows}
         columns={columns} />
       </div>

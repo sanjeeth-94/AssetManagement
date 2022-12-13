@@ -90,7 +90,7 @@ const VendorTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         maxWidth='lg'
       >
         <form onSubmit={onSubmit}>
-          <DialogTitle id="alert-dialog-title" sx={{ background: 'grey' }}>
+          <DialogTitle id="alert-dialog-title" sx={{ background: 'whiteSmoke' }}>
             {isAdd === true ? 'ADD ' : 'EDIT '}VENDOR TYPE
           </DialogTitle>
           <DialogContent>

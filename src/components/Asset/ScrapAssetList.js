@@ -18,6 +18,7 @@ import {
 } from '../../services/ApiServices';
 
 import ScrapLog from '../Asset/ScrapLog'
+import NotificationBar from '../../services/NotificationBar';
 
 const ScrapAssetList = () => {
 const [departmentList,setDepartmentList] =useState([]);
@@ -30,14 +31,31 @@ const [assetNameList,setAssetNameList] =useState([]);
 const [assetName, setAssetName] = useState('');
 const [scrapAprovalLetter,setScrapAprovalLetter]=useState('');
 const [open,setOpen]=useState(false);
-const [tagAssetType, setTageAssetType] = useState("Department");
+const [tagAssetType, setTageAssetType] = useState("Scrap");
 const onTagAssetType = (event) => {
     setTageAssetType(event.target.value);
 };
+const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+});
+
+
 useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
    
 }, []);
+
+const handleCloseNotify = () => {
+    setOpen(false);
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
 
 const handleFetchSuccess = (dataObject) =>{
     setDepartmentList(dataObject.data);
@@ -103,10 +121,23 @@ const onSubmit=(e)=>{
 }
 const handleScrapAsset=(dataObject)=>{
     console.log(dataObject);
+    
+  setNotification({
+    status: true,
+    type: 'success',
+    message: dataObject.message,
+  });
+     
 }
 
 const handleScrapAssetException=(errorStaus, errorMessage)=>{
     console.log(errorMessage);
+    setNotification({
+        status: true,
+        type: 'error',
+        message: errorMessage,
+      });
+
 }
 
 const onClick=()=>{
@@ -287,6 +318,14 @@ const onClick=()=>{
     open={open}
     setOpen={setOpen}
     />
+    
+ <NotificationBar
+    handleClose={handleCloseNotify}
+    notificationContent={openNotification.message}
+    openNotification={openNotification.status}
+    type={openNotification.type}
+/>
+
     </div>
   )
 }

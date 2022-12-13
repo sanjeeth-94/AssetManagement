@@ -9,8 +9,9 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
-import { FetchAssetNameService, FetchAssetTypeService, FetchDepaertmentService, FetchSectionService, UserAddService, UserUpdateService } from '../../../services/ApiServices';
+import { FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
+import { AssetLabelAddService, FetchAssetNameService, FetchAssetTypeService, FetchDepaertmentService, FetchSectionService, UserAddService, UserUpdateService } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
 
 export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh }) {
     const [departmentList, setDepartmentList] = useState([]);
@@ -23,11 +24,11 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
     const [redio, setRedio] = useState("asset");
     const [assetNameList , setAssetNameList]=useState([]);
     const [assetName , setAssetName]=useState('');
-    const [barCode , setBarCode]=useState('')
+    const [barCode , setBarCode]=useState('');
     const [openNotification, setNotification] = useState({
-    status: false,
-    type: 'error',
-    message: '',
+        status: false,
+        type: 'error',
+        message: '',
     });
 
     useEffect(() => {
@@ -93,17 +94,19 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
   
     const onSubmit = (e) => {
         e.preventDefault();
-        isAdd === true ?
-        (
-            UserAddService({
+      
+       
+            AssetLabelAddService({
+                department:department,
+                selectSection:section,
+                assetType:assetType,
+                selectAssetType : redio,
+                selectAsset:assetName,
+                selectAssetId:assetId,
+                code : barCode,
                 
             },handleSuccess, handleException)
-        ) : (
-            
-            UserUpdateService({
-                id: editData.id,
-            }, handleSuccess, handleException)
-        );
+       
     }
   
     const handleSuccess = (dataObject) =>{
@@ -158,16 +161,20 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                     <form onSubmit={onSubmit}>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                           
-                                <div style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'15px'}}>Department : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl  style={{width:'250px' ,marginLeft:'60px'}}>
+                            <div>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                                     style={{alignSelf:'center', textAlign:'center'}}
+                                    >
+                                    <label >Department : </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                    <FormControl  fullWidth>
                                             <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                             <Select 
                                             labelId="Department"
                                             id="Department"
-                                            label="Department"
+                                            label="Select Department"
                                             value={department}
                                             onChange={(e) => onDepartmentChange(e)}>
                                             {departmentList.map((data, index) => {
@@ -176,13 +183,18 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                                 )
                                             })}                                                                                                                                                                                                                                                                                                     
                                             </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
-                                    <label  style={{marginLeft:'15px'}}> Select Section : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl style={{width:'250px' ,marginLeft:'40px'}}>
+                                        </FormControl>  
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                                     style={{alignSelf:'center', textAlign:'center'}}
+                                    >
+                                     <label > Select Section : </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                    <FormControl fullWidth>
                                             <InputLabel  id="demo-simple-select-label">Select Section</InputLabel>
                                             <Select
                                             labelId="SelectSection"
@@ -196,19 +208,24 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                                 )
                                             })}                              
                                             </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'5px', display:'flex', alignItems:'center'}}>
-                                    <label style={{marginLeft:'15px'}}>Asset Type : </label>
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl style={{width:'250px' ,marginLeft:'62px'}}>
+                                        </FormControl> 
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                                     style={{alignSelf:'center', textAlign:'center'}}
+                                    >
+                                      <label >Asset Type : </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                    <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
                                             <Select 
                                             labelId="AssetType"
                                             id="AssetType"
                                             value={assetType}
-                                            label="Asset Type"
+                                            label="Select Asset Type"
                                             onChange={(e) => onAssetTypeChange(e)}>
                                             {assetTypeList.map((data, index) => {
                                                 return (
@@ -217,10 +234,14 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                             })}   
                                             </Select>
                                         </FormControl>
-                                    </Box>
-                                </div>
-                                <div>
-                                    <FormControl>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                                     style={{alignSelf:'center', textAlign:'center'}}
+                                    >
+                                     <FormControl>
                                         <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
                                         <RadioGroup
                                         row aria-labelledby="demo-row-radio-buttons-group-label"
@@ -244,18 +265,25 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                             } label="Select Asset Id"/>
                                         </RadioGroup>
                                     </FormControl>
-                                </div>
+                                    </Grid>
+                                    
+                                </Grid>
                                 {
                                     redio=== "asset" &&
-                                    <div style={{marginTop:'20px',marginLeft:'5px',  display:'flex', alignItems:'center'}}>
-                                        <label  style={{marginLeft:'15px'}}>Select Asset : </label>
-                                        <Box sx={{ minWidth: 120 }}>
-                                            <FormControl  style={{width:'250px' ,marginLeft:'50px'}}>
+                                    <>
+                                    <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                                     style={{alignSelf:'center', textAlign:'center'}}
+                                    >
+                                     <label >Select Asset : </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                    <FormControl  fullWidth>
                                                 <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
                                                 <Select 
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                label="Asset Name"
+                                                label="Select Asset Name"
                                                 value={assetName}
                                                 onChange={(e) => handleChange(e)}>
                                                     {
@@ -267,39 +295,62 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                                     }   
                                                 </Select>
                                             </FormControl>
-                                        </Box>
-                                    </div>
+                                    </Grid>
+                                </Grid>
+                                </>
                                 }
                                 {
                                     redio=== "assetId" &&
-                                    <div style={{ display:'flex',marginTop:'5px'}}>
-                                        <label  style={{marginLeft:'15px',marginRight:'80px'}}>Asset ID : </label>
-                                        <TextField
+                                 <>
+                                <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                                     style={{alignSelf:'center', textAlign:'center'}}
+                                    >
+                                    <label >Asset ID : </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                    <TextField
                                         id="Vendor-Address"
                                         variant="outlined"
+                                        fullWidth
                                         onChange={(e) => { setAssetId(e.target.value) }}/>
-                                    </div>
+                                    </Grid>
+                                </Grid>
+                                </>
                                 }
-                                <div>
-                                    <FormControl>
+
+                                <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                                     style={{alignSelf:'center', textAlign:'center'}}
+                                    >
+                                   <FormControl>
                                         <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
                                         <RadioGroup
                                         row 
                                         onChange={onBarCodeChange}
                                         value={barCode}>
-                                            <FormControlLabel style={{marginLeft:'5px'}} value="BARCODE" control={<Radio />} label="BARCODE" />
-                                            <FormControlLabel style={{marginLeft:'50px'}} value="QRCODE" control={<Radio />} label="QRCODE" />
+                                            <FormControlLabel style={{marginLeft:'5px'}} value="barCode" control={<Radio />} label="BARCODE" />
+                                            <FormControlLabel style={{marginLeft:'50px'}} value="qrCode" control={<Radio />} label="QRCODE" />
                                         </RadioGroup>
                                     </FormControl>
-                                </div>
+                                    </Grid>
+                                    
+                                </Grid>
+                            </div>
                                 <div>
-                                    <Button style={{marginLeft:'150px', marginTop:'20px'}}variant="contained">Submit</Button>
+                                    <Button style={{marginLeft:'150px', marginTop:'20px'}}variant="contained" type="submit">Submit</Button>
                                 </div>
                             </DialogContentText>
                         </DialogContent>
                     </form>
                 </Dialog>
             </div>
+            <NotificationBar
+                handleClose={handleCloseNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+          />
         </div>      
     )
 }

@@ -13,7 +13,8 @@ const DepartmentList = () => {
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh , setRefresh]=useState(false)
+    const [refresh , setRefresh]=useState(false);
+    const [loading, setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -21,10 +22,10 @@ const DepartmentList = () => {
     });
     
     const columns = [
-        { field: 'id', headerName: 'Dep No', width: 120 },
-        { field: 'department_name', headerName: 'Department Name', width: 180 },
-        { field: 'description', headerName: 'Description', width: 220 },
-        {field: 'action', headerName: 'Action', width: 200, sortable: false,
+        { field: 'id', headerName: 'Dep No', width: 200 },
+        { field: 'department_name', headerName: 'Department Name', width: 200 },
+        { field: 'description', headerName: 'Description', width: 250 },
+        {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -39,6 +40,7 @@ const DepartmentList = () => {
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
         setRows(dataObject.data);
     }
 
@@ -114,20 +116,25 @@ const DepartmentList = () => {
   
     return (
         <div>
-            <Grid container>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+            <Grid container spacing={2}>
+                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
+                    style={{alignSelf:'center', textAlign:'center'}}
+                >
                 <h3 >Department</h3>
                 </Grid>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
-                <Button style={{marginLeft:'43%',width:'120px',height:'30px', marginTop:'25px'}} variant="outlined" onClick={handleModalOpen}>
+                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
+                    style={{alignSelf:'center', textAlign:'center'}}
+                >
+                <Button style={{width:'120px',height:'30px', }} variant="outlined" onClick={handleModalOpen}>
                 Add
             </Button>
                 </Grid>                
             </Grid>
             <hr style={{ bottom: 'solid' }} />
            
-            <div style={{ height: '400px', width: '60%', marginLeft: '100px', marginTop: '20px' }}>
+            <div style={{ height: '350px', width: '90%', marginLeft: '50px', marginTop: '20px' }}>
                 <DataGrid
+                 loading={loading}
                 rows={rows}
                 columns={columns} />
             </div>

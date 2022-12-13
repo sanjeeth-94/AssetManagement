@@ -7,6 +7,7 @@ import NotificationBar from '../../services/NotificationBar';
 import { Grid } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const UserList = (props) => {
     const [open, setOpen] = useState(false);
@@ -14,12 +15,14 @@ const UserList = (props) => {
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false);
+    const [loading , setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
         message: '',
     });
 
+ 
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 50 },
         { field: 'employee_id', headerName: 'Employee Id', width: 100 },
@@ -45,6 +48,7 @@ const UserList = (props) => {
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
         setRows(dataObject.data);
     }
 
@@ -150,8 +154,9 @@ const UserList = (props) => {
             
             <div style={{ height: '350px', width: '85%', marginLeft: '5%', marginTop: '20px' }}>
                 <DataGrid
-                rows={rows}
-                columns={columns} />
+                    loading={loading}
+                    rows={rows}
+                    columns={columns} />
             </div>
             <UserModel 
                 open={open}

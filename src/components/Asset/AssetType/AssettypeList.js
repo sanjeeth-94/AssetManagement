@@ -16,6 +16,7 @@ const AssetTypeList= () => {
   const [refresh , setRefresh]=useState(false);
   const [department,setDepartment] = useState('');
   const [sectionList,setSectionList] = useState([]);
+  const [loading,setLoading]=useState(true);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -23,10 +24,10 @@ const AssetTypeList= () => {
   });
   
   const columns = [
-    { field: 'id', headerName: 'Asset Type no', width: 80 },
-    { field: 'assetType', headerName: 'Asset Type', width: 170,},
-    { field: 'department', headerName: 'Department', width: 170,},
-    { field: 'section', headerName: 'Section', width: 170,},
+    { field: 'id', headerName: 'Asset Type no', width:120 },
+    { field: 'assetType', headerName: 'Asset Type', width: 200,},
+    { field: 'department', headerName: 'Department', width: 200,},
+    { field: 'section', headerName: 'Section', width: 200,},
     {field: 'action', headerName: 'Action', width: 250, sortable: false,
     cellClassname: 'actions',
     type: 'actions',
@@ -93,6 +94,7 @@ const AssetTypeList= () => {
   }, [refresh]);
   
   const handleFetchSuccess = (dataObject) =>{
+    setLoading(false);
     setRows(dataObject.data);
   }
   
@@ -127,8 +129,9 @@ const AssetTypeList= () => {
       </Grid> 
       <hr style={{ bottom: 'solid' }} />
      
-      <div style={{ height: '350px', width: '70%', marginLeft: '40px', marginTop: '20px' }}>
+      <div style={{ height: '350px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
         <DataGrid
+        loading={loading}
         rows={rows}
         columns={columns} />
       </div>
