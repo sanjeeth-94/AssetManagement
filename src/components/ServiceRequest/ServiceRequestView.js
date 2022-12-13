@@ -7,6 +7,7 @@ import { Grid } from '@mui/material';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
+import CloseIcon from '@mui/icons-material/Close';
 
 const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
   const [rows, setRows]=useState([]);
@@ -51,6 +52,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
         <form>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
             {"Service Due"}
+            
           </DialogTitle>
           <DialogContent>
             <Grid container spacing={2} style={{ marginTop: '20px'}}>

@@ -57,7 +57,7 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleChangeauditDate = (e) => {
     setauditDate(e.target.value);
     console.log(e.target.value);
-};
+  };
 
   const handleFetchException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
@@ -66,7 +66,7 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const onDepartmentChange = (e,) => {
     setDepartment(e.target.value);
     FetchSectionService({
-        id: e.target.value
+      id: e.target.value
     },handleFetchSectionSuccess, handleFetchSectionException);
   }
 
@@ -155,54 +155,54 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <form>
-              <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                  <label>Audit Date : </label>
+                    <label>Audit Date : </label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
-                  <TextField
-                  style={{width:'200px'}}
-                  id="Vendor-Address"
-                  variant="outlined"
-                  type='date'
-                  value={auditDate}
-                  onChange={(e) => { handleChangeauditDate(e) }}/>
+                    <TextField
+                    style={{width:'200px'}}
+                    id="Vendor-Address"
+                    variant="outlined"
+                    type='date'
+                    value={auditDate}
+                    onChange={(e) => { handleChangeauditDate(e) }}/>
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                  <label>Department : </label>
+                    <label>Department : </label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{width:'200px'}}>
-                      <InputLabel id="departmentlabel">Select Department</InputLabel>
-                      <Select
-                      labelId="departmentlabel"
-                      id='department'
-                      label="Department"
-                      onChange={(e) => onDepartmentChange(e)}>
-                        {departmentList.map((data, index) => {
-                          return (
-                            <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                          )
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  </Grid>
-                  </Grid>
-                  <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label>Section : </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
                     <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{width:'200px'}}>
-                      <InputLabel id="sectionList">Select section</InputLabel>
-                      <Select
-                      labelId="sectionList"
-                      id='section'
-                      label="Select section"
-                      onChange={(e) => onSectionChange(e)}>
+                      <FormControl style={{width:'200px'}}>
+                        <InputLabel id="departmentlabel">Select Department</InputLabel>
+                        <Select
+                        labelId="departmentlabel"
+                        id='department'
+                        label="Department"
+                        onChange={(e) => onDepartmentChange(e)}>
+                          {departmentList.map((data, index) => {
+                            return (
+                              <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                            )
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label>Section : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'left', textAlignLast: 'center'}}>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl style={{width:'200px'}}>
+                        <InputLabel id="sectionList">Select section</InputLabel>
+                        <Select
+                        labelId="sectionList"
+                        id='section'
+                        label="Select section"
+                        onChange={(e) => onSectionChange(e)}>
                         {sectionList.map((data, index) => {
                           return (
                             <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
@@ -263,16 +263,10 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 notificationContent={openNotification.message}
                 openNotification={openNotification.status}
                 type={openNotification.type}/>
-              </DialogActions>
-              </form>
-               
-               </Dialog>
-             
-              </div>
-
-   
-  
-                              
+          </DialogActions>
+        </form>              
+      </Dialog>           
+    </div>                       
   )
 }
 

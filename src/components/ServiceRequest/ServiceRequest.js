@@ -14,6 +14,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import { FetchVenderService,FetchVenderDataService, RequestServiceAdd, } from '../../services/ApiServices';
+import ServiceStatusUpdate from './ServiceStatusUpdate';
 
 const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, isAdd }) => {
   const [vendorName, setVendorName] = useState('');
@@ -462,7 +463,10 @@ const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, i
             </div>
           </DialogContent>
         </form>
-      </Dialog>
+      </Dialog>     
+      <ServiceStatusUpdate
+        vendorName={vendorName}
+      />
     </div>
   )
 }
