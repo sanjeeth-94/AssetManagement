@@ -124,7 +124,7 @@ const AuditList = () => {
                 <DataGrid
                 rows={rows}
                 columns={columns} />
-                rowsPerPageOptions
+                
             </div>
             <AuditModel
             open={open}
@@ -132,6 +132,7 @@ const AuditList = () => {
             isAdd={isAdd}
             editData={editData}
             setRefresh={setRefresh} />
+            
             <NotificationBar
             handleClose={handleClose}
             notificationContent={openNotification.message}
