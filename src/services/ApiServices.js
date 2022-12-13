@@ -333,9 +333,14 @@ export const  FetchScrapAssetShowDataService = (successCallback, errorCallBack) 
 
 /////.......Request Service......//////
 
+
 export const  FetchServiceRequestService = (successCallback, errorCallBack) => _fetchService('requestService/showMaintenance', 'GET', {}, successCallback, errorCallBack);
 
 export const  ViewRequestService = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showServiceRequest1`, 'GET', {}, successCallback, errorCallBack);
+
+export const RequestServiceAdd = (data, successCallback, errorCallBack) => _fetchService('requestService/add', 'POST', data, successCallback, errorCallBack);
+
+export const  ShowServiceRequest = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showServiceRequest`, 'GET', {}, successCallback, errorCallBack);
 
 
 /////.......DashBord count..../////

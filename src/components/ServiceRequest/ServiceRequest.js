@@ -10,13 +10,13 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
-
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import { FetchVenderService,FetchVenderDataService, RequestServiceAdd, } from '../../services/ApiServices';
+import ServiceStatusUpdate from './ServiceStatusUpdate';
 
-import FormLabel from '@mui/material/FormLabel';
-import { FetchVenderService,FetchVenderDataService, } from '../../services/ApiServices';
-
-const ServiceRequest = ({ open,open1, setOpen1, setRefresh , editData, isAdd }) => {
+const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, isAdd }) => {
   const [vendorName, setVendorName] = useState('');
   const [rows, setRows]=useState([]);
   const [department,setDepartment]=useState('');
@@ -27,26 +27,56 @@ const ServiceRequest = ({ open,open1, setOpen1, setRefresh , editData, isAdd }) 
   const [venderAddress, setVenderAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailId, setEmailId] = useState('');
+  const [contactPerson,setContactPerson ] =  useState('');
+  const [gstNo,setGstNo] = useState('');
   const [vendorData, setVendorData] = useState([]);
-  const [dateValue,setDateValue]=useState('');
+  const [dateOrDay,setdateOrDay]=useState('');
   const [firstService,setfirstService] = useState('');
+  const [chargeValue,setChargeValue] = useState('');
+  const [returnValue,setReturnValue] = useState('');
+  const [deliveryValue,setDeliveryValue]= useState('');
+  const [jobValue,setJobValue] = useState(0);
+  const [expectedDate,setExpectedDate]= useState('');
+  const [expectedDay,setExpectedDay]=useState('');
+  const [eWayBill,setEWayBill] =useState('');
+  const [repair,setRepair]=useState(0);
+  const [personName,setPersonName]=useState('');
+  const [departmentId,setDepartmentId]=useState('');
+  const [sectionsId,setSectionsId]=useState('');
+  const [assetTypesId,setAssetTypesId]=useState('');
+  const [assetNameId,setAssetNameId]=useState('');
 
   const onDateChange = (e) =>{
-    setDateValue(e.target.value);
+    setdateOrDay(e.target.value);
   }
 
   const handleChangefirstService = (e) => {
     setfirstService(e.target.value);
     console.log(e.target.value);
   };
-  
+
+  const onChargeChange = (e) => {
+    setChargeValue(e.target.value);
+  }
+
+  const onReturnChange = (e) => {
+    setReturnValue(e.target.value);
+  }
+
+  const onDeliveryChange = (e) => {
+    setDeliveryValue(e.target.value);
+  }
+
   useEffect(() => {
     FetchVenderService(handleFetchVender, handleFetchVenderException);
     setDepartment(editData?.department ||'');
     setSection(editData?.section ||'');
     setAssetType(editData?.assetType || '');
     setAssetName(editData?.assetName || '');
-  
+    setDepartmentId(editData?.departmentId || '');
+    setSectionsId(editData?.sectionsId  || '');
+    setAssetTypesId(editData?.assetTypesId || '');
+    setAssetNameId(editData?.assetNameId || '');
   },[editData]);
   
   const handleFetchVender = (dataObject) => {
@@ -68,27 +98,70 @@ const ServiceRequest = ({ open,open1, setOpen1, setRefresh , editData, isAdd }) 
     setPhoneNumber(dataObject?.data[0]?.contactNo || '');
     setEmailId(dataObject?.data[0]?.email || '');
     setVenderAddress(dataObject?.data[0]?.address || '');
+    setContactPerson(dataObject?.data[0]?.contactPerson || '');
+    setGstNo(dataObject?.data[0]?.gstNo || '');
   }
   
   const handleFetchVenderDataServiceException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
+    RequestServiceAdd({
+      department:departmentId,
+      section:sectionsId,
+      assetType:assetTypesId,
+      assetName:assetNameId,
+      vendorName:vendorName,
+      vendorEmail:emailId,
+      vendorAddress:venderAddress,
+      vendorPhone:phoneNumber,
+      gstNo:gstNo,
+      expectedDate:firstService,
+      expectedDay:expectedDay,
+      eWayBill:eWayBill,
+      chargable:chargeValue,
+      returnable:returnValue,
+      delivery:deliveryValue,
+      jobWork:jobValue,
+      repair:repair,
+      personName:personName,
+      dateOrDay:dateOrDay,
+    },handleRequestServiceAdd,hanleRequestServiceAddException)
+  }
 
+  const handleRequestServiceAdd=(dataObject)=>{
+    setOpen(false);
+  }
 
-  const [selectedValue, setSelectedValue] = React.useState('a');
-
-
+  const hanleRequestServiceAddException=(errorStatus,errorMessage)=>
+  {
+    console.log(errorMessage)
+  }
   
   const handleClose = () => { 
     setOpen1(false);
   };
  
+  const onJobValueChange = () => {
+    setJobValue((oldValue)=>{
+      return oldValue === 1 ? 0 : 1
+    });
+  }
+
+  const onRepairChange = () => {
+    setRepair((oldValue)=>{
+      return oldValue === 1 ? 0 : 1
+    });
+  }
+
   return (
     <div>
       <Dialog 
       open={open1}
       maxWidth='lg'>
-        <form>
+        <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
             {"Service Request"}
           </DialogTitle>
@@ -190,124 +263,212 @@ const ServiceRequest = ({ open,open1, setOpen1, setRefresh , editData, isAdd }) 
                 <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                   <label>Contact Person</label>
                 </Grid>
-              <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                <TextField 
-                fullWidth
-                id=" Phone"
-                label=""
-                variant="outlined" 
-                value=""/>
-              </Grid>
-              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                <label>GST No</label>
-              </Grid>
-              <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                <TextField 
-                fullWidth
-                id=" Phone"
-                label=""
-                variant="outlined" 
-                value=""/>
-              </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                  <TextField 
+                  fullWidth
+                  id=" Phone"
+                  label=""
+                  variant="outlined" 
+                  value={contactPerson}/>
+                </Grid>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label>GST No</label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                  <TextField 
+                  fullWidth
+                  id=" Phone"
+                  label=""
+                  variant="outlined" 
+                  value={gstNo}/>
+                </Grid>
               </Grid>
             </div>
-           
             <Grid  container spacing={2} style={{ marginTop: '20px'}}>
               <Grid  xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
               <FormControl>
                 <RadioGroup
                   row
-                  value={dateValue}
-                  onChange={onDateChange}
-                >
-                  <FormControlLabel value="Date" control={<Radio />} label="Date" />
-                  <FormControlLabel value="Day" control={<Radio />} label="Day" />
-                  
+                  value={dateOrDay}
+                  onChange={onDateChange}>
+                  <FormControlLabel value="date" control={<Radio />} label="Date" />
+                  <FormControlLabel value="day" control={<Radio />} label="Day" />                 
                 </RadioGroup>
               </FormControl>
-
-              </Grid>
             </Grid>
-            
-           {
-            dateValue === 'Date' &&
-            <>
-           <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label > Expected Return Date:</label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                      <TextField 
-                      fullWidth 
-                      id="Vendor-Address" 
-                      variant="outlined" 
-                      type='date'
-                      value={firstService}
-                      onChange={(e) => { handleChangefirstService(e) }}/>
-                    </Grid>
-                    </Grid>
-            </>
-           }
-           {
-            dateValue !== 'Date' &&
-            <>
-           <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label > Expected Return Days:</label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+            {
+              dateOrDay === 'date' &&
+              <>
+              <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label > Expected Return Date:</label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                  <TextField 
+                  fullWidth 
+                  id="Vendor-Address" 
+                  variant="outlined" 
+                  type='date'
+                  value={firstService}
+                  onChange={(e) => { handleChangefirstService(e) }}/>
+                </Grid>
+              </Grid>
+              </>
+            }
+            {
+             dateOrDay === 'day' &&
+              <>
+              <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                  <label > Expected Return Days:</label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                  <TextField
+                  fullWidth
+                  id="Asset-Name"
+                  label="Asset Name"
+                  variant="outlined"
+                  value={expectedDay}
+                  onChange={(e) => {setExpectedDay(e.target.value)}}
+                  />
+                </Grid>
+              </Grid>
+              </>
+            }
+            <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+              <label > E-way BillNo:</label>
+            </Grid>
+            <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+              <TextField
+              fullWidth
+              id="Asset-Name"
+              label="Asset Name"
+              variant="outlined"
+              value={eWayBill}
+              onChange={(e) => { setEWayBill(e.target.value) }}
+              />
+            </Grid>
+            </Grid>
+            <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+              <Grid  xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Chargable:</label>
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                <FormControl>
+                  <RadioGroup
+                  row
+                  value={chargeValue}
+                  onChange={onChargeChange}>
+                    <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />                 
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+             
+              <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label > Returnable:</label>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} lg={4} xl={4} >
+                <FormControl>
+                  <RadioGroup
+                  row
+                  value={returnValue}
+                  onChange={onReturnChange}>
+                    <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />                 
+                  </RadioGroup>
+                </FormControl>
+              </Grid>  
+            </Grid>
+            <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+              <Grid  xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <label>Delivery:</label>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} lg={4} xl={4} >
+                <FormControl>
+                  <RadioGroup
+                  row
+                  value={deliveryValue}
+                  onChange={onDeliveryChange}>
+                    <FormControlLabel value="Courier" control={<Radio />} label="Courier" />
+                    <FormControlLabel value="Vehicle" control={<Radio />} label="Vehicle" />      
+                    <FormControlLabel value="Inhand" control={<Radio />} label="Inhand" />               
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                <FormGroup
+                row>
+                  <FormControlLabel control={<Checkbox defaultChecked checked={jobValue === 1} onChange={onJobValueChange}/>} label="JobWork" />  
+                  <FormControlLabel control={<Checkbox checked={repair ===1} onChange={onRepairChange}/>} label="Repair" />
+                </FormGroup>
+              </Grid>
+              {
+                deliveryValue === 'Courier' &&
+                <>
+                <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > Tracking Id:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                    <TextField
+                    fullWidth
+                    id="Asset-Name"
+                    label="Asset Name"
+                    variant="outlined"/>
+                  </Grid>
+                </Grid>
+                </>
+              }
+              {
+                deliveryValue === 'Vehicle' &&
+                <>
+                <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > Vechicle No:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                    <TextField
+                    fullWidth
+                    id="Asset-Name"
+                    label="Asset Name"
+                    variant="outlined"/>
+                  </Grid>
+                </Grid>
+                </>
+              }
+              {
+                deliveryValue === 'Inhand' &&
+                <>
+                <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > Person Name:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                     <TextField
                     fullWidth
                     id="Asset-Name"
                     label="Asset Name"
                     variant="outlined"
-                   />
-                    </Grid>
-                    </Grid>
-            </>
-           }
-             <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label > E-way BillNo:</label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                    <TextField
-                    fullWidth
-                    id="Asset-Name"
-                    label="Asset Name"
-                    variant="outlined"
-                   />
-                    </Grid>
-                    </Grid>
-
-
-            
-
+                    value={personName}
+                    onChange={(e) => { setPersonName(e.target.value) }}/>
+                  </Grid>
+                </Grid>
+                </>
+              }
+            </Grid>
             <div>
+              <Button type='submit'>Submit</Button>
               <Button style={{marginLeft:'800px'}}type='reset' onClick={handleClose}>Cancel</Button>
             </div>
           </DialogContent>
         </form>
-      </Dialog>
+      </Dialog>     
+      <ServiceStatusUpdate
+        vendorName={vendorName}
+      />
     </div>
   )
 }
 
-export default ServiceRequest
-
-
-{/* <Grid container spacing={2} style={{ marginTop: '20px' }}>
-<Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}} >
-  <FormControl>
-    <FormLabel id="warranty"></FormLabel>
-    <RadioGroup
-     row aria-labelledby="demo-row-radio-buttons-group-label"
-     name="row-radio-buttons-group"
-     value={warranty}
-     onChange={onChangeRadio}>
-      <FormControlLabel value="warranty" control={<Radio />} label="Date" />
-      <FormControlLabel style={{ marginLeft: '40px' }} value="Day" control={<Radio />} label="Day" />
-    </RadioGroup>
-  </FormControl>
-</Grid>
-</Grid> */}
+export default ServiceRequest;

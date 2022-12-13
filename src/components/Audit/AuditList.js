@@ -141,6 +141,7 @@ const AuditList = () => {
             isAdd={isAdd}
             editData={editData}
             setRefresh={setRefresh} />
+            
             <NotificationBar
             handleClose={handleClose}
             notificationContent={openNotification.message}
