@@ -119,8 +119,8 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
             <DialogContentText>
               <form>
               <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-             <label >Department: </label>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                 <label >Department: </label>
              </Grid>
              <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
              <TextField id="" 
@@ -129,9 +129,7 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
               variant="outlined" 
               value={department} />
              </Grid>
-             </Grid>
-             <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+             <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
              <label >Machine: </label>
              </Grid>
              <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -141,9 +139,7 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
               variant="outlined" 
               value={assetName}/>
              </Grid>
-             </Grid>
-             <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+             <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                     <label > Certificate Start Date:</label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -158,8 +154,8 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
                   </Grid>
 
                   <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                    <label > Certificate End Date:</label>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                   <label > Certificate End Date:</label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                     <TextField 
@@ -170,13 +166,11 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
                     value={certificateEndDate}
                     onChange={(e) => { handleChangecertificateEndDate(e) }}/>
                   </Grid>
-                  </Grid>
-                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} 
-                    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label >Inception Pattern:</label>
+                style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >Number of Certificate</label>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
+                    <Grid item xs={12} sm={6} md={2} lg={2}xl={2}>
                     <Box>
                         <FormControl fullWidth>
                           <InputLabel id="demo-simple-select-label"></InputLabel>

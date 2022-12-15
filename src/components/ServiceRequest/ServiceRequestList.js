@@ -11,12 +11,14 @@ import ServiceStatusUpdate from './ServiceStatusUpdate';
 
 const ServiceRequestList = () => {
   const [open, setOpen] = useState(false);
-  const [open1,setOpen1]=useState(false);
-  const [open2,setOpen2]=useState(false)
+  const [open2,setOpen2]=useState(false);
+  const [open3,setOpen3]=useState(false)
   const [isAdd, setIsAdd] = useState(true);
   const [editData, setEditData] = useState([]); 
   const [refresh , setRefresh]=useState(false)
-  const [rows , setRows]= useState("");
+  const [rows , setRows]= useState([]);
+  const [loading , setLoading]=useState(true);
+
   const columns = [
     { field: 'department', headerName: 'Department', width: 110 },
     { field: 'section', headerName: 'Section', width: 120 },
@@ -53,7 +55,7 @@ const ServiceRequestList = () => {
       <BuildIcon
       onClick={() => {
         setEditData(selectedRow);
-        setOpen1(true);
+        setOpen2(true);
       }}/>
     )
   }
@@ -63,7 +65,7 @@ const ServiceRequestList = () => {
       <HandymanIcon
       onClick={() => {
         setEditData(selectedRow);
-        setOpen2(true);
+        setOpen3(true);
       }}/>
     )
   }
@@ -74,6 +76,7 @@ const ServiceRequestList = () => {
 
   const handleServiceRequestResult=(dataObject)=>{
     setRows(dataObject.data);
+    setLoading(false);
     console.log("data"+dataObject.data);
   }
 
@@ -90,8 +93,8 @@ const ServiceRequestList = () => {
       </Button>
     )
   }
-  
-  function EditData({ selectedRow }) {
+
+  function editData2({ selectedRow }) {
     return (
       <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
       className='prbuton'
@@ -112,6 +115,7 @@ const ServiceRequestList = () => {
         </div>
         <hr/>
         <DataGrid style={{marginLeft:'20px', marginRight:'20px',marginTop:'20px',height:'400px'}}
+        loading={loading}
         rows={rows}
         columns={columns}
         rowsPerPageOptions={[5]}
@@ -121,24 +125,18 @@ const ServiceRequestList = () => {
       <ServiceRequestView
       open={open}
       setOpen={setOpen}
-      isAdd={isAdd}
       editData={editData}
       setRefresh={setRefresh}/>
       
       <ServiceRequest
-      open1={open1}
-      setOpen1={setOpen1}
-      editData={editData}
-      setRefresh={setRefresh}/>
+      open={open2}
+      setOpen={setOpen2}
+      editData={editData}/>
 
       <ServiceStatusUpdate
-      open2={open2}
-      setOpen2={setOpen2}
-      editData={editData}
-      setRefresh={setRefresh}
-      />
-
-
+      open={open3}
+      setOpen={setOpen3}
+      editData={editData}/>
     </div>
   )
 }

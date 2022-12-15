@@ -2,17 +2,46 @@ import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { ViewInsuranceRenewal } from '../../../services/ApiServices';
+import RenevalInsurance from './RenevalInsurance';
 
 
 const InsuranceRenewallList = () => {
   const [rows , setRows]=useState([]);
+  const [editData, setEditData] = useState('');
+  const [open, setOpen] = useState(false);
+
     const columns = [
-        { field: 'department', headerName: 'Department', width: 250 },
-        { field: 'assetName', headerName: 'Machine', width: 250 },
+        { field: 'department', headerName: 'Department', width: 170 },
+        { field: 'assetName', headerName: 'Machine', width: 160 },
         { field: 'insuranceStartDate', headerName: 'Insurance Start  Date', width: 250 },
         { field: 'insuranceEndDate', headerName: 'Insurance End Date', width: 250 },
-        { field: 'action', headerName: 'Action', width: 250 },
+        {field: 'action', headerName: 'Action', width: 200, sortable: false,
+    cellClassname: 'actions',
+    type: 'actions',
+    getActions: (params) => [
+      
+
+      <EditData selectedRow={params.row} />,
+    ],
+    }
     ];
+
+    function EditData({ selectedRow }) {
+      return (
+          <label 
+          className='prbuton'
+          variant="contained"
+          color='primary'
+          onClick={() => {
+          
+              setEditData(selectedRow);
+              setOpen(true);
+  
+          }}>
+            Reneval
+          </label >
+      )
+    }
 
     useEffect(()=>{
       ViewInsuranceRenewal(handleViewInsuranceRenewalResult,handleViewInsuranceRenewalError)
@@ -44,6 +73,11 @@ const InsuranceRenewallList = () => {
             />
          </Box>
       </div>
+      <RenevalInsurance
+      open={open}
+      setOpen={setOpen}
+      editData={editData}
+      />
      </form>
     </div>
   )
