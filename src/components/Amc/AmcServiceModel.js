@@ -190,6 +190,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleFetchAssetTypeService=(dataObject)=>{
     setAssetList(dataObject.data);
   }
+
   const handleFetchAssetTypeException=(errorStaus,errorMessage)=>{
     console.log(errorMessage);
   }
@@ -197,6 +198,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleFetchSectionException=(errorStaus,errorMessage)=>{
     console.log(errorMessage);
   }
+
   const handleFetchException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
@@ -208,8 +210,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       setPhoneNumber(dataObject?.data[0]?.contactNo || '');
       setEmailId(dataObject?.data[0]?.email || '');
       setVenderAddress(dataObject?.data[0]?.address || '');
-    }
-   
+    } 
   }
 
   const handleFetchVenderException = (errorStaus, errorMessage) => {
@@ -315,7 +316,6 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         s5runHours:s5runHours,
         assetType:assetType,
         assetName:asset,
-
       }, handleSuccess, handleException)
     ) : (
       AmcServiceUpdateService({
@@ -354,7 +354,6 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleSuccess = (dataObject) => {
     console.log(dataObject);
     setRefresh(oldValue => !oldValue);
-    
     setNotification({
       status: true,
       type: 'success',
@@ -398,7 +397,6 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <form>
-               
                 <Grid  container spacing={2} style={{ marginTop: '20px'}}>
                   <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                     <label >Name: </label>
@@ -427,11 +425,11 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     <label >E-mail: </label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                    <TextField id="Email" 
-                      fullwidth
-                      label="" 
-                      variant="outlined" 
-                      value={emailId} />
+                    <TextField id="Email"
+                    fullwidth
+                    label="" 
+                    variant="outlined" 
+                    value={emailId} />
                   </Grid>
                   <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                     <label >Address :</label>
@@ -444,10 +442,10 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                     <TextField fullWidth
-                      id=" Phone" 
-                      label="" 
-                      variant="outlined" 
-                      value={phoneNumber}/>
+                    id=" Phone" 
+                    label="" 
+                    variant="outlined" 
+                    value={phoneNumber}/>
                   </Grid>
                 </Grid>
                 <div style={{ margin: '20px' }}>

@@ -205,7 +205,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -229,13 +229,13 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         </Grid>
         <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
       
-      <Grid container>
+      <Grid  container spacing={2} style={{ marginTop: '20px'}}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <h3 >INSPECTION DUE DATE</h3>
         </Grid>
       </Grid>
       <hr/>
-      <Grid container>
+      <Grid  container spacing={2} style={{ marginTop: '20px'}}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
         style={{ height: '200px',  marginTop: '20px' }}
         >

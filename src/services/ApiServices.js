@@ -342,6 +342,8 @@ export const RequestServiceAdd = (data, successCallback, errorCallBack) => _fetc
 
 export const  ShowServiceRequest = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showServiceRequest`, 'GET', {}, successCallback, errorCallBack);
 
+export const UpdateServiceStatus = (data, successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/updateServiceStatus`, 'POST', {status: data.status, serviceStatus: data.serviceStatus}, successCallback, errorCallBack);
+
 
 /////.......DashBord count..../////
 

@@ -31,8 +31,7 @@ const MaintenanceClossModel = ({ open, setOpen, isAdd, editData, setRefresh }) =
     const [totalAmount, setTotalAmount]=useState(0);
 
     useEffect(() => {
-        var tenpAffectMachine= editData?.affectedMachine?.replaceAll('\\',' ');
-          
+        var tenpAffectMachine= editData?.affectedMachine?.replaceAll('\\',' ');   
         setAffectingMachines(tenpAffectMachine|| '');
         setUtilizationPlan(editData.shutdownOrUtilization || '');
         setAffectingManHours(editData.timeFrom ||'' );

@@ -2,6 +2,7 @@ import React, { useState , useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
+import { Grid } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import FileDownload from '@mui/icons-material/FileDownload';
 import { FetchWarrantyService } from '../../services/ApiServices';
@@ -78,47 +79,67 @@ const WarrantyList = () => {
       <FileDownload />
     )
   }
-  
+
   return (
-    <div>
-      <form>
-        <div style={{display:'flex',alignItems:'center',marginTop:'40px',marginLeft:'60px'}}>
-          <label style={{marginRight:'30px'}}>Date From</label>
-          <TextField
-          style={{width:'200px'}}
-          id="Vendor-Address"
-          variant="outlined"
-          type='date'
-          value={warrantyStartDate}
-          onChange={(e) => { handleChangewarrantyStartDate(e) }}/>
-          <label style={{marginLeft:'80px', marginRight:'70px'}}> To</label>
-          <TextField
-          style={{width:'200px'}}
-          id="Vendor-Address"
-          variant="outlined"
-          type='date'
-          value={warrantyEndDate}
-          onChange={(e) => { handleChangewarrantyEndDate(e) }}/>
-          <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-          <Button style={{marginRight:'30px',marginLeft:'30px'}} variant="contained">View Due</Button>
-        </div> 
-      </form>
-      <div style={{border:'solid',marginTop:'30px',borderColor:'whitesmoke'}}>
-        <h3 style={{marginLeft:'30px'}}>View Warranty</h3>
-        <hr/>
-        <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-          <DataGrid
+    <form>
+      <Grid container spacing={2} style={{marginTop:'20px'}}>
+        <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{alignSelf:'center',textAlignLast:'center'}}>
+          <label>Date From:</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={2} xl={2} style={{alignSelf:'center', textAlignLast:'center'}}>
+        <TextField
+         fullWidth
+         id="Vendor-Address"
+         variant="outlined"
+         type='date'
+         value={warrantyStartDate}
+         onChange={(e) => { handleChangewarrantyStartDate(e) }}/>
+        </Grid>
+        <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{alignSelf:'center',textAlignLast:'center'}}>
+          <label>To:</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={2} xl={2} style={{alignSelf:'center', textAlignLast:'center'}}>
+        <TextField
+         fullWidth
+         id="Vendor-Address"
+         variant="outlined"
+         type='date'
+         value={warrantyEndDate}
+         onChange={(e) => { handleChangewarrantyEndDate(e) }}/>
+        </Grid>
+        <Grid item xs={12} sm={6} md={2} xl={2} style={{alignSelf:'center', textAlignLast:'center'}}>
+        <Button style={{marginLeft:'50px', marginBottom:'20px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>       
+        </Grid>
+      </Grid>
+
+      <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+        <h3 >View Warranty</h3>
+        </Grid>
+      </Grid>
+      <hr/>
+      <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+        style={{ height: '500px',  marginTop: '20px' }}
+        >
+        <DataGrid
           rows={rows}
-          columns={columns} />
-        </div>
-      </div>
+          columns={columns}/>
+        </Grid>
+      </Grid>
+
       <WarrantyView
-      open={openView}
-      setOpen={setOpenView}
-      editData={editData}
-      setRefresh={setRefresh}/>
-    </div>     
+     open={openView}
+     setOpen={setOpenView}
+     editData={editData}
+     setRefresh={setRefresh}/>
+
+
+    </form>
   )
+  
+ 
 }
 
 export default WarrantyList;
+
