@@ -229,19 +229,22 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <Button variant="contained" type='submit' >View</Button>
         </Grid>
       </div>
-      <form style={{border:'solid', borderColor:'whitesmoke'}}>
-        <div>
-          <h3 style={{marginLeft:'30px',marginTop:'10px'}}>Service DATE</h3>
-        </div>
-        <hr/>
-        <div style={{ height: 200, width: '1000px', marginLeft:'40px' }}>
-          <DataGrid
+      <Grid container spacing={2} style={{marginTop:'20px'}}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          <h3>Service DATE</h3>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} style={{marginTop:'20px'}}>
+        <Grid item xs={12} sm={12} md={12} xl={12} style={{height:'200px',marginTop:'20px'}}>
+        <DataGrid
           rows={rows}
           columns={columns}
           rowsPerPageOptions={[5]}
           onRowAdd/>
-        </div>
-      </form>
+          </Grid> 
+        </Grid>
+
+
     </form>
   )
 }

@@ -180,7 +180,7 @@ const RenevalAmc = ({open , setOpen, editData }) => {
           <DialogContent>
             <DialogContentText>
               <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                   <label >Department: </label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -190,7 +190,7 @@ const RenevalAmc = ({open , setOpen, editData }) => {
                   variant="outlined" 
                   value={department} />
                 </Grid>
-                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                   <label >Machine: </label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -200,7 +200,7 @@ const RenevalAmc = ({open , setOpen, editData }) => {
                   variant="outlined" 
                   value={machine}/>
                 </Grid>
-                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                   <label > AMC Start Date:</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -214,7 +214,7 @@ const RenevalAmc = ({open , setOpen, editData }) => {
                 </Grid>
               </Grid>
               <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                   <label > AMC End Date:</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -230,7 +230,7 @@ const RenevalAmc = ({open , setOpen, editData }) => {
                 style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                   <label >Service Pattern:</label>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
+                <Grid item xs={12} sm={6} md={2} lg={2}xl={2}>
                   <Box>
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label"></InputLabel>

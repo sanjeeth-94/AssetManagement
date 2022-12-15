@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
-import { DialogContent, DialogContentText, DialogTitle, RadioGroup} from '@mui/material';
+import { DialogContent, DialogContentText, DialogTitle,  RadioGroup} from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
@@ -14,9 +14,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import { FetchVenderService,FetchVenderDataService, RequestServiceAdd, } from '../../services/ApiServices';
-import ServiceStatusUpdate from './ServiceStatusUpdate';
 
-const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, isAdd }) => {
+const ServiceRequest = ({open, setOpen,editData}) => {
   const [vendorName, setVendorName] = useState('');
   const [rows, setRows]=useState([]);
   const [department,setDepartment]=useState('');
@@ -132,7 +131,7 @@ const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, i
   }
 
   const handleRequestServiceAdd=(dataObject)=>{
-    setOpen(false);
+   console.log(dataObject.data);
   }
 
   const hanleRequestServiceAddException=(errorStatus,errorMessage)=>
@@ -141,7 +140,7 @@ const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, i
   }
   
   const handleClose = () => { 
-    setOpen1(false);
+    setOpen(false);
   };
  
   const onJobValueChange = () => {
@@ -159,7 +158,7 @@ const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, i
   return (
     <div>
       <Dialog 
-      open={open1}
+      open={open}
       maxWidth='lg'>
         <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
@@ -364,7 +363,6 @@ const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, i
                   </RadioGroup>
                 </FormControl>
               </Grid>
-             
               <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                 <label > Returnable:</label>
               </Grid>
@@ -464,9 +462,6 @@ const ServiceRequest = ({ open,open1, setOpen1,setOpen, setRefresh , editData, i
           </DialogContent>
         </form>
       </Dialog>     
-      <ServiceStatusUpdate
-        vendorName={vendorName}
-      />
     </div>
   )
 }

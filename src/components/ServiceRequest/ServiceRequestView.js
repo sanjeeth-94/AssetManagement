@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
-import { DialogContent, DialogContentText, DialogTitle} from '@mui/material';
-import Button from '@mui/material/Button';
+import { DialogContent, DialogContentText, DialogTitle ,IconButton} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -9,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
 import CloseIcon from '@mui/icons-material/Close';
 
-const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
+const ServiceRequestView = ({ open, setOpen,  setRefresh , editData  }) => {
   const [rows, setRows]=useState([]);
   const [assetName ,setAssetName]=useState('');
   const [department,setDepartment]=useState('');
@@ -41,7 +40,6 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
   
   const handleClose = () => { 
     setOpen(false);
-    
   };
 
   return (
@@ -52,7 +50,11 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
         <form>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
             {"Service Due"}
-            
+            <div>
+              <IconButton onClick={handleClose} style={{marginLeft:'900px'}}type='reset'>
+                <CloseIcon />
+              </IconButton>
+            </div>
           </DialogTitle>
           <DialogContent>
             <Grid container spacing={2} style={{ marginTop: '20px'}}>
@@ -112,8 +114,8 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
                 variant="outlined"
                 value={warrantyStatus}/>
               </Grid>
-              </Grid>
-              <Grid container spacing={2} style={{ marginTop: '20px'}}>
+            </Grid>
+            <Grid container spacing={2} style={{ marginTop: '20px'}}>
               <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                 <label>Insurance Status:</label>
               </Grid>
@@ -157,7 +159,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
                 <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                   <AccordionDetails>
                     <Typography>
-                      <ImageList x={{ width: 500, height: 450 }} cols={4} rowHeight={164}>
+                      <ImageList x={{ width: 500, height: 420 }} cols={4} rowHeight={164}>
                         <img  style={{width:'50px',height:'50px'}}
                         src={`http://192.168.1.173:8000${bpImages2}`}/>
                       </ImageList>
@@ -167,7 +169,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData,isAdd  }) =>
               </Grid>
             </div>
             <div>
-              <Button style={{marginLeft:'800px'}}type='reset' onClick={handleClose}>Cancel</Button>
+              {/* <Button style={{marginLeft:'800px'}}type='reset' onClick={handleClose}>Cancel</Button> */}
             </div>
           </DialogContent>
         </form>
