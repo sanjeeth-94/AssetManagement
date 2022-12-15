@@ -187,6 +187,7 @@ const ViewAuditReport = () => {
         <label > To</label>
         </Grid>
         <Grid item xs={12} sm={6} md={3} lg={3} xl={3} 
+        
         >
         <TextField
             fullWidth
@@ -199,7 +200,7 @@ const ViewAuditReport = () => {
       </Grid>
       <Grid container spacing={2} style={{ marginTop:'15px'}} >
         <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2}
-        style={{alignSelf:'center',txetAling:'center'}}
+          style={{alignSelf:'center', textAlign:'center'}}
         >
         <label>Department :</label>
         </Grid>
@@ -219,7 +220,7 @@ const ViewAuditReport = () => {
               </FormControl>
         </Grid>
         <Grid item xs={12} sm={6} md={3} lg={1} xl={1}
-         style={{alignSelf:'center',txetAling:'center'}}
+        style={{alignSelf:'center', textAlign:'center'}}
         >
         <label>Section:</label>
         </Grid>
@@ -239,12 +240,12 @@ const ViewAuditReport = () => {
               </FormControl>
         </Grid>
         <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2}
-         style={{alignSelf:'center',txetAling:'center'}}
+         style={{alignSelf:'center', textAlign:'center'}}
         >
         <label >Asset Type :</label>
         </Grid>
         <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
-        <FormControl style= {{width:'200px'}}>
+        <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
                 <Select
        

@@ -25,12 +25,12 @@ const AddlabelList = () => {
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 40 },
         { field: 'department', headerName: 'Department	', width: 100 },
-        { field: 'section', headerName: 'Section	', width: 120 },
-        { field: 'assetType', headerName: 'Asset Type	', width: 120 },
+        { field: 'selectSection', headerName: 'Section	', width: 120 },
+        { field: 'selectAssetType', headerName: 'Asset Type	', width: 120 },
         { field: 'selectAssetId', headerName: 'Asset Id	', width: 120 },
         { field: 'code', headerName: 'Code	', width: 120 },
         { field: 'date', headerName: 'Date', width: 120 },
-        { field: 'assetName', headerName: '	Asset Name', width: 120 },
+        { field: 'selectAsset', headerName: '	Asset Name', width: 120 },
         {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -84,14 +84,14 @@ const AddlabelList = () => {
             variant="contained"
             color='primary'
             onClick={() => {
-                deletUser(selectedRow.id)
+                DeletAssetLabel(selectedRow.id)
                 }
                 }/>
             
         )
     }
     
-    const deletUser = (id) => {
+    const  DeletAssetLabel = (id) => {
         AssetLabelDeletService({id}, handleDeleteSuccess, handleDeleteException);
     }
 

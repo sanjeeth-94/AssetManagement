@@ -6,6 +6,9 @@ import NotificationBar from '../../services/NotificationBar';
 import UntageAssetModel from './UntageAssetModel';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { DownloadUntag } from '../../services/DownloadService';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const UntageAseetList = () => {
     const [open, setOpen] = useState(false);
@@ -21,12 +24,12 @@ const UntageAseetList = () => {
         message: '',
     });
     const columns = [
-        { field: 'serialNo', headerName: 'Serial No', width: 140 },
+        { field: 'id', headerName: 'Serial No', width: 140 },
         { field: 'section', headerName: 'Section', width: 140 },
         { field: 'assetName', headerName: 'Asset Name', width: 140 },
         { field: 'assetId', headerName: 'Asset Id', width: 140 },
         { field: 'id', headerName: 'Id', width: 140 },
-        { field: 'userName', headerName: 'Username', width: 140 },
+        { field: 'user', headerName: 'Username', width: 140 },
         {field: 'action', headerName: 'Action', width: 250, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -48,7 +51,7 @@ const UntageAseetList = () => {
 
     function EditData({ selectedRow }) {
         return (
-            <Button style={{ marginLeft: '20px', marginRight: '20px', width: '100px' }}
+            <EditIcon
             className='prbuton'
             variant="contained"
             color='primary'
@@ -56,9 +59,8 @@ const UntageAseetList = () => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}>
-                Edit
-            </Button>
+            }}/>
+                
         )
     }
         
@@ -102,29 +104,32 @@ const UntageAseetList = () => {
     const handleViewServiceException=(errorObject, errorMessage) =>{
         console.log(errorMessage);
     }
-       
 
     const onClickExport=(e)=>{
         e.preventDefault();
-        // AlloctionExportService(handleAlloctionExport,handleAlloctionExportException)
+        
+        DownloadUntag({fromDate:dateFrom,toDate:dateTo}, handleUntagExport,handleUntagExportException)
     }
-    const handleAlloctionExport=()=>{
+    const handleUntagExport = () => { 
 
-    }
-    const handleAlloctionExportException=()=>{
+      }
+    const handleUntagExportException=()=>{   }
 
-    }
 
   return (
     <div>
         <form onSubmit={onSubmit}>
             <Grid container>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                style={{alignSelf:'center',textAlign:'center'}}
+                >
                 <h3 > UNTAG ASSET</h3>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                style={{alignSelf:'center',textAlign:'center'}}
+                >
                 <Button style={{marginLeft:'53%',width:'120px',height:'30px', marginTop:'20px', alignSelf:'center'}} variant="outlined" onClick={handleModalOpen}>
-                Add ASSET
+                UNTAG ASSET
             </Button>
                 </Grid>
             </Grid>
@@ -167,13 +172,14 @@ const UntageAseetList = () => {
                         columns={columns} />
                 </Grid>
                 <Grid style={{marginTop:'10px',marginLeft:'20px'}}>
-                     <Button variant="contained" onClick={{onClickExport}}>Export</Button>
+                <Button variant="contained" onClick={(e)=>{onClickExport(e)}}>Export</Button>
                 </Grid>
             </Grid> 
                 <UntageAssetModel
                     open={open}
                     setOpen={setOpen}
                     setIsAdd={setIsAdd}
+                    editData={editData}
                 />
                  <NotificationBar
                     handleClose={handleClose}

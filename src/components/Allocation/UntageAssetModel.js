@@ -19,6 +19,7 @@ import FormLabel from '@mui/material/FormLabel';
 import { UserAddService, UserUpdateService,FetchDepaertmentService, FetchAssetNameService, FetchAssetTypeService, FetchSectionService, UntagAssetService } from '../../services/ApiServices';
 import { Grid } from '@mui/material';
 import { SentimentVerySatisfiedOutlined } from '@mui/icons-material';
+import NotificationBar from '../../services/NotificationBar';
 
 const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([])
@@ -38,7 +39,7 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [assetTypeList,setAssetTypeList]=useState([]);
     const [reason,setReason]=useState('');
     const [tag , setTag]=useState('');
-
+    
     const [openNotification, setNotification] = useState({
       status: false,
       type: 'error',
@@ -48,11 +49,16 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
     useEffect(() => {
       FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-
+     
+      setSection(editData?.sectionsId || '');
+      setAssetType(editData?.assetTypesId || '');
+      setAssetName(editData?.assetNameId || '');
+      setReason(editData?.reason || '');
     }, [editData]);
   
     const handleFetchSuccess = (dataObject) =>{
       setDepartmentList(dataObject.data);
+      setDepartment(editData?.departmentId|| '');
     }
     const handleFetchException = (errorStaus, errorMessage) =>{
       console.log(errorMessage);
@@ -106,19 +112,40 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     };
 const onSubmit =(e)=>{
     e.preventDefault();
+   
     UntagAssetService({
         id:assetName,    
         reasonForUntag:reason,
         tag:tag,
     },handleUntagAssetService, handleUntagAssetExecption)
+  
 }
 const handleUntagAssetService=(dataObject)=>{
     console.log(dataObject);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    });
     
 }
 const handleUntagAssetExecption=(errorObject, errorMessage)=>{
     console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+
 }
+const handleCloseNotify = () => {
+  setOpen(false)
+  setNotification({
+    status: false,
+    type: '',
+    message: '',
+  });
+};
 
   return (
     <div>
@@ -157,8 +184,6 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                       </FormControl>
                     </Box>
                         </Grid>
-                        
-
                     </Grid>
                     <Grid container style={{marginTop:'10px'}}>
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
@@ -183,8 +208,6 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                       </FormControl>
                     </Box>
                         </Grid>
-                        
-
                     </Grid>
                     <Grid container style={{marginTop:'10px'}}>
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={6}>
@@ -280,7 +303,13 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
                 </form>
             </DialogContentText>
         </DialogContent>
-    </Dialog>  
+    </Dialog> 
+    <NotificationBar
+      handleClose={handleCloseNotify}
+      notificationContent={openNotification.message}
+      openNotification={openNotification.status}
+      type={openNotification.type}
+    /> 
     </div>
   )
 }

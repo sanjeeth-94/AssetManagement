@@ -185,6 +185,7 @@ export default function HorizontalLinearStepper() {
     }
 
     const handleFetchAssetNameException = (errorStaus, errorMessage) => {
+        setAssetNameList("No Data ");
         console.log(errorMessage);
     }
 
@@ -278,6 +279,7 @@ export default function HorizontalLinearStepper() {
         setTimeTo('');
         setMachineDetails('');
         setSmanHoursDetails('');
+        setRows('');
         
         setNotification({
             status: true,
@@ -293,6 +295,34 @@ export default function HorizontalLinearStepper() {
       type: 'error',
       message: errorMessage,
     });
+    setDepartment('');
+        setSection('');
+        setAssetType('');
+        setName('');
+        setPartid('');
+        setQuantity('');   
+        setUnitPrice('');
+        setUnitId('');
+        setcanceledCheque('');
+        setMaintenanceId('');
+        setAssetName('');
+        setMaintenanceType('');
+        setSeverity('');
+        setProblemNote('');
+        setBpImages1('');
+        setBpImages2('');
+        setBpImages3('');
+        setBpImages4('');
+        setPartsOrConsumable('');
+        setPartOption('');
+        setAffectedManHours('');
+        setDateFrom('');
+        setDateTo('');
+        setTimeFrom('');
+        setTimeTo('');
+        setMachineDetails('');
+        setSmanHoursDetails('');
+        setRows('');
   }
 
   const handleCloseNotify = () => {
@@ -438,20 +468,23 @@ const onOptionChange=(e)=>{
                     </Stepper>
                     {
                         activeStep === 0 &&
-
                         <>
-                        
-                            <Grid container style={{ border: 'solid', borderColor: 'whitesmoke', marginTop: '20px' }}>
-                                <Grid container item xs={12} sm={12} md={12} lg={12} xl={12} >
-                                    <Grid item >
-                                        <h3 style={{ marginLeft: '30px' }}>Select Asset</h3>
+                            <Grid container spacing={2} >
+                                <Grid container item xs={12} sm={12} md={12} lg={12} xl={12}
+                                >
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                                     style={{alignSelf:'center',textAlign:'center'}}
+                                    >
+                                        <h3 >Select Asset</h3>
+                                        
                                     </Grid>
-
+                                    <hr/>
                                 </Grid>
-                                <hr />
-                                <Grid container spacing={3} >
-                                <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}></Grid>
-                                    <Grid item xs={12} sm={6} md={3} lg={2.5} xl={2.5}
+                                
+                                <Grid container spacing={2}   
+                                >
+                                    
+                                    <Grid item xs={12} sm={5} md={5} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
                                             textAlignLast: 'center'
@@ -475,7 +508,7 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
-                                    <Grid item  xs={12} sm={6} md={3} lg={2.5} xl={2.5}
+                                    <Grid item  xs={12} sm={5} md={5} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
                                             width: '300px'
@@ -499,7 +532,7 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
-                                    <Grid item  xs={12} sm={6} md={3} lg={2.5} xl={2.5}
+                                    <Grid item  xs={12} sm={5} md={5} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
                                             textAlignLast: 'center'
@@ -523,7 +556,7 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
-                                    <Grid item  xs={12} sm={6} md={3} lg={2.5} xl={2.5}
+                                    <Grid item  xs={12} sm={5} md={5} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
 
@@ -548,10 +581,10 @@ const onOptionChange=(e)=>{
                                             </FormControl>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}></Grid>
+                                   
                                 </Grid>
                                 <Grid container spacing={2} style={{ marginTop:'10px'}} >
-                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                    <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
                                     <DataGrid
                                     style={{ background: 'whitesmoke',height: 200 }}
                                     rows={rows}
@@ -567,8 +600,7 @@ const onOptionChange=(e)=>{
                         activeStep === 1 &&
                         <>
                             <Grid container spacing={2} style={{ marginTop: '20px' }}>
-
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
                                         textAlignLast: 'center'
@@ -576,7 +608,7 @@ const onOptionChange=(e)=>{
                                 >
                                     <label>Maintenance Id:</label>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
                                         width: '300px'
@@ -592,7 +624,7 @@ const onOptionChange=(e)=>{
 
                                 </Grid>
                                 
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
                                         textAlignLast: 'center'
@@ -600,7 +632,7 @@ const onOptionChange=(e)=>{
                                 >
                                     <label>Maintenance Type:</label>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
 
@@ -627,7 +659,7 @@ const onOptionChange=(e)=>{
                             </Grid>
                             <Grid container spacing={2} style={{ marginTop: '20px' }}>
 
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
                                         textAlignLast: 'center'
@@ -635,7 +667,7 @@ const onOptionChange=(e)=>{
                                 >
                                     <label>Severity:</label>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
 
@@ -655,7 +687,7 @@ const onOptionChange=(e)=>{
                                     </RadioGroup>
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
                                         textAlignLast: 'center'
@@ -663,7 +695,7 @@ const onOptionChange=(e)=>{
                                 >
                                     <label>Problem Note:</label>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         alignSelf: 'center',
                                         width: '300px'
@@ -690,7 +722,7 @@ v                                       value={problemNote}
                                 </Grid>
                             </Grid>
                             <Grid container spacing={2} style={{ marginTop: '20px' }}>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                        width: '200px',
                                     }}
@@ -712,7 +744,7 @@ v                                       value={problemNote}
                                         type="file"
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         width: '200px',
                                     }}
@@ -734,7 +766,7 @@ v                                       value={problemNote}
                                         type="file"
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         width: '200px',
                                     }}
@@ -756,7 +788,7 @@ v                                       value={problemNote}
                                         type="file"
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid item xs={10} sm={10} md={5} lg={3} xl={3}
                                     style={{
                                         width: '200px',
                                     }}
@@ -778,8 +810,6 @@ v                                       value={problemNote}
                                         type="file"
                                     />
                                 </Grid>
-
-
                             </Grid>
                         </>
 
@@ -976,13 +1006,14 @@ v                                       value={problemNote}
                     {
                         activeStep === 3 &&
                         <>
-                            <Grid container style={{ border: 'solid', borderColor: 'whitesmoke',marginTop: '20px' }}>
-                                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ marginTop: '20px', marginLeft: '30px', marginRight: '20px' }}>
+                            <Grid container spacing={2} style={{ border: 'solid', borderColor: 'whitesmoke',marginTop: '20px' }}>
+                                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} 
+                                style={{ marginTop: '20px', marginLeft: '30px', marginRight: '20px',alignSelf:'center', textAlign:'center' }}>
                                     <h3>Schedule</h3>
                                 </Grid>
                                 <hr />
-                                <Grid container style={{ marginRight: '20px' }}>
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                <Grid container spacing={2} style={{ marginRight: '20px' }}>
+                                    <Grid item xs={12} sm={10} md={5} lg={3} xl={3}
                                         style={{
                                             alignSelf: 'center',
                                             textAlignLast: 'center'
@@ -990,9 +1021,9 @@ v                                       value={problemNote}
                                     >
                                         <label>Affected Machine</label>
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                    <Grid item xs={12} sm={10} md={5} lg={3} xl={3}>
                                       
-                                    <FormControl sx={{ m: 1, width: 300 }}>
+                                    <FormControl fullWidth>
                                         <InputLabel >Affected MachineList</InputLabel>
                                             <Select
                                            
@@ -1015,7 +1046,7 @@ v                                       value={problemNote}
                                             </Select>
                                      </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
+                                    <Grid item xs={12} sm={10} md={5} lg={3} xl={3}
                                         style={{
                                             alignSelf: 'center',
                                             textAlignLast: 'center'
@@ -1023,7 +1054,7 @@ v                                       value={problemNote}
                                     >
                                         Affected Man Hours
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+                                    <Grid item xs={12} sm={10} md={5} lg={3} xl={3}>
                                         <TextField
                                             fullWidth
                                             id="Vendor-Address"
@@ -1034,7 +1065,7 @@ v                                       value={problemNote}
                                     </Grid>
 
                                 </Grid>
-                                <Grid container style={{ marginTop: '20px', marginRight: '20px' }} >
+                                <Grid container spacing={2} style={{ marginTop: '20px', marginRight: '20px' }} >
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                                         <FormControl style={{ marginLeft: '100px' }}>
                                             <RadioGroup
@@ -1101,7 +1132,7 @@ v                                       value={problemNote}
                                 </Grid>
                             
                                        
-                                <Grid container style={{ marginTop: '20px', marginRight: '20px' }}>
+                                <Grid container spacing={2} style={{ marginTop: '10px', marginRight: '20px' }}>
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                         style={{
                                             alignSelf: 'center',
@@ -1141,7 +1172,7 @@ v                                       value={problemNote}
                                         />
                                     </Grid>
                                 </Grid>
-                                <Grid container style={{ marginTop: '20px', marginBottom: '40px', marginRight: '20px' }}>
+                                <Grid container spacing={2} style={{ marginTop: '10px', marginBottom: '40px', marginRight: '20px' }}>
                                     <Grid item xs={12} sm={12} md={6} lg={3} xl={3}
                                         style={{
                                             alignSelf: 'center',

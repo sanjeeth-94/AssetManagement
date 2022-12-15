@@ -160,7 +160,7 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         setNotification({
             status: true,
             type: 'success',
-            message: dataObject.message,
+            message: dataObject.massage,
           });
       }
       const handleFetchAsstTransferServiceException = (errorStaus, errorMessage) =>{
@@ -170,6 +170,13 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             type: 'error',
             message: errorMessage,
         });
+        setAssetTypeMove('');
+        setSectionMove('');
+        setDepartmentMove('');
+        setAssetType('');
+        setAssetName('');
+        setSection('');
+        setDepartment('');
       }
 
     return(
@@ -299,10 +306,11 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <label style={{marginLeft:'5px'}}>Section:</label>
                         <Box>
                             <FormControl style={{width:'300px' ,marginLeft:'52px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
+                                label="Select Section"
                                 value={sectionMove}
                                 onChange={(e) => onSectionMoveChange(e)}>
                                         {sectionListMove.map((data, index) => {
@@ -319,10 +327,11 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <label style={{marginLeft:'5px'}}>Asset Type:</label>
                         <Box>
                             <FormControl style={{width:'300px' ,marginLeft:'30px', marginBottom:'20px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
+                                label="Select Asset Type"
                                 value={assetTypeMove}
                                 onChange={(e) => onAssetTypeMoveChange(e)}>
                                 {assetTypeListMove.map((data, index) => {

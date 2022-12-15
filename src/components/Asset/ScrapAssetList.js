@@ -147,10 +147,14 @@ const onClick=()=>{
     <div>
     <form onSubmit={onSubmit}>
         <Grid container>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6} >
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={6} 
+            style={{alignSelf:'center',textAlign:'center'}}
+            >
             <h3> SCRAP ASSET </h3>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6} >
+            <Grid item xs={12} sm={6} md={6} lg={6} xl={6} 
+            style={{alignSelf:'center',textAlign:'center'}}
+            >
             <Button variant="contained" onClick={onClick}>SCRAP LOG</Button>
             </Grid>
         </Grid>

@@ -1,16 +1,16 @@
 import ApplicationStore from "../utils/ApplicationStore";
 
 const _fetchServiceDownloadCsvData = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
-  const { user_token, userDetails } = ApplicationStore().getStorage('userDetails');
+  const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
   const END_POINT = 'http://192.168.1.173:8000/api/';
-  const { emailId, userRole, companyCode } = userDetails;
+  const { email, userRole, companyCode } = userDetails;
 
   const headers = {
     'Content-Type': 'blob',
-    authorization: `Bearer ${user_token}`,
-    companyCode: `${companyCode}`,
-    userId: `${emailId}`, 
-    userRole: `${userRole}`,
+    authorization: `Bearer ${access_token}`,
+    // companyCode: `${companyCode}`,
+    userId: `${email}`, 
+    // userRole: `${userRole}`,
     responseType: 'arraybuffer',
   };
 
@@ -31,7 +31,7 @@ const _fetchServiceDownloadCsvData = (PATH, serviceMethod, data, successCallback
     ...bodyParameters,
   };
 
-  let filename = '';
+  let filename = 'Report.xlsx';
 
   return fetch(END_POINT + PATH, bodyObject)
     .then((response) => {
@@ -39,17 +39,19 @@ const _fetchServiceDownloadCsvData = (PATH, serviceMethod, data, successCallback
         throw Error(response.statusText);
       }
 
-      const contentDisposition = response.headers.get('Content-Disposition');
-      filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
+      // const contentDisposition = response.headers.get('Content-Disposition');
+      // filename = contentDisposition.split(';')[1].split('filename')[1].split('=')[1].trim();
+      // filename = fileName || 'Report.xlsx';
+      console.log(response);
       return response.blob();
     })
     .then((dataResponse) => {
       successCallback(dataResponse);
       if (dataResponse != null) {
-        const url = Window.URL.createObjectURL(dataResponse);
+        const url = window.URL.createObjectURL(dataResponse);
         const a = document.createElement('a');
         a.href = url;
-        a.download = filename;
+        a.download = 'Reports.xlsx';
         document.body.appendChild(a);
         a.click();
         // a.remove();
@@ -72,4 +74,16 @@ export const DownloadAlloction=(data, successCallback, errorCallBack) => {
     const { toDate } = data;
     return _fetchServiceDownloadCsvData(`allocation/export?=&fromDate=${fromDate}&toDate=${toDate}`, 'GET', {}, successCallback, errorCallBack);
   };
+
+export const DownloadUntag=(data,successCallback, errorCallBack)=>{
+  const { fromDate } = data;
+  const { toDate } = data;
+  return _fetchServiceDownloadCsvData(`untagAsset/export?=&fromDate=${fromDate}&toDate=${toDate}`, 'GET', {}, successCallback, errorCallBack);
+};
+
+export const DownloadAssetMaster=(data, successCallback, errorCallBack) => {
+    const { assetType } = data;
+    return _fetchServiceDownloadCsvData(`allocation/export?=&fromDate`, 'GET', {}, successCallback, errorCallBack);
+};
+
   

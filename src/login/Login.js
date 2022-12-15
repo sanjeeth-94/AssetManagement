@@ -46,7 +46,9 @@ const Login = () => {
         };
       }).then((data) => {
         ApplicationStore().setStorage('userDetails', data);
-        navigate("/main");
+        setTimeout(()=>{
+          navigate("/main");
+        },3000);      
       }).catch((error) => {
         error?.errorObject?.then((errorResponse) => {
           console.log(errorResponse.error ? errorResponse.error : errorResponse.message);

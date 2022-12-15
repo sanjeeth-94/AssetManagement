@@ -44,14 +44,21 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
    
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-    setAuditDate(editData.auditDate || '');
-    setDepartment(editData.department || '');
-    setAuditName(editData.auditName || '');
-
+    setAuditDate(editData?.auditDate || '');
+    setDepartment(editData?.departmentId || '');
+    setSection(editData?.sectionsId || '' );
+    setAssetType(editData?.assetTypesId|| '');
+    setAuditName(editData?.auditName || '');
+    setauditDate(editData?.auditDate || '');
   }, [editData]);
 
   const handleFetchSuccess = (dataObject) =>{
     setDepartmentList(dataObject.data);
+      if(editData?.departmentId){
+        FetchSectionService({
+          id:editData?.departmentId
+        },handleFetchSectionSuccess, handleFetchSectionException);
+      }
   }
 
   const handleChangeauditDate = (e) => {
@@ -72,7 +79,11 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleFetchSectionSuccess = (dataObject) =>{
     setSectioonList(dataObject.data);
+    if(editData?.sectionsId ){
+      FetchAssetTypeService({id: editData?.sectionsId},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+    }
   }
+   
 
   const handleFetchSectionException = (errorStaus, errorMessage) =>{
     console.log(errorMessage);
@@ -176,10 +187,10 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       <FormControl style={{width:'200px'}}>
                         <InputLabel id="departmentlabel">Select Department</InputLabel>
                         <Select
-                        labelId="departmentlabel"
-                        id='department'
-                        label="Department"
-                        onChange={(e) => onDepartmentChange(e)}>
+                        label="Select Department"
+                        onChange={(e) => onDepartmentChange(e)}
+                        value={department}
+                        >
                           {departmentList.map((data, index) => {
                             return (
                               <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
@@ -199,8 +210,7 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       <FormControl style={{width:'200px'}}>
                         <InputLabel id="sectionList">Select section</InputLabel>
                         <Select
-                        labelId="sectionList"
-                        id='section'
+                        value={section}
                         label="Select section"
                         onChange={(e) => onSectionChange(e)}>
                         {sectionList.map((data, index) => {
@@ -220,9 +230,8 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     <FormControl style={{width:'200px'}}>
                       <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
                       <Select
-                      labelId="assetTypeList"
-                      id='assetType'
-                      label="AssetType"
+                      value={assetType}
+                      label="Select Asset Type"
                       onChange={(e) => onAssetTypeChange(e)}>
                         {assetTypeList.map((data, index) => {
                           return (
@@ -243,6 +252,7 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   style={{width:'200px'}}
                   label="Audit Name" 
                   variant="outlined" 
+                  value={auditName}
                   onChange={(e)=>{setAuditName(e.target.value) }} />
                     </Grid>
                     </Grid>

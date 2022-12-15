@@ -30,6 +30,7 @@ import {
         CertificateDueCountService, 
         DamageCountService, 
         EolCountService, 
+        FetchCountService, 
         InServiceCountService, 
         InsuranceDueCountService, 
         SalesCountService, 
@@ -58,106 +59,40 @@ const Main = () => {
     const [transferCount,setTransferCount]=useState('');
     
     useEffect(()=>{
-        AssetsCountService(handleAssetsCountService,handleAssetsCountException);
-        TagAssetsCountService(handleTagAssetsCountService,handleTagAssetsCountException);
-        UntagCountService(handleUntagCountService,handleUntagCountException);
-        WarrantyDueCountService(handleWarrantyDueCountService,handleWarrantyDueCountexception);
-        AmcDueCountService(handleAmcDueCountService,handleAmcDueCountException);
-        CertificateDueCountService(handleCertificateDueCountService,handleCertificateDueCountException);
-        InsuranceDueCountService(handleInsuranceDueCountService, handleInsuranceDueCountExceotion);
-        AuditDueCountService(handleAuditDueCountService,handleAuditDueCountException);
-        EolCountService(handleEolCountService,handleEolCountException);
-        DamageCountService(handleDamageCountService,handleDamageCountException);
-        SalesCountService(handleSalesCountService,handleSalesCountException);
-        InServiceCountService(handleInServiceCountService,handleInServiceCountException);
-        ScrapCountService(handleScrapCountService,handleScrapCountException);
-        TransferCountService(handleTransferCountService,TransferCountException);
+        FetchCountService(handleAssetsCountService,handleAssetsCountException);
     },[]);
 
     const handleAssetsCountService = (dataObject) => {
-        setAssetCount(dataObject?.assets || '0');
-    }
-
-    const handleAssetsCountException=()=>{   }
-
-    const handleTagAssetsCountService = (dataObject) => {
-        setTagAssets(dataObject?.tagAssets || '0');
-    }
-
-    const handleTagAssetsCountException=()=>{   }
-
-    const handleUntagCountService=(dataObject)=>{
-        setUntagCount(dataObject?.data?.untag);
-    }
-
-    const handleUntagCountException=()=>{}
-
-    const handleWarrantyDueCountService=(dataObject)=>{
-            setWarrantyDueCount(dataObject?.warrantyDue);
-    }
-    const handleWarrantyDueCountexception=()=>{}
-
-    const handleAmcDueCountService=(dataObject)=>{
-        setAmcDueCount(dataObject?.amcDue);
-    }
-    const handleAmcDueCountException=()=>{}
-
-    const handleCertificateDueCountService=(dataObject)=>{
-        setCertificateDueCount(dataObject?.data?.certificateDue);
-    }   
-
-    const handleCertificateDueCountException=()=>{}
-
-    const handleInsuranceDueCountService=(dataObject)=>{
-        setInsuranceDueCount(dataObject?.data?.insurancenDue);
-    }
-    const handleInsuranceDueCountExceotion=()=>{}
-
-    const handleAuditDueCountService=(dataObject)=>{
-            setAuditDueCount(dataObject.auditDueCount);
-    }
-    const handleAuditDueCountException=()=>{}
-
-    const handleEolCountService=(dataObject)=>{
-        setEolCount(dataObject.eol);
-    }
-    const handleEolCountException=()=>{}
-
-    const handleDamageCountService=(dataObject)=>{
-        setDamageCount(dataObject.damageCount);
-
-    }
-    const handleDamageCountException=()=>{}
-
-    const handleSalesCountService=(dataObject)=>{
-        setSalesCount(dataObject.sales);
-    }
-    const handleSalesCountException=()=>{}
-
-    const handleInServiceCountService=(dataObject)=>{
-        setInServiceCount(dataObject?.inService);
        
-    }
-    const handleInServiceCountException=()=>{
-        setInServiceCount('0');
+        setAssetCount(dataObject?.assetsCount|| 0);
+        setTagAssets(dataObject?.tagAssetsCount || '');
+        setUntagCount(dataObject?.untagCount || '');
+        setWarrantyDueCount(dataObject?.warrantyDueCount || '');
+        setAmcDueCount(dataObject?.amcDueCount|| 0);
+        setCertificateDueCount(dataObject?.certificateDueCount || '');
+        setInsuranceDueCount(dataObject?.inServiceCount || 0);
+        setAuditDueCount(dataObject?.auditDueCount || '');
+        setEolCount(dataObject?.eolCount || '');
+        setDamageCount(dataObject?.damageCount || '');
+        setSalesCount(dataObject?.salesCount || '');
+        setInServiceCount(dataObject?.insuranceDueCount || '');
+        setScrapCount(dataObject?.scrapCount || '');
+        // setTransferCount(dataObject?.'');
+
     }
 
-    const handleScrapCountService=(dataObject)=>{
-        setScrapCount(dataObject?.scrapAssets );
-        
-    }
-    const handleScrapCountException=()=>{
-        setScrapCount('0');
-    }
+    const handleAssetsCountException=()=>{  
+      
+     }
 
     const handleTransferCountService=(dataObject)=>{
         setTransferCount(dataObject?.transfer);
     }
     const TransferCountException=()=>{}
     return (
-        <>
+        <div style={{width:'95%', height:'50vh'}}>
         <Grid container spacing={2} style={{marginTop:'20px', marginLeft:'20px'}}>
-            <Grid item xs={6} sm={4} md={3.5} lg={1.7} xl={1.9}
+        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
             style={{
                 color: 'white',
                 display: 'box'  ,
@@ -178,7 +113,7 @@ const Main = () => {
             </div>
         </Grid>
            
-        <Grid item xs={6} sm={4} md={3.5} lg={1.7} xl={1.9}
+        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
             style={{
                 color: 'white',
                 display: 'box'  ,
@@ -204,7 +139,7 @@ const Main = () => {
             </div>
         </Grid>
 
-        <Grid item xs={6} sm={4} md={3.5} lg={1.7} xl={1.9}
+        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
             style={{
                 color: 'white',
                 display: 'box'  ,
@@ -227,7 +162,7 @@ const Main = () => {
                  <Link to='/tagassettable'><StyleIcon className='dash-icon2' /></Link>
             </div>
         </Grid>
-        <Grid item xs={6} sm={4} md={3.5} lg={1.8} xl={1.8}
+        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
             style={{
                 color: 'white',
                 display: 'box'  ,
@@ -248,7 +183,7 @@ const Main = () => {
                <Link to='/Untagassettable'><LocalOfferIcon className='dash-icon3' /></Link>
             </div>
         </Grid>
-        <Grid item xs={6} sm={4} md={3.5} lg={1.8} xl={1.8}
+        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
             style={{
                 color: 'white',
                 display: 'box'  ,
@@ -269,7 +204,7 @@ const Main = () => {
                 
             </div>
         </Grid>
-        <Grid item xs={6} sm={4} md={3.5} lg={1.8} xl={1.8}
+        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
             style={{
                 color: 'white',
                 display: 'box'  ,
@@ -296,7 +231,7 @@ const Main = () => {
 
      <Grid container spacing={2} style={{marginLeft:'20px'}}>
        
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -326,7 +261,7 @@ const Main = () => {
         </div>
         </Grid>
       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -348,7 +283,7 @@ const Main = () => {
                     }}/> </Link>
         </Grid>
       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -370,7 +305,7 @@ const Main = () => {
                     }}/></Link>
         </Grid>
       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -395,7 +330,7 @@ const Main = () => {
         </Grid>
      </Grid>
      <Grid container spacing={2} style={{marginLeft:'20px'}}>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -419,7 +354,7 @@ const Main = () => {
                     }}/></Link>
                     </div>
         </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -442,7 +377,7 @@ const Main = () => {
                      }} /></Link>
                      </div>
         </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -464,7 +399,7 @@ const Main = () => {
                     }}/></Link>
         </Grid>
 
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -487,7 +422,7 @@ const Main = () => {
         </Grid>
      </Grid>
      <Grid container spacing={2} style={{marginLeft:'20px'}}>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -514,7 +449,7 @@ const Main = () => {
         </div>
         </Grid>
       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -536,7 +471,7 @@ const Main = () => {
                     }}/>
         </Grid>
       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -557,7 +492,7 @@ const Main = () => {
                         margin:'20px',
                     }}/></Link>
         </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -580,13 +515,8 @@ const Main = () => {
         </Grid>
 
      </Grid>
-
-     
      <Grid container spacing={2} style={{marginLeft:'20px'}}>
-       
-       
-      
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -616,7 +546,7 @@ const Main = () => {
                     </div>
         </Grid>
       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -644,7 +574,7 @@ const Main = () => {
                     </div>
         </Grid>
       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
                 display: 'box'  ,
@@ -669,7 +599,7 @@ const Main = () => {
                     }}/></Link>
                     </div>
         </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.7} xl={3} 
+        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                style={{
                color: 'white',
                display: 'box'  ,
@@ -701,13 +631,7 @@ const Main = () => {
 
      </Grid>
 
-     
-        <div className="main__container" style={{
-            height: '150vh',   
-        }}>
-            
         </div>
-        </>
     )
 }
 

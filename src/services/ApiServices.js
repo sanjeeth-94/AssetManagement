@@ -96,6 +96,9 @@ export const FetchEmployeeNameService = (data,successCallback, errorCallBack) =>
 
 export const FetchUserNameService = (data,successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/getUser`, 'GET', {}, successCallback, errorCallBack);
 
+export const FetchCountService = (successCallback, errorCallBack) => _fetchService('getCount', 'GET', {}, successCallback, errorCallBack);
+
+
 
 
 // // --------- User--------------//

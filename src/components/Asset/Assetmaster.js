@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import { DataGrid } from '@mui/x-data-grid';
 import { Grid, MenuItem } from '@mui/material';
 import { FetchAssetMasterService, FetchAssetTypeService, FetchDepaertmentService, FetchSectionService } from '../../services/ApiServices';
+import { DownloadAssetMaster } from '../../services/DownloadService';
 
 
 
@@ -20,6 +21,7 @@ export default function Assetmaster() {
   const [assetTypeList,setAssetTypeList] = useState([]);
   const [assetType,setAssetType] = useState('');
   const [rows, setRows ]= useState([]);
+  const [loading, setLoading]=useState(false);
 
   const columns = [
     { field: 'id', headerName: 'Serial No', width: 40 },
@@ -83,15 +85,25 @@ export default function Assetmaster() {
        
   const onSubmit = (e) => {
   e.preventDefault();
+  setLoading(true);
   FetchAssetMasterService({id:assetType},handleAssetMasterService,handleAssetMasterServiceException)
  }
  const handleAssetMasterService=(dataObject)=>{
+  setLoading(false);
   setRows(dataObject.data);
  }
  const handleAssetMasterServiceException=(errorStaus, errorMessage) => {
   console.log(errorMessage);
  }
-  
+ const onClickExport=(e)=>{
+  e.preventDefault();
+  DownloadAssetMaster({assetType:assetType},handleAlloctionExport,handleAlloctionExportException)
+}
+const handleAlloctionExport=()=>{ 
+        
+}
+const handleAlloctionExportException=()=>{   }
+
   return(
     <div>
       <form onSubmit={onSubmit}>
@@ -179,7 +191,7 @@ export default function Assetmaster() {
           <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
            style={{alignSelf:"center", textAlign:'center'}}
           >
-          <Button  variant="contained" type="submit">Export</Button>
+          <Button  variant="contained" onClick={onClickExport}>Export</Button>
           </Grid>
         </Grid>
           
@@ -188,6 +200,7 @@ export default function Assetmaster() {
             <DataGrid
             rows={rows}
             columns={columns}
+            loading={loading}
             rowsPerPageOptions={[5]}
             onRowAdd/>
           </div>

@@ -109,9 +109,11 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
     };
     const onClickExport=(e)=>{
         e.preventDefault();
-        DownloadAlloction({fromDate:dateFrom,toDate:dateTo},handleAlloctionExport,handleAlloctionExportException)
+        DownloadAlloction({fromDate:dateFrom,toDate:dateTo}, handleAlloctionExport,handleAlloctionExportException)
     }
-    const handleAlloctionExport=()=>{   }
+    const handleAlloctionExport = () => { 
+
+      }
     const handleAlloctionExportException=()=>{   }
 
     return (

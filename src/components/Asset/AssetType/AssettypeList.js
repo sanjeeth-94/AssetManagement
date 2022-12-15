@@ -118,10 +118,14 @@ const AssetTypeList= () => {
   return (
     <div>
       <Grid container>
-      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
+      style={{alignSelf:'center',textAlign:'center'}}
+      >
       <h3 >Asset Type</h3>
      </Grid>
-        <Grid item xs={6} sm={6} md={6} lg={6} xl={6} >
+        <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
+        style={{alignSelf:'center',textAlign:'center'}}
+        >
         <Button style={{marginLeft:'43%',width:'120px',height:'30px', marginTop:'25px'}} variant="outlined" onClick={handleModalOpen}>
             Add
         </Button>

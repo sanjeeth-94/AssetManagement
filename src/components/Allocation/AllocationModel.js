@@ -17,6 +17,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import {  UserUpdateService,FetchDepaertmentService,FetchAuditAssetTypeService, FetchSectionService, FetchAssetTypeService, FetchAssetNameService, AlloctionAddService, FetchEmployeeIdService, FetchEmployeeNameService, FetchUserNameService } from '../../services/ApiServices';
+import { Grid } from '@mui/material';
 
 const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([]);
@@ -34,7 +35,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [section, setSection]=useState('');
   const [assetTypeList, setAssetTypeList]=useState([]);
   const [assetType, setAssetType]=useState('');
-  const [auditName,setAuditName]=useState('');
+ 
   const [ assetNameList, setAssetNameList]=useState([]);
   const [assetName,setAssetName]=useState('');
   const [user, setuser] = useState("EmpId");
@@ -57,11 +58,13 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setDepartment(editData?.departmentId || '');
     setSection(editData?.sectionsId || '');  
     setAssetType(editData?.assetTypesId || '');
-    setAssetName(editData?.assetNameId || '');
+    setAssetName(editData?.assetId || '');
     setUserDepartment(editData?.departmentId || '');
-    setEmployeeId(editData?.employee_id|| '');
-    setUserName(editData?.employeeName || '' );
-    
+    setEmployeeId(editData?.EmpId || '');
+    setemployeeNamed(editData?.user || '' );
+    setTempFromDate(editData?.fromDate || '');
+    setTempToDate(editData?.toDate || '');
+    console.log('data'+editData?.assetNameId);
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) =>{
@@ -261,6 +264,16 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
       type: 'success',
       message: dataObject.message,
     });
+    setDepartment('');
+    setSection('');  
+    setAssetType('');
+    setAssetName('');
+    setUserDepartment('');
+    setEmployeeId('');
+    setUserName('');
+    setTempFromDate('');
+    setTempToDate('');
+
   }
   
   const handleException = (errorObject, errorMessage) =>{
@@ -291,14 +304,25 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              <div style={{display:'flex'}}>
-                <div style={{marginTop:'80px', marginLeft:'40px',border:'solid',width:'500px'}}>
-                  <h2 style={{marginLeft:'200px'}}>ASSET</h2>
+              <div>
+                <Grid container spacing={2} style={{display:'box', }}> 
+                <Grid container item xs={12} sm={12} md={5} lg={5} xl={5}  style={{display:'box',border:'solid',marginTop:'30px',marginBottom:'20px'}}>
+                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <h2 >ASSET</h2>
                   <hr/>
-                  <div style={{marginTop:'20px', }}>
-                    <label style={{marginLeft:'40px', marginRight:'40px'}}>Department : </label>
-                    <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
+                  </Grid>
+                  <Grid container>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <label >Department : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                <FormControl fullWidth>
                         <InputLabel id="departmentlabel">Select Department</InputLabel>
                         <Select
                        
@@ -313,10 +337,18 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           })}
                         </Select>
                       </FormControl>
-                    </Box>
-                    <label style={{marginLeft:'40px',  marginTop:'20px'}}>Section : </label>
-                    <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
+                  </Grid>
+                  </Grid>
+                  <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                 <label >Section : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <FormControl fullWidth>
                         <InputLabel id="sectionList">Select section</InputLabel>
                         <Select
                         labelId="sectionList"
@@ -332,15 +364,23 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           })}
                         </Select>
                       </FormControl>
-                    </Box>
-                    <label style={{marginLeft:'50px', marginRight:'35px'}}>Asset Type : </label>
-                    <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
+                  </Grid>
+                  </Grid>
+                  <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                   <label >Asset Type : </label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <FormControl fullWidth>
                         <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
                         <Select
                         labelId="assetTypeList"
                         id='assetType'
-                        label="AssetType"
+                        label="Select Asset Type"
                         value={assetType}
                         onChange={(e) => onAssetTypeChange(e)}>
                           {
@@ -351,15 +391,22 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           })}
                         </Select>
                       </FormControl>
-                    </Box>
-                    <label style={{marginLeft:'50px', marginRight:'35px'}}>Asset Name:</label>
-                    <Box sx={{ minWidth: 120 }}>
-                      <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
-                        <InputLabel id="assetTypeList">Select Asset Name</InputLabel>
+                  </Grid>
+                  </Grid>
+                  <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                   <label >Asset Name:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <FormControl fullWidth>
+                        <InputLabel >Select Asset Name</InputLabel>
                         <Select
-                        labelId="assetTypeList"
-                        id='assetType'
-                        label="AssetType"
+                      
+                        label="Select Asset Name"
                         value={assetName}
                         onChange={(e) => onAssetNameChange(e)}>
                           {
@@ -370,15 +417,22 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           })}
                         </Select>
                       </FormControl>
-                    </Box>
-                  </div>
-                </div>
-                <div style={{marginTop:'80px', marginLeft:'200px',border:'solid',width:'500px'}}>
-                  <h2 style={{marginLeft:'200px'}}>User</h2>
-                  <hr/>
-                  <div style={{marginTop:'20px', }}>
-                    <div style={{marginLeft:'40px'}}>
-                      <FormControl>
+                  </Grid>
+                  </Grid>
+                </Grid>
+                
+                <Grid container spacing={2} item xs={12} sm={9} md={4} lg={4} xl={4}  style={{display:'box',marginLeft:'10%',border:'solid',marginTop:'30px',marginBottom:'20px'}}>
+                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                    <h2 style={{marginLeft:'200px'}}>User</h2>
+                    <hr/>
+                  </Grid>
+                  <Grid container>
+                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                 <FormControl>
                         <RadioGroup
                         row
                           onChange={onChangeRedio}
@@ -388,14 +442,20 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           <FormControlLabel value="Department" control={<Radio />} label="Department" />
                       </RadioGroup>
                     </FormControl>
-                    </div>
-                    {
+                  </Grid>
+                  {
                       user ==='EmpId' &&
                       <>
-                   
-                  <label style={{marginLeft:'40px', marginRight:'40px'}}>Emp Id: </label>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
+                          <Grid container style={{marginTop:'5px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                    <label >Emp Id: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <FormControl fullWidth>
                       <InputLabel id="departmentlabel">Select Employee Id</InputLabel>
                       <Select
                       labelId="departmentlabel"
@@ -411,22 +471,38 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                         })}
                       </Select>
                     </FormControl>
-                  </Box>
-                  <div style={{display:'flex'}}>
-                  <label style={{marginLeft:'40px',  marginTop:'20px'}}>Emp Name: </label>
-                  <TextField 
+                  </Grid>
+                  </Grid>
+                  <Grid container style={{marginTop:'5px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                 <label >Emp Name: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                    <TextField 
                           variant="outlined" 
                           value={employeeName}
                     />
-                 </div>
-                  </>
-                }{
-                  user !=='EmpId' &&
-                  <>
-                   
-                  <label style={{marginLeft:'40px', marginRight:'40px'}}>Department: </label>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
+                  </Grid>
+                  </Grid>
+                      </>
+                  }{
+                    user !=='EmpId' &&
+                    <>
+                    
+                     <Grid container style={{marginTop:'5px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <label >Department: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                    <FormControl fullWidth>
                       <InputLabel id="departmentlabel">Select Department</InputLabel>
                       <Select
                       labelId="departmentlabel"
@@ -442,32 +518,15 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                         })}
                       </Select>
                     </FormControl>
-                  </Box>
-                  <label style={{marginLeft:'40px',  marginTop:'20px'}}>User: </label>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl style={{ width: '300px',marginLeft:'40px',marginBottom:'10px' }}>
-                      <InputLabel id="sectionList">Select section</InputLabel>
-                      <Select
-                      labelId="sectionList"
-                      id='section'
-                      label="Select section"
-                      value={employeeName}
+                  </Grid>
 
-                      onChange={(e) => onChangeUserName(e)}>
-                        {
-                          userNameList.map((data, index) => {
-                          return (
-                            <MenuItem value={data.id} key={index}>{data.user_name}</MenuItem>
-                          )
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  </>
-
-                }
-                  <div style={{marginLeft:'40px'}}>
-                    <FormControl>
+                  </Grid>
+                    </>
+                  }
+                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                     <FormControl>
                       <RadioGroup
                       row                   
                       onChange={onChangeTemporary}
@@ -477,37 +536,57 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                         <FormControlLabel value="permanent" control={<Radio />} label="Permanent" />
                       </RadioGroup>
                     </FormControl>
-                  </div>
+                  </Grid>
                   {
-                      temporary === 'temporary' &&
-                      <>
-                      <div>
-                      <label style={{marginLeft:'40px', marginRight:'40px',alignContent:'center'}}>From:</label>
-                      <TextField 
+                     temporary === 'temporary' &&
+                     <>
+                     
+                      <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                    <label >From:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                  <TextField 
+                          fullWidth
                           id="outlined-basic"  
                           type='date' 
                           variant="outlined" 
                           value={tempFromDate}
                           onChange={(e)=>setTempFromDate(e.target.value)}
                           />
-                      </div>
-                      <div style={{marginTop:'10px'}}>
-                      <label style={{marginLeft:'40px', marginRight:'66px',alignContent:'center'}}>to:</label>
-                      <TextField style={{marginBottom:'10px'}}
+                  </Grid>
+                  </Grid>
+                  <Grid container style={{marginTop:'10px'}}>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center'}}
+                  >
+                     <label >to:</label>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                   style={{alignSelf:'center', textAlign:'center',marginBotton:'20px'}}
+                  >
+                   <TextField fullWidth 
                           id="outlined-basic"  
                           type='date' 
                           variant="outlined" 
                           value={tempToDate}
                           onChange={(e)=>setTempToDate(e.target.value)}
                           />
-                      </div>
-                      </>
-
+                     
+                  </Grid>
+                  </Grid>
+                     </>
                   }
+                  </Grid>
+                </Grid>
+                </Grid>
                 
-                </div>
               </div>
-            </div>
+           
           </DialogContentText>
         </DialogContent>
         <DialogActions>
