@@ -65,7 +65,7 @@ main {
     margin: 20px 0;
 }
 
-.card{
+.cards{
     display: flex;
     width: 100%;
     border-radius: 1%;
@@ -73,7 +73,7 @@ main {
     border-color: aqua;
     flex-direction: column;
     justify-content: space-around;
-    height: 70px;
+    height: 30px;
     padding: 25px;
     border-radius: 7zpx;
     background: rgb(91, 87, 87);   

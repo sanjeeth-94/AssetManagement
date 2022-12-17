@@ -15,10 +15,23 @@ import Tagassettable from './components/Asset/Tagassettable';
 import Untagassettable from './components/Allocation/Untagassettable';
 import MaintenanceSchedule from './components/MaintenanceSchedule/MaintenanceSchedule';
 import MaintenanceSchedulList from './components/check/MaintenanceSchedulList';
-import WarrantyList from './components/Amc/WarrantyList';
 import Certificate from './components/Amc/Certificate/Certificate';
 import ServiceRequestList from './components/ServiceRequest/ServiceRequestList';
 import InspectionDueList from './components/Amc/Certificate/InspectionDueList';
+import WarrantyDue from './components/DashboardItems/WarrantyDue';
+import InspectionDue from './components/DashboardItems/InspectionDue';
+import Amcdue from './components/DashboardItems/Amcdue';
+import CertificateDue from './components/DashboardItems/CertificateDue';
+import Insurancedue from './components/DashboardItems/Insurancedue';
+import Transferdue from './components/DashboardItems/Transferdue';
+import Auditdue from './components/DashboardItems/Auditdue';
+import Eol from './components/DashboardItems/Eol';
+import Notinuse from './components/DashboardItems/Notinuse';
+import Damage from './components/DashboardItems/Damage';
+import Transfer from './components/DashboardItems/Transfer';
+import Inservice from './components/DashboardItems/Inservice';
+import Sale from './components/DashboardItems/Sale';
+import Scrap from './components/DashboardItems/Scrap';
 
 
 function App() {
@@ -59,11 +72,24 @@ function App() {
           <Route path='/servicedue' element={<Servicedue/>}/>
           <Route path='/tagassettable' element={<Tagassettable/>}/>
           <Route path='/untagassettable' element={<Untagassettable/>}/>
-          <Route path='/warrantyList' element={<WarrantyList/>}/>
+          <Route path='/WarrantyDue' element={<WarrantyDue/>}/>
           <Route path='/amcTab' element={<AmcTab/>}/>
           <Route path='/maintenanceSchedulList' element={<MaintenanceSchedulList/>}/>
           <Route path='/certificate' element={<Certificate/>}/>
           <Route path='/InsepectionDueList' element={<InspectionDueList/>}/>
+          <Route path='/InspectionDue' element={<InspectionDue/>}/>
+          <Route path='/Amcdue' element={< Amcdue/>}/>
+          <Route path='/CertificateDue' element={<CertificateDue/>}/>
+          <Route path='/Insurancedue' element={<Insurancedue/>}/>
+          <Route path='/Transferdue' element={<Transferdue/>}/>
+          <Route path='/Auditdue' element={<Auditdue/>}/>
+          <Route path='/Eol' element={<Eol/>}/>
+          <Route path='/Notinuse' element={<Notinuse/>}/>
+          <Route path='/Damage' element={<Damage/>}/>
+          <Route path='/Transfer' element={<Transfer/>}/>
+          <Route path='/Inservice' element={<Inservice/>}/>
+          <Route path='/Sale' element={<Sale/>}/>
+          <Route path='/Scrap' element={<Scrap/>}/>
         </Route> 
       </Route>
     </Routes> 

@@ -26,6 +26,7 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [serviceDue,setserviceDue] = useState([]);
   const [fromDate, setfromDate] = useState('');
   const [toDate, settoDate] = useState('');
+  const [loading,setLoading]=useState('');
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -102,6 +103,7 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setserviceDue(dataObject.data);
     setRows(dataObject.data);
     console.log(dataObject.data);
+    setLoading(false);
   }
 
   const handleAMCServiceDueListException = (errorStaus, errorMessage) => {
@@ -129,27 +131,27 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   ];
   
   return (
-    <form style={{border:'solid' , borderColor:'whitesmoke'}}>
+    <form >
       <div style={{marginTop:'20px'}}>
-        <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
-          <Grid xs={12} sm={2.5} md={2.5} lg={2.5} xl={2.5} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+      <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+          <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Inspection Date From :</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <TextField
-            style={{width:'200px'}}
+            fullWidth
             id="Vendor-Address"
             variant="outlined"
             type='date'
             value={fromDate}
             onChange={(e) => { handleChangefromDate(e) }}/>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label > To</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
             <TextField
-            style={{width:'200px'}}
+           fullWidth
             id="Vendor-Address"
             variant="outlined"
             type='date'
@@ -224,7 +226,7 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         </Grid>
           <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
         
-          <Grid container>
+          <Grid container spacing={2} style={{ marginTop: '20px'}}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <h3 >INSPECTION DUE DATE</h3>
         </Grid>
@@ -235,6 +237,7 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         style={{ height: '200px',  marginTop: '20px' }}
         >
         <DataGrid
+        loading={loading}
           rows={rows}
           columns={columns}/>
         </Grid>

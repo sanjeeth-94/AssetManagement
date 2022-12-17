@@ -1,39 +1,56 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import TextField from '@mui/material/TextField';
+import { Grid } from '@mui/material';
+import { ViewAuditDue } from '../../services/ApiServices';
 
-const columns = [
-  { field: 'Serial No', headerName: 'Serial No', width: 180 },
-  { field: 'Audit name', headerName: 'Audit name', width: 180 },
-  { field: 'Department', headerName: 'Department', width: 180 },
-  { field: 'Section', headerName: 'Section', width: 180 },
-  { field: 'Asset Type', headerName: 'Asset Type', width: 180 },
-];
+const Auditdue = () => {
+    const [rows,setRows] = useState([]);
+    const [loading,setLoading]=useState([]);
+    
+    const columns = [
+        { field: 'auditName', headerName: 'Audit Name', width: 250 },
+        { field: 'department', headerName: 'Department', width: 250 },
+        { field: 'section', headerName: 'Section', width: 250 },
+        { field: 'assetType', headerName: 'Asset Type', width: 250 },
+    ];
+    
+    useEffect(()=>{
+        ViewAuditDue(handleViewAuditDueResult,handleViewAuditDueError)
 
-const rows = [
-  //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-];
+    },[]);
 
-export default function DataTable() {
+    const handleViewAuditDueResult=(dataObject)=>{
+        setRows(dataObject.data);
+        setLoading(false);
+        console.log(dataObject.data);
+    }
+    
+    const handleViewAuditDueError=(errorStaus, errorMessage)=>{
+        console.log(errorMessage)
+    }
+  
     return (
-        <form style={{marginTop:'40px', height:'400px',width:'1000px',marginLeft:'65px',border:'solid', borderColor:'whitesmoke'}}>
-            <div>
-                <h2> AUDIT DUE</h2>
-            </div>
+        <div>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                style={{alignSelf:'center',textAlign:'center'}}>
+                    <h3>AUDIT DUE</h3>
+                </Grid>
+            </Grid>
             <hr/>
-            <div>
-                <label style={{marginLeft:'700px'}}>Search : </label>
-                <TextField
-                style={{marginBottom:'20px'}}
-                id="outlined-size-small"
-                defaultValue="Search"
-                size="small"/>
-            </div>
-            <DataGrid
-            rows={rows}
-            columns={columns}
-            rowsPerPageOptions={[5]}
-            onRowAdd />
-        </form>   
-    );
+            <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
+                style={{ height: '400px',  marginTop: '20px',marginLeft:'5%' }}>
+                    <DataGrid
+                    loading={loading}
+                    rows={rows}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}/>
+                </Grid>
+            </Grid>
+        </div>
+    )
 }
+
+export default Auditdue;
