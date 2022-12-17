@@ -23,24 +23,10 @@ import StyleIcon from '@mui/icons-material/Style';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
-import {
-        AmcDueCountService, 
-        AssetsCountService, 
-        AuditDueCountService, 
-        CertificateDueCountService, 
-        DamageCountService, 
-        EolCountService, 
+import { 
         FetchCountService, 
-        InServiceCountService, 
-        InsuranceDueCountService, 
-        SalesCountService, 
-        ScrapCountService, 
-        TagAssetsCountService, 
-        TransferCountService, 
-        UntagCountService, 
-        WarrantyDueCountService,
-       
       } from "../../services/ApiServices";
+import ApplicationStore from '../../utils/ApplicationStore';
 
 const Main = () => {
     const [assetCount, setAssetCount]= useState('');
@@ -57,26 +43,32 @@ const Main = () => {
     const [inServiceCount,setInServiceCount]=useState('');
     const [scrapCount,setScrapCount]=useState('');
     const [transferCount,setTransferCount]=useState('');
+    const [user ,setUser]=useState(false);
     
     useEffect(()=>{
         FetchCountService(handleAssetsCountService,handleAssetsCountException);
+        const {userDetails} = ApplicationStore().getStorage("userDetails");
+        const {userRole} =userDetails;
+        if(userRole==='Admin')
+        {
+         setUser(true);
+        }
     },[]);
 
     const handleAssetsCountService = (dataObject) => {
-       
         setAssetCount(dataObject?.assetsCount|| 0);
-        setTagAssets(dataObject?.tagAssetsCount || '');
-        setUntagCount(dataObject?.untagCount || '');
-        setWarrantyDueCount(dataObject?.warrantyDueCount || '');
+        setTagAssets(dataObject?.tagAssetsCount || 0);
+        setUntagCount(dataObject?.untagCount || 0);
+        setWarrantyDueCount(dataObject?.warrantyDueCount || 0);
         setAmcDueCount(dataObject?.amcDueCount|| 0);
-        setCertificateDueCount(dataObject?.certificateDueCount || '');
+        setCertificateDueCount(dataObject?.certificateDueCount || 0);
         setInsuranceDueCount(dataObject?.inServiceCount || 0);
-        setAuditDueCount(dataObject?.auditDueCount || '');
-        setEolCount(dataObject?.eolCount || '');
-        setDamageCount(dataObject?.damageCount || '');
-        setSalesCount(dataObject?.salesCount || '');
-        setInServiceCount(dataObject?.insuranceDueCount || '');
-        setScrapCount(dataObject?.scrapCount || '');
+        setAuditDueCount(dataObject?.auditDueCount || 0);
+        setEolCount(dataObject?.eolCount || 0);
+        setDamageCount(dataObject?.damageCount || 0);
+        setSalesCount(dataObject?.salesCount || 0);
+        setInServiceCount(dataObject?.insuranceDueCount || 0);
+        setScrapCount(dataObject?.scrapCount || 0);
         // setTransferCount(dataObject?.'');
 
     }
@@ -421,6 +413,10 @@ const Main = () => {
                     }}/></Link>
         </Grid>
      </Grid>
+
+      {     
+      
+         user === true &&
      <Grid container spacing={2} style={{marginLeft:'20px'}}>
         <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
@@ -515,6 +511,7 @@ const Main = () => {
         </Grid>
 
      </Grid>
+      }
      <Grid container spacing={2} style={{marginLeft:'20px'}}>
         <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
@@ -573,7 +570,12 @@ const Main = () => {
                     }}/></Link>
                     </div>
         </Grid>
-      
+ 
+        {
+            user === true &&
+            <>
+            
+          
         <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
@@ -628,7 +630,9 @@ const Main = () => {
                     }}/></Link>
                     </div>
        </Grid>
-
+       </>
+        }
+ 
      </Grid>
 
         </div>

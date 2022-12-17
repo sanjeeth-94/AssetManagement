@@ -19,7 +19,9 @@ import WarrantyList from './components/Amc/WarrantyList';
 import Certificate from './components/Amc/Certificate/Certificate';
 import ServiceRequestList from './components/ServiceRequest/ServiceRequestList';
 import InspectionDueList from './components/Amc/Certificate/InspectionDueList';
-
+import UserAssetList from './components/UserModule/UserAssetList';
+import UserMangaeServiceList from './components/UserModule/UserMangaeServiceList';
+import UserReturnAssetList from './components/UserModule/UserReturnAssetList';
 
 function App() {
   const navigate = useNavigate();
@@ -64,6 +66,9 @@ function App() {
           <Route path='/maintenanceSchedulList' element={<MaintenanceSchedulList/>}/>
           <Route path='/certificate' element={<Certificate/>}/>
           <Route path='/InsepectionDueList' element={<InspectionDueList/>}/>
+          <Route path='/userAssetList' element={<UserAssetList/>}/>
+          <Route path='/UserManageServiceList' element={<UserMangaeServiceList/>}/>
+          <Route path='/UserRetureAsset' element={<UserReturnAssetList/>}/>
         </Route> 
       </Route>
     </Routes> 

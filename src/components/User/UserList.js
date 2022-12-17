@@ -156,7 +156,8 @@ const UserList = (props) => {
                 <DataGrid
                     loading={loading}
                     rows={rows}
-                    columns={columns} />
+                    columns={columns} 
+            />
             </div>
             <UserModel 
                 open={open}

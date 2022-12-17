@@ -4,7 +4,7 @@ const successCaseCode = [200, 201];
 
 const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
-  const END_POINT = 'http://192.168.1.173:8000/api/';
+  const END_POINT = 'http://192.168.1.174:8000/api/';
   const { email } = userDetails;
   const { id } = userDetails;
 
@@ -58,7 +58,7 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
 
 export const LoginService = (data) => {
   const PATH = 'login';
-  const END_POINT = 'http://192.168.1.173:8000/api/';
+  const END_POINT = 'http://192.168.1.174:8000/api/';
   const SERVICE_METHOD = 'POST';
   const headers = {
     Accept: 'application/json',
@@ -321,10 +321,14 @@ export const AlloctionViewService = (data, successCallback, errorCallBack) => _f
 
 export const AlloctionExportService = (data, successCallback, errorCallBack) => _fetchService('allocation/export', 'POST', data, successCallback, errorCallBack);
 
+
 ///...........UNTAG......////
 export const UntagAssetService = (data, successCallback, errorCallBack) => _fetchService(`untagAsset/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 export const UntagAssetViewService = (data, successCallback, errorCallBack) => _fetchService('untagAsset/showData', 'POST', data, successCallback, errorCallBack);
+
+export const AlloctionUntageUpdate = (data, successCallback, errorCallBack) => _fetchService(`untagAsset/${data.id}/untagUpdate`, 'POST', data, successCallback, errorCallBack);
+
 
 ////.........Scrap............////
 
@@ -377,3 +381,22 @@ export const InServiceCountService = (successCallback, errorCallBack) => _fetchS
 export const ScrapCountService = (successCallback, errorCallBack) => _fetchService('scrapCount', 'POST', {}, successCallback, errorCallBack);
 
 export const TransferCountService = (successCallback, errorCallBack) => _fetchService('transferCount', 'POST', {}, successCallback, errorCallBack);
+
+//////..........user Model.......////
+
+export const  FetchUserAllocationService = (successCallback, errorCallBack) => _fetchService('um/showAsset', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchUserGetAssetNameService = (successCallback, errorCallBack) => _fetchService('um/getAssetName', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchUserGetShowStatusService = (data,successCallback, errorCallBack) => _fetchService(`um/${data.id}/showStatus`, 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchViewServiceRequesService = (successCallback, errorCallBack) => _fetchService('um/viewServiceRequest', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchAddRequesService = (data,successCallback, errorCallBack) => _fetchService('um/add', 'POST', data, successCallback, errorCallBack);
+
+export const  FetchShowReturnAssetService = (successCallback, errorCallBack) => _fetchService('um/showReturnAsset', 'GET', {}, successCallback, errorCallBack);
+
+export const  FetchUpdateReturnAssetService = (data,successCallback, errorCallBack) => _fetchService(`um/${data.id}/updateReturnAsset`, 'POST', data, successCallback, errorCallBack);
+
+
+

@@ -35,7 +35,6 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [section, setSection]=useState('');
   const [assetTypeList, setAssetTypeList]=useState([]);
   const [assetType, setAssetType]=useState('');
- 
   const [ assetNameList, setAssetNameList]=useState([]);
   const [assetName,setAssetName]=useState('');
   const [user, setuser] = useState("EmpId");
@@ -293,6 +292,10 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
       message: '',
     });
   }; 
+  const  onUerChange=(e)=>
+  {
+    setUserName(e.target.value);
+  }
   return (
     <div>
       <Dialog
@@ -446,7 +449,7 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                   {
                       user ==='EmpId' &&
                       <>
-                          <Grid container style={{marginTop:'5px'}}>
+                   <Grid container style={{marginTop:'5px'}}>
                   <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
                    style={{alignSelf:'center', textAlign:'center'}}
                   >
@@ -493,34 +496,61 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                     user !=='EmpId' &&
                     <>
                     
-                     <Grid container style={{marginTop:'5px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                  <label >Department: </label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                    <FormControl fullWidth>
-                      <InputLabel id="departmentlabel">Select Department</InputLabel>
-                      <Select
-                      labelId="departmentlabel"
-                      id='department'
-                      label="Select Department"
-                      value={userDepartment}
-                      onChange={(e) => onUerDepartmentChange(e)}>
-                        {
-                            userDepartmentList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                          )
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                      <Grid container style={{marginTop:'5px'}}>
+                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                      >
+                      <label >Department: </label>
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                      >
+                        <FormControl fullWidth>
+                          <InputLabel id="departmentlabel">Select Department</InputLabel>
+                          <Select
+                          labelId="departmentlabel"
+                          id='department'
+                          label="Select Department"
+                          value={userDepartment}
+                          onChange={(e) => onUerDepartmentChange(e)}>
+                            {
+                                userDepartmentList.map((data, index) => {
+                                return (
+                                  <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                              )
+                            })}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      </Grid>
+                      <Grid container style={{marginTop:'10px'}}>
+                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                      >
+                      <label >Uesr: </label>
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                      >
+                        <FormControl fullWidth>
+                          <InputLabel id="departmentlabel">Select User</InputLabel>
+                          <Select
+                          labelId="departmentlabel"
+                          id='department'
+                          label="Select user"
+                          value={userName}
+                          onChange={(e) => onUerChange(e)}>
+                            {
+                                userNameList.map((data, index) => {
+                                return (
+                                  <MenuItem value={data.id} key={index}>{data.user_name}</MenuItem>
+                              )
+                            })}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      </Grid>
 
-                  </Grid>
                     </>
                   }
                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
