@@ -136,11 +136,11 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   return (
     <form style={{border:'solid' , borderColor:'whitesmoke'}}>
       <div style={{marginTop:'20px'}}>
-        <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
-          <Grid xs={12} sm={2.5} md={2.5} lg={2.5} xl={2.5} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+        <Grid container spacing={2} style={{ marginTop: '10px', marginRight:'30px'}}>
+          <Grid xs={12} sm={2.5} md={6} lg={3} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label > AmcService Date From :</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
             <TextField
             fullWidth
             id="Vendor-Address"
@@ -149,10 +149,10 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             value={periodFrom}
             onChange={(e) => { handleChangeperiodFrom(e) }}/>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label > To:</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
             <TextField
             fullWidth 
             id="Vendor-Address" 
@@ -162,11 +162,11 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             onChange={(e) => { handleChangeperiodTo(e) }}/>
           </Grid>
         </Grid>
-        <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-          <Grid xs={12} sm={2.5} md={2.5} lg={2.5} xl={2.5} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+        <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+          <Grid xs={12} sm={2.5} md={6} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2} >
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
@@ -184,10 +184,10 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={6} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Section:</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
@@ -205,10 +205,10 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={6} lg={1.5} xl={1.5}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type:</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
@@ -226,16 +226,20 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
+          <Grid item xs={12} sm={6} md={6} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Button  type='submit' variant="contained" onClick={onSubmit}>View</Button>
+          </Grid> 
         </Grid>
-        <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-      
-      <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+  
+      <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+        style={{ alignSelf: 'center', textAlignLast: 'center'}}
+        >
         <h3 >INSPECTION DUE DATE</h3>
         </Grid>
       </Grid>
       <hr/>
-      <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+      <Grid  container spacing={2} style={{ marginTop: '10px'}}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
         style={{ height: '200px',  marginTop: '20px' }}
         >

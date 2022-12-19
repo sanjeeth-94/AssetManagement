@@ -167,6 +167,8 @@ export const  AssetShowLabelService = (data, successCallback, errorCallBack) => 
 
 export const  AssetLabelDeletService = (data, successCallback, errorCallBack) => _fetchService(`label/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
+
+
 ////....Department..../////
 
 export const  FetchDepartmentListService = (successCallback, errorCallBack) => _fetchService('department/showData', 'GET', {}, successCallback, errorCallBack);
@@ -197,6 +199,10 @@ export const AssetTypeAddService = (data, successCallback, errorCallBack) => _fe
 export const AssetTypeUpdateService = (data, successCallback, errorCallBack) => _fetchService(`assetType/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 export const AssettypeDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assetType/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const AssetImportService = (data, successCallback, errorCallBack) => _fetchService('asset/import', 'POST', data, successCallback, errorCallBack);
+
+
 
 /////........TagAsset....../////
 
@@ -397,6 +403,8 @@ export const  FetchAddRequesService = (data,successCallback, errorCallBack) => _
 export const  FetchShowReturnAssetService = (successCallback, errorCallBack) => _fetchService('um/showReturnAsset', 'GET', {}, successCallback, errorCallBack);
 
 export const  FetchUpdateReturnAssetService = (data,successCallback, errorCallBack) => _fetchService(`um/${data.id}/updateReturnAsset`, 'POST', data, successCallback, errorCallBack);
+
+export const  FetchUpdateSelfAssessmentService = (data,successCallback, errorCallBack) => _fetchService(`um/${data.id}/updateSelfAssessment`, 'POST', data, successCallback, errorCallBack);
 
 
 

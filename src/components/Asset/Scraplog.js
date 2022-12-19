@@ -8,10 +8,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Grid } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { FetchScrapAssetShowDataService } from '../../services/ApiServices';
-import { DownloadScrapDetails } from '../../services/DownloadService';
+import { DownloadScrapAsset, DownloadScrapDetails } from '../../services/DownloadService';
 
 const ScrapLog = ({open,setOpen }) => {
     const [rows, setRows] = useState([]);
+    const [loading,setLoading]=useState(true);
     const columns = [
 						
         { field: 'id', headerName: 'Serial No', width: 100 },
@@ -33,6 +34,7 @@ const ScrapLog = ({open,setOpen }) => {
       }, []);
 
       const handleFetchScrapAsset=(dataObject) => {
+        setLoading(false);
         setRows(dataObject.data);
       }
       const handleFetchScrapAssetException=(errorStaus, errorMessage) => {
@@ -41,7 +43,11 @@ const ScrapLog = ({open,setOpen }) => {
 
       const onClickExport=(e)=>{
         e.preventDefault();
+        DownloadScrapAsset(handleDownloadScrapAsset,handleDownloadScrapAssetException);
       }
+const handleDownloadScrapAsset=()=>{}
+const handleDownloadScrapAssetException=()=>{}
+      
   return (
     <div>
        <Dialog
@@ -59,6 +65,7 @@ const ScrapLog = ({open,setOpen }) => {
             <Grid >
                 <div style={{ height: '350px', width:'90%',marginTop:'30px'}}>
                 <DataGrid
+                loading={loading}
                 rows={rows}
                 columns={columns} />
                 </div>
@@ -75,8 +82,6 @@ const ScrapLog = ({open,setOpen }) => {
                 <Button variant="contained" onClick={onCancel}>Cancel</Button>
                 </Grid>
             </Grid>
-            
-           
             </div>
           </DialogContentText>
         </DialogContent>

@@ -31,6 +31,7 @@ const [assetNameList,setAssetNameList] =useState([]);
 const [assetName, setAssetName] = useState('');
 const [scrapAprovalLetter,setScrapAprovalLetter]=useState('');
 const [open,setOpen]=useState(false);
+
 const [tagAssetType, setTageAssetType] = useState("Scrap");
 const onTagAssetType = (event) => {
     setTageAssetType(event.target.value);

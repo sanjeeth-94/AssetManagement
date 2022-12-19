@@ -138,11 +138,11 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     <form onSubmit={onSubmit}>
       <div >
         <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-          <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-            <Box sx={{ minWidth: 120 }}>
+          <Grid item xs={12} sm={6} md={6} lg={3} xl={3} >
+           
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
                 <Select
@@ -157,12 +157,12 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   })}
                 </Select>
               </FormControl>
-            </Box>
+          
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Section:</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
@@ -180,10 +180,13 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+        </Grid>
+          <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
@@ -201,10 +204,10 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={6} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Name :</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+          <Grid item xs={12} sm={6} md={6} lg={3} xl={3} >
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label"></InputLabel>
@@ -222,19 +225,22 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-        </Grid>
-        <Grid item style={{
-          textAlign: 'end', marginTop:'20px'
+          <Grid item style={{
+          textAlign: 'end', marginTop:'10px'
         }}>
           <Button variant="contained" type='submit' >View</Button>
         </Grid>
+        </Grid>
+        
       </div>
-      <Grid container spacing={2} style={{marginTop:'20px'}}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+      <Grid container spacing={2} style={{marginTop:'10px'}}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+          style={{ alignSelf: 'center', textAlignLast: 'center'}}
+        >
           <h3>Service DATE</h3>
         </Grid>
       </Grid>
-      <Grid container spacing={2} style={{marginTop:'20px'}}>
+      <Grid container spacing={2} >
         <Grid item xs={12} sm={12} md={12} xl={12} style={{height:'200px',marginTop:'20px'}}>
         <DataGrid
           rows={rows}

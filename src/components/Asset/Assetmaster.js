@@ -97,7 +97,7 @@ export default function Assetmaster() {
  }
  const onClickExport=(e)=>{
   e.preventDefault();
-  DownloadAssetMaster({assetType:assetType},handleAlloctionExport,handleAlloctionExportException)
+  DownloadAssetMaster(assetType,handleAlloctionExport,handleAlloctionExportException)
 }
 const handleAlloctionExport=()=>{ 
         

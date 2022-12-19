@@ -7,6 +7,7 @@ import { FetchShowReturnAssetService } from '../../services/ApiServices';
 import ReplayIcon from '@mui/icons-material/Replay';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import UserAssetReturn from './UserAssetReturn';
+import UserSelfAssessment from './UserSelfAssessment';
 
 const UserReturnAssetList = () => {
     const [rows, setRows]=useState([]);
@@ -51,9 +52,9 @@ const UserReturnAssetList = () => {
             color='primary'
             onClick={() => {
                  setOpen2(true);
-                
+                 setEditData(selectedRow);
                 }
-                }/>
+              }/>
            
         )
     }
@@ -96,12 +97,12 @@ const UserReturnAssetList = () => {
         editData={editData}
         setRefresh={setRefresh}
       />
-      {/* <UserReturnAssetList
+      <UserSelfAssessment
         open2={open2}
         setOpen2={setOpen2}
         editData={editData}
         setRefresh={setRefresh}
-      /> */}
+      />
     </div>
   )
 }
