@@ -21,24 +21,12 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StyleIcon from '@mui/icons-material/Style';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 import {
-    AmcDueCountService, 
-    AssetsCountService, 
-    AuditDueCountService, 
-    CertificateDueCountService, 
-    DamageCountService, 
-    EolCountService, 
-    FetchCountService, 
-    InServiceCountService, 
-    InsuranceDueCountService, 
-    SalesCountService, 
-    ScrapCountService, 
-    TagAssetsCountService, 
-    TransferCountService, 
-    UntagCountService, 
-    WarrantyDueCountService,
+        FetchCountService, 
+ 
 } from "../../services/ApiServices";
 import ApplicationStore from '../../utils/ApplicationStore';
 const Main = () => {
@@ -57,6 +45,10 @@ const Main = () => {
     const [scrapCount,setScrapCount]=useState('');
     const [transferCount,setTransferCount]=useState('');
     const [user ,setUser]=useState(false);
+    const [dateTime, setDateTime] = useState({
+        time: '',
+        date: '',
+      });
     
     useEffect(()=>{
         FetchCountService(handleAssetsCountService,handleAssetsCountException);
@@ -66,6 +58,18 @@ const Main = () => {
         {
          setUser(true);
         }
+
+        setInterval(() => {
+            const currentTime = new Date();
+            setDateTime(() => {
+              return {
+                time: currentTime.toLocaleTimeString('en', {
+                  hour: 'numeric', hour12: true, minute: 'numeric', second: 'numeric',
+                }),
+                date: currentTime.toLocaleDateString('es-CL')
+              };
+            });
+          });
     },[]);
 
     const handleAssetsCountService = (dataObject) => {
@@ -94,6 +98,7 @@ const Main = () => {
         setTransferCount(dataObject?.transfer);
     }
     const TransferCountException=()=>{}
+
     return (
         <div style={{width:'95%', height:'50vh'}}>
         <Grid container spacing={2} style={{marginTop:'20px', marginLeft:'20px'}}>
@@ -107,15 +112,27 @@ const Main = () => {
                 border: 'solid',
                 borderColor: 'aqua',  
             }}>
-                <p >Total Asset</p>
+                  <Typography variant="h5" gutterBottom>
+                     Total Asset
+                 </Typography>
+               
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     
                 }}>
-                <label style={{ marginRight:'70%' , color:'aqua'}}>{assetCount}</label>
-                <Link to='/asset' ><FileCopyIcon className='dash-icon' /> </Link>
-            </div>
+                    <Typography variant="h6" gutterBottom
+                        style={{ marginRight:'65%' , color:'aqua'}}
+                        >
+                        {assetCount}
+                    </Typography>
+                    <Link to='/asset' >
+                        <FileCopyIcon className='dash-icon' style={{
+                            color: 'aqua',
+                            fontSize: '32'
+                        }} /> 
+                    </Link>
+                </div>
         </Grid>
            
         <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
@@ -128,14 +145,20 @@ const Main = () => {
                 border: 'solid',
                 borderColor: 'aqua',
             }}>
-                <p >New Asset</p>
+                 <Typography variant="h5" gutterBottom>
+                 New Asset
+                 </Typography>
+                
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'right',
                     
-                }}>    
-               <label style={{ marginRight:'70%' , color:'aqua'}}>{}</label>
+                }}> 
+                   <Typography variant="h5" gutterBottom
+                   style={{ marginRight:'65%' , color:'aqua'}}>
+                    {}
+                 </Typography>
                <AddBoxIcon className='dash-icon1' /> 
             </div>
         </Grid>
@@ -195,7 +218,9 @@ const Main = () => {
                 borderColor: 'aqua',
 
             }}>
-                <p >hello</p>
+                <span> {dateTime.date}</span> <br/>
+                <span style={{marginTop:'20px'}}> {dateTime.time}</span>
+
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
