@@ -1,40 +1,57 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import TextField from '@mui/material/TextField';
+import { Grid } from '@mui/material';
+import { ViewDamage } from '../../services/ApiServices';
 
-const columns = [
-  { field: 'Serial No', headerName: 'Serial No', width: 180 },
-  { field: 'Department', headerName: 'Department', width: 180 },
-  { field: 'Section', headerName: 'Section', width: 180 },
-  { field: 'Asset Type', headerName: 'Asset Type', width: 180 },
-  { field: 'Asset Name', headerName: 'Asset Name', width: 180 },
-  { field: 'RFID', headerName: 'RFID', width: 180 },
-];
+const Damage = () => {
+    const [rows,setRows] = useState([]);
+    const [loading,setLoading]=useState([]);
+  
+    const columns = [
+        { field: 'department', headerName: 'Department', width: 200 },
+        { field: 'section', headerName: 'Section', width: 200 },
+        { field: 'assetType', headerName: 'Asset Type', width: 200 },
+        { field: 'assetName', headerName: 'Asset Name', width: 200 },
+        { field: 'rfidNo', headerName: 'RFID', width: 200 },
+    ];
 
-const rows = [
-  //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-];
+    useEffect(()=>{
+        ViewDamage(handleViewDamageResult,handleViewDamageError)
 
-export default function DataTable() {
+    },[]);
+
+    const handleViewDamageResult=(dataObject)=>{
+        setRows(dataObject.data);
+        setLoading(false);
+        console.log(dataObject.data);
+      }
+    
+      const handleViewDamageError=(errorStaus, errorMessage)=>{
+        console.log(errorMessage)
+      }
+  
     return (
-        <form style={{marginTop:'40px', height:'400px',width:'1100px',marginLeft:'65px',border:'solid', borderColor:'whitesmoke'}}>
-            <div>
-                <h2> DAMAGE</h2>
-            </div>
+        <div>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                style={{alignSelf:'center',textAlign:'center'}}>
+                    <h3>DAMAGE</h3>
+                </Grid>
+            </Grid>
             <hr/>
-            <div>
-                <label style={{marginLeft:'800px'}}>Search : </label>
-                <TextField
-                style={{marginBottom:'20px'}}
-                id="outlined-size-small"
-                defaultValue="Search"
-                size="small"/>
-            </div>
-            <DataGrid
-            rows={rows}
-            columns={columns}
-            rowsPerPageOptions={[5]}
-            onRowAdd />
-        </form>   
-    );
+            <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
+                style={{ height: '400px',  marginTop: '20px',marginLeft:'5%' }}>
+                    <DataGrid
+                    loading={loading}
+                    rows={rows}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}/>
+                </Grid>
+            </Grid>
+        </div>
+    )
 }
+
+export default Damage

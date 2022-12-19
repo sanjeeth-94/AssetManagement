@@ -1,41 +1,53 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import TextField from '@mui/material/TextField';
+import { Grid } from '@mui/material';
 
-const columns = [
-  { field: 'Serial No', headerName: 'Serial No', width: 180 },
-  { field: 'Asset Name', headerName: 'Asset Name', width: 180 },
-  { field: 'AMC Status', headerName: 'AMC Status', width: 180 },
-  { field: 'Warranty Status', headerName: 'Warranty Status', width: 180 },
-  { field: 'Insurance Status', headerName: 'Insurance Status', width: 180 },
-  { field: 'Problem Note', headerName: 'Problem Note', width: 180 },
-  { field: 'User Name', headerName: 'User Name', width: 180 },
-];
+const Inservice = () => {
+    const [rows,setRows] = useState([]);
+    // const [loading,setLoading]=useState([]);
+  
+    const columns = [
+        { field: 'assetName', headerName: 'Asset Name', width: 150 },
+        { field: 'amcStatus', headerName: 'Amc Status', width: 160 },
+        { field: 'warrantyStatus', headerName: 'Warranty Status', width: 180 },
+        { field: 'insuranceStatus', headerName: 'Insurance Status', width: 180 },
+        { field: 'problemNote', headerName: 'Problem Note', width: 190 },
+        { field: 'userName', headerName: 'User Name', width: 160 },
+    ];
 
-const rows = [
-  //   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-];
+    useEffect(()=>{
+     
 
-export default function DataTable() {
+    },[]);
+
+   
+        // setLoading(false);
+     
+        
+
+  
     return (
-        <form style={{marginTop:'40px', height:'400px',width:'1100px',marginLeft:'65px',border:'solid', borderColor:'whitesmoke'}}>
-            <div>
-                <h2> IN SERVICE</h2>
-            </div>
+        <div>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                style={{alignSelf:'center',textAlign:'center'}}>
+                    <h3>IN SERVICE</h3>
+                </Grid>
+            </Grid>
             <hr/>
-            <div>
-                <label style={{marginLeft:'800px'}}>Search : </label>
-                <TextField
-                style={{marginBottom:'20px'}}
-                id="outlined-size-small"
-                defaultValue="Search"
-                size="small"/>
-            </div>
-            <DataGrid
-            rows={rows}
-            columns={columns}
-            rowsPerPageOptions={[5]}
-            onRowAdd />
-        </form>   
-    );
+            <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
+                style={{ height: '400px',  marginTop: '20px',marginLeft:'5%' }}>
+                    <DataGrid
+                    // loading={loading}
+                    rows={rows}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}/>
+                </Grid>
+            </Grid>
+        </div>
+    )
 }
+
+export default Inservice

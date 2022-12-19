@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Delete from '@mui/icons-material/Delete';
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
 import { DialogContent, DialogContentText, DialogTitle, Typography } from '@mui/material';
@@ -7,44 +6,86 @@ import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 
-const AmcServicePatternView = ({ open, setOpen, }) => {
-  const [open1, setOpen1] = useState(false);
-  const [isService, setIsService] = useState(false);
+const AmcServicePatternView = ({ open, setOpen, editData}) => {
   const [rows, setRows] = useState([]);
   const [editData2, setEditData2] = useState('');
-  const [firstService,setfirstService] = useState('');
-  const [secondService,setsecondService] = useState('');
-  const [thirdService,setthirdService] = useState('');
-  const [fourthService,setfourthService] = useState('');
-  const [fifthService,setfifthService] = useState('');
-  const handleClose = () => {
+  const [name,setName]=useState('');
+  const [DateFrom,setDateFrom]=useState('');
+  const [DateTo,setDateTo]=useState('');
+  const [vendorName,setVendorName]=useState('');
+  const [periodFrom,setPeriodFrom]=useState('');
+  const [periodTo,setPeriodTo]=useState('');
+  const [firstServiceFrom,setFirstServiceFrom]=useState('');
+  const [firstServiceTo,setFirstServiceTo]=useState('');
+  const [secondServiceFrom,setSecondServiceFrom]=useState('');
+  const [secondServiceTo,setSecondServiceTo]=useState('');
+  const [thirdServiceFrom,setthirdServiceFrom]=useState('');
+  const [thirdServiceTo,setThirdServiceTo]=useState('');
+  const [fourthServiceFrom,setFourthServiceFrom]=useState('');
+  const [fourthServiceTo,setFourthServiceTo]=useState('');
+  const [fifthServiceFrom,setFifthServiceFrom]=useState('');
+  const [fifthServiceTo,setFifthServiceTo]=useState('');
+    const handleClose = () => {
     setOpen(false);
   };
 
-  const handleChangefirstService = (e) => {
-    setfirstService(e.target.value);
+  useEffect(()=>{
+    setVendorName(editData?.vendorName ||'');
+    setPeriodFrom(editData?.periodFrom ||'');
+    setPeriodTo(editData?.periodTo || '');
+  })
+
+  const handleChangefirstServiceFrom = (e) => {
+    setFirstServiceFrom(e.target.value);
     console.log(e.target.value);
   };
 
-  const handleChangesecondService = (e) => {
-    setsecondService(e.target.value);
+  const handleChangefirstServiceTo = (e) => {
+    setFirstServiceTo(e.target.value);
     console.log(e.target.value);
   };
 
-  const handleChangethirdService = (e) => {
-    setthirdService(e.target.value);
+
+  const handleChangeSecondServiceFrom = (e) => {
+    setSecondServiceFrom(e.target.value);
     console.log(e.target.value);
   };
 
-  const handleChangefourthService = (e) => {
-    setfourthService(e.target.value);
+  const handleChangeSecondServiceTo = (e) => {
+    setSecondServiceTo(e.target.value);
     console.log(e.target.value);
   };
 
-  const handleChangefifthService = (e) => {
-    setfifthService(e.target.value);
+  const handleChangeThirdServiceFrom = (e) => {
+    setthirdServiceFrom(e.target.value);
     console.log(e.target.value);
   };
+
+  const handleChangethirdServiceTo = (e) => {
+    setThirdServiceTo(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleChangefourthServiceFrom= (e) => {
+    setFourthServiceFrom(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleChangefourthServiceTo = (e) => {
+    setFourthServiceTo(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleChangefifthServiceFrom = (e) => {
+    setFifthServiceFrom(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleChangefifthServiceTo = (e) => {
+    setFifthServiceTo(e.target.value);
+    console.log(e.target.value);
+  };
+
   
   return (
     <div>
@@ -69,7 +110,7 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
                       fullwidth
                       label="" 
                       variant="outlined" 
-                      value="" />
+                      value={vendorName} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                       <label >Date From: </label>
@@ -79,7 +120,7 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
                       fullwidth
                       label="" 
                       variant="outlined" 
-                      value="" />
+                      value={periodFrom} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                       <label >Date To :</label>
@@ -89,12 +130,12 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
                       fullwidth
                       label="" 
                       variant="outlined" 
-                      value="" />
+                      value={periodTo} />
                     </Grid>
                   </Grid>
                   <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                    <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label > 1st Service </label>
+                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label > 1st Service From: </label>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                       <TextField 
@@ -102,39 +143,39 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
                       id="Vendor-Address" 
                       variant="outlined" 
                       type='date'
-                      value={firstService}
-                      onChange={(e) => { handleChangefirstService(e) }}/>
+                      value={firstServiceFrom}
+                      onChange={(e) => { handleChangefirstServiceFrom(e) }}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label >2nd Service</label>
+                      <label >1st Service To:</label>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
                       <TextField
-                      style={{ alignSelf: 'left',}}
+                      style={{ alignSelf: 'left'}}
                       fullWidth 
                       id="Vendor-Address" 
                       variant="outlined" 
                       type='date'
-                      value={secondService}
-                      onChange={(e) => { handleChangesecondService(e) }}/>
+                      value={firstServiceTo}
+                      onChange={(e) => { handleChangefirstServiceTo(e) }}/>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label >3rd Service :</label>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                      <TextField
-                      style={{ alignSelf: 'left',}}
-                      fullWidth 
-                      id="Vendor-Address" 
-                      variant="outlined" 
-                      type='date'
-                      value={thirdService}
-                      onChange={(e) => { handleChangethirdService(e) }}/>
-                    </Grid>
-                  </Grid>
                   <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                    <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label > 4th Service </label>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >2nd Service From:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField
+                      style={{ alignSelf: 'left',}}
+                      fullWidth 
+                      id="Vendor-Address" 
+                      variant="outlined" 
+                      type='date'
+                      value={secondServiceFrom}
+                      onChange={(e) => { handleChangeSecondServiceFrom(e) }}/>
+                    </Grid>
+                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label > 2nd Service To:</label>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
                       <TextField 
@@ -142,11 +183,13 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
                       id="Vendor-Address"
                       variant="outlined" 
                       type='date'
-                      value={fourthService}
-                      onChange={(e) => { handleChangefourthService(e) }}/>
+                      value={secondServiceTo}
+                      onChange={(e) => { handleChangeSecondServiceTo(e) }}/>
                     </Grid>
+                    </Grid>
+                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label >5th Service</label>
+                      <label >3rd Service From:</label>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
                       <TextField
@@ -155,8 +198,74 @@ const AmcServicePatternView = ({ open, setOpen, }) => {
                       id="Vendor-Address" 
                       variant="outlined" 
                       type='date'
-                      value={fifthService}
-                      onChange={(e) => { handleChangefifthService(e) }}/>
+                      value={thirdServiceFrom}
+                      onChange={(e) => { handleChangeThirdServiceFrom(e) }}/>
+                    </Grid>
+                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label > 3rd Service To: </label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                      <TextField 
+                      fullWidth 
+                      id="Vendor-Address"
+                      variant="outlined" 
+                      type='date'
+                      value={thirdServiceTo}
+                      onChange={(e) => { handleChangethirdServiceTo(e) }}/>
+                    </Grid>
+                  </Grid>
+                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >4th Service From:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField
+                      style={{ alignSelf: 'left',}}
+                      fullWidth 
+                      id="Vendor-Address" 
+                      variant="outlined" 
+                      type='date'
+                      value={fourthServiceFrom}
+                      onChange={(e) => { handleChangefourthServiceFrom(e) }}/>
+                    </Grid>
+                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label > 4th Service To:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                      <TextField 
+                      fullWidth 
+                      id="Vendor-Address"
+                      variant="outlined" 
+                      type='date'
+                      value={fourthServiceTo}
+                      onChange={(e) => { handleChangefourthServiceTo(e) }}/>
+                    </Grid>
+                  </Grid> 
+                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label >5th Service From:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                      <TextField
+                      style={{ alignSelf: 'left',}}
+                      fullWidth 
+                      id="Vendor-Address" 
+                      variant="outlined" 
+                      type='date'
+                      value={fifthServiceFrom}
+                      onChange={(e) => { handleChangefifthServiceFrom(e) }}/>
+                    </Grid>
+                    <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label > 5th Service To:</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                      <TextField 
+                      fullWidth 
+                      id="Vendor-Address"
+                      variant="outlined" 
+                      type='date'
+                      value={fifthServiceTo}
+                      onChange={(e) => { handleChangefifthServiceTo(e) }}/>
                     </Grid>
                   </Grid>
                 </form>

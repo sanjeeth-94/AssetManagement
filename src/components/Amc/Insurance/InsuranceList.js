@@ -13,7 +13,8 @@ const InsuranceList = () => {
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh , setRefresh]=useState(false)
+    const [refresh , setRefresh]=useState(false);
+    const [loading,setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -101,6 +102,7 @@ const InsuranceList = () => {
 
     const handleFetchSuccess = (dataObject) =>{
         setRows(dataObject.data);
+        setLoading(false);
     }
 
     const handleFetchException = (errorStaus, errorMessage) =>{
@@ -135,6 +137,7 @@ const InsuranceList = () => {
 
           <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
               <DataGrid
+              loading={loading}
               rows={rows}
               columns={columns} />
           </div>

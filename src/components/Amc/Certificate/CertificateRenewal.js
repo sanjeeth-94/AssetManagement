@@ -15,6 +15,7 @@ const CertificateRenewal = () => {
   const [isService, setIsService] = useState(false);
   const [rows, setRows] = useState([]);
   const [editData2, setEditData2] = useState('');
+  const [loading,setLoading]=useState(true);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -61,6 +62,7 @@ const CertificateRenewal = () => {
   const handleViewCertificateRenewalResult=(dataObject)=>{
     setRows(dataObject.data);
     console.log(dataObject.data);
+    setLoading(false);
   }
   
   const handleViewCertificateRenewalError=(errorStaus, errorMessage)=>{
@@ -76,6 +78,7 @@ const CertificateRenewal = () => {
         <div>
           <Box sx={{ height: 300, width: '100%' }}>
             <DataGrid
+            loading={loading}
             rows={rows}
             columns={columns}
             pageSize={5}

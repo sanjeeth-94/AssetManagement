@@ -25,6 +25,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [ assetNameList, setAssetNameList] = useState([]);
   const [asset, setAsset] = useState('');
   const [rows ,setRows]=useState([]);
+  // const [loading,setLoading]=useState([]);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -62,7 +63,8 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   const handleSuccess = (dataObject) =>{
     console.log(dataObject);
-    setRows(dataObject.data)
+    setRows(dataObject.data);
+    // setLoading(false);
    
   }
   
@@ -138,7 +140,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     <form onSubmit={onSubmit}>
       <div >
         <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-          <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -159,7 +161,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Section:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -180,7 +182,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -201,7 +203,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Name :</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -236,15 +238,14 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       </Grid>
       <Grid container spacing={2} style={{marginTop:'20px'}}>
         <Grid item xs={12} sm={12} md={12} xl={12} style={{height:'200px',marginTop:'20px'}}>
-        <DataGrid
+          <DataGrid
+          // loading={loading}
           rows={rows}
           columns={columns}
           rowsPerPageOptions={[5]}
           onRowAdd/>
-          </Grid> 
-        </Grid>
-
-
+        </Grid> 
+      </Grid>
     </form>
   )
 }

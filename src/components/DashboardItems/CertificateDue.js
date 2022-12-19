@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Grid } from '@mui/material';
-import { ViewAmcDue } from '../../services/ApiServices';
+import { ViewCertificateDue } from '../../services/ApiServices';
 
-const Amcdue = () => {
+const CertificateDue = () => {
+    
     const [rows,setRows]=useState([]);
-    const [loading , setLoading]=useState(true);
+    const [loading,setLoading]=useState([]);
     
     const columns = [
         { field: 'vendorName', headerName: 'VendorName', width: 150 },
-        { field: 'startName', headerName: 'Start Date', width: 120 },
-        { field: 'endDate', headerName: 'End Date', width: 120 },
-        { field: 'servicePattern', headerName: 'Service Pattern', width: 150 },
+        { field: 'certificateDate', headerName: 'Start Date', width: 120 },
+        { field: 'expireDate', headerName: 'End Date', width: 120 },
+        { field: 'inspectionPattern', headerName: 'Service Pattern', width: 150 },
         { field: 'department', headerName: 'Department', width: 150 },
         { field: 'section', headerName: 'Section', width: 120 },
         { field: 'assetType', headerName: 'Asset Type', width: 120 },
         { field: 'assetName', headerName: 'Asset Name', width: 120 },
     ];
-    
-    useEffect(()=>{
-        ViewAmcDue(handleViewAmcDueResult,handleViewAmcDueError)
-        
-    },[]);
 
-    const handleViewAmcDueResult=(dataObject)=>{
+    useEffect(()=>{
+        ViewCertificateDue(handleViewCertificateDueResult,handleViewCertificateDueError)
+
+
+    },[]);
+    const handleViewCertificateDueResult=(dataObject)=>{
         setRows(dataObject.data);
         setLoading(false);
         console.log(dataObject.data);
-    }
-    const handleViewAmcDueError=(errorStaus, errorMessage)=>{
+      }
+    
+      const handleViewCertificateDueError=(errorStaus, errorMessage)=>{
         console.log(errorMessage)
-    }
+      }
+ 
   
     return (
         <div >
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
                 style={{alignSelf:'center', textAlign:'center'}}>
-                    <h3 >AMC DUE</h3>
+                    <h3 >CERTIFICATE DUE</h3>
                 </Grid>
             </Grid>
             <hr/>
@@ -56,4 +59,4 @@ const Amcdue = () => {
     )
 }
 
-export default Amcdue
+export default CertificateDue

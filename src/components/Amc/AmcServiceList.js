@@ -19,6 +19,7 @@ const AmcServiceList = () => {
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false);
+    const [loading,setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -151,6 +152,7 @@ const AmcServiceList = () => {
 
     const handleFetchSuccess = (dataObject) =>{
         setRows(dataObject.data);
+        setLoading(false);
     }
 
     const handleFetchException = (errorStaus, errorMessage) =>{
@@ -177,6 +179,7 @@ const AmcServiceList = () => {
             <hr style={{ bottom: 'solid' , borderColor:'whitesmoke'}} />
             <div style={{ height: '300px', width: '96%', marginLeft: '10px', marginTop: '20px' }}>
                 <DataGrid
+                loading={loading}
                 rows={rows}
                 columns={columns} />
             </div>
