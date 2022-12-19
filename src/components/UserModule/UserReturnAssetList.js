@@ -96,12 +96,12 @@ const UserReturnAssetList = () => {
         editData={editData}
         setRefresh={setRefresh}
       />
-      <UserReturnAssetList
+      {/* <UserReturnAssetList
         open2={open2}
         setOpen2={setOpen2}
         editData={editData}
         setRefresh={setRefresh}
-      />
+      /> */}
     </div>
   )
 }
