@@ -3,25 +3,53 @@ import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
+import { AssetImportService } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
 
 
 export default function Assetimport() {
-    const [age, setAge] = React.useState('');
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
 
-    const [gstCertificate, setGstCertificate] = useState('');
+    const [importFile, setImportFile] = useState('');
+
+  const onSubmit=(e)=>{
+    e.preventDefault();
+    AssetImportService({file:importFile},handleAssetImportService,handleAssetImportException);
+  }
+const handleAssetImportService=(dataObject)=>{
+  console.log(dataObject);
+  setNotification({
+    status: true,
+    type: 'success',
+    message: dataObject.message,
+  });
+}
+const handleAssetImportException=(errorStastus, errorMessage)=>{
+ 
+  setNotification({
+    status: true,
+    type: 'error',
+    message: errorMessage,
+  });
+
+}
+
+const handleCloseNotify = () => {
+ 
+  setNotification({
+    status: false,
+    type: '',
+    message: '',
+  });
+};
 
     return (
       <div>
+        <form onSubmit={onSubmit}>
     <Grid container spacing={2} style={{border:'solid', borderColor:'whitesmoke', width:'100%'}} >
         <Grid container >
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -49,7 +77,7 @@ export default function Assetimport() {
                       const reader = new FileReader();
                       reader.onload = () => {
                         if (reader.readyState === 2) {
-                          setGstCertificate(reader.result);
+                          setImportFile(reader.result);
                         }
                       };
                       reader.readAsDataURL(e.target.files[0]);
@@ -76,12 +104,19 @@ export default function Assetimport() {
              <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
              
              >
-             <Button style={{marginLeft:'20px'}} variant="contained">Import</Button>
+             <Button style={{marginLeft:'20px'}} type="submit" variant="contained">Import</Button>
             </Grid>
              
      </Grid>
        
      </Grid>
+     </form>
+     <NotificationBar
+        handleClose={handleCloseNotify}
+        notificationContent={openNotification.message}
+        openNotification={openNotification.status}
+        type={openNotification.type}
+      />
      </div>
        
     )

@@ -32,7 +32,9 @@ import Transfer from './components/DashboardItems/Transfer';
 import Inservice from './components/DashboardItems/Inservice';
 import Sale from './components/DashboardItems/Sale';
 import Scrap from './components/DashboardItems/Scrap';
-
+import UserAssetList from './components/UserModule/UserAssetList';
+import UserMangaeServiceList from './components/UserModule/UserMangaeServiceList';
+import UserReturnAssetList from './components/UserModule/UserReturnAssetList';
 
 function App() {
   const navigate = useNavigate();
@@ -90,6 +92,9 @@ function App() {
           <Route path='/Inservice' element={<Inservice/>}/>
           <Route path='/Sale' element={<Sale/>}/>
           <Route path='/Scrap' element={<Scrap/>}/>
+          <Route path='/userAssetList' element={<UserAssetList/>}/>
+          <Route path='/UserManageServiceList' element={<UserMangaeServiceList/>}/>
+          <Route path='/UserRetureAsset' element={<UserReturnAssetList/>}/>
         </Route> 
       </Route>
     </Routes> 

@@ -90,7 +90,6 @@ const UntageAseetList = () => {
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
-       
     };
 
     const onSubmit=(e)=>{
@@ -128,7 +127,15 @@ const UntageAseetList = () => {
                 <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
                 style={{alignSelf:'center',textAlign:'center'}}
                 >
-                <Button style={{marginLeft:'53%',width:'120px',height:'30px', marginTop:'20px', alignSelf:'center'}} variant="outlined" onClick={handleModalOpen}>
+                <Button 
+                style={{
+                        marginLeft:'53%',
+                        width:'120px',
+                        height:'30px',
+                        marginTop:'20px', 
+                        alignSelf:'center'
+                    }} variant="outlined" 
+                onClick={ handleModalOpen}>
                 UNTAG ASSET
             </Button>
                 </Grid>
@@ -176,10 +183,11 @@ const UntageAseetList = () => {
                 </Grid>
             </Grid> 
                 <UntageAssetModel
-                    open={open}
-                    setOpen={setOpen}
-                    setIsAdd={setIsAdd}
-                    editData={editData}
+                     open={open}
+                     setOpen={setOpen}
+                     isAdd={isAdd}
+                     editData={editData}
+                     setRefresh={setRefresh}
                 />
                  <NotificationBar
                     handleClose={handleClose}

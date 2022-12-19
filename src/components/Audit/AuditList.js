@@ -13,7 +13,8 @@ const AuditList = () => {
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh , setRefresh]=useState(false)
+    const [refresh , setRefresh]=useState(false);
+    const [loading , setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -69,6 +70,7 @@ const AuditList = () => {
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
         setRows(dataObject.data);
     }
 
@@ -130,9 +132,11 @@ const AuditList = () => {
             </Grid>
             <hr style={{ bottom: 'solid' }} />
             <div style={{ height: '400px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
-                <DataGrid
+            <DataGrid
+                loading={loading}
                 rows={rows}
-                columns={columns} />
+                columns={columns} 
+            />
                
             </div>
             <AuditModel

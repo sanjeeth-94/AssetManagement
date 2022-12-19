@@ -2,7 +2,7 @@ import ApplicationStore from "../utils/ApplicationStore";
 
 const _fetchServiceDownloadCsvData = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
-  const END_POINT = 'http://192.168.1.173:8000/api/';
+  const END_POINT = 'http://192.168.1.174:8000/api/';
   const { email, userRole, companyCode } = userDetails;
 
   const headers = {
@@ -82,8 +82,14 @@ export const DownloadUntag=(data,successCallback, errorCallBack)=>{
 };
 
 export const DownloadAssetMaster=(data, successCallback, errorCallBack) => {
-    const { assetType } = data;
-    return _fetchServiceDownloadCsvData(`allocation/export?=&fromDate`, 'GET', {}, successCallback, errorCallBack);
+    return _fetchServiceDownloadCsvData(`assetMaster/${data}/export`, 'GET', {}, successCallback, errorCallBack);
 };
+
+export const DownloadScrapAsset=( successCallback, errorCallBack) => {
+  return _fetchServiceDownloadCsvData('scrapAsset/export', 'GET', {}, successCallback, errorCallBack);
+};
+
+
+
 
   

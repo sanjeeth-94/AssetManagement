@@ -17,8 +17,23 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import { LogoutService } from "../../services/ApiServices";
 import { useState } from "react";
 import NotificationBar from "../../services/NotificationBar";
+import ApplicationStore from '../../utils/ApplicationStore';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
+const [user ,setUser]=useState(false);
+useEffect(()=>{
+        
+        const {userDetails} = ApplicationStore().getStorage("userDetails");
+        const {userRole} =userDetails;
+        if(userRole==='Admin')
+        {
+            setUser(true);
+        }
+},[]);
+
 const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -60,6 +75,8 @@ const handleCloseNotify = () => {
           message: '',
         });
       };
+
+
     
 const onFullScreen =()=>{
         // document.body.requestFullscreen(); 
@@ -86,6 +103,10 @@ return (
         <div className="sidebar__link">
                 <Link to='/main'><PieChartIcon className='icon' /></Link>
         </div>
+        {
+          user === true &&
+          <>
+        
         <div className="sidebar__link">
                 <Link to='/asset'><AddchartIcon className='icon' /></Link>
         </div>
@@ -116,6 +137,23 @@ return (
         <div className="sidebar__link">
                 <Link to='/user'><PersonIcon className='icon' /></Link>
         </div>
+        
+        </>
+        }
+        {
+          user !== true &&
+          <>
+                <div className="sidebar__link">
+                        <Link to='/userAssetList'><RemoveRedEyeIcon className='icon' /></Link>
+                </div>
+                <div className="sidebar__link">
+                        <Link to='/UserManageServiceList'><SettingsSuggestIcon className='icon' /></Link>
+                </div>
+                <div className="sidebar__link">
+                        <Link to='/UserRetureAsset'><ReplayIcon className='icon' /></Link>
+                </div>
+          </>
+        }
         <div className="sidebar__link">
                 <LogoutIcon className='icon' onClick={onClickLogOut} />
         </div>

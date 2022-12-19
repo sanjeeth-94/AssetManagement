@@ -16,20 +16,20 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { UserAddService, UserUpdateService,FetchDepaertmentService, FetchAssetNameService, FetchAssetTypeService, FetchSectionService, UntagAssetService } from '../../services/ApiServices';
+import { UserAddService, UserUpdateService,FetchDepaertmentService, FetchAssetNameService, FetchAssetTypeService, FetchSectionService, AlloctionUntageUpdate, UntagAssetService, FetchEmployeeNameService, FetchEmployeeIdService, FetchUserNameService } from '../../services/ApiServices';
 import { Grid } from '@mui/material';
 import { SentimentVerySatisfiedOutlined } from '@mui/icons-material';
 import NotificationBar from '../../services/NotificationBar';
 
-const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+const UntageAssetModel = ({  open, setOpen, isAdd, editData, setRefresh  }) => {
     const [departmentList, setDepartmentList] = useState([])
     const [department, setDepartment] = useState('')
-    const [employeeId, setemployeeId] = useState('')
+    const [employeeId, setEmployeeId] = useState('')
     const [employeeName, setemployeeNamed] = useState('')
     const [designation, setdesignation] = useState('')
     const [mobile_number, setmobile_number] = useState('')
     const [emailId, setemailId] = useState('')
-    const [userName, setuserName] = useState('')
+    const [userName, setUserName] = useState('')
     const [password, setpassword] = useState('')
     const [ assetNameList, setAssetNameList]=useState([]);
     const [assetName,setAssetName]=useState('');
@@ -39,6 +39,11 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [assetTypeList,setAssetTypeList]=useState([]);
     const [reason,setReason]=useState('');
     const [tag , setTag]=useState('');
+    const [user, setUser]=useState('EmpId');
+    const [userDepartment,setUserDepartment]=useState('');
+    const [userDepartmentList, setUserDepartmentList]=useState([]);
+    const [ userNameList,   setUserNameList]=useState([]);
+    const [employeeIdList,setEmployeeIdList]=useState([]);
     
     const [openNotification, setNotification] = useState({
       status: false,
@@ -49,16 +54,30 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
     useEffect(() => {
       FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-     
+      FetchEmployeeIdService(handleEmployeeSuccess, handleEmployeeException);
+      setDepartment(editData?.departmentId|| '');
       setSection(editData?.sectionsId || '');
       setAssetType(editData?.assetTypesId || '');
-      setAssetName(editData?.assetNameId || '');
-      setReason(editData?.reason || '');
+      setAssetName(editData?.assetName  || '');
+      setReason(editData?.reasonForUntag || '');
+      
     }, [editData]);
+
+    const handleEmployeeSuccess = (dataObject) =>{
+      setEmployeeIdList(dataObject.data);
   
+    }
+    
+    const handleEmployeeException = (errorStaus, errorMessage) =>{
+      console.log(errorMessage);
+    }
     const handleFetchSuccess = (dataObject) =>{
       setDepartmentList(dataObject.data);
-      setDepartment(editData?.departmentId|| '');
+      setUserDepartmentList(dataObject.data);
+      if(editData?.departmentId){
+        FetchSectionService({id:editData?.departmentId},handleSectionServiceSuccess, handleSectionServiceException);
+      }
+      
     }
     const handleFetchException = (errorStaus, errorMessage) =>{
       console.log(errorMessage);
@@ -71,6 +90,9 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
     const handleSectionServiceSuccess = (dataObject) =>{
       setSectionList(dataObject.data);
+      if(editData?.sectionsId ){
+        FetchAssetTypeService({id: editData?.sectionsId},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+      }
     }
     
     const handleSectionServiceException= (errorStaus, errorMessage) =>{
@@ -84,6 +106,9 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       
       const handleFetchAssetTypeSuccess = (dataObject) =>{
         setAssetTypeList(dataObject.data);
+        if(editData?.assetTypesId ){
+          FetchAssetNameService({id: editData?.assetTypesId },handleAssetNameSuccess, handleAssetNameAssetException);
+        }
        
       }
       
@@ -105,6 +130,7 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       }
       const onAssetNameChange= (e) => {
         setAssetName(e.target.value);
+        console.log("data"+e.target.value);
       }
  
     const handleClose = () => {
@@ -112,13 +138,31 @@ const UntageAssetModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     };
 const onSubmit =(e)=>{
     e.preventDefault();
-   
-    UntagAssetService({
-        id:assetName,    
+    isAdd === true ?
+    (
+      
+      UntagAssetService({
+        id:assetName, 
+        department:department, 
+        section:section,
+        assetType:assetType,
+        assetName:assetName,  
         reasonForUntag:reason,
         tag:tag,
     },handleUntagAssetService, handleUntagAssetExecption)
   
+    ) : (
+      AlloctionUntageUpdate({
+        id:editData?.id,    
+        department:department, 
+        section:section,
+        assetType:assetType,
+        assetName:assetName,  
+        reasonForUntag:reason,
+        tag:tag,
+      }, handleUntagAssetService, handleUntagAssetExecption)
+    );
+    
 }
 const handleUntagAssetService=(dataObject)=>{
     console.log(dataObject);
@@ -127,6 +171,11 @@ const handleUntagAssetService=(dataObject)=>{
       type: 'success',
       message: dataObject.message,
     });
+    setDepartment('');
+    setSection('');
+    setAssetType('');
+    setAssetName('');
+    setReason('');
     
 }
 const handleUntagAssetExecption=(errorObject, errorMessage)=>{
@@ -136,16 +185,62 @@ const handleUntagAssetExecption=(errorObject, errorMessage)=>{
       type: 'error',
       message: errorMessage,
     });
+    setDepartment('');
+    setSection('');
+    setAssetType('');
+    setAssetName('');
+    setReason('');
 
 }
 const handleCloseNotify = () => {
-  setOpen(false)
+  setOpen(false);
   setNotification({
     status: false,
     type: '',
     message: '',
   });
 };
+ const onCancel=()=>{
+  setOpen(false);
+  setDepartment('');
+  setSection('');
+  setAssetType('');
+  setAssetName('');
+  setReason('');
+ }
+ const onChangeRedio = (event) => {
+  setUser(event.target.value);
+};
+
+const onEmployeeChange=(e)=>{
+  setEmployeeId(e.target.value);
+  FetchEmployeeNameService({id:e.target.value},handelEmployeeName,handelEmployeeNameException)
+}
+const handelEmployeeName=(dataObject)=>{
+setemployeeNamed(dataObject.empName);
+
+}
+const handelEmployeeNameException=(errorObject, errorMessage) =>{
+console.log(errorMessage);
+}
+
+const onUerDepartmentChange=(e)=>{
+  setUserDepartment(e.target.value);
+ 
+  FetchUserNameService({id:e.target.value},handleUserNameSuccess, handleUserNameException);
+}
+
+const handleUserNameSuccess =(dataObject)=>{
+  setUserNameList(dataObject.data);
+}
+const handleUserNameException=(errorStaus, errorMessage) =>{
+  console.log(errorMessage);
+}
+
+const  onUerChange = (e)=>
+{
+  setUserName(e.target.value);
+}
 
   return (
     <div>
@@ -199,7 +294,7 @@ const handleCloseNotify = () => {
                         label="Select section"
                         value={section}
                         onChange={(e) => onSectionChange(e)}>
-                          {sectionList.map((data, index) => {
+                          { sectionList.map((data, index) => {
                             return (
                               <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
                             )
@@ -249,7 +344,8 @@ const handleCloseNotify = () => {
                         label="Select Asset Name"
                         value={assetName}
                         onChange={(e) => onAssetNameChange(e)}>
-                          {assetNameList.map((data, index) => {
+                          {
+                            assetNameList.map((data, index) => {
                             return (
                               <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
                             )
@@ -271,10 +367,10 @@ const handleCloseNotify = () => {
                                 value={reason}
                                 label="Select Reson"
                                 onChange={(e)=>setReason(e.target.value)}>
-                                    <MenuItem value={10}>Scrap</MenuItem>
-                                    <MenuItem value={20}>Defect</MenuItem>
-                                    <MenuItem value={30}>Stolen</MenuItem>
-                                    <MenuItem value={40}>Sale</MenuItem>
+                                    <MenuItem value={"Scrap"}>Scrap</MenuItem>
+                                    <MenuItem value={"Defect"}>Defect</MenuItem>
+                                    <MenuItem value={'Stolen<'}>Stolen</MenuItem>
+                                    <MenuItem value={'Sale'}>Sale</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>
@@ -297,9 +393,153 @@ const handleCloseNotify = () => {
                         </FormControl>
                         </Grid>
                     </Grid>
-                    <div>
+                    {
+                      isAdd === true &&
+                      <>
+                      <Grid container>
+                        <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
+                         style={{alignSelf:'center', textAlign:'center'}}
+                        >
+                        <h3>User</h3>
+                        </Grid>
+                      </Grid>
+                      <Grid container>
+                        <Grid
+                        item xs={10} sm={10} md={10} lg={10} xl={10}
+                        style={{alignSelf:'center', textAlign:'center'}}
+                        >
+                      <FormControl>
+                        <RadioGroup
+                          row
+                          onChange={onChangeRedio}
+                          value={user}
+                        >
+                          <FormControlLabel value="EmpId" control={<Radio />} label="Emp Id" />
+                          <FormControlLabel value="Department" control={<Radio />} label="Department" />
+                      </RadioGroup>
+                      </FormControl>
+                        </Grid>
+                        {
+                           user ==='EmpId' &&
+                           <>
+                               <Grid container style={{marginTop:'5px'}}>
+                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                              <label >Emp Id: </label>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                            <FormControl fullWidth>
+                                <InputLabel id="departmentlabel">Select Employee Id</InputLabel>
+                                <Select
+                                labelId="departmentlabel"
+                                id='department'
+                                label="Select Employee Id"
+                                value={employeeId}
+                                onChange={(e) => onEmployeeChange(e)}>
+                                  {
+                                    employeeIdList?.map((data, index) => {
+                                    return (
+                                      <MenuItem value={data.employee_id} key={index}>{data.employee_id}</MenuItem>
+                                    )
+                                  })}
+                                </Select>
+                              </FormControl>
+
+
+                            </Grid>
+                            </Grid>
+                            <Grid container style={{marginTop:'5px'}}>
+                              <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                              style={{alignSelf:'center', textAlign:'center'}}
+                              >
+                            <label >Emp Name: </label>
+                              </Grid>
+                              <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                              style={{alignSelf:'center', textAlign:'center'}}
+                              >
+                                <TextField 
+                                fullWidth
+                                      variant="outlined" 
+                                      value={employeeName}
+                                />
+                              </Grid>
+                              </Grid>
+
+                           </>
+                        }{
+                          user !=='EmpId' &&
+                         <>
+                          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                              style={{alignSelf:'center', textAlign:'center'}}
+                              >
+                              <label >Department: </label>
+                          </Grid>
+                          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                          style={{alignSelf:'center', textAlign:'center'}}
+                          >
+                            <FormControl fullWidth>
+                              <InputLabel id="departmentlabel">Select Department</InputLabel>
+                              <Select
+                              labelId="departmentlabel"
+                              id='department'
+                              label="Select Department"
+                              value={userDepartment}
+                              onChange={(e) => onUerDepartmentChange(e)}>
+                                {
+                                    userDepartmentList.map((data, index) => {
+                                    return (
+                                      <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                  )
+                                })}
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                         
+                      <Grid container style={{marginTop:'10px'}}>
+                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                      >
+                      <label >Uesr: </label>
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                      >
+                        <FormControl fullWidth>
+                          <InputLabel id="departmentlabel">Select User</InputLabel>
+                          <Select
+                          labelId="departmentlabel"
+                          id='department'
+                          label="Select user"
+                          value={userName}
+                          onChange={(e) => onUerChange(e)}>
+                            {
+                                userNameList.map((data, index) => {
+                                return (
+                                  <MenuItem value={data.id} key={index}>{data.user_name}</MenuItem>
+                              )
+                            })}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      </Grid>
+
+
+                         </>
+                        }
+                      </Grid>
+
+                      </>
+                    }
+
+                    <div style={{marginLeft:'10%'}}>
                         <Button style={{marginLeft:'60px', marginTop:'10px'}} type='submit' variant="contained">Untag</Button>
+                        <Button style={{marginLeft:'60px', marginTop:'10px'}} onClick={onCancel} variant="contained">Cancel</Button>
+                    
                     </div>
+
                 </form>
             </DialogContentText>
         </DialogContent>

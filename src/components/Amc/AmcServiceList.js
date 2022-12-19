@@ -19,7 +19,7 @@ const AmcServiceList = () => {
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
     const [refresh , setRefresh]=useState(false);
-    const [loading,setLoading]=useState(true);
+    const [loading, setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -151,6 +151,7 @@ const AmcServiceList = () => {
     }, [refresh]);
 
     const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
         setRows(dataObject.data);
         setLoading(false);
     }
