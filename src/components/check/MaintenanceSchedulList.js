@@ -63,6 +63,7 @@ const MaintenanceSchedulList = () => {
     <div>
         <Grid container >
             <Grid container spacing={2}  style={{marginTop:'20px', marginLeft:'40px', marginRight:'0px'}}>
+           
                 <Grid item xs={12} sm={6} md={2.8} lg={2.8} xl={3}
                 style={{
                     color: 'white',
@@ -73,6 +74,7 @@ const MaintenanceSchedulList = () => {
                     border: 'solid',
                     borderColor: 'aqua',
                 }}>
+                 
                     <p >MAINTENANCE</p>
                     <div style={{
                         display: 'flex',

@@ -478,8 +478,9 @@ const RenevalAmc = ({open , setOpen, editData }) => {
             </DialogContentText>
           </DialogContent>
           <div>
+          <Button type="submit">Renew</Button>
             <Button onClick={handleClose}>close</Button>
-            <Button type="submit">submit</Button>
+            
           </div>
         </form>
       </Dialog>

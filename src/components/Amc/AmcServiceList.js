@@ -153,6 +153,7 @@ const AmcServiceList = () => {
     const handleFetchSuccess = (dataObject) =>{
         setLoading(false);
         setRows(dataObject.data);
+        setLoading(false);
     }
 
     const handleFetchException = (errorStaus, errorMessage) =>{

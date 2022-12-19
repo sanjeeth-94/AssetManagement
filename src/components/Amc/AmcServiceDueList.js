@@ -134,7 +134,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   ];
   
   return (
-    <form style={{border:'solid' , borderColor:'whitesmoke'}}>
+    <form >
       <div style={{marginTop:'20px'}}>
         <Grid container spacing={2} style={{ marginTop: '10px', marginRight:'30px'}}>
           <Grid xs={12} sm={2.5} md={6} lg={3} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
@@ -149,7 +149,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             value={periodFrom}
             onChange={(e) => { handleChangeperiodFrom(e) }}/>
           </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label > To:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
@@ -205,7 +205,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={1.5} xl={1.5}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={2} xl={2}>

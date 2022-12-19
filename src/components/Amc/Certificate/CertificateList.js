@@ -18,7 +18,8 @@ const CertificateList = () => {
     const [isService, setIsService] = useState(false);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh , setRefresh]=useState(false)
+    const [refresh , setRefresh]=useState(false);
+    const [loading,setLoading]=useState(true);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -132,6 +133,8 @@ const CertificateList = () => {
 
     const handleFetchSuccess = (dataObject) =>{
         setRows(dataObject.data);
+        setLoading(false);
+        
     }
 
     const handleFetchException = (errorStaus, errorMessage) =>{
@@ -158,6 +161,7 @@ const CertificateList = () => {
             <hr style={{ bottom: 'solid' , borderColor:'whitesmoke'}} />
             <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
                 <DataGrid
+                loading={loading}
                 rows={rows}
                 columns={columns} />
             </div>

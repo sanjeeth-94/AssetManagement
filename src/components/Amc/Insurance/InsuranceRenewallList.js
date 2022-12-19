@@ -9,6 +9,7 @@ const InsuranceRenewallList = () => {
   const [rows , setRows]=useState([]);
   const [editData, setEditData] = useState('');
   const [open, setOpen] = useState(false);
+  const [loading,setLoading]=useState(true);
 
     const columns = [
         { field: 'department', headerName: 'Department', width: 170 },
@@ -49,6 +50,7 @@ const InsuranceRenewallList = () => {
   
     const handleViewInsuranceRenewalResult=(dataObject)=>{
       setRows(dataObject.data);
+      setLoading(false);
       console.log(dataObject.data);
     }
     const handleViewInsuranceRenewalError=(errorStaus, errorMessage)=>{
@@ -66,6 +68,7 @@ const InsuranceRenewallList = () => {
       <div>
       <Box sx={{ height: 300, width: '100%' }}>
             <DataGrid
+            loading={loading}
                 rows={rows}
                 columns={columns}
                 pageSize={5}

@@ -25,6 +25,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [ assetNameList, setAssetNameList] = useState([]);
   const [asset, setAsset] = useState('');
   const [rows ,setRows]=useState([]);
+  // const [loading,setLoading]=useState([]);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -62,7 +63,8 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   const handleSuccess = (dataObject) =>{
     console.log(dataObject);
-    setRows(dataObject.data)
+    setRows(dataObject.data);
+    // setLoading(false);
    
   }
   
@@ -242,15 +244,14 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       </Grid>
       <Grid container spacing={2} >
         <Grid item xs={12} sm={12} md={12} xl={12} style={{height:'200px',marginTop:'20px'}}>
-        <DataGrid
+          <DataGrid
+          // loading={loading}
           rows={rows}
           columns={columns}
           rowsPerPageOptions={[5]}
           onRowAdd/>
-          </Grid> 
-        </Grid>
-
-
+        </Grid> 
+      </Grid>
     </form>
   )
 }

@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
+import { ViewRenewalCertificate } from '../../../services/ApiServices';
 
 const RenevalCertificate = ({open , setOpen, editData }) => {
   const [certificateStartDate,setcertificateStartDate] = useState('');
@@ -104,16 +105,48 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
   const handleClose=()=>{
     setOpen(false);
   }
+
+  const onSubmit=(e)=>
+  {
+    e.preventDefDefault();
+    alert('hello')
+    ViewRenewalCertificate({
+      id:editData.id,
+      inspectionPattern:inspectionPattern,
+      certificateStartDate:certificateStartDate,
+      certificateEndDate:certificateEndDate,
+      c1DateFrom:c1DateFrom,
+      c1DateTo:c1DateTo,
+      c2DateFrom:c2DateFrom,
+      c2DateTo:c2DateTo,
+      c3DateFrom:c3DateFrom,
+      c3DateTo:c3DateTo,
+      c4DateFrom:c4DateFrom,
+      c4DateTo:c4DateTo,
+      c5DateFrom:c5DateFrom,
+      c5DateTo:c5DateTo,
+
+    },handleRenewalCertificate,handleRenewalCertificateException)
+  };
+
+  const handleRenewalCertificate=(dataObject)=>
+  {
+    console.log(dataObject);
+  }
+
+  const handleRenewalCertificateException=(errorStatus ,errorMessage)=>{
+    console.log(errorMessage);
+  }
+
   return (
     <div>
       <Dialog
        open={open}
        fullWidth
        maxWidth='lg'>
-        <form>
+        <form onSubmit={onSubmit}>
            <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
             {"Renewal Certificate"}
-
            </DialogTitle>
            <DialogContent>
             <DialogContentText>
@@ -356,6 +389,7 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
             </DialogContentText>
            </DialogContent>
            <div>
+            <Button type="submit">Renew</Button>
             <Button onClick={handleClose}>close</Button>
            </div>
           

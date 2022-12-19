@@ -23,11 +23,24 @@ import StyleIcon from '@mui/icons-material/Style';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
-import { 
-        FetchCountService, 
-      } from "../../services/ApiServices";
+import {
+    AmcDueCountService, 
+    AssetsCountService, 
+    AuditDueCountService, 
+    CertificateDueCountService, 
+    DamageCountService, 
+    EolCountService, 
+    FetchCountService, 
+    InServiceCountService, 
+    InsuranceDueCountService, 
+    SalesCountService, 
+    ScrapCountService, 
+    TagAssetsCountService, 
+    TransferCountService, 
+    UntagCountService, 
+    WarrantyDueCountService,
+} from "../../services/ApiServices";
 import ApplicationStore from '../../utils/ApplicationStore';
-
 const Main = () => {
     const [assetCount, setAssetCount]= useState('');
     const [tagAssets,setTagAssets]= useState('');
@@ -114,11 +127,7 @@ const Main = () => {
                 marginTop:'10px',
                 border: 'solid',
                 borderColor: 'aqua',
-               
-
             }}>
-                
-
                 <p >New Asset</p>
                 <div style={{
                     display: 'flex',
@@ -226,25 +235,26 @@ const Main = () => {
         <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
                 style={{
                 color: 'white',
-                display: 'box'  ,
+                display: 'box',
                 background:'rgb(91, 87, 87)',
                 marginRight:'20px',
-             
                 border: 'solid',
                 borderColor: 'aqua',
                 marginTop:'30px'
  
             }}>
+            
+                    <div clasName='cards'>
  
         <p>Warranty Due</p>
-   
+   </div>
         <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    
+                    justifyContent: 'right',
                 }}>
        <label style={{ marginRight:'60%' , color:'aqua', }}>{warrantyDueCount}</label>
-       <Link to='/WarrantyList'><SettingsIcon className='icondash' style={{
+       <Link to='/WarrantyDue'><SettingsIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         marginBottom:'20px'
@@ -259,11 +269,10 @@ const Main = () => {
                 display: 'box'  ,
                 background:'rgb(91, 87, 87)',
                 marginRight:'20px',
-             
                 border: 'solid',
                 borderColor: 'aqua',
                 marginTop:'30px'
- 
+
             }}>
         <div>
         <label> Service Due</label>
@@ -290,7 +299,7 @@ const Main = () => {
         <div >
                        Inspection Due
          </div>
-                    <Link to='/Inceptiondue'><HandymanIcon className='icondash' style= {{
+                    <Link to='/InspectionDue'><HandymanIcon className='icondash' style= {{
                         height: '60px',
                         width: '60px',
                     
@@ -339,7 +348,7 @@ const Main = () => {
                             alignItems: 'center',
                     }}>
                     <label style={{ marginRight:'35%' , color:'aqua', }}>{certificateDueCount}</label>
-                    <Link to='/Certificatedue'><NewReleasesIcon className='icondash' style={{
+                    <Link to='/CertificateDue'><NewReleasesIcon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'20px',
@@ -437,7 +446,7 @@ const Main = () => {
                             
                     }}>
                     <label style={{ marginRight:'35%' , color:'aqua', }}>{eolCount}</label>
-                    <Link to='/EOL'><Battery50Icon className='icondash' style={{
+                    <Link to='/Eol'><Battery50Icon className='icondash' style={{
                         height: '60px',
                         width: '60px',
                         margin:'20px',
