@@ -12,17 +12,18 @@ const MaintenanceSchedulList = () => {
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState(''); 
+    const [loading , setLoading]=useState(true);
     const [refresh , setRefresh]=useState(false);
    
     const columns = [
-        { field: 'maintenanceType', headerName: 'Maintenance Type	', width: 150 },
-        { field: 'assetName', headerName: 'Machine	', width: 150 },
-        { field: 'severity', headerName: 'Severity	', width: 120 },
-        { field: 'problemNote', headerName: 'Problem Note	', width: 120 },
-        { field: 'dateFrom', headerName: 'Date From	', width: 120 },
-        { field: 'dateTo', headerName: 'Date To	', width: 120 },
-        { field: 'timeFrom', headerName: 'Time From	', width: 120 },
-        { field: 'timeTo', headerName: 'Time To	', width: 120 },
+        { field: 'maintenanceType', headerName: 'Maintenance Type', width: 150 },
+        { field: 'assetName', headerName: 'Machine', width: 150 },
+        { field: 'severity', headerName: 'Severity', width: 120 },
+        { field: 'problemNote', headerName: 'Problem Note', width: 120 },
+        { field: 'dateFrom', headerName: 'Date From', width: 120 },
+        { field: 'dateTo', headerName: 'Date To', width: 120 },
+        { field: 'timeFrom', headerName: 'Time From', width: 120 },
+        { field: 'timeTo', headerName: 'Time To', width: 120 },
         {field: 'action', headerName: 'Action', width: 150, sortable: false, 
         type: 'actions',
         getActions: (params) => [
@@ -51,6 +52,7 @@ const MaintenanceSchedulList = () => {
 
    const handleFetchMaintenanceService=(dataObject)=>{
     setRows(dataObject.data)
+    setLoading(false);
 
    }
 
@@ -159,6 +161,7 @@ const MaintenanceSchedulList = () => {
                 <h3 style={{marginLeft:'20px'}}>Maintenance Schedule</h3>
                 <h/>
                 <DataGrid
+                loading={loading}
                     rows={rows}
                     columns={columns}
                     rowsPerPageOptions={[5]}

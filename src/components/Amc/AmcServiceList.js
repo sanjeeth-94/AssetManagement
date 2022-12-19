@@ -9,6 +9,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import FileDownload from '@mui/icons-material/FileDownload';
 import AmcServiceModalView from './AmcServiceModalView';
 import { FetchAmcServiceListService, AmcServiceDeleteService ,  } from '../../services/ApiServices';
+import { DownloadAmc } from '../../services/DownloadService';
 
 const AmcServiceList = () => {
     const [open, setOpen] = useState(false);
@@ -160,6 +161,18 @@ const AmcServiceList = () => {
         console.log(errorMessage);
     }
 
+    const AmcDownload = () =>{
+        DownloadAmc(handleDownloadAmc, handleDownloadAmcException);
+    }
+
+    const handleDownloadAmc =() => {
+
+    }
+
+    const handleDownloadAmcException =() =>{
+
+    }
+
     const handleClose = () => {
         setOpen(false)
         setNotification({
@@ -170,7 +183,7 @@ const AmcServiceList = () => {
     };
   
     return (
-        <div style={{border:'solid', borderColor:'whitesmoke'}}>
+        <div >
             <div style={{display:'flex',}}>
                 <h3 style={{ marginLeft: '80px' }}> AMC</h3>
                 <Button style={{width:'120px',height:'30px',marginLeft:'70%',marginTop:'30px'}} variant="outlined" onClick={handleModalOpen}>
@@ -184,6 +197,7 @@ const AmcServiceList = () => {
                 rows={rows}
                 columns={columns} />
             </div>
+            <Button style={{marginTop:'20px'}} variant="contained" onClick={AmcDownload}>Export</Button>
 
             <AmcServiceModel 
             open={open}

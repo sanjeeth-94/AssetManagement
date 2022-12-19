@@ -9,6 +9,7 @@ import Delete from '@mui/icons-material/Delete';
 import Visibility from '@mui/icons-material/Visibility';
 import FileDownload from '@mui/icons-material/FileDownload';
 import CertificateModalView from './CertificateModalView';
+import { DownloadCertificate } from '../../../services/DownloadService';
 
 const CertificateList = () => {
     const [open, setOpen] = useState(false);
@@ -149,9 +150,22 @@ const CertificateList = () => {
             message: '',
         });
     };
+
+    const CertificateDownload = () =>{
+        DownloadCertificate(handleDownloadCertificate, handleDownloadCertificateException);
+    }
+
+    const handleDownloadCertificate =() => {
+
+    }
+
+    const handleDownloadCertificateException =() =>{
+
+    }
   
+   
     return (
-        <div style={{border:'solid',borderColor:'whitesmoke'}}>
+        <div >
             <div style={{display:'flex', marginLeft:'40px',}}>
                 <h3 style={{ marginLeft: '60px' }}> INSPECTION</h3>
                 <Button style={{width:'120px',height:'30px', marginLeft:'60%',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
@@ -165,6 +179,8 @@ const CertificateList = () => {
                 rows={rows}
                 columns={columns} />
             </div>
+            
+             <Button style={{marginTop:'20px'}} variant="contained" onClick={CertificateDownload}>Export</Button>
             <CretificateModel
             open={open}
             setOpen={setOpen}

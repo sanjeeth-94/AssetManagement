@@ -30,6 +30,7 @@ const ServiceStatusUpdateView = ({open,setOpen,dataArray, setDataArray, editData
     if(editData2){
       console.log(editData2);
     }
+    
   },[editData2]);
   const onClickClose=()=>{
     setOpen(false);

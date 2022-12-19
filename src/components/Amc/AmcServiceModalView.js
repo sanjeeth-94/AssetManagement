@@ -13,6 +13,7 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
     const [isService, setIsService] = useState(false);
     const [rows, setRows] = useState([]);
     const [editData2, setEditData2] = useState('');
+    const [loading,setLoading]=useState(true);
     
     const handleClose = () => {
       setOpen(false);
@@ -110,6 +111,7 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
     
     const handleViewAmcService = (dataObject) => {
         setRows(dataObject?.data);
+        setLoading(false);
         console.log(dataObject?.data);
     }
     
@@ -129,6 +131,7 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
                         <DialogContentText id="alert-dialog-description">
                            <div>
                                 <DataGrid style={{height:'200px', marginTop:'20px', RowHeight:'20px'}}
+                                loading={loading}
                                 rows={rows}
                                 columns={columns}/>
                                 <AmcServicePatternView

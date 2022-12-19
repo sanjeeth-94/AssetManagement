@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import { AMCrenewalAmc } from '../../services/ApiServices';
+import NotificationBar from '../../services/NotificationBar';
 
 const RenevalAmc = ({open , setOpen, editData }) => {
   const [amcStartDate,setamcStartDate] = useState('');
@@ -30,6 +31,11 @@ const RenevalAmc = ({open , setOpen, editData }) => {
   const [s5DateFrom, sets5DateFrom] = useState('');
   const [s5DateTo, sets5DateTo] = useState('');
   const [s5runHours, sets5runHours] = useState('');
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
 
   useEffect(() => {
     setdepartment(editData.department || '');
@@ -166,6 +172,15 @@ const RenevalAmc = ({open , setOpen, editData }) => {
   const handleAmcRenewalAmcException=(errorStatus ,errorMessage)=>{
     console.log(errorMessage);
   }
+
+  const handleCloseNotify = () => {
+    setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
 
   return (
     <div>
@@ -484,8 +499,14 @@ const RenevalAmc = ({open , setOpen, editData }) => {
           </div>
         </form>
       </Dialog>
+      <NotificationBar
+                handleClose={handleCloseNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+            />
     </div>
   )
 }
 
-export default RenevalAmc
+export default RenevalAmc;
