@@ -31,7 +31,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [emailId, setEmailId] = useState('');
   const [premiumCost, setPremiumCost] = useState( editData?.premiumCost || '');
   const [amcDoc, setamcDoc] = useState('');
-  const [department, setDepartment] = useState(editData?.department|| '');;
+  const [department, setDepartment] = useState(editData?.department|| '');
   const [section, setSection] = useState('');
   const [sectionList, setSectionList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);

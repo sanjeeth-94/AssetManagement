@@ -382,7 +382,7 @@ export const ScrapCountService = (successCallback, errorCallBack) => _fetchServi
 export const TransferCountService = (successCallback, errorCallBack) => _fetchService('transferCount', 'POST', {}, successCallback, errorCallBack);
 
 
-////.........Dashboard...........///
+////.........DashboardItems...........///
 
 export const  ViewWarrantyDue = (successCallback, errorCallBack) => _fetchService('warrantyDue/showData', 'GET', {}, successCallback, errorCallBack);
 
