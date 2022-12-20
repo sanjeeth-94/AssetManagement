@@ -138,8 +138,7 @@ const WarrantyView = ({ open, setOpen,  setRefresh , editData,isAdd  }) => {
                     <Button type='submit'></Button>
                     </div>
 
-
-                            </form>
+                     </form>
                             
                         </DialogContentText>
                     </DialogContent>

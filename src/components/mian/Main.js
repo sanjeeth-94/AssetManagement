@@ -124,15 +124,13 @@ const Main = () => {
                         marginTop:'10px',
                         border: 'solid',
                         borderColor: 'aqua',  
-                    }}>
+                }}>
                         <Typography variant="h6" gutterBottom>
                             Total Asset
                         </Typography>
-                    
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            
                         }}>
                             <Typography variant="h6" gutterBottom
                                 style={{ marginRight:'65%' , color:'aqua'}}
@@ -141,7 +139,6 @@ const Main = () => {
                             </Typography>
                             {
                                  user === true &&
-                        
                                 <Link to='/asset' >
                                     <FileCopyIcon className='dash-icon' style={{
                                         color: 'aqua',
