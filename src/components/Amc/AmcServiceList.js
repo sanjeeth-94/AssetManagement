@@ -166,11 +166,9 @@ const AmcServiceList = () => {
     }
 
     const handleDownloadAmc =() => {
-
     }
 
     const handleDownloadAmcException =() =>{
-
     }
 
     const handleClose = () => {
