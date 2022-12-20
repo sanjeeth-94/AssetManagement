@@ -82,6 +82,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setUserRole('');
   };
 
+
   const onSubmit = (e) => {
     e.preventDefault();
     isAdd === true ?
@@ -253,9 +254,9 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <label >Mobile Number :</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
-
-                  <TextField fullWidth id="mobile_number" label="Mobile Number" variant="outlined"
+                  <TextField fullWidth id="mobile_number" label="Mobile Number" variant="outlined"                 
                     onChange={(e) => { setmobile_number(e.target.value) }}
+                    // onblur={NumberValid}
                     value={mobile_number}
                   />
                 </Grid>
@@ -287,7 +288,6 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <label >User Name:</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
-
                   <TextField 
                     fullWidth
                     id="userName"
