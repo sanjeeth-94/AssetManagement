@@ -15,7 +15,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import { FetchVenderService,FetchVenderDataService, RequestServiceAdd, } from '../../services/ApiServices';
 
-const ServiceRequest = ({open, setOpen,editData}) => {
+const ServiceRequest = ({open2, setOpen2,editData}) => {
   const [vendorName, setVendorName] = useState('');
   const [rows, setRows]=useState([]);
   const [department,setDepartment]=useState('');
@@ -140,7 +140,7 @@ const ServiceRequest = ({open, setOpen,editData}) => {
   }
   
   const handleClose = () => { 
-    setOpen(false);
+    setOpen2(false);
   };
  
   const onJobValueChange = () => {
@@ -158,7 +158,7 @@ const ServiceRequest = ({open, setOpen,editData}) => {
   return (
     <div>
       <Dialog 
-      open={open}
+      open={open2}
       maxWidth='lg'>
         <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>

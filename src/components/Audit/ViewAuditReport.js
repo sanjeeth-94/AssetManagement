@@ -16,6 +16,7 @@ import {
   ViewAuditReportService,
 } from '../../services/ApiServices';
 import ViewAuditViewModal from './ViewAuditViewModal';
+import { Downloadaudit } from '../../services/DownloadService';
 
 const ViewAuditReport = () => {
   const [department, setDepartment] = useState();
@@ -152,9 +153,22 @@ const ViewAuditReport = () => {
     }}
       />
     )
+
   }
-  
-  
+  const AuditDownload=()=> {
+    Downloadaudit( assetType,fromDate,toDate,handleDownloadaudit,handleDownloadauditException);
+    
+  }
+
+  const handleDownloadaudit =()=> {
+
+  }
+
+  const handleDownloadauditException =()=>{
+
+  }
+   
+ 
   return (
     <div style={{border:'solid' , borderColor:'whitesmoke'}}>
       <Grid container>
@@ -275,7 +289,7 @@ const ViewAuditReport = () => {
           rows={rows}
           columns={columns}/>
         </div>
-        <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
+        <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained" onClick={AuditDownload}>Export</Button>
       </form>
     
      <ViewAuditViewModal

@@ -23,15 +23,15 @@ import { CertificateAddService,
 } from '../../../services/ApiServices';
 
 const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
-  const [vendorName, setVendorName] = useState('');
+  const [vendorName, setVendorName] = useState(editData?.vendorId || '');
   const [vendorNameList, setVendorNameList] = useState([]);
-  const [venderAddress ,setVenderAddress]= useState();
+  const [venderAddress ,setVenderAddress]= useState(editData?.venderAddress || '');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailId, setEmailId] = useState('');
-  const [premiumCost ,setPremiumCost]= useState();
+  const [premiumCost ,setPremiumCost]= useState( editData?.premiumCost || '');
   const [certificateDoc ,setcertificateDoc]= useState();
   const [inspectionPattern ,setinspectionPattern]= useState();
-  const [department, setDepartment] = useState('');
+  const [department, setDepartment] = useState(editData?.department|| '');
   const [section, setSection] = useState('');
   const [sectionList, setSectionList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
@@ -126,6 +126,12 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     FetchVenderService(handleFetchVender, handleFetchVenderException);
+    setVendorName(editData?.vendorId || '');
+    setPremiumCost(editData?.premiumCost || '');
+    setDepartment(editData?.departmentId || '');
+    setSection(editData?.sectionsId || '' );
+    setAssetType(editData?.assetType || '');
+    console.log("data"+editData?.assetTypesId);
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) => {

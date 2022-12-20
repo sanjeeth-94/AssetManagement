@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Grid } from '@mui/material';
+import { ViewTransferDue } from '../../services/ApiServices';
 
 const Transferdue = () => {
-  const [rows,setrows] = useState([]);
-  // const [loading,setLoading]=useState([]);
+  const [rows,setRows] = useState([]);
+  const [loading,setLoading]=useState(true);
   
   const columns = [
     { field: 'department', headerName: 'Department', width: 200 },
@@ -13,11 +14,21 @@ const Transferdue = () => {
     { field: 'assetName', headerName: 'Asset Name', width: 200 },
     { field: 'assignedUser', headerName: 'Assigned User', width: 200 },
   ];
-
+  
   useEffect(()=>{
-    
+    ViewTransferDue(handleViewTransferDueResult,handleViewTransferDueError)
+
   },[]);
-// setLoading(false);
+  
+  const handleViewTransferDueResult=(dataObject)=>{
+    setRows(dataObject.data);
+    setLoading(false);
+    console.log(dataObject.data);
+  }
+  
+  const handleViewTransferDueError=(errorStaus, errorMessage)=>{
+    console.log(errorMessage)
+  }
 
   return (
     <div>
@@ -32,7 +43,7 @@ const Transferdue = () => {
       <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
       style={{ height: '400px',  marginTop: '20px',marginLeft:'5%' }}>
         <DataGrid
-   //   loading={loading}
+        loading={loading}
         rows={rows}
         columns={columns}
         pageSize={5}

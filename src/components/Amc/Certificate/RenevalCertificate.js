@@ -314,9 +314,7 @@ const RenevalCertificate = ({open , setOpen, editData }) => {
                             type='date'
                             value={c3DateTo}
                             onChange={(e) => { handleChangec3DateTo(e) }}/>
-                          </Grid>
-                          
-                          
+                          </Grid>                   
                         </Grid>
                     )
                   }

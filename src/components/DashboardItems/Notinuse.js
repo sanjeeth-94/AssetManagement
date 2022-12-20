@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Grid } from '@mui/material';
+import { ViewNotInuse } from '../../services/ApiServices';
 
 const Notinuse = () => {
-  const [rows,setrows] = useState([]);
-  // const [loading,setLoading]=useState([]);
+  const [rows,setRows] = useState([]);
+  const [loading,setLoading]=useState([]);
   
   const columns = [
     { field: 'department', headerName: 'Department', width: 250 },
@@ -15,9 +16,19 @@ const Notinuse = () => {
   ];
 
   useEffect(()=>{
-    
+    ViewNotInuse(handleViewNotInuseResult,handleViewNotInuseError)
+
   },[]);
-  // setLoading(false);
+
+  const handleViewNotInuseResult=(dataObject)=>{
+      setRows(dataObject.data);
+      setLoading(false);
+      console.log(dataObject.data);
+    }
+  
+    const handleViewNotInuseError=(errorStaus, errorMessage)=>{
+      console.log(errorMessage)
+    }
 
   return (
     <div>
@@ -33,7 +44,7 @@ const Notinuse = () => {
         <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
         style={{ height: '400px',  marginTop: '20px',marginLeft:'5%' }}>
           <DataGrid
-           //   loading={loading}
+          loading={loading}
           rows={rows}
           columns={columns}
           pageSize={5}

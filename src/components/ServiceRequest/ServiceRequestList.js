@@ -129,13 +129,13 @@ const ServiceRequestList = () => {
       setRefresh={setRefresh}/>
       
       <ServiceRequest
-      open={open2}
-      setOpen={setOpen2}
+      open2={open2}
+      setOpen2={setOpen2}
       editData={editData}/>
 
       <ServiceStatusUpdate
-      open={open3}
-      setOpen={setOpen3}
+      open3={open3}
+      setOpen3={setOpen3}
       editData={editData}/>
     </div>
   )

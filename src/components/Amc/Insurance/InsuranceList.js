@@ -6,6 +6,7 @@ import InsuranceModel from './InsuranceModel';
 import { FetchInsuranceService, InsuranceDeleteService } from '../../../services/ApiServices';
 import Edit from '@mui/icons-material/Edit';
 import Delete from '@mui/icons-material/Delete';
+import { DownloadInsurance } from '../../../services/DownloadService';
 // import FileDownload from '@mui/icons-material/FileDownload';
 
 const InsuranceList = () => {
@@ -118,14 +119,30 @@ const InsuranceList = () => {
         });
       };
 
+
+
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
        
     };
+
+    const InsuranceDownload = () =>{
+        DownloadInsurance(handleDownloadInsurance, handleDownloadInsuranceException);
+    }
+
+    const handleDownloadInsurance =() => {
+
+    }
+
+    const handleDownloadInsuranceException =() =>{
+
+    }
+
+    
   return (
     <div>
-    <div style={{border:'solid',borderColor:'whitesmoke'}}>
+    <div>
         <div style={{display:'flex',}}>
           <h3 style={{ marginLeft: '60px',marginBottom:'0px' }}>VENDER DETAILS</h3>
           
@@ -141,6 +158,7 @@ const InsuranceList = () => {
               rows={rows}
               columns={columns} />
           </div>
+          <Button style={{marginTop:'20px'}} variant="contained" onClick={InsuranceDownload}>Export</Button>
           <InsuranceModel
             open={open}
             setOpen={setOpen}

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { ShowServiceRequest } from '../../services/ApiServices';
+import { ShowServiceRequest, UpdateServiceStatus } from '../../services/ApiServices';
 import ServiceStatusUpdateView from './ServiceStatusUpdateView';
 
-const ServiceStatusUpdate = ({open, setOpen,setRefresh , editData }) => {
+const ServiceStatusUpdate = ({open3, setOpen3,setRefresh , editData }) => {
   const [rows,setRows] = useState([]);
   const [open1,setOpen1]=useState(false)
   const [editData2, setEditData2] = useState([]); 
@@ -14,13 +14,14 @@ const ServiceStatusUpdate = ({open, setOpen,setRefresh , editData }) => {
   const [loading , setLoading]=useState(true);
 
   const handleClose = () => { 
-    setOpen(false);
+    setOpen3(false);
   };
 
   useEffect(() => {
-    if(editData?.assetNameId ){
-      ShowServiceRequest({id:editData?.assetNameId},handleShowServiceRequest, handleShowServiceRequestException)
-    }
+    console.log("data "+editData?.assetNameId);
+    // if(editData?.assetNameId ){
+      UpdateServiceStatus({editData},handleShowServiceRequest, handleShowServiceRequestException)
+    // }
     var tempDataSet ='';
     var tempList=[];
     tempDataSet=editData?.ServiceStatus?.replaceAll('\\'," ");
@@ -69,7 +70,7 @@ const ServiceStatusUpdate = ({open, setOpen,setRefresh , editData }) => {
   return (
     <div>
       <Dialog
-      open={open}
+      open={open3}
       maxWidth='lg'>
         <form>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>

@@ -89,7 +89,22 @@ export const DownloadScrapAsset=( successCallback, errorCallBack) => {
   return _fetchServiceDownloadCsvData('scrapAsset/export', 'GET', {}, successCallback, errorCallBack);
 };
 
+export const DownloadAmc=( successCallback, errorCallBack) => {
+  return _fetchServiceDownloadCsvData('amc/export', 'GET', {}, successCallback, errorCallBack);
+};
 
+export const DownloadCertificate=( successCallback, errorCallBack) => {
+  return _fetchServiceDownloadCsvData('certificate/export', 'GET', {}, successCallback, errorCallBack);
+};
+
+export const DownloadInsurance=( successCallback, errorCallBack) => {
+  return _fetchServiceDownloadCsvData('insurance/export', 'GET', {}, successCallback, errorCallBack);
+};
+
+export const Downloadaudit=(data,fromDate, toDate,successCallback, errorCallBack) => {
+ 
+  return _fetchServiceDownloadCsvData(`audit/${data}/export?=&fromDate=${fromDate}&toDate=${toDate}`, 'GET', {}, successCallback, errorCallBack);
+};
 
 
   

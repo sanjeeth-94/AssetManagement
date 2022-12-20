@@ -358,7 +358,7 @@ export const RequestServiceAdd = (data, successCallback, errorCallBack) => _fetc
 
 export const  ShowServiceRequest = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/updateServiceStatus`, 'GET', {}, successCallback, errorCallBack);
 
-export const UpdateServiceStatus = (data, successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/update`, 'POST', {status: data.status, serviceStatus: data.serviceStatus}, successCallback, errorCallBack);
+export const UpdateServiceStatus = (data, successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
 
 /////.......DashBord count..../////
@@ -392,7 +392,7 @@ export const ScrapCountService = (successCallback, errorCallBack) => _fetchServi
 export const TransferCountService = (successCallback, errorCallBack) => _fetchService('transferCount', 'POST', {}, successCallback, errorCallBack);
 
 
-////.........Dashboard...........///
+////.........DashboardItems...........///
 
 export const  ViewWarrantyDue = (successCallback, errorCallBack) => _fetchService('warrantyDue/showData', 'GET', {}, successCallback, errorCallBack);
 
@@ -409,6 +409,10 @@ export const  ViewDamage = (successCallback, errorCallBack) => _fetchService('da
 export const  ViewTransfer = (successCallback, errorCallBack) => _fetchService('transfer/showData', 'GET', {}, successCallback, errorCallBack);
 
 export const  ViewSales = (successCallback, errorCallBack) => _fetchService('sales/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const  ViewNotInuse = (successCallback, errorCallBack) => _fetchService('notInuse/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const  ViewTransferDue = (successCallback, errorCallBack) => _fetchService('transferDue/showData', 'GET', {}, successCallback, errorCallBack);
 
 
 //////..........user Model.......////
