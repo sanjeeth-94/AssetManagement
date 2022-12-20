@@ -89,11 +89,11 @@ const ServiceStatusUpdate = ({open3, setOpen3,setRefresh , editData }) => {
       </Dialog>
 
       <ServiceStatusUpdateView
-      open={open1}
-      setOpen={setOpen1}
-      dataArray={dataArray} 
-      editData2={editData2}
-      setDataArray={setDataArray}/>
+        open={open1}
+        setOpen={setOpen1}
+        dataArray={dataArray} 
+        editData2={editData2}
+        setDataArray={setDataArray}/>
     </div>
   )
 }
