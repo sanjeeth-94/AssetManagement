@@ -4,7 +4,7 @@ const successCaseCode = [200, 201];
 
 const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
-  const END_POINT = 'http://192.168.1.174:8000/api/';
+  const END_POINT = 'https://varmatrix.com/AssetManagement/api/';
   const { email } = userDetails;
   const { id } = userDetails;
 
@@ -58,7 +58,7 @@ const _fetchService = (PATH, serviceMethod, data, successCallback, errorCallBack
 
 export const LoginService = (data) => {
   const PATH = 'login';
-  const END_POINT = 'http://192.168.1.174:8000/api/';
+  const END_POINT = 'https://varmatrix.com/AssetManagement/api/';
   const SERVICE_METHOD = 'POST';
   const headers = {
     Accept: 'application/json',
@@ -97,6 +97,8 @@ export const FetchEmployeeNameService = (data,successCallback, errorCallBack) =>
 export const FetchUserNameService = (data,successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/getUser`, 'GET', {}, successCallback, errorCallBack);
 
 export const FetchCountService = (successCallback, errorCallBack) => _fetchService('getCount', 'GET', {}, successCallback, errorCallBack);
+
+export const FetcTagAssetShowData = (successCallback, errorCallBack) => _fetchService('tagAsset/showData', 'GET', {}, successCallback, errorCallBack);
 
 
 

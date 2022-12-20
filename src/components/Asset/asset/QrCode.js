@@ -13,7 +13,7 @@ import { AssetShowLabelService } from '../../../services/ApiServices';
 
 
 const QrCode = ({open1, setOpen1,editData}) => {
-  const url='http://192.168.1.173:8000';
+  const url='https://varmatrix.com/AssetManagement';
   const [imgUrl,setImgUrl]=useState('')
     const handleClose = () => {
         setOpen1(false);
@@ -54,7 +54,7 @@ const QrCode = ({open1, setOpen1,editData}) => {
             style={{alignSelf:'center'}}
             >
             <img 
-                src={`http://192.168.1.173:8000${imgUrl}`}
+                src={`https://varmatrix.com/AssetManagement${imgUrl}`}
               />
             </Grid>
           </Grid>

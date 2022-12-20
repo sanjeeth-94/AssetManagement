@@ -44,6 +44,13 @@ const Main = () => {
     const [inServiceCount,setInServiceCount]=useState('');
     const [scrapCount,setScrapCount]=useState('');
     const [transferCount,setTransferCount]=useState('');
+    const [serviceeDueCount,setServiceeDueCount]=useState('');
+    const [inspectionDueCount,setInspectionDueCount]=useState('');
+    const [transferDueCount,setTransferDueCount]=useState('');
+    const [notFound,setNotfound]=useState('');
+    const [notInuseCount,setNotInuseCount]=useState('');
+    const [newAssetCount,setNewAssetCount]=useState('');
+
     const [user ,setUser]=useState(false);
     const [dateTime, setDateTime] = useState({
         time: '',
@@ -54,7 +61,7 @@ const Main = () => {
         FetchCountService(handleAssetsCountService,handleAssetsCountException);
         const {userDetails} = ApplicationStore().getStorage("userDetails");
         const {userRole} =userDetails;
-        if(userRole==='Admin')
+        if(userRole ==='Admin')
         {
          setUser(true);
         }
@@ -86,13 +93,19 @@ const Main = () => {
         setSalesCount(dataObject?.salesCount || 0);
         setInServiceCount(dataObject?.insuranceDueCount || 0);
         setScrapCount(dataObject?.scrapCount || 0);
-        // setTransferCount(dataObject?.'');
-
+        setServiceeDueCount(dataObject?.serviceeDueCount || 0);
+        setInspectionDueCount(dataObject?.inspectionDueCount || 0);
+        setTransferDueCount(dataObject?.transferDueCount || 0);
+        setNotfound(dataObject?.notFoundCount || 0);
+        setNotInuseCount(dataObject?.notInuseCount || 0 );
+        setDamageCount(dataObject?.damageCount || 0);
+        setTransferCount(dataObject?.transferCount || 0);
+        setNewAssetCount(dataObject?.newAssetCount || 0);
     }
 
     const handleAssetsCountException=()=>{  
       
-     }
+    }
 
     const handleTransferCountService=(dataObject)=>{
         setTransferCount(dataObject?.transfer);
@@ -101,575 +114,617 @@ const Main = () => {
 
     return (
         <div style={{width:'95%', height:'50vh'}}>
-        <Grid container spacing={2} style={{marginTop:'20px', marginLeft:'20px'}}>
-        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
-            style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                marginTop:'10px',
-                border: 'solid',
-                borderColor: 'aqua',  
-            }}>
-                  <Typography variant="h5" gutterBottom>
-                     Total Asset
-                 </Typography>
-               
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
+            <Grid container spacing={2} style={{marginTop:'20px', marginLeft:'20px'}}>
+                <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
+                    style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        marginTop:'10px',
+                        border: 'solid',
+                        borderColor: 'aqua',  
+                    }}>
+                        <Typography variant="h6" gutterBottom>
+                            Total Asset
+                        </Typography>
                     
-                }}>
-                    <Typography variant="h6" gutterBottom
-                        style={{ marginRight:'65%' , color:'aqua'}}
-                        >
-                        {assetCount}
-                    </Typography>
-                    <Link to='/asset' >
-                        <FileCopyIcon className='dash-icon' style={{
-                            color: 'aqua',
-                            fontSize: '32'
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            
+                        }}>
+                            <Typography variant="h6" gutterBottom
+                                style={{ marginRight:'65%' , color:'aqua'}}
+                                >
+                                {assetCount}
+                            </Typography>
+                            {
+                                 user === true &&
+                        
+                                <Link to='/asset' >
+                                    <FileCopyIcon className='dash-icon' style={{
+                                        color: 'aqua',
+                                        fontSize: '32'
+                                    }} /> 
+                                </Link>
+                            }
+                        </div>
+                </Grid>
+                <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
+                    style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        marginTop:'10px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                    }}>
+                        <Typography variant="h6" gutterBottom>
+                        New Asset
+                        </Typography>
+                        
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}> 
+                        <Typography variant="h6" gutterBottom
+                        style={{ marginRight:'62%' , color:'aqua'}}>
+                            {newAssetCount}
+                        </Typography>
+                        {
+                            user === true && 
+                            <AddBoxIcon className='dash-icon1'
+                            style={{fontSize: '36' }} 
+                            />     
+                        }
+                           
+                    </div>
+                </Grid>
+                <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
+                    style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        marginTop:'10px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                    }}>
+                        <Typography variant="h6" gutterBottom>
+                        Asset Tagged
+                        </Typography>
+                        <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        }}>    
+                        <Typography variant="h6" gutterBottom
+                            style={{ marginRight:'68%' , color:'aqua'}}>{tagAssets}</Typography>
+                            {
+                                user === true && 
+                                    <Link to='/tagassettable'><StyleIcon className='dash-icon2' 
+                                    style={{
+                                        color: 'aqua',
+                                        fontSize: '32'
+                                    }}
+                                    /></Link>
+                            }
+                           
+                    </div>
+                </Grid>
+                <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
+                    style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        marginTop:'10px',
+                        border: 'solid',
+                        borderColor: 'aqua',    
+                    }}>
+                        <Typography variant="h6" gutterBottom>
+                            Untagged Asset
+                        </Typography>
+                    
+                        <div style={{
+                        display: 'flex',
+                        alignItems: 'center'
+                            
+                        }}>   
+                        <Typography variant="h5" gutterBottom
+                        style={{ marginRight:'68%' , color:'aqua'}}>{untagCount}</Typography>
+                        {
+                            user === true &&
+                       
+                            <Link to='/Untagassettable'><LocalOfferIcon className='dash-icon3' 
+                                style={{
+                                    color: 'aqua',
+                                    fontSize: '32'
+                                }}
+                            /></Link>
+                        }
+                    </div>
+                </Grid>
+                <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
+                    style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        marginTop:'10px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+
+                    }}>
+                        <div style={{marginBotm:'2px'}}>
+                            <span > {dateTime.date}</span> 
+                        </div>
+                        <div>
+                            <span> {dateTime.time}</span>
+                        </div>
+                        
+                </Grid>
+                <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
+                    style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        marginTop:'10px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                    }}> 
+                        <div style={{
+                        
+                            alignItems: 'center',
+                        }}>    
+                    <img src={img} style={{alignSelf:'center',alignItems: 'center',}} height="40px" width="40px"/>
+                    <Typography variant="h6" gutterBottom>
+                            AssetManagment
+                    </Typography>   
+                    </div>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={2} style={{marginLeft:'20px'}}>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box',
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
+        
+                    }}>
+                    
+                    <div clasName='cards'>
+                        <Typography variant="h6" gutterBottom>
+                            Warranty Due
+                        </Typography>         
+                    </div>
+                    <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                    }}>
+                        <Typography variant="h5" gutterBottom
+                            style={{ marginRight:'60%' , color:'aqua', }}
+                            >
+                            {warrantyDueCount}
+                        </Typography>   
+                        <Link to='/WarrantyDue'><SettingsIcon className='icondash'
+                            style={{
+                                    fontSize: '60'
                         }} /> 
+                </Link>
+                    </div>
+                </Grid>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
+
+                }}>
+                    <div>
+                        <Typography variant="h6" gutterBottom>
+                            Service Due
+                        </Typography>     
+                    </div>
+                    <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                    }}>
+                        <Typography variant="h5" gutterBottom
+                            style={{ marginRight:'60%' , color:'aqua', }}
+                            >
+                            {serviceeDueCount}
+                        </Typography>   
+                        <Link to='/Servicedue'><ReportProblemIcon className='icondash'
+                            style={{
+                                    fontSize: '60'
+                        }} /> 
+                </Link>
+                    </div>
+                
+                </Grid>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
+        
+                    }}>
+                <div > 
+                    <Typography variant="h6" gutterBottom>
+                        Inspection Due
+                    </Typography>             
+                </div>
+                <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}>
+                    <Typography variant="h5" gutterBottom
+                        style={{ marginRight:'60%' , color:'aqua', }}>
+                        {inspectionDueCount}
+                    </Typography>   
+                    <Link to='/InspectionDue'><HandymanIcon className='icondash'
+                        style={{
+                                fontSize: '60'
+                    }} /> 
                     </Link>
                 </div>
-        </Grid>
-           
-        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
-            style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                marginTop:'10px',
-                border: 'solid',
-                borderColor: 'aqua',
-            }}>
-                 <Typography variant="h5" gutterBottom>
-                 New Asset
-                 </Typography>
-                
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'right',
-                    
-                }}> 
-                   <Typography variant="h5" gutterBottom
-                   style={{ marginRight:'65%' , color:'aqua'}}>
-                    {}
-                 </Typography>
-               <AddBoxIcon className='dash-icon1' /> 
-            </div>
-        </Grid>
-
-        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.9}
-            style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                marginTop:'10px',
-                border: 'solid',
-                borderColor: 'aqua',
-               
-
-            }}>
-                <p >Asset Tagged</p>
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'right',
-                    
-                }}>    
-                <label style={{ marginRight:'70%' , color:'aqua'}}>{tagAssets}</label>
-                 <Link to='/tagassettable'><StyleIcon className='dash-icon2' /></Link>
-            </div>
-        </Grid>
-        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
-            style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                marginTop:'10px',
-                border: 'solid',
-                borderColor: 'aqua',    
-            }}>
-                <p >Untagged Asset</p>
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'right',
-                    
-                }}>   
-               <label style={{ marginRight:'70%' , color:'aqua'}}>{untagCount}</label>
-               <Link to='/Untagassettable'><LocalOfferIcon className='dash-icon3' /></Link>
-            </div>
-        </Grid>
-        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
-            style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                marginTop:'10px',
-                border: 'solid',
-                borderColor: 'aqua',
-
-            }}>
-                <span> {dateTime.date}</span> <br/>
-                <span style={{marginTop:'20px'}}> {dateTime.time}</span>
-
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'right',
-                    
-                }}>    
-                
-            </div>
-        </Grid>
-        <Grid item xs={10} sm={6} md={3.5} lg={1.8} xl={1.8}
-            style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                marginTop:'10px',
-                border: 'solid',
-                borderColor: 'aqua',
- 
-            }}>
-                
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    
-                    
-                }}>    
-              
-              <img src={img} height="40px" width="40px"></img>
-                 <p>AssetManagment</p>
-            </div>
-        </Grid>
-      </Grid>
-
-     <Grid container spacing={2} style={{marginLeft:'20px'}}>
-       
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box',
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-            
-                    <div clasName='cards'>
- 
-        <p>Warranty Due</p>
-   </div>
-        <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'right',
-                }}>
-       <label style={{ marginRight:'60%' , color:'aqua', }}>{warrantyDueCount}</label>
-       <Link to='/WarrantyDue'><SettingsIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        marginBottom:'20px'
-                    }}/> </Link>
-
-        </div>
-        </Grid>
-      
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
-
-            }}>
-        <div>
-        <label> Service Due</label>
-       </div>
-                       <Link to='/Servicedue'><ReportProblemIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                      
-                    }}/> </Link>
-        </Grid>
-      
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-        <div >
-                       Inspection Due
-         </div>
-                    <Link to='/InspectionDue'><HandymanIcon className='icondash' style= {{
-                        height: '60px',
-                        width: '60px',
-                    
-                    }}/></Link>
-        </Grid>
-      
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
-            }}>
-              <p>AMC Due </p>
-                    <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                }}>
-                     <label style={{ marginRight:'60%' , color:'aqua', }}>{amcDueCount}</label>
-                   
-                    <Link to='/Amcdue'><BuildIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                    }}/></Link>
-                    </div>
-        </Grid>
-     </Grid>
-     <Grid container spacing={2} style={{marginLeft:'20px'}}>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-       <p>Certificate Due</p>
-                <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
+                </Grid>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
                     }}>
-                    <label style={{ marginRight:'35%' , color:'aqua', }}>{certificateDueCount}</label>
-                    <Link to='/CertificateDue'><NewReleasesIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-                    </div>
-        </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
-            }}>
-        <p>Insurance Due </p>
-        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
+                    <Typography variant="h6" gutterBottom>
+                        AMC Due
+                    </Typography> 
+                        <div style={{
+                        display: 'flex',
+                        alignItems: 'center', }}>
+                            <Typography variant="h5" gutterBottom
+                                style={{ marginRight:'60%' , color:'aqua', }}>
+                                {amcDueCount}
+                            </Typography>        
+                            <Link to='/Amcdue'><BuildIcon className='icondash' style={{
+                            fontSize: '60'
+                            }}/></Link>
+                        </div>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={2} style={{marginLeft:'20px'}}>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
+        
                     }}>
-                    <label style={{ marginRight:'35%' , color:'aqua', }}>{insuranceDueCount}</label>
-                    <Link to='/Insurancedue'><HourglassFullIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                     }} /></Link>
-                     </div>
-        </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-              <div>
+                    <Typography variant="h6" gutterBottom>
+                    Certificate Due
+                    </Typography> 
+                    <div style={{display: 'flex',alignItems: 'center',}}>
+                        <Typography variant="h5" gutterBottom
+                            style={{ marginRight:'60%' , color:'aqua', }}>
+                            {certificateDueCount}
+                        </Typography>
+                        <Link to='/CertificateDue'><NewReleasesIcon className='icondash' style={{
+                                fontSize: '60'
+                        }}/></Link>
+                    </div>
+                </Grid>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
+                    }}>
+                        <Typography variant="h6" gutterBottom>
+                            Insurance Due
+                        </Typography> 
+                        <div style={{display: 'flex', alignItems: 'center',}}>
+                            <Typography variant="h5" gutterBottom
+                                style={{ marginRight:'60%' , color:'aqua', }}>
+                                {insuranceDueCount}
+                            </Typography>
+                            <Link to='/Insurancedue'><HourglassFullIcon className='icondash' style={{
+                                fontSize: '60'
+                                }} /></Link>
+                        </div>
+                </Grid>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
+        
+                    }}>
+                    <Typography variant="h6" gutterBottom>
                         Transfer Due
+                    </Typography> 
+                    <div style={{display: 'flex', alignItems: 'center',}}>
+                        <Typography variant="h5" gutterBottom
+                            style={{ marginRight:'60%' , color:'aqua', }}>
+                            {transferDueCount}
+                        </Typography>
+                        <Link to='/Transferdue'><SyncAltIcon className='icondash' style={{
+                                fontSize: '60'
+                            }} /></Link>
                     </div>
-                    <Link to='/Transferdue'><SyncAltIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-        </Grid>
-
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-                    <div >
-                       Audit Due
+                </Grid>
+                <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                        style={{
+                        color: 'white',
+                        display: 'box'  ,
+                        background:'rgb(91, 87, 87)',
+                        marginRight:'20px',
+                        border: 'solid',
+                        borderColor: 'aqua',
+                        marginTop:'30px'
+        
+                }}>
+                    <Typography variant="h6" gutterBottom>
+                    Audit Due
+                    </Typography>
+                    <div style={{display: 'flex', alignItems: 'center',}}>
+                        <Typography variant="h5" gutterBottom
+                            style={{ marginRight:'60%' , color:'aqua', }}>
+                            { auditDueCount}
+                        </Typography>
+                        <Link to='/Auditdue'><SettingsApplicationsIcon className='icondash' style={{
+                                fontSize: '60'
+                            }} /></Link>
                     </div>
-                    <Link to='/Auditdue'><SettingsApplicationsIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-        </Grid>
-     </Grid>
-
-      {     
-      
-         user === true &&
-     <Grid container spacing={2} style={{marginLeft:'20px'}}>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-       <p >    EOL   </p>
-       <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            
-                    }}>
-                    <label style={{ marginRight:'35%' , color:'aqua', }}>{eolCount}</label>
-                    <Link to='/Eol'><Battery50Icon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-        </div>
-        </Grid>
-      
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-       <div >
-                       Not Found
-                    </div>
-                    <DangerousIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/>
-        </Grid>
-      
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-             <div>
-                      Not in Use
-                    </div>
-                    <Link to='/Notinuse'><NotInterestedIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-        </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-                  <div>
-                      Damage
-                    </div>
-                    <Link to='/Damage'><EventBusyIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-        </Grid>
-
-     </Grid>
-      }
-     <Grid container spacing={2} style={{marginLeft:'20px'}}>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-        <p>
-                      Transfer
-                    </p>
-                    <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            
-                    }}>
-                          <label style={{ marginRight:'40%' , color:'aqua', }}>{transferCount}</label>
-                    
-                    <Link to='/Transfer'><ShuffleIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-                    </div>
-        </Grid>
-      
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
+                </Grid>
+            </Grid>
+            {     
+                user === true &&
+                    <Grid container spacing={2} style={{marginLeft:'20px'}}>
+                        <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
                 
-       <p > In Service </p>
-                    <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            
-                    }}>
-                    <label style={{ marginRight:'40%' , color:'aqua', }}>{inServiceCount}</label>
-                    <Link to='/Inservice'><SettingsSuggestIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px',
-                        margin:'20px',
-                    }}/></Link>
-                    </div>
-        </Grid>
- 
-        {
-            user === true &&
-            <>
-            
-          
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-                style={{
-                color: 'white',
-                display: 'box'  ,
-                background:'rgb(91, 87, 87)',
-                marginRight:'20px',
-             
-                border: 'solid',
-                borderColor: 'aqua',
-                marginTop:'30px'
- 
-            }}>
-              <p >Sale</p>
-              <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            
-                    }}>
-                    <label style={{ marginRight:'35%' , color:'aqua', }}>{salesCount}</label>
-                    <Link to='/Sale'><InsertDriveFileIcon className='icondash' style={{
-                        height: '60px',
-                        width: '60px'
-                    }}/></Link>
-                    </div>
-        </Grid>
-        <Grid item xs={6} sm={4} md={2.7} lg={2.8} xl={2.8} 
-               style={{
-               color: 'white',
-               display: 'box'  ,
-               background:'rgb(91, 87, 87)',
-               marginRight:'20px',
-            
-               border: 'solid',
-               borderColor: 'aqua',
-               marginTop:'30px'
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                            EOL 
+                            </Typography>
+                            <div style={{ display: 'flex',alignItems: 'center',}}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { eolCount}
+                                </Typography>
+                                <Link to='/Eol'><Battery50Icon className='icondash' style={{
+                                    fontSize: '60'
+                                }}/></Link>
+                            </div>
+                        </Grid>
+                        <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+                
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                                Not Found
+                            </Typography>
+                            <div style={{ display: 'flex',alignItems: 'center',}}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    {notFound}
+                                </Typography>
+                                <DangerousIcon className='icondash' style={{
+                                    fontSize: '60'
+                                }}/>
+                            </div>
+                        </Grid>
+                        <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+                
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                            Not in Use
+                            </Typography>
+                            <div style={{ display: 'flex',alignItems: 'center',}}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { notInuseCount}
+                                </Typography>
+                                <Link to='/Notinuse'><NotInterestedIcon className='icondash' style={{
+                                    fontSize: '60'
+                                }}/></Link>
+                            </div>
+                        </Grid>
+                        <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+                
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                                Damage
+                            </Typography>
+                            <div style={{ display: 'flex',alignItems: 'center',}}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { damageCount }
+                                </Typography>
+                                <Link to='/Damage'><EventBusyIcon className='icondash'  style={{
+                                    fontSize: '60'
+                                }}/></Link>
+                            </div>
+                        </Grid>
+                    </Grid>
+            }
+                <Grid container spacing={2} style={{marginLeft:'20px'}}>
+                    <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                            style={{
+                            color: 'white',
+                            display: 'box'  ,
+                            background:'rgb(91, 87, 87)',
+                            marginRight:'20px',
+                            border: 'solid',
+                            borderColor: 'aqua',
+                            marginTop:'30px'
 
-           }}>
-                  <p >
-                      Scrap
-                    </p>
-
-                    <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            
                     }}>
-                    <label style={{ marginRight:'45%' , color:'aqua', }}>{ scrapCount}</label>
-                   
-                    <Link to='/Scrap'><DeleteIcon  className='icondash' style={{
-                        height: '70px',
-                        width: '70px'
-                    }}/></Link>
-                    </div>
-       </Grid>
-       </>
-        }
- 
-     </Grid>
+                        <Typography variant="h6" gutterBottom>
+                            Transfer
+                        </Typography>
+                        <div style={{
+                                display: 'flex',
+                                alignItems: 'center',     
+                        }}>
+                            <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { transferCount }
+                            </Typography>
+                            <Link to='/Transfer'><ShuffleIcon className='icondash' style={{
+                                fontSize: '60'
+                            }}/></Link>
+                        </div>
+                    </Grid>      
+                    <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                            style={{
+                            color: 'white',
+                            display: 'box'  ,
+                            background:'rgb(91, 87, 87)',
+                            marginRight:'20px',
+                            border: 'solid',
+                            borderColor: 'aqua',
+                            marginTop:'30px'
 
-        </div>
+                    }}>
+                        <Typography variant="h6" gutterBottom>
+                            In Service
+                        </Typography>
+                            <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                            }}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { inServiceCount }
+                                </Typography>
+                                
+                                <Link to='/Inservice'><SettingsSuggestIcon className='icondash' style={{
+                                    fontSize: '60'
+                                }}/></Link>
+                            </div>
+                    </Grid>
+                    {
+                        user === true &&
+                        <>
+                            <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                                    style={{
+                                    color: 'white',
+                                    display: 'box'  ,
+                                    background:'rgb(91, 87, 87)',
+                                    marginRight:'20px',
+                                    border: 'solid',
+                                    borderColor: 'aqua',
+                                    marginTop:'30px'
+
+                            }}>
+                                <Typography variant="h6" gutterBottom>
+                                    Sale
+                                </Typography>
+                                <div style={{ display: 'flex',alignItems: 'center',}}>
+                                     <Typography variant="h5" gutterBottom
+                                        style={{ marginRight:'60%' , color:'aqua', }}>
+                                        { salesCount }
+                                    </Typography> 
+                                        <Link to='/Sale'><InsertDriveFileIcon className='icondash' style={{
+                                            fontSize: '60'
+                                        }}/></Link>
+                                </div>
+                            </Grid>
+                            <Grid item xs={10} sm={6} md={2.7} lg={2.8} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+
+                            }}>
+                                <Typography variant="h6" gutterBottom>
+                                    Scrap
+                                </Typography>
+                                <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        
+                                }}>
+                                    <Typography variant="h5" gutterBottom
+                                        style={{ marginRight:'60%' , color:'aqua', }}>
+                                        { scrapCount }
+                                    </Typography> 
+                                    <Link to='/Scrap'><DeleteIcon  className='icondash' style={{
+                                        fontSize: '60'
+                                    }}/></Link>
+                                </div>
+                            </Grid>
+                        </>
+                    }
+                </Grid>
+    </div>
     )
 }
 

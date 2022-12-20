@@ -195,16 +195,16 @@ console.log(errorMessage)
                       <ImageList x={{ width: 500, height: 450 }} cols={4} rowHeight={164}>
                         <img
                         style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.173:8000${bpImages1}`}/>
+                        src={`https://varmatrix.com/AssetManagement${bpImages1}`}/>
                         
                         <img  style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.173:8000${bpImages2}`}/>
+                        src={`https://varmatrix.com/AssetManagement${bpImages2}`}/>
 
                         <img  style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.173:8000${bpImages3}`}/>
+                        src={`https://varmatrix.com/AssetManagement${bpImages3}`}/>
 
                         <img  style={{width:'200px',height:'200px'}}
-                        src={`http://192.168.1.173:8000${bpImages4}`}/>
+                        src={`https://varmatrix.com/AssetManagement${bpImages4}`}/>
                       </ImageList>
                     </Typography>
                   </AccordionDetails>
