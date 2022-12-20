@@ -134,9 +134,12 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
                                 loading={loading}
                                 rows={rows}
                                 columns={columns}/>
+
                                 <AmcServicePatternView
                                 open={open1}
-                                setOpen={setOpen1}/>
+                                setOpen={setOpen1}
+                                editData={editData}
+                                />
                             </div>
                         </DialogContentText>
                     </DialogContent>

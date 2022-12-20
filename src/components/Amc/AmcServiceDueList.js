@@ -227,30 +227,26 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-          <Button  type='submit' variant="contained" onClick={onSubmit}>View</Button>
+            <Button  type='submit' variant="contained" onClick={onSubmit}>View</Button>
           </Grid> 
         </Grid>
-  
-      <Grid  container spacing={2} style={{ marginTop: '10px'}}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-        style={{ alignSelf: 'center', textAlignLast: 'center'}}
-        >
-        <h3 >INSPECTION DUE DATE</h3>
+        <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+          style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <h3 >INSPECTION DUE DATE</h3>
+            </Grid>
+          </Grid>
+          <hr/>
+          <Grid  container spacing={2} style={{ marginTop: '10px'}}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+            style={{ height: '200px',  marginTop: '20px' }}>
+              <DataGrid
+              rows={rows}
+              columns={columns}/>
+          </Grid>
         </Grid>
-      </Grid>
-      <hr/>
-      <Grid  container spacing={2} style={{ marginTop: '10px'}}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-        style={{ height: '200px',  marginTop: '20px' }}
-        >
-        <DataGrid
-          rows={rows}
-          columns={columns}/>
-        </Grid>
-      </Grid>
- 
         <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
-        </div>
+      </div>
     </form>
     
       
