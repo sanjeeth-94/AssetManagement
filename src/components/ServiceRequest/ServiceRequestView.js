@@ -148,7 +148,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData  }) => {
                       <ImageList x={{ width: 500, height: 450 }} cols={4} rowHeight={164}>
                         <img
                         style={{width:'50px',height:'50px'}}
-                        src={`http://192.168.1.173:8000 ${bpImages1}`}/>
+                        src={`https://varmatrix.com/AssetManagement${bpImages1}`}/>
                       </ImageList>
                     </Typography>
                   </AccordionDetails> 
@@ -161,7 +161,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData  }) => {
                     <Typography>
                       <ImageList x={{ width: 500, height: 420 }} cols={4} rowHeight={164}>
                         <img  style={{width:'50px',height:'50px'}}
-                        src={`http://192.168.1.173:8000${bpImages2}`}/>
+                        src={`https://varmatrix.com/AssetManagement${bpImages2}`}/>
                       </ImageList>
                     </Typography>
                   </AccordionDetails>

@@ -188,16 +188,16 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
                       <Typography>
                         <ImageList  cols={4} colHeight={100} >
                           <img style={{width:'200px',height:'180px'}}
-                            src={`http://192.168.1.173:8000${bpImages1}`}
+                            src={`https://varmatrix.com/AssetManagement${bpImages1}`}
                           />
                           <img style={{width:'200px',height:'180px'}}
-                            src={`http://192.168.1.173:8000${bpImages2}`}
+                            src={`https://varmatrix.com/AssetManagement${bpImages2}`}
                           />
                           <img style={{width:'200px',height:'180px'}}
-                            src={`http://192.168.1.173:8000${bpImages3}`}
+                            src={`https://varmatrix.com/AssetManagement${bpImages3}`}
                           />
                           <img style={{width:'200px',height:'180px'}}
-                            src={`http://192.168.1.173:8000${bpImages4}`}
+                            src={`https://varmatrix.com/AssetManagement${bpImages4}`}
                           />
                         </ImageList>
                       </Typography>

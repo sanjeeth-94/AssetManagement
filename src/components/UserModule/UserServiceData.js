@@ -156,10 +156,10 @@ const onClickeCancel=()=>{
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop:'5px', }}>
         <ImageList style={{marginLeft:'20%'}} cols={4} colHeight={100} rowHeight={164}>
             <img style={{width:'200px',height:'180px'}}
-            src={`http://192.168.1.174:8000${bpImages1}`}
+            src={`https://varmatrix.com/AssetManagement${bpImages1}`}
             />
             <img style={{width:'200px',height:'180px'}}
-            src={`http://192.168.1.174:8000${bpImages2}`}
+            src={`https://varmatrix.com/AssetManagement${bpImages2}`}
         />
         </ImageList>
         </Grid>
