@@ -7,6 +7,7 @@ import { AssetLabelDeletService, FetchAssetLableService, UserDeleteService } fro
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import DeleteIcon from '@mui/icons-material/Delete';
 import QrCode from './QrCode';
+import { Grid } from '@mui/material';
 
 const AddlabelList = () => {
     const [open, setOpen] = useState(false);
@@ -121,12 +122,20 @@ const AddlabelList = () => {
     };
   return (
     <div>
-        <div style={{display:'flex'}}>
-            <h3 style={{ marginLeft: '50px' }}> VIEW ASSET TABLE</h3>
-            <Button style={{marginLeft:'63%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
-            Add Label
-            </Button>
-            </div>
+        <Grid container>
+            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                style={{ alignSelf:'center', textAlign:'center' }}
+            >
+            <h3 > VIEW ASSET TABLE</h3>
+            </Grid>
+            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                style={{ alignSelf:'center', textAlign:'center' }}
+            >
+                <Button variant="outlined" onClick={handleModalOpen}>
+                    Add Label
+                </Button>
+            </Grid>
+        </Grid>
             <hr style={{ bottom: 'solid' }} />
           
             <div style={{ height: '300px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>

@@ -117,6 +117,13 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
             type: 'success',
             message: dataObject.message,
         });
+        setSection('');
+        setDepartment('');
+        setAssetType('');
+        setAssetId('');
+        setRedio('');
+        setAssetName('');
+        setBarCode('');
     }
   
     const handleException = (errorObject, errorMessage) =>{
@@ -126,6 +133,13 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
             type: 'error',
             message:errorMessage,
         });
+        setSection('');
+        setDepartment('');
+        setAssetType('');
+        setAssetId('');
+        setRedio('');
+        setAssetName('');
+        setBarCode('');
     }
  
     const handleCloseNotify = () => {
@@ -147,24 +161,34 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
     const onBarCodeChange=(e)=>{
         setBarCode(e.target.value);
     }
+    const onClikCancel=()=>{
+        setOpen(false);
+        setSection('');
+        setDepartment('');
+        setAssetType('');
+        setAssetId('');
+        setRedio('');
+        setAssetName('');
+        setBarCode('');
+    }
 
     return (
-        <div >
-            <div>
-                <Dialog 
+        <div>            
+            <Dialog 
                 open={open}
                 onClose={handleClose}
-                 fullWidth>
-                    <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                        {"ADD Label"} 
-                    </DialogTitle>  
-                    <form onSubmit={onSubmit}>
+                fullWidth
+            >
+                <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
+                    {"ADD Label"} 
+                </DialogTitle>  
+                <form onSubmit={onSubmit}>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <div>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center'}}
+                                        style={{alignSelf:'center', textAlign:'center'}}
                                     >
                                     <label >Department : </label>
                                     </Grid>
@@ -186,12 +210,11 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                         </FormControl>  
                                     </Grid>
                                 </Grid>
-
                                 <Grid container spacing={2} style={{marginTop:'2px'}}>
                                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center'}}
+                                        style={{alignSelf:'center', textAlign:'center'}}
                                     >
-                                     <label > Select Section : </label>
+                                        <label > Select Section : </label>
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                                     <FormControl fullWidth>
@@ -211,12 +234,11 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                         </FormControl> 
                                     </Grid>
                                 </Grid>
-
                                 <Grid container spacing={2} style={{marginTop:'2px'}}>
                                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center'}}
+                                        style={{alignSelf:'center', textAlign:'center'}}
                                     >
-                                      <label >Asset Type : </label>
+                                        <label >Asset Type : </label>
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                                     <FormControl fullWidth>
@@ -236,12 +258,11 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                         </FormControl>
                                     </Grid>
                                 </Grid>
-
                                 <Grid container spacing={2} style={{marginTop:'2px'}}>
                                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                                     style={{alignSelf:'center', textAlign:'center'}}
+                                        style={{alignSelf:'center', textAlign:'center'}}
                                     >
-                                     <FormControl>
+                                        <FormControl>
                                         <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
                                         <RadioGroup
                                         row aria-labelledby="demo-row-radio-buttons-group-label"
@@ -272,85 +293,91 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                                     redio=== "asset" &&
                                     <>
                                     <Grid container spacing={2} style={{marginTop:'2px'}}>
-                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center'}}
-                                    >
-                                     <label >Select Asset : </label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                                    <FormControl  fullWidth>
+                                        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                                            style={{alignSelf:'center', textAlign:'center'}}
+                                        >
+                                            <label >Select Asset : </label>
+                                        </Grid>
+                                        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                            <FormControl  fullWidth>
                                                 <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
                                                 <Select 
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                label="Select Asset Name"
-                                                value={assetName}
-                                                onChange={(e) => handleChange(e)}>
-                                                    {
-                                                        assetNameList.map((data, index) => {
-                                                            return (
-                                                                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
-                                                            )
-                                                        })
-                                                    }   
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    label="Select Asset Name"
+                                                    value={assetName}
+                                                    onChange={(e) => handleChange(e)}>
+                                                        {
+                                                            assetNameList.map((data, index) => {
+                                                                return (
+                                                                    <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                                                                )
+                                                            })
+                                                        }   
                                                 </Select>
                                             </FormControl>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                                </>
+                                    </>
                                 }
                                 {
                                     redio=== "assetId" &&
-                                 <>
-                                <Grid container spacing={2} style={{marginTop:'2px'}}>
-                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center'}}
-                                    >
-                                    <label >Asset ID : </label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                                    <TextField
-                                        id="Vendor-Address"
-                                        variant="outlined"
-                                        fullWidth
-                                        onChange={(e) => { setAssetId(e.target.value) }}/>
-                                    </Grid>
-                                </Grid>
-                                </>
+                                    <>
+                                        <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}
+                                                style={{alignSelf:'center', textAlign:'center'}}
+                                            >
+                                            <label >Asset ID : </label>
+                                            </Grid>
+                                            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                            <TextField
+                                                id="Vendor-Address"
+                                                variant="outlined"
+                                                fullWidth
+                                                onChange={(e) => { setAssetId(e.target.value) }}/>
+                                            </Grid>
+                                        </Grid>
+                                    </>
                                 }
-
-                                <Grid container spacing={2} style={{marginTop:'2px'}}>
-                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                                     style={{alignSelf:'center', textAlign:'center'}}
-                                    >
-                                   <FormControl>
-                                        <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
-                                        <RadioGroup
-                                        row 
-                                        onChange={onBarCodeChange}
-                                        value={barCode}>
-                                            <FormControlLabel style={{marginLeft:'5px'}} value="barCode" control={<Radio />} label="BARCODE" />
-                                            <FormControlLabel style={{marginLeft:'50px'}} value="qrCode" control={<Radio />} label="QRCODE" />
-                                        </RadioGroup>
-                                    </FormControl>
+                                    <Grid container spacing={2} style={{marginTop:'2px'}}>
+                                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                                            style={{alignSelf:'center', textAlign:'center'}}
+                                        >
+                                        <FormControl>
+                                            <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
+                                            <RadioGroup
+                                            row 
+                                            onChange={onBarCodeChange}
+                                            value={barCode}>
+                                                <FormControlLabel style={{marginLeft:'5px'}} value="barCode" control={<Radio />} label="BARCODE" />
+                                                <FormControlLabel style={{marginLeft:'50px'}} value="qrCode" control={<Radio />} label="QRCODE" />
+                                            </RadioGroup>
+                                        </FormControl>
+                                        </Grid>
                                     </Grid>
-                                    
-                                </Grid>
                             </div>
-                                <div>
-                                    <Button style={{marginLeft:'150px', marginTop:'20px'}}variant="contained" type="submit">Submit</Button>
-                                </div>
-                            </DialogContentText>
-                        </DialogContent>
-                    </form>
-                </Dialog>
-            </div>
+                            <Grid container spacing={2} style={{maginTop:'20px'}}>
+                                <Grid item xs={10} sm={6} md={6} lg={6} xl={6}
+                                    style={{alignSelf:'center',textAlign:'center'}}
+                                >
+                                    <Button variant="contained" type="submit">Submit</Button>
+                                </Grid>
+                                <Grid item xs={10} sm={6} md={6} lg={6} xl={6} 
+                                    style={{alignSelf:'center',textAlign:'center'}}
+                                >
+                                    <Button variant="contained" onClick={onClikCancel}>Cancel</Button>
+                                </Grid>
+                            </Grid>
+                        </DialogContentText>
+                    </DialogContent>
+                </form>
+            </Dialog>
             <NotificationBar
                 handleClose={handleCloseNotify}
                 notificationContent={openNotification.message}
                 openNotification={openNotification.status}
                 type={openNotification.type}
-          />
+            />
         </div>      
     )
 }

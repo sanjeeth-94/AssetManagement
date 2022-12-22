@@ -16,7 +16,7 @@ const QrCode = ({open1, setOpen1,editData}) => {
   const [department,setDepartment]=useState('');
   const [section,setSection]=useState('');
   const [assetType, setAssetType]=useState('');
-  const url='https://varmatrix.com/AssetManagement';
+  const url=' https://varmatrix.com/AssetManagement/AssetManagement';
   const [imgUrl,setImgUrl]=useState('')
     const handleClose = () => {
         setOpen1(false);
@@ -28,8 +28,8 @@ const QrCode = ({open1, setOpen1,editData}) => {
     {
       AssetShowLabelService({id:editData.id},handleAssetShowLabelService, handleAssetShowLabelException);
       setDepartment(editData?.department || '');
-      setSection(editData?.section || " ");
-      setAssetType(editData?.assetType|| '');
+      setSection(editData?.selectSection || " ");
+      setAssetType(editData?.selectAssetType || '');
     },[editData])
 
     const handleAssetShowLabelService=(dataObject)=>{
@@ -47,40 +47,43 @@ const QrCode = ({open1, setOpen1,editData}) => {
           maxWidth='xl'>
           <form onSubmit={onSubmit}>
               <DialogTitle style={{ background: 'whitesmoke' }}>
-                  {"ADD ASSET"}
+                  {"Label"}
               </DialogTitle>
               <DialogContent>
                   <DialogContentText>
                   <AccordionDetails>     
                   <Typography>
-                  <ImageList sx={{ height: 120 }} cols={4}  rowHeight={164}>
+                 
                     <Grid container >
-                      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                      style={{alignSelf:'center'}}
+                      <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
+                        style={{alignSelf:'center'}}
                       >
-                      <img 
-                          src={`https://varmatrix.com/AssetManagement${imgUrl}`}
+                      <img style={{width:'200px',height:'150px',alignSelf:'center',alignItems:'center'}}
+                          src={`${url}${imgUrl}`}
                         />
                       </Grid>
                     </Grid>
-                    <Grid container >
-                      <Grid item xs={3} sm={3} md={3} lg={3} xl={3}
-                      style={{alignSelf:'center'}}
-                      >
-                      <label>{department}</label>
-                      </Grid>
-                      <Grid item xs={3} sm={3} md={3} lg={3} xl={3}
-                      style={{alignSelf:'center'}}
-                      >
-                      <label>{section}</label>
-                      </Grid>
-                      <Grid item xs={3} sm={3} md={3} lg={3} xl={3}
-                      style={{alignSelf:'center'}}
-                      >
-                      <label>{assetType}</label>
-                      </Grid>
+                    <Grid container style={{maginTop:'10px',marginLeft:'10px'}}>
+                        <Grid item xs={10} sm={10} md={10} lg={10} xl={3}
+                          style={{alignSelf:'center'}}
+                        >
+                            <label>Department :</label>  
+                            <label>{department}</label>
+                        </Grid>
+                        <Grid item xs={10} sm={10} md={10} lg={10} xl={3}
+                          style={{alignSelf:'center'}}
+                        >
+                          <label>Section :</label>
+                          <label>{section}</label>
+                        </Grid>
+                        <Grid item xs={10} sm={10} md={10} lg={10} xl={3}
+                          style={{alignSelf:'center'}}
+                        >
+                          <label> Asset Type :</label>
+                          <label>{assetType}</label>
+                        </Grid>
                     </Grid>
-                  </ImageList>
+                 
                   </Typography>
               </AccordionDetails>
                 </DialogContentText>

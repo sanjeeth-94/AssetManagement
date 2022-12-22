@@ -37,8 +37,9 @@ const AssetTabList = () => {
 
   return (
     <>
+    <Grid container>
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <Box sx={{ width: '100%' }}>
+        <Box >
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Add Asset" {...a11yProps(0)} />
@@ -57,6 +58,8 @@ const AssetTabList = () => {
           </TabPanel>
         </Box>
       </Grid>
+    </Grid>
+      
     </>
   )
 }

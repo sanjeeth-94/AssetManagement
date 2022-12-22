@@ -6,6 +6,7 @@ import AssetModel from './AssetModel';
 import NotificationBar from '../../../services/NotificationBar';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid } from '@mui/material';
 
 const AssetList = () => {
     const [open, setOpen] = useState(false);
@@ -119,13 +120,20 @@ const AssetList = () => {
   
     return (
         <div style={{border:'solid',borderColor:'whitesmoke'}}>
-            <div style={{display:'flex'}}>
-            <h3 style={{ marginLeft: '50px' }}>Asset</h3>
-            
-            <Button style={{marginLeft:'70%',marginRight:'10%',width:'120px',height:'30px', marginBottom:'20px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
-               Add
-            </Button>
-            </div>
+            <Grid container>
+                <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                    style={{ alignSelf:'center', textAlign:'center' }}
+                >
+                <h3 > Asset</h3>
+                </Grid>
+            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                style={{ alignSelf:'center', textAlign:'center' }}
+            >  
+                <Button style={{width:'10%',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
+                    Add
+                </Button>
+            </Grid>
+            </Grid>
             <hr style={{ bottom: 'solid' }} />
             <div style={{ height: 270, }}>
                 <DataGrid
@@ -134,19 +142,19 @@ const AssetList = () => {
                 columns={columns} />
             </div>
             <AssetModel
-            open={open}
-            setOpen={setOpen}
-            isAdd={isAdd}
-            editData={editData}
-            setRefresh={setRefresh}
-            refresh ={refresh}
+                open={open}
+                setOpen={setOpen}
+                isAdd={isAdd}
+                editData={editData}
+                setRefresh={setRefresh}
+                refresh ={refresh}
             />
-               <NotificationBar
-                    handleClose={handleClose}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
+            <NotificationBar
+                handleClose={handleClose}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+            />
         </div>
     )
 }

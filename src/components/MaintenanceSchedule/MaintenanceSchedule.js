@@ -441,7 +441,7 @@ const onOptionChange=(e)=>{
             <div>
                 <h2 style={{ marginLeft: '40px' }}>Maintenance Schedule</h2>
             </div>
-            <form style={{ width: '95%', border: 'solid', borderColor: 'whitesmoke', marginLeft: '30px' }}>
+            <form style={{ width: '95%', marginLeft: '30px' }}>
                 <div>
                     <h3 style={{ marginLeft: '30px' }}>Create Maintenance Schedule</h3>
                 </div>
