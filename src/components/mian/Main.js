@@ -234,7 +234,7 @@ const Main = () => {
                         {
                             user === true &&
                        
-                            <Link to='/Untagassettable'><LocalOfferIcon className='dash-icon3' 
+                            <Link to='/UntageAssetList'><LocalOfferIcon className='dash-icon3' 
                                 style={{
                                     color: 'aqua',
                                     fontSize: '32'
