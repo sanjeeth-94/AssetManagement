@@ -167,7 +167,7 @@ const CertificateList = () => {
     return (
         <div >
             <div style={{display:'flex', marginLeft:'40px',}}>
-                <h3 style={{ marginLeft: '60px' }}> INSPECTION</h3>
+                <h3 style={{ marginLeft: '60px' }}>INSPECTION</h3>
                 <Button style={{width:'120px',height:'30px', marginLeft:'60%',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
                     Add
                 </Button>

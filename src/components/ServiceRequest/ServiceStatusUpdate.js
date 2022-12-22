@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { ShowServiceRequest, UpdateServiceStatus } from '../../services/ApiServices';
+
 import ServiceStatusUpdateView from './ServiceStatusUpdateView';
+import { ShowServiceRequest } from '../../services/ApiServices';
 
 const ServiceStatusUpdate = ({open3, setOpen3,setRefresh , editData }) => {
   const [rows,setRows] = useState([]);
@@ -18,10 +19,10 @@ const ServiceStatusUpdate = ({open3, setOpen3,setRefresh , editData }) => {
   };
 
   useEffect(() => {
-    console.log("data "+editData?.assetNameId);
-    // if(editData?.assetNameId ){
-      UpdateServiceStatus({editData},handleShowServiceRequest, handleShowServiceRequestException)
-    // }
+    console.log(editData);
+    if(editData){
+      ShowServiceRequest({...editData},handleShowServiceRequest, handleShowServiceRequestException)
+    }
     var tempDataSet ='';
     var tempList=[];
     tempDataSet=editData?.ServiceStatus?.replaceAll('\\'," ");
@@ -31,7 +32,7 @@ const ServiceStatusUpdate = ({open3, setOpen3,setRefresh , editData }) => {
   }, [editData]);
 
   const handleShowServiceRequest = (dataObject) => {
-    setRows(dataObject?.data);
+    setRows(dataObject?.data || []);
     setLoading(false);
     console.log(dataObject?.data);
   }

@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Grid } from '@mui/material';
+import { FetchScrapAssetShowDataService } from '../../services/ApiServices';
 
 const Scrap = () => {
 
-    const [rows,setrows] = useState([]);
-    const [loading,setLoading]=useState([]);
+    const [rows,setRows] = useState([]);
+    const [loading , setLoading]=useState(true);
+
 
   const columns = [
     { field: 'department', headerName: 'Department', width: 160 },
-    { field: 'sectionName', headerName: 'Section Name', width: 200 },
-    { field: 'assetType', headerName: 'Asset Type', width: 200 },
+    { field: 'section', headerName: 'Section Name', width: 170 },
+    { field: 'assetType', headerName: 'Asset Type', width: 170 },
     { field: 'assetName', headerName: 'Asset Name', width: 200 },
     { field: 'dateAndTime', headerName: 'Date and Time', width: 200 },
     { field: 'user', headerName: 'User', width: 150 },
   ];
 
   useEffect(()=>{
-    
+    FetchScrapAssetShowDataService(handleFetchScrapAssetShowDataServiceResult,handleFetchScrapAssetShowDataServiceError)
+
   },[]);
-// setLoading(false);
+
+  const handleFetchScrapAssetShowDataServiceResult=(dataObject)=>{
+    setRows(dataObject.data);
+      setLoading(false);
+      console.log(dataObject.data);
+    }
+  
+    const handleFetchScrapAssetShowDataServiceError=(errorStaus, errorMessage)=>{
+      console.log(errorMessage)
+    }
+
   return (
     <div>
     <Grid container spacing={2}>
@@ -34,7 +47,7 @@ const Scrap = () => {
       style={{ height: '400px',  marginTop: '20px',marginLeft:'5%' }}>
         
         <DataGrid
-   //   loading={loading}
+        loading={loading}
         rows={rows}
         columns={columns}
         pageSize={5}

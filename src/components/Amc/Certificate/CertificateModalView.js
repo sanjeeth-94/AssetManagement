@@ -10,62 +10,64 @@ import CertificatePatternView from './CertificatePatternView';
 
 
 const CertificateModalView = ({ open, setOpen,  setRefresh , isView, editData}) => {
-    const [rows, setRows]=useState([]);
     const [open1, setOpen1] = useState(false);
+    const [isService, setIsService] = useState(false);
+    const [rows, setRows] = useState([]);
     const [editData2, setEditData2] = useState('');
+    const [loading,setLoading]=useState(true);
+    
     const handleClose = () => {
       setOpen(false);
     };
-
     const columns = [
         { field: 'vendorName', headerName: 'Vender Name', width: 140 },
         { field: 'periodFrom', headerName: 'Period From', width: 140 },
         { field: 'inspectionPattern', headerName: 'No.service', width: 140 },
-        { field: 'serviceList', 
+        { field: 'inspectionList        ', 
         headerName: 'Service [YY-MM-DD]',
-         width: 120,
+         width: 300,
          renderCell: (params) => {
             
-            var service = parseInt(params.row.servicePattern);
-            var data= params.row.serviceList;
-            var serviceList = [];
-            if (service>0)
+            var service = parseInt(params.row.inspectionPattern);
+            var data= params.row.inspectionList;
+            var inspectionList= [];
+            if (service > 0)
             {
               if(service === 1)
               {
-                  serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate} ;
+                inspectionList[0] = {startDate:data.c1startDate,endDate:data.c1endDate} ;
 
               }else if (service === 2)
               {
-                  serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                  serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate } ;
+                inspectionList[0] = {startDate:data.c1startDate,endDate:data.c1endDate};
+                inspectionList[1] = {startDate:data.c2startDate,endDate:data.c2endDate } ;
 
               }else if (service === 3){
 
-                  serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                  serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate };
-                  serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3startDate };
+                  inspectionList[0] = {startDate:data.c1startDate,endDate:data.c1endDate };
+                  inspectionList[1] = {startDate:data.c2startDate,endDate:data.c2endDate };
+                  inspectionList[2] = {startDate:data.c3startDate,endDate:data.c3endDate };
                  
 
               }else if (service === 4){
-                  serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                  serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate };
-                  serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3startDate };
-                  serviceList[3] = {startDate:data.s4startDate,runHours:data.s4runHours,endDate:data.s4startDate };
+                  inspectionList[0] = {startDate:data.c1startDate,endDate:data.c1endDate };
+                  inspectionList[1] = {startDate:data.c2startDate,endDate:data.c2endDate };
+                  inspectionList[2] = {startDate:data.c3startDate,endDate:data.c3endDate };
+                  inspectionList[3] = {startDate:data.c4startDate,endDate:data.c4endDate };
                 
 
               }else if (service === 5){
-                  serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                  serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate };
-                  serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3startDate };
-                  serviceList[3] = {startDate:data.s4startDate,runHours:data.s4runHours,endDate:data.s4startDate };
-                  serviceList[4] = {startDate:data.s5startDate,runHours:data.s5runHours,endDate:data.s5startDate };
+                  inspectionList[0] = {startDate:data.c1startDate,endDate:data.c1endDate };
+                  inspectionList[1] = {startDate:data.c2startDate,endDate:data.c2endDate };
+                  inspectionList[2] = {startDate:data.c3startDate,endDate:data.c3endDate };
+                  inspectionList[3] = {startDate:data.c4startDate,endDate:data.c4endDate };
+                  inspectionList[4] = {startDate:data.c5startDate,endDate:data.c5endDate };
                 
               }
             }else {
-              serviceList[0]="no data "
+                inspectionList[0]="no data "
             }
-            console.log(serviceList);
+            console.log(inspectionList);
 
               return(
                   <div style={{
@@ -73,7 +75,7 @@ const CertificateModalView = ({ open, setOpen,  setRefresh , isView, editData}) 
                   }}>
                       
                       {
-                          serviceList.map((data, index)=>{
+                          inspectionList.map((data, index)=>{
                               return(
                                   <Typography>
                                           From :{data.startDate} To:  {data.endDate} 
@@ -118,6 +120,7 @@ const CertificateModalView = ({ open, setOpen,  setRefresh , isView, editData}) 
 
       const handleViewCertificate = (dataObject) => {
         setRows(dataObject?.data);
+        setLoading(false);
         console.log(dataObject?.data);
       }
     
@@ -138,15 +141,16 @@ const CertificateModalView = ({ open, setOpen,  setRefresh , isView, editData}) 
                             <form>
                               
                             <DataGrid style={{height:'200px', marginTop:'20px'}}
+                            loading={loading}
                                 rows={rows}
                                 columns={columns} 
+
                                 />
-                              
-                                <CertificatePatternView
-                                 open={open1}
-                                 setOpen={setOpen1}
-                             />
-                        
+            <CertificatePatternView
+                open1={open1}
+                setOpen1={setOpen1}
+                editData2={editData2}
+            />
         
                             </form>
                         </DialogContentText>
@@ -156,10 +160,9 @@ const CertificateModalView = ({ open, setOpen,  setRefresh , isView, editData}) 
                     </DialogActions>
                 </form>
             </Dialog>
+           
         </div>
-    )
-         
-         
+    )        
 }
 
 export default CertificateModalView;

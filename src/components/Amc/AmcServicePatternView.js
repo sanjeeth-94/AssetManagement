@@ -5,13 +5,11 @@ import { DialogContent, DialogContentText, DialogTitle, Typography } from '@mui/
 import { Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
+import { UpdateAmc } from '../../services/ApiServices';
 
-const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
-  const [rows, setRows] = useState([]);
-  
-  const [editData2, setEditData2] = useState('');
+const AmcServicePatternView = ({ open1, setOpen1,editData2,rows}) => {
+ 
   const [name,setName]=useState('');
-  
   const [vendorName,setVendorName]=useState('');
   const [periodFrom,setPeriodFrom]=useState('');
   const [periodTo,setPeriodTo]=useState('');
@@ -31,34 +29,66 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
   const [s5DateTo,sets5DateTo]=useState('');
   const [s5runHours, sets5runHours] = useState('');
   const [count,setCount]=useState('');
+  const [notification,setNotification]=useState('');
   const [servicePattern,setServicePattern]=useState('');
   const handleClose = () => {
-    setOpen(false);
+    setOpen1(false);
   };
 
 
   useEffect(()=>{
-    setVendorName(editData?.vendorName ||'');
-    setPeriodFrom(editData?.periodFrom ||'');
-    setPeriodTo(editData?.periodTo || '');
-    sets1DateFrom(editData?.s1DateFrom || '');
-    sets1DateTo(editData?.s1DateTo || '');
-    sets1runHours(editData?.s1runHours|| '');
-    sets2DateFrom(editData?.s2DateFrom || '');
-    sets2DateTo(editData?.s2DateTo || '');
-    sets2runHours(editData?.s2runHours|| '');
-    sets3DateFrom(editData?.s3DateFrom || '');
-    sets3DateTo(editData?.s3DateTo || '');
-    sets3runHours(editData?.s3runHours|| '');
-    sets4DateFrom(editData?.s4DateFrom || '');
-    sets4DateTo(editData?.s4DateTo || '');
-    sets4runHours(editData?.s4runHours|| '');
-    sets5DateFrom(editData?.s5DateFrom || '');
-    sets5DateTo(editData?.s5DateTo || '');
-    sets5runHours(editData?.s5runHours|| '');
-    setCount(editData?.servicePattern ||'0');
-    console.log('data'+editData?.lenght);
-  },[editData])
+    setVendorName(editData2?.vendorName ||'');
+    setPeriodFrom(editData2?.periodFrom ||'');
+    setPeriodTo(editData2?.periodTo || '');
+    sets1DateFrom(editData2?.serviceList?.s1startDate || '');
+    sets1DateTo(editData2?.serviceList?.s1endDate || '');
+    sets1runHours(editData2?.serviceList?.s1runHours|| '');
+    sets2DateFrom(editData2?.serviceList?.s2startDate || '');
+    sets2DateTo(editData2?.serviceList?.s2endDate|| '');
+    sets2runHours(editData2?.serviceList?.s2runHours|| '');
+    sets3DateFrom(editData2?.serviceList?.s3startDate || '');
+    sets3DateTo(editData2?.serviceList?.s3endDate || '');
+    sets3runHours(editData2?.serviceList?.s3runHours|| '');
+    sets4DateFrom(editData2?.serviceList?.s4startDate || '');
+    sets4DateTo(editData2?.serviceList?.s4endDate|| '');
+    sets4runHours(editData2?.serviceList?.s4runHours|| '');
+    sets5DateFrom(editData2?.serviceList?.s5startDate || '');
+    sets5DateTo(editData2?.serviceList?.s5endDate || '');
+    sets5runHours(editData2?.serviceList?.s5runHours|| '');
+    setCount(editData2?.servicePattern ||'0');
+    
+  },[editData2])
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(editData2);
+    UpdateAmc({
+      id: editData2.id,
+      
+    },handleSuccess, handleException)
+  }
+
+  const handleSuccess = (dataObject) => {
+    console.log(dataObject);
+    
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    });
+    
+  }
+
+  const handleException = (errorObject, errorMessage) => {
+    console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+  }
+ 
+  
 
   const handleChanges1DateFrom =(e) => {
     sets1DateFrom(e.target.value);
@@ -138,11 +168,11 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
   return (
     <div>
       <Dialog 
-      open={open}
+      open={open1}
    
       fullWidth
       maxWidth='lg'>
-        <form>
+        <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {"SERVICE DETAILS"}
           </DialogTitle>
@@ -195,6 +225,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges1DateFrom(e) }}
                         value={s1DateFrom}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -207,6 +238,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges1DateTo(e) }}
                         value={s1DateTo}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -220,6 +252,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         label=""
                         variant="outlined"
+                        onChange={(e) => { sets1runHours(e.target.value) }}
                         value={s1runHours}/>
                       </Grid>
                     </Grid>
@@ -239,6 +272,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges2DateFrom(e) }}
                         value={s2DateFrom}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -251,6 +285,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges2DateTo(e) }}
                         value={s2DateTo}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -264,6 +299,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         label=""
                         variant="outlined"
+                        onChange={(e) => { sets2runHours(e.target.value) }}
                         value={s2runHours}/>
                       </Grid>
                     </Grid>
@@ -283,6 +319,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges3DateFrom(e) }}
                         value={s3DateFrom}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -295,6 +332,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges3DateTo(e) }}
                         value={s3DateTo}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -308,6 +346,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         label=""
                         variant="outlined"
+                        onChange={(e) => { sets3runHours(e.target.value) }}
                         value={s3runHours}/>
                       </Grid>
                     </Grid>
@@ -327,6 +366,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges4DateFrom(e) }}
                         value={s4DateFrom}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -339,6 +379,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         variant="outlined"
                         type='date'
+                        onChange={(e) => { handleChanges4DateTo(e) }}
                         value={s4DateTo}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
@@ -352,6 +393,7 @@ const AmcServicePatternView = ({ open, setOpen,setOpen1,editData}) => {
                         id=""
                         label=""
                         variant="outlined"
+                        onChange={(e) => { sets5runHours(e.target.value) }}
                         value={s4runHours}/>
                       </Grid>
                     </Grid>

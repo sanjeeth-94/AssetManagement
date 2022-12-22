@@ -134,7 +134,7 @@ const InsuranceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   ];
   
   return (
-    <form style={{border:'solid' , borderColor:'whitesmoke'}}>
+    <form >
       <div style={{marginTop:'20px'}}>
         <Grid container spacing={2} style={{ marginTop: '20px', marginRight:'30px'}}>
           <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>

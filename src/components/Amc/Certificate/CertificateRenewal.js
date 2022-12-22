@@ -5,7 +5,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { ViewCertificateRenewal } from '../../../services/ApiServices';
 import RenevalCertificate from './RenevalCertificate';
 
-
 const CertificateRenewal = () => {
   const [open, setOpen] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
@@ -31,8 +30,6 @@ const CertificateRenewal = () => {
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
-      
-
       <EditData selectedRow={params.row} />,
     ],
     }
@@ -40,17 +37,15 @@ const CertificateRenewal = () => {
 
   function EditData({ selectedRow }) {
     return (
-        <label 
-        className='prbuton'
-        variant="contained"
-        color='primary'
-        onClick={() => {
-        
-            setEditData(selectedRow);
-            setOpen(true);
-
-        }}>
-          Reneval
+      <label 
+      className='prbuton'
+      variant="contained"
+      color='primary'
+      onClick={() => {
+        setEditData(selectedRow);
+        setOpen(true);
+      }}>
+        Reneval
         </label >
     )
   }
@@ -66,8 +61,7 @@ const CertificateRenewal = () => {
   }
   
   const handleViewCertificateRenewalError=(errorStaus, errorMessage)=>{
-    console.log(errorMessage)
-      
+    console.log(errorMessage)  
   }
    
   return (
@@ -86,12 +80,9 @@ const CertificateRenewal = () => {
           </Box>
         </div>
         <RenevalCertificate
-      open={open}
-      setOpen={setOpen}
-      editData={editData}
-      />
-
-
+        open={open}
+        setOpen={setOpen}
+        editData={editData}/>
       </form>
     </div>
   )
