@@ -25,13 +25,13 @@ import { CertificateAddService,
 const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   const [vendorName, setVendorName] = useState(editData?.vendorId || '');
   const [vendorNameList, setVendorNameList] = useState([]);
-  const [venderAddress ,setVenderAddress]= useState(editData?.venderAddress || '');
+  const [venderAddress ,setVenderAddress]= useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailId, setEmailId] = useState('');
-  const [premiumCost ,setPremiumCost]= useState( editData?.premiumCost || '');
-  const [certificateDoc ,setcertificateDoc]= useState();
-  const [inspectionPattern ,setinspectionPattern]= useState();
-  const [department, setDepartment] = useState(editData?.department|| '');
+  const [premiumCost ,setPremiumCost]= useState('');
+  const [certificateDoc ,setcertificateDoc]= useState('');
+  const [inspectionPattern ,setinspectionPattern]= useState('');
+  const [department, setDepartment] = useState('');
   const [section, setSection] = useState('');
   const [sectionList, setSectionList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
@@ -53,6 +53,7 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   const [c5DateFrom, setc5DateFrom] = useState('');
   const [c5DateTo, setc5DateTo] = useState('');
   const [rows, setRows]=useState([]);
+  const [assetName,setAssetName] =useState('');
   const handleClose = () => {
     setOpen(false);
   };
@@ -128,14 +129,43 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
     FetchVenderService(handleFetchVender, handleFetchVenderException);
     setVendorName(editData?.vendorId || '');
     setPremiumCost(editData?.premiumCost || '');
-    setDepartment(editData?.departmentId || '');
     setSection(editData?.sectionsId || '' );
     setAssetType(editData?.assetType || '');
+    setPhoneNumber(editData?.phoneNumber || '');
+    setEmailId(editData?.emailId||'');
+    setcertificateDate(editData?.certificateDate ||'');
+    setexpireDate(editData?.expireDate ||'');
+    setPremiumCost(editData?.premiumCost ||'');
+    setcertificateDoc(editData?.certificateDoc ||'');
+    setinspectionPattern (editData?.inspectionPattern||'');
+    setc1DateFrom(editData?.c1DateFrom||'');
+    setc1DateTo(editData?.c1DateTo ||'');
+    setc2DateFrom(editData?.c2DateFrom ||'');
+    setc2DateTo(editData?.c2DateTo ||'');
+    setc3DateFrom(editData?.c3DateFrom||'');
+    setc3DateTo(editData?.c3DateTo ||'');
+    setc4DateFrom(editData?.c4DateFrom ||'');
+    setc4DateTo(editData?.c4DateTo ||'');
+    setc5DateFrom(editData?.c5DateFrom ||'');
+    setc5DateTo(editData?.c5DateTo ||'');
+    setAssetName(editData?.assetName ||'');
+    setVendorNameList(editData?.vendorNameList ||[]);
+    setSectionList(editData?.sectionList ||[]);
+    setAssetList(editData?.assetList ||[]);
+    setAssetNameList(editData?.assetNameList ||[]);
     console.log("data"+editData?.assetTypesId);
+
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
+    setDepartment(editData?.departmentId || '');
+    if(editData?.department)
+    {
+      FetchSectionService({
+        id:editData?.department
+      }, handleFetchDepartmentSuccess, handleFetchDepartmentException);
+    }
   }
   
   const handleFetchException = (errorStaus, errorMessage) => {
@@ -159,6 +189,7 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   
   const handleFetchDepartmentSuccess = (dataObject) => {
     setSectionList(dataObject.data);
+    
   }
   
   const handleFetchDepartmentException = (errorStaus, errorMessage) => {
@@ -174,6 +205,12 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   
   const handleFetchAssetTypeServiceSuccess = (dataObject) => {
     setAssetList(dataObject.data);
+    if(editData?.assetTypesId)
+    {
+      FetchAssetNameService({
+        id: editData?.assetTypesId
+      }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
+    }
   }
   
   const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
@@ -280,6 +317,7 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
       type: 'success',
       message: dataObject.message,
     });
+    
   }
   
   const handleException = (errorObject, errorMessage) => {
@@ -332,7 +370,7 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
                         label=""
                         value={vendorName}
                         onChange={(e) => onVenderChange(e)}>
-                          {vendorNameList.map((data, index) => {
+                          {vendorNameList?.map((data, index) => {
                             return (
                               <MenuItem value={data.vendorId} key={index}>{data.vendorName}</MenuItem>
                             )
@@ -441,13 +479,14 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
                     <Grid item xs={12} sm={6} md={4} lg={4}xl={4}>
                       <Box>
                         <FormControl fullWidth>
-                          <InputLabel id="demo-simple-select-label"></InputLabel>
+                          <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                           <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          label=""
+                          label="Select Department"
+                          value={department}
                           onChange={(e) => onDepartmentChange(e)}>
-                            {departmentList.map((data, index) => {
+                            {departmentList?.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                               )
@@ -654,6 +693,7 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={section}
                           onChange={(e) => onSectionChange(e)}>
                             {sectionList.map((data, index) => {
                               return (
@@ -675,6 +715,7 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={assetType}
                           onChange={(e) => onAssetTypeChange(e)}>
                             {assetList.map((data, index) => {
                               return (
@@ -698,6 +739,7 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={assetName}
                           onChange={(e) => onAssetChange(e)}>
                             {assetNameList.map((data, index) => {
                               return (
