@@ -24,13 +24,8 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [department, setDepartment] = useState(editData?.department || '');
   const [employeeId, setEmployeeId] = useState('');
   const [employeeName, setemployeeNamed] = useState('');
-  const [designation, setdesignation] = useState('');
-  const [mobile_number, setmobile_number] = useState('');
   const [employeeIdList,setEmployeeIdList] = useState([]);
-  const [emailId, setemailId] = useState('');
   const [userName, setUserName] = useState('');
-  const [password, setpassword] = useState('');
-  const [auditdate,setAuditDate] = useState('');
   const [sectionList, setSectionList]=useState([]);
   const [section, setSection]=useState('');
   const [assetTypeList, setAssetTypeList]=useState([]);
@@ -41,7 +36,6 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [temporary, setTemporary] = useState("temporary");
   const [tempFromDate , setTempFromDate] = useState('');
   const [tempToDate , setTempToDate] = useState('');
-  const [employeeNameList,setEmployeeNameList]= useState([]);
   const [userDepartmentList, setUserDepartmentList]=useState([]);
   const [ userNameList,   setUserNameList]=useState([]);
   const [userDepartment,setUserDepartment]=useState();
@@ -57,9 +51,9 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setDepartment(editData?.departmentId || '');
     setSection(editData?.sectionsId || '');  
     setAssetType(editData?.assetTypesId || '');
-    setAssetName(editData?.assetId || '');
+    setAssetName(editData?.assetNameId  || '');
     setUserDepartment(editData?.departmentId || '');
-    setEmployeeId(editData?.EmpId || '');
+    setEmployeeId(editData?.empId || '');
     setemployeeNamed(editData?.user || '' );
     setTempFromDate(editData?.fromDate || '');
     setTempToDate(editData?.toDate || '');
@@ -108,6 +102,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     }
  }
  const handleFetchAssetNameServiceEdit=(dataObject)=>{
+
   setAssetNameList(dataObject.data);
  }
  const handleFetchAssetNameServiceException=(errorStaus, errorMessage)=> {
@@ -203,14 +198,23 @@ const onEmployeeChange=(e)=>{
 }
 const handelEmployeeName=(dataObject)=>{
   setemployeeNamed(dataObject.empName);
-
 }
 const handelEmployeeNameException=(errorObject, errorMessage) =>{
   console.log(errorMessage);
 }
 
   const handleClose = () => {
-    setOpen(false);  
+    setOpen(false); 
+    setDepartment('');
+    setSection('');  
+    setAssetType('');
+    setAssetName('');
+    setUserDepartment('');
+    setEmployeeId('');
+    setUserName('');
+    setTempFromDate('');
+    setTempToDate(''); 
+    setemployeeNamed('');
   };
   
   const onChangeUserName=(e)=>{
@@ -272,7 +276,7 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
     setUserName('');
     setTempFromDate('');
     setTempToDate('');
-
+    setemployeeNamed('');
   }
   
   const handleException = (errorObject, errorMessage) =>{
@@ -282,6 +286,19 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
       type: 'error',
       message:errorMessage,
     });
+    setDepartment('');
+    setSection('');  
+    setAssetType('');
+    setAssetName('');
+    setUserDepartment('');
+    setEmployeeId('');
+    setUserName('');
+    setTempFromDate('');
+    setTempToDate('');
+    setemployeeNamed('');
+  }
+  const onUserChange=(e)=>{
+    setemployeeNamed(e.target.value);
   }
   
   const handleCloseNotify = () => {
@@ -292,10 +309,7 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
       message: '',
     });
   }; 
-  const  onUerChange=(e)=>
-  {
-    setUserName(e.target.value);
-  }
+ 
   return (
     <div>
       <Dialog
@@ -311,24 +325,24 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                 <Grid container spacing={2} style={{display:'box', }}> 
                 <Grid container item xs={12} sm={12} md={5} lg={5} xl={5}  style={{display:'box',border:'solid',marginTop:'30px',marginBottom:'20px'}}>
                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                   style={{alignSelf:'center', textAlign:'center'}}
+                    style={{alignSelf:'center', textAlign:'center'}}
                   >
                   <h2 >ASSET</h2>
                   <hr/>
                   </Grid>
                   <Grid container>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                  <label >Department : </label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                <FormControl fullWidth>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                    style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                    <label >Department : </label>
+                    </Grid>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                    style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <FormControl fullWidth>
                         <InputLabel id="departmentlabel">Select Department</InputLabel>
                         <Select
-                       
+                      
                         label="Select Department"
                         value={department}
                         onChange={(e) => onDepartmentChange(e)}>
@@ -340,18 +354,18 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           })}
                         </Select>
                       </FormControl>
-                  </Grid>
+                    </Grid>
                   </Grid>
                   <Grid container style={{marginTop:'10px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                 <label >Section : </label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                  <FormControl fullWidth>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                    style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <label >Section : </label>
+                    </Grid>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <FormControl fullWidth>
                         <InputLabel id="sectionList">Select section</InputLabel>
                         <Select
                         labelId="sectionList"
@@ -367,256 +381,252 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
                           })}
                         </Select>
                       </FormControl>
-                  </Grid>
-                  </Grid>
-                  <Grid container style={{marginTop:'10px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                   <label >Asset Type : </label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                  <FormControl fullWidth>
-                        <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
-                        <Select
-                        labelId="assetTypeList"
-                        id='assetType'
-                        label="Select Asset Type"
-                        value={assetType}
-                        onChange={(e) => onAssetTypeChange(e)}>
-                          {
-                            assetTypeList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
-                            )
-                          })}
-                        </Select>
-                      </FormControl>
-                  </Grid>
+                    </Grid>
                   </Grid>
                   <Grid container style={{marginTop:'10px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                   <label >Asset Name:</label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                  <FormControl fullWidth>
-                        <InputLabel >Select Asset Name</InputLabel>
-                        <Select
-                      
-                        label="Select Asset Name"
-                        value={assetName}
-                        onChange={(e) => onAssetNameChange(e)}>
-                          {
-                            assetNameList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
-                            )
-                          })}
-                        </Select>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <label >Asset Type : </label>
+                    </Grid>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <FormControl fullWidth>
+                            <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
+                            <Select
+                            labelId="assetTypeList"
+                            id='assetType'
+                            label="Select Asset Type"
+                            value={assetType}
+                            onChange={(e) => onAssetTypeChange(e)}>
+                              {
+                                assetTypeList.map((data, index) => {
+                                return (
+                                  <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                )
+                              })}
+                            </Select>
                       </FormControl>
+                    </Grid>
+                  </Grid>
+                  <Grid container style={{marginTop:'10px'}}>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <label >Asset Name:</label>
+                    </Grid>
+                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                    style={{alignSelf:'center', textAlign:'center', marginBottom:'20px'}}
+                    >
+                      <FormControl fullWidth>
+                          <InputLabel >Select Asset Name</InputLabel>
+                          <Select
+                        
+                          label="Select Asset Name"
+                          value={assetName}
+                          onChange={(e) => onAssetNameChange(e)}>
+                            {
+                              assetNameList.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                              )
+                            })}
+                          </Select>
+                      </FormControl>
+                    </Grid>
                   </Grid>
                   </Grid>
-                </Grid>
-                
-                <Grid container spacing={2} item xs={12} sm={9} md={4} lg={4} xl={4}  style={{display:'box',marginLeft:'10%',border:'solid',marginTop:'30px',marginBottom:'20px'}}>
-                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                    <h2 style={{marginLeft:'200px'}}>User</h2>
-                    <hr/>
-                  </Grid>
-                  <Grid container>
-                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                 <FormControl>
+                  <Grid container spacing={2} item xs={12} sm={9} md={4} lg={4} xl={4}  style={{display:'box',marginLeft:'10%',border:'solid',marginTop:'30px',marginBottom:'20px'}}>
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                      style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <h2 style={{marginLeft:'100px'}}>User</h2>
+                      <hr/>
+                    </Grid>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                        style={{alignSelf:'center', textAlign:'center'}}
+                      >
+                        <FormControl>
+                          <RadioGroup
+                            row
+                              onChange={onChangeRedio}
+                            value={user}
+                            >
+                              <FormControlLabel value="EmpId" control={<Radio />} label="Emp Id" />
+                              <FormControlLabel value="Department" control={<Radio />} label="Department" />
+                          </RadioGroup>
+                        </FormControl>
+                      </Grid>
+                    {
+                        user ==='EmpId' &&
+                        <>
+                          <Grid container spacing={2} style={{marginTop:'5px',marginLeft:'10px'}}>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                              <label >Emp Id: </label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                              style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                            <FormControl fullWidth>
+                                <InputLabel id="departmentlabel">Select Employee Id</InputLabel>
+                                  <Select
+                                    labelId="departmentlabel"
+                                    id='department'
+                                    label="Select Employee Id"
+                                    value={employeeId}
+                                    onChange={(e) => onEmployeeChange(e)}>
+                                      {
+                                        employeeIdList?.map((data, index) => {
+                                        return (
+                                          <MenuItem value={data.employee_id} key={index}>{data.employee_id}</MenuItem>
+                                        )
+                                      })}
+                                  </Select>
+                              </FormControl>
+                            </Grid>
+                            </Grid>
+                          <Grid container style={{marginTop:'5px',marginLeft:'10px'}}>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                              style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                              <label >Emp Name: </label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                              style={{alignSelf:'center', textAlign:'center',marginLeft:'10px'}}
+                            >
+                              <TextField
+                                fullWidth
+                                label='Emp Name'
+                                variant="outlined" 
+                                value={employeeName}
+                              />
+                            </Grid>
+                          </Grid>
+                        </>
+                    }{
+                        user !=='EmpId' &&
+                        <>
+                          <Grid container style={{marginTop:'5px',marginLeft:'10px'}}>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                            <label >Department: </label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                              style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                              <FormControl fullWidth>
+                                <InputLabel id="departmentlabel">Select Department</InputLabel>
+                                <Select
+                                labelId="departmentlabel"
+                                id='department'
+                                label="Select Department"
+                                value={userDepartment}
+                                onChange={(e) => onUerDepartmentChange(e)}>
+                                  {
+                                      userDepartmentList.map((data, index) => {
+                                      return (
+                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                    )
+                                  })}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                          </Grid>
+                          <Grid container style={{marginTop:'10px',marginLeft:'10px'}}>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                            <label >Uesr: </label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                              style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                              <FormControl fullWidth>
+                                <InputLabel id="departmentlabel">Select User</InputLabel>
+                                <Select
+                                labelId="departmentlabel"
+                                id='department'
+                                label="Select user"
+                                value={employeeName}
+                                onChange={(e) => onUserChange(e)}>
+                                  {
+                                      userNameList.map((data, index) => {
+                                      return (
+                                        <MenuItem value={data.user_name} key={index}>{data.user_name}</MenuItem>
+                                    )
+                                  })}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                          </Grid>
+                        </>
+                    }
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                       style={{alignSelf:'center', textAlign:'center'}}
+                    >
+                      <FormControl>
                         <RadioGroup
-                        row
-                          onChange={onChangeRedio}
-                        value={user}
+                          row                   
+                          onChange={onChangeTemporary}
+                          value={temporary}
                         >
-                          <FormControlLabel value="EmpId" control={<Radio />} label="Emp Id" />
-                          <FormControlLabel value="Department" control={<Radio />} label="Department" />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                  {
-                      user ==='EmpId' &&
+                          <FormControlLabel value="temporary" control={<Radio />} label="Temporary" />
+                          <FormControlLabel value="permanent" control={<Radio />} label="Permanent" />
+                        </RadioGroup>
+                      </FormControl>
+                    </Grid>
+                    {
+                      temporary === 'temporary' &&
                       <>
-                   <Grid container style={{marginTop:'5px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                    <label >Emp Id: </label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                  <FormControl fullWidth>
-                      <InputLabel id="departmentlabel">Select Employee Id</InputLabel>
-                      <Select
-                      labelId="departmentlabel"
-                      id='department'
-                      label="Select Employee Id"
-                      value={employeeId}
-                      onChange={(e) => onEmployeeChange(e)}>
-                        {
-                          employeeIdList?.map((data, index) => {
-                          return (
-                            <MenuItem value={data.employee_id} key={index}>{data.employee_id}</MenuItem>
-                          )
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  </Grid>
-                  <Grid container style={{marginTop:'5px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                 <label >Emp Name: </label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                    <TextField 
-                          variant="outlined" 
-                          value={employeeName}
-                    />
-                  </Grid>
-                  </Grid>
+                        <Grid container style={{marginTop:'10px',marginLeft:'10px'}}>
+                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                          style={{alignSelf:'center', textAlign:'center'}}
+                          >
+                            <label >From:</label>
+                          </Grid>
+                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                          style={{alignSelf:'center', textAlign:'center'}}
+                          >
+                          <TextField 
+                                  fullWidth
+                                  id="outlined-basic"  
+                                  type='date' 
+                                  variant="outlined" 
+                                  value={tempFromDate}
+                                  onChange={(e)=>setTempFromDate(e.target.value)}
+                                  />
+                          </Grid>
+                        </Grid>
+                        <Grid container style={{marginTop:'10px',marginLeft:'10px',marginBottom:'20px'}}>
+                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                          style={{alignSelf:'center', textAlign:'center'}}
+                          >
+                            <label >to:</label>
+                          </Grid>
+                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                        style={{alignSelf:'center', textAlign:'center',marginBotton:'20px'}}
+                        >
+                        <TextField fullWidth 
+                                id="outlined-basic"  
+                                type='date' 
+                                variant="outlined" 
+                                value={tempToDate}
+                                onChange={(e)=>setTempToDate(e.target.value)}
+                                />
+                          
+                        </Grid>
+                        </Grid>
                       </>
-                  }{
-                    user !=='EmpId' &&
-                    <>
-                    
-                      <Grid container style={{marginTop:'5px'}}>
-                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                      style={{alignSelf:'center', textAlign:'center'}}
-                      >
-                      <label >Department: </label>
-                      </Grid>
-                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                      style={{alignSelf:'center', textAlign:'center'}}
-                      >
-                        <FormControl fullWidth>
-                          <InputLabel id="departmentlabel">Select Department</InputLabel>
-                          <Select
-                          labelId="departmentlabel"
-                          id='department'
-                          label="Select Department"
-                          value={userDepartment}
-                          onChange={(e) => onUerDepartmentChange(e)}>
-                            {
-                                userDepartmentList.map((data, index) => {
-                                return (
-                                  <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                              )
-                            })}
-                          </Select>
-                        </FormControl>
-                      </Grid>
-                      </Grid>
-                      <Grid container style={{marginTop:'10px'}}>
-                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                      style={{alignSelf:'center', textAlign:'center'}}
-                      >
-                      <label >Uesr: </label>
-                      </Grid>
-                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                      style={{alignSelf:'center', textAlign:'center'}}
-                      >
-                        <FormControl fullWidth>
-                          <InputLabel id="departmentlabel">Select User</InputLabel>
-                          <Select
-                          labelId="departmentlabel"
-                          id='department'
-                          label="Select user"
-                          value={userName}
-                          onChange={(e) => onUerChange(e)}>
-                            {
-                                userNameList.map((data, index) => {
-                                return (
-                                  <MenuItem value={data.id} key={index}>{data.user_name}</MenuItem>
-                              )
-                            })}
-                          </Select>
-                        </FormControl>
-                      </Grid>
-                      </Grid>
-
-                    </>
-                  }
-                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                     <FormControl>
-                      <RadioGroup
-                      row                   
-                      onChange={onChangeTemporary}
-                      value={temporary}
-                      >
-                        <FormControlLabel value="temporary" control={<Radio />} label="Temporary" />
-                        <FormControlLabel value="permanent" control={<Radio />} label="Permanent" />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                  {
-                     temporary === 'temporary' &&
-                     <>
-                     
-                      <Grid container style={{marginTop:'10px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                    <label >From:</label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                  <TextField 
-                          fullWidth
-                          id="outlined-basic"  
-                          type='date' 
-                          variant="outlined" 
-                          value={tempFromDate}
-                          onChange={(e)=>setTempFromDate(e.target.value)}
-                          />
-                  </Grid>
-                  </Grid>
-                  <Grid container style={{marginTop:'10px'}}>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center'}}
-                  >
-                     <label >to:</label>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
-                   style={{alignSelf:'center', textAlign:'center',marginBotton:'20px'}}
-                  >
-                   <TextField fullWidth 
-                          id="outlined-basic"  
-                          type='date' 
-                          variant="outlined" 
-                          value={tempToDate}
-                          onChange={(e)=>setTempToDate(e.target.value)}
-                          />
-                     
-                  </Grid>
-                  </Grid>
-                     </>
-                  }
+                    }
+                    </Grid>
                   </Grid>
                 </Grid>
-                </Grid>
-                
               </div>
-           
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -627,10 +637,11 @@ const handelEmployeeNameException=(errorObject, errorMessage) =>{
             </Button>
           </div>
           <NotificationBar
-          handleClose={handleCloseNotify}
-          notificationContent={openNotification.message}
-          openNotification={openNotification.status}
-          type={openNotification.type}/>
+            handleClose={handleCloseNotify}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}
+          />
         </DialogActions>
       </form>
     </Dialog>

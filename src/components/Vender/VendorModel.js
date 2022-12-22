@@ -234,6 +234,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <TextField 
                       fullWidth
                       multiline
+                      label="Address"
                       onChange={(e) => { setAddress(e.target.value) }}
                       value={address}
                   />
@@ -423,7 +424,7 @@ const VendorModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
                   <TextField
                       fullWidth
-                      label="MSME Certificate<"
+                      label="MSME Certificate"
                       onChange={(e) => {
                         if (e.target.files && e.target.files.length > 0) {
                           const reader = new FileReader();

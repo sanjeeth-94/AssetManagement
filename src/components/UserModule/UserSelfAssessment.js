@@ -53,12 +53,13 @@ const handleClose=()=>{
         },handleFetchUpdateSelfAssessment,handleFetchUpdateSelfAssessmentException);
     }
 const handleFetchUpdateSelfAssessment=(dataObject)=>{
-console.log(dataObject);
-setNotification({
-  status: true,
-  type: 'success',
-  message: dataObject.message,
-});
+    console.log(dataObject);
+    setRefresh(oldValue => !oldValue);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+  });
 }
 const handleFetchUpdateSelfAssessmentException=(errorStatus, errorMessage)=>{
   console.log(errorMessage);

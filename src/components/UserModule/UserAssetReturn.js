@@ -28,9 +28,7 @@ const [openNotification, setNotification] = useState({
     }
     const onSubmit=(e)=>{
         e.preventDefault();
-       
-            setRequestedReturnAsset(1);
-      
+        setRequestedReturnAsset(1);
         FetchUpdateReturnAssetService({
             id:editData.id,
             updateReturnAsset:reson,

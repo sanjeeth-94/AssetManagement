@@ -23,8 +23,8 @@ const UserAssetList = () => {
     }
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 40 },
-        { field: 'departmentName', headerName: 'Department', width: 100 },
-        { field: 'sectionName', headerName: 'Section', width: 100 },
+        { field: 'department', headerName: 'Department', width: 100 },
+        { field: 'section', headerName: 'Section', width: 100 },
         { field: 'assetName', headerName: 'Machine', width: 100 },
         { field: 'assetTypeName', headerName: 'Asset Type', width: 120 },
         { field: 'manufacturer', headerName: 'Manufacturer', width: 120 },

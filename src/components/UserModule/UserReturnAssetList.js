@@ -19,7 +19,7 @@ const UserReturnAssetList = () => {
 
     const columns = [
         { field: 'id', headerName: 'Serial No', width: 200 },
-        { field: 'assetName ', headerName: 'Asset Name', width: 220 },
+        { field: 'assetName', headerName: 'Asset Name', width: 220 },
         {field: 'action', headerName: 'Action', width: 200, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
@@ -62,7 +62,7 @@ const UserReturnAssetList = () => {
     useEffect(()=>{
         FetchShowReturnAssetService(handleFetchShowReturnAsset,handleFetchShowReturnAssetException);
     },[refresh])
- 
+
     const handleFetchShowReturnAsset=(dataObject)=>{
         setLoading(false);
         setRows(dataObject.data);

@@ -1,6 +1,6 @@
 import DashBoard from './dashBord/DashBoard'
 import Login from './login/Login';
-import {Navigate, Outlet, Route,Routes, useNavigate,} from 'react-router-dom';
+import {HashRouter as Router, Navigate, Outlet, Route,Routes, useNavigate,} from 'react-router-dom';
 import Main from './components/mian/Main';
 import AssetTab from './components/Asset/AssetTab';
 import AuditTab from './components/Audit/AuditTab';
@@ -37,7 +37,7 @@ import UserMangaeServiceList from './components/UserModule/UserMangaeServiceList
 import UserReturnAssetList from './components/UserModule/UserReturnAssetList';
 
 function App() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // useEffect(()=>{
   //   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
   //   return !userDetails?.access_token? navigate('/login' ) : navigate('/main')
@@ -55,49 +55,51 @@ function App() {
   }
   
   return (
-    <Routes>
-      <Route path="/login"  element={<Login/>}/> 
-      <Route element={<ProtectedRoutes/>}>
-        <Route path="/" element={<DashBoard/>}>
-          <Route path="/main" element={<Main/>}/>
-          <Route path="/asset" element={<AssetTab />}/>
-          <Route path='/audit' element={<AuditTab/>}/>
-          <Route path='/amc' element={<AmcTab/>}/>
-          <Route path='/maintenanceschedule' element={<MaintenanceSchedule/>}/>
-          <Route path='/maintainceaproval' element={<MaintenanceSchedulList/>}/>
-          <Route path='/maintaincestatus' element={<MaintenanceTab/>}/>
-          <Route path='/alloction' element={<AllocationTab/>}/>
-          <Route path='/servicerequest' element={<ServiceRequestList/>}/>
-          <Route path='/vender' element={<VenderAdd/>}/>
-          <Route path='/user' element={<UserList/>}/>
-          <Route path='/logout' element={<MaintenanceTab/>}/>
-          <Route path='/servicedue' element={<Servicedue/>}/>
-          <Route path='/tagassettable' element={<Tagassettable/>}/>
-          <Route path='/untagassettable' element={<Untagassettable/>}/>
-          <Route path='/WarrantyDue' element={<WarrantyDue/>}/>
-          <Route path='/amcTab' element={<AmcTab/>}/>
-          <Route path='/maintenanceSchedulList' element={<MaintenanceSchedulList/>}/>
-          <Route path='/certificate' element={<Certificate/>}/>
-          <Route path='/InsepectionDueList' element={<InspectionDueList/>}/>
-          <Route path='/InspectionDue' element={<InspectionDue/>}/>
-          <Route path='/Amcdue' element={< Amcdue/>}/>
-          <Route path='/CertificateDue' element={<CertificateDue/>}/>
-          <Route path='/Insurancedue' element={<Insurancedue/>}/>
-          <Route path='/Transferdue' element={<Transferdue/>}/>
-          <Route path='/Auditdue' element={<Auditdue/>}/>
-          <Route path='/Eol' element={<Eol/>}/>
-          <Route path='/Notinuse' element={<Notinuse/>}/>
-          <Route path='/Damage' element={<Damage/>}/>
-          <Route path='/Transfer' element={<Transfer/>}/>
-          <Route path='/Inservice' element={<Inservice/>}/>
-          <Route path='/Sale' element={<Sale/>}/>
-          <Route path='/Scrap' element={<Scrap/>}/>
-          <Route path='/userAssetList' element={<UserAssetList/>}/>
-          <Route path='/UserManageServiceList' element={<UserMangaeServiceList/>}/>
-          <Route path='/UserRetureAsset' element={<UserReturnAssetList/>}/>
-        </Route> 
-      </Route>
-    </Routes> 
+    <Router>
+      <Routes>
+        <Route path="/login"  element={<Login/>}/> 
+        <Route element={<ProtectedRoutes/>}>
+          <Route path="/" element={<DashBoard/>}>
+            <Route path="/main" element={<Main/>}/>
+            <Route path="/asset" element={<AssetTab />}/>
+            <Route path='/audit' element={<AuditTab/>}/>
+            <Route path='/amc' element={<AmcTab/>}/>
+            <Route path='/maintenanceschedule' element={<MaintenanceSchedule/>}/>
+            <Route path='/maintainceaproval' element={<MaintenanceSchedulList/>}/>
+            <Route path='/maintaincestatus' element={<MaintenanceTab/>}/>
+            <Route path='/alloction' element={<AllocationTab/>}/>
+            <Route path='/servicerequest' element={<ServiceRequestList/>}/>
+            <Route path='/vender' element={<VenderAdd/>}/>
+            <Route path='/user' element={<UserList/>}/>
+            <Route path='/logout' element={<MaintenanceTab/>}/>
+            <Route path='/servicedue' element={<Servicedue/>}/>
+            <Route path='/tagassettable' element={<Tagassettable/>}/>
+            <Route path='/untagassettable' element={<Untagassettable/>}/>
+            <Route path='/WarrantyDue' element={<WarrantyDue/>}/>
+            <Route path='/amcTab' element={<AmcTab/>}/>
+            <Route path='/maintenanceSchedulList' element={<MaintenanceSchedulList/>}/>
+            <Route path='/certificate' element={<Certificate/>}/>
+            <Route path='/InsepectionDueList' element={<InspectionDueList/>}/>
+            <Route path='/InspectionDue' element={<InspectionDue/>}/>
+            <Route path='/Amcdue' element={< Amcdue/>}/>
+            <Route path='/CertificateDue' element={<CertificateDue/>}/>
+            <Route path='/Insurancedue' element={<Insurancedue/>}/>
+            <Route path='/Transferdue' element={<Transferdue/>}/>
+            <Route path='/Auditdue' element={<Auditdue/>}/>
+            <Route path='/Eol' element={<Eol/>}/>
+            <Route path='/Notinuse' element={<Notinuse/>}/>
+            <Route path='/Damage' element={<Damage/>}/>
+            <Route path='/Transfer' element={<Transfer/>}/>
+            <Route path='/Inservice' element={<Inservice/>}/>
+            <Route path='/Sale' element={<Sale/>}/>
+            <Route path='/Scrap' element={<Scrap/>}/>
+            <Route path='/userAssetList' element={<UserAssetList/>}/>
+            <Route path='/UserManageServiceList' element={<UserMangaeServiceList/>}/>
+            <Route path='/UserRetureAsset' element={<UserReturnAssetList/>}/>
+          </Route> 
+        </Route>
+      </Routes> 
+    </Router>
   );
 }
 

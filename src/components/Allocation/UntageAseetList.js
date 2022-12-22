@@ -120,52 +120,52 @@ const UntageAseetList = () => {
         <form onSubmit={onSubmit}>
             <Grid container>
                 <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                style={{alignSelf:'center',textAlign:'center'}}
+                 style={{alignSelf:'center',textAlign:'center'}}
                 >
-                <h3 > UNTAG ASSET</h3>
+                    <h3 > UNTAG ASSET</h3>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
                 style={{alignSelf:'center',textAlign:'center'}}
                 >
-                <Button 
-                style={{
-                        marginLeft:'53%',
-                        width:'120px',
-                        height:'30px',
-                        marginTop:'20px', 
-                        alignSelf:'center'
-                    }} variant="outlined" 
-                onClick={ handleModalOpen}>
-                UNTAG ASSET
-            </Button>
+                    <Button 
+                    style={{
+                            marginLeft:'53%',
+                            width:'120px',
+                            height:'30px',
+                            marginTop:'20px', 
+                            alignSelf:'center'
+                        }} variant="outlined" 
+                    onClick={ handleModalOpen}>
+                    UNTAG ASSET
+                    </Button>
                 </Grid>
             </Grid>
             <hr style={{ bottom: 'solid' }} />
             <Grid container spacing={2}  style={{marginLeft:'20px', marginTop:'30px'}}>               
-                <Grid item xs={12} sm={6} md={2} lg={1} xl={3}
+                <Grid item xs={12} sm={4} md={2} lg={1} xl={3}
                     style={{
                         alignSelf: 'center',
                         textAlignLast: 'center'
-                    }}>
-                <label >Date From :</label>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={1} xl={3}
-                style={{
-                    alignSelf: 'center',
-                    textAlignLast: 'center'
                 }}>
-                <label > To</label>
+                    <label >Date From :</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
+                    <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
+                </Grid>
+                <Grid item xs={12} sm={4} md={3} lg={1} xl={3}
+                    style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center'
+                }}>
+                    <label > To</label>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                style={{
-                    alignSelf: 'center',
-                    textAlignLast: 'center'
+                    style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center'
                 }}>
 
                 <Button variant="contained" style={{height:'40px', width:'100px'}} type='submit'>View</Button>
@@ -173,10 +173,10 @@ const UntageAseetList = () => {
             </Grid>
             <Grid container spacing={2} >
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                style={{ height: '250px', marginTop: '10px' }}>
-                <DataGrid
-                        rows={rows}
-                        columns={columns} />
+                    style={{ height: '250px', marginTop: '10px' }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns} />
                 </Grid>
                 <Grid style={{marginTop:'10px',marginLeft:'20px'}}>
                 <Button variant="contained" onClick={(e)=>{onClickExport(e)}}>Export</Button>

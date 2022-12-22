@@ -121,6 +121,11 @@ const AuditModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     ) : (
       AuditUpdateService({
         id: editData.id,
+        auditDate:auditDate,
+        department:department,
+        section:section,
+        assetType:assetType,
+        auditName:auditName,
       }, handleSuccess, handleException)
     );
   }

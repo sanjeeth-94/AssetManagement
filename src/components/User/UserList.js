@@ -165,6 +165,7 @@ const UserList = (props) => {
                 isAdd={isAdd}
                 editData={editData}
                 setRefresh={setRefresh}
+                refresh={refresh}
             />
                  <NotificationBar
                     handleClose={handleClose}

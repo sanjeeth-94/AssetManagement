@@ -14,7 +14,7 @@ import NotificationBar from '../../services/NotificationBar';
 import { UserAddService, UserUpdateService, FetchDepaertmentService, FetchUserIdService } from '../../services/ApiServices';
 import { Grid } from '@mui/material';
 
-const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+const UserModel = ({ open, setOpen, isAdd, editData, setRefresh,refresh }) => {
   const [departmentList, setDepartmentList] = useState([]);
   const [department, setDepartment] = useState('');
   const [employeeId, setemployeeId] = useState('');
@@ -39,16 +39,16 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     FetchUserIdService(handleFetchUserIdService,handleFetchUserIdServiceException);
-    setemployeeId(editData.employee_id || '');
-    setemployeeNamed(editData.employee_name || '');
-    setDepartment(editData.departmentId || '');
-    setdesignation(editData.designation || '');
-    setemailId(editData.email || '');
-    setmobile_number(editData.mobile_number || '');
-    setuserName(editData.user_name || '');
-    setpassword(editData.password || '');
-    setUserRole(editData.userType || '');
-  }, [editData]);
+    
+    setemployeeNamed(editData?.employee_name || '');
+    setDepartment(editData?.departmentId || '');
+    setdesignation(editData?.designation || '');
+    setemailId(editData?.email || '');
+    setmobile_number(editData?.mobile_number || '');
+    setuserName(editData?.user_name || '');
+    setpassword(editData?.password || '');
+    setUserRole(editData?.userType || '');
+  }, [editData,refresh]);
 
   const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
@@ -58,8 +58,16 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     console.log(errorMessage);
   }
 
-  const handleFetchUserIdService=(dataObject)=>{
-    setemployeeId(dataObject.data);
+  const handleFetchUserIdService = (dataObject)=>{
+    if(editData?.employee_id)
+    {
+      setemployeeId(editData?.employee_id || '');
+    }
+    else
+    {
+      setemployeeId(dataObject.data);
+    }
+    
   }
   const handleFetchUserIdServiceException=(errorStaus, errorMessage) => {
     console.log(errorMessage);
@@ -71,6 +79,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setRefresh(oldValue => !oldValue);
     setemployeeId('');
     setemployeeNamed('');
     setDepartment('');

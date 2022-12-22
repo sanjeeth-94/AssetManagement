@@ -70,7 +70,7 @@ const MaintenanceAddList = () => {
                     setEditData(selectedRow);
                     setOpen(true);
                 }}
-           />
+            />
    
         )
     }
@@ -88,12 +88,12 @@ const MaintenanceAddList = () => {
         </Grid>
     </Grid>
     <MaintenanceViewClose
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-                setRefresh={setRefresh}
-            />
+        open={open}
+        setOpen={setOpen}
+        isAdd={isAdd}
+        editData={editData}
+        setRefresh={setRefresh}
+    />
    
 </div>
   )

@@ -85,13 +85,13 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setAssetModel('');
         setpoNo('');
         setInvoiceNo('');
+        setDescription('');
     };
 
     useEffect(() => {
         FetchAssetIdService(handleFetchAssetId, handleFetchAssetIdException);
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchVenderService(handleFetchVender, handleFetchVenderException);
-        setAssetId(editData.assetId || '');
         setDepartment(editData?.department || '');
         setSection(editData?.section ||'');
         setAssetName(editData?.assetName || '');
@@ -107,6 +107,8 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setInvoiceNo(editData?.invoiceNo || '');
         setWarrantyStartDate(editData?.warrantyStartDate || '');
         setwarrantyEndDate(editData?.warrantyEndDate || '');
+        setDescription(editData?.description || '');
+        
     }, [editData, refresh]);
 
     const handleFetchSuccess = (dataObject) => {
@@ -150,7 +152,15 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     }
 
     const handleFetchAssetId = (dataObject) => {
-        setAssetId(dataObject.data);
+        if(editData?.assetId)
+        {
+            setAssetId(editData?.assetId || '');
+        }
+        else
+        {
+            setAssetId(dataObject?.data);
+        }
+        
     }
 
     const handleFetchAssetIdException = (errorStaus, errorMessage) => {
@@ -288,15 +298,32 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setAssetModel('');
         setpoNo('');
         setInvoiceNo('');
+        setDescription('');
     }
 
     const handleException = (errorObject, errorMessage) => {
         console.log(errorMessage);
+        setRefresh(oldValue => !oldValue);
         setNotification({
             status: true,
             type: 'error',
             message: errorMessage,
           });
+          setAssetId('');
+        setDepartment('');
+        setSection('');
+        setAssetName('');
+        setFinancialAssetId('');
+        setVendorName('');
+        setPhoneNumber('');
+        setEmailId('');
+        setAssetType('');
+        setVendorAddress('');
+        setManufacturer('');
+        setAssetModel('');
+        setpoNo('');
+        setInvoiceNo('');
+        setDescription('');
       
     }
     const handleCloseNotify = () => {

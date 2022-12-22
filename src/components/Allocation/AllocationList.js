@@ -79,11 +79,9 @@ setRows(dataObject.data)
 const handleViewServiceException=(errorObject, errorMessage) =>{
     console.log(errorMessage);
 }
-   
     const deletUser = (id) => {
         UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
-
     const handleDeleteSuccess = (dataObject) =>{
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
@@ -93,7 +91,6 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
             message: dataObject.message,
         });
     }
-
     const handleDeleteException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
         setNotification({
@@ -102,7 +99,6 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
             message:errorMessage,
         });
     }
-
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
@@ -120,56 +116,56 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
         <div>
             <form onSubmit={onSubmitView}>
             <Grid container spacing={2}>
-              <Grid item xs={6}
-              style={{
-                alignSelf: 'center',
-                textAlignLast: 'center'
-            }}>
+                <Grid item xs={6}
+                style={{
+                    alignSelf: 'center',
+                    textAlignLast: 'center'
+                }}>
                     <h2 style={{marginLeft:'40px'}}>View Allocation</h2>
                 </Grid>
-                    <Grid item xs={6}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center'
-                    }}>
-                 <Button  variant="contained" style={{height:'40px'}} onClick={handleModalOpen}>Add Alloction</Button>
-                 </Grid>
-                 </Grid>
-                <hr/>
+                <Grid item xs={6}
+                style={{
+                    alignSelf: 'center',
+                    textAlignLast: 'center'
+                }}>
+                    <Button  variant="contained" style={{height:'40px'}} onClick={handleModalOpen}>Add Alloction</Button>
+                </Grid>
+            </Grid>
+            <hr/>
             <Grid container spacing={2}  style={{marginLeft:'20px', marginTop:'30px'}}>               
-                <Grid item xs={12} sm={6} md={2} lg={1} xl={3}
+                <Grid item xs={10} sm={4} md={1} lg={1} xl={3}
                     style={{
                         alignSelf: 'center',
                         textAlignLast: 'center'
-                    }}>
-                <label >Date From :</label>
+                }}>
+                    <label >Date From :</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
+                    <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
                 </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={1} xl={3}
-                style={{
-                    alignSelf: 'center',
-                    textAlignLast: 'center'
+                <Grid item xs={10} sm={4} md={1} lg={1} xl={3}
+                    style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center'
                 }}>
-                <label > To</label>
+                    <label > To</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
+                    <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
                 </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                style={{
-                    alignSelf: 'center',
-                    textAlignLast: 'center'
+                <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
+                    style={{
+                        alignSelf: 'center',
+                        textAlignLast: 'center'
                 }}>
-
-                <Button style={{height:'40px', width:'100px'}} variant="contained" type='submit'>View</Button>
+                    <Button style={{height:'40px', width:'100px'}} variant="contained" type='submit'>View</Button>
                 </Grid>
             </Grid>
             <Grid container spacing={2} >
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                style={{ height: '250px', marginTop: '10px' }}>
-                <DataGrid
+                    style={{ height: '250px', marginTop: '10px' }}
+                >
+                    <DataGrid
                         rows={rows}
                         columns={columns} />
                 </Grid>

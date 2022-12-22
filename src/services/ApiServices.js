@@ -332,6 +332,15 @@ export const AlloctionViewService = (data, successCallback, errorCallBack) => _f
 
 export const AlloctionExportService = (data, successCallback, errorCallBack) => _fetchService('allocation/export', 'POST', data, successCallback, errorCallBack);
 
+export const  FetchAllocationShowRequestReturnAsset = (successCallback, errorCallBack) => _fetchService('allocation/showRequestReturnAsset', 'GET', {}, successCallback, errorCallBack);
+
+export const UpdateRequestedReturnAsset = (data, successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/updateRequestedReturnAsset`, 'POST', data, successCallback, errorCallBack);
+
+export const  AllocationViewReturnAsset= (successCallback, errorCallBack) => _fetchService('allocation/viewReturnAsset', 'GET', {}, successCallback, errorCallBack);
+
+export const  AllocationViewSelfAssessment= (successCallback, errorCallBack) => _fetchService('allocation/viewSelfAssessment', 'GET', {}, successCallback, errorCallBack);
+
+
 
 ///...........UNTAG......////
 export const UntagAssetService = (data, successCallback, errorCallBack) => _fetchService(`untagAsset/${data.id}/update`, 'POST', data, successCallback, errorCallBack);

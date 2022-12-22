@@ -106,5 +106,9 @@ export const Downloadaudit=(data,fromDate, toDate,successCallback, errorCallBack
   return _fetchServiceDownloadCsvData(`audit/${data}/export?=&fromDate=${fromDate}&toDate=${toDate}`, 'GET', {}, successCallback, errorCallBack);
 };
 
+export const DownloadTemplate=( successCallback, errorCallBack) => {
+  return _fetchServiceDownloadCsvData('asset/template', 'GET', {}, successCallback, errorCallBack);
+};
+
 
   

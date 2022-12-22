@@ -105,86 +105,85 @@ const MaintenanceViewClose = ({ open, setOpen, isAdd, editData, setRefresh }) =>
         </div>
         </Grid>
         <div>
-                    <Grid container >
-                    <Grid item xs={10} sm={10} md={10} lg={10} xl={10} style={{ marginTop: '20px',marginLeft:'40%',width:'500px'}}>
-                      <Accordion >
-                        <AccordionSummary
-                          fullwith
-                          expandIcon={<VisibilityIcon />}
-                        >
-                          <Grid style={{ alignSelf:'center',textAlign:'center'}}>
-                          <Typography >Impact and Plans</Typography>
-                          </Grid>
-                          
-                          <hr />
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            <div>
-                              <Grid container>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                <label >Affecting Machines: </label>
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                <label>{affectingMachines}</label>
-                                </Grid>
-                              </Grid>
-                             
-                              <Grid container>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                <label >Utilization Plan: </label>
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                <label>{utilizationPlan}</label>
-                                </Grid>
-                              </Grid>
-
-                              <Grid container>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                  <label>Affecting Man Hours: </label>
-                            
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                <label>{affectingManHours} </label>
-                                </Grid>
-                              </Grid>
-
-                              <Grid container>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                <label >Utilization Plan: </label>
-                            
-                                </Grid>
-                                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                                style={{alignSelf:'center',textAlign:'center'}}
-                                >
-                                <label>{utilizationPlan2} </label>
-                                </Grid>
-                              </Grid>
-                            </div>
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                    </Grid>
+          <Grid container >
+          <Grid item xs={10} sm={10} md={10} lg={10} xl={10} style={{ marginTop: '20px',marginLeft:'40%',width:'500px'}}>
+            <Accordion >
+              <AccordionSummary
+                fullwith
+                expandIcon={<VisibilityIcon />}
+              >
+                <Grid style={{ alignSelf:'center',textAlign:'center'}}>
+                <Typography >Impact and Plans</Typography>
+                </Grid>
+                
+                <hr />
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  <div>
+                    <Grid container>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                      <label >Affecting Machines: </label>
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                      <label>{affectingMachines}</label>
+                      </Grid>
                     </Grid>
                     
+                    <Grid container>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                      <label >Utilization Plan: </label>
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                      <label>{utilizationPlan}</label>
+                      </Grid>
+                    </Grid>
+
+                    <Grid container>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                        <label>Affecting Man Hours: </label>
+                  
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                      <label>{affectingManHours} </label>
+                      </Grid>
+                    </Grid>
+
+                    <Grid container>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                      <label >Utilization Plan: </label>
+                  
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
+                      style={{alignSelf:'center',textAlign:'center'}}
+                      >
+                      <label>{utilizationPlan2} </label>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Grid>
+          </Grid>
         </div>
          </Grid>
          <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop:'20px', }}>
-      <Accordion >
+        <Accordion >
         <AccordionSummary
         fullwith 
           expandIcon={<VisibilityIcon />}
