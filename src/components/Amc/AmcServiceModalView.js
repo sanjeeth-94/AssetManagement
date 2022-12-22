@@ -36,29 +36,29 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
                 {
                     if(service === 1)
                     {
-                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate} ;
+                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1endDate} ;
                     }else if (service === 2)
                     {
-                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate } ; 
+                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1endDate };
+                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2endDate } ; 
                     }else if (service === 3)
                     {
-                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate };
-                        serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3startDate };
+                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1endDate };
+                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2endDate };
+                        serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3endDate };
                     }else if (service === 4)
                     {
-                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate };
-                        serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3startDate };
-                        serviceList[3] = {startDate:data.s4startDate,runHours:data.s4runHours,endDate:data.s4startDate };
+                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1endDate };
+                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2endDate };
+                        serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3endDate };
+                        serviceList[3] = {startDate:data.s4startDate,runHours:data.s4runHours,endDate:data.s4endDate };
                     }else if (service === 5)
                     { 
-                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1startDate };
-                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2startDate };
-                        serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3startDate };
-                        serviceList[3] = {startDate:data.s4startDate,runHours:data.s4runHours,endDate:data.s4startDate };
-                        serviceList[4] = {startDate:data.s5startDate,runHours:data.s5runHours,endDate:data.s5startDate };   
+                        serviceList[0] = {startDate:data.s1startDate,runHours:data.s1runHours,endDate:data.s1endDate };
+                        serviceList[1] = {startDate:data.s2startDate,runHours:data.s2runHours,endDate:data.s2endDate };
+                        serviceList[2] = {startDate:data.s3startDate,runHours:data.s3runHours,endDate:data.s3endDate };
+                        serviceList[3] = {startDate:data.s4startDate,runHours:data.s4runHours,endDate:data.s4endDate };
+                        serviceList[4] = {startDate:data.s5startDate,runHours:data.s5runHours,endDate:data.s5endDate };   
                     }
                 }else {
                     serviceList[0]="no data "
@@ -130,16 +130,11 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                            <div>
-                                <DataGrid style={{height:'200px', marginTop:'20px', RowHeight:'20px'}}
-                                loading={loading}
-                                rows={rows}
-                                columns={columns}/>
-
-                                <AmcServicePatternView
-                                open={open1}
-                                setOpen={setOpen1}
-                                editData={editData}
-                                />
+                            <DataGrid style={{height:'200px', marginTop:'20px', RowHeight:'20px'}}
+                            loading={loading}
+                            rows={rows}
+                            columns={columns}/>
+                          
                             </div>
                         </DialogContentText>
                     </DialogContent>
@@ -148,6 +143,12 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
                     </DialogActions>
                 </form>
             </Dialog>
+            <AmcServicePatternView
+                open1={open1}
+                setOpen1={setOpen1}
+                editData2={editData2}
+                rows2={rows}
+            />
         </div>
     ) 
 }

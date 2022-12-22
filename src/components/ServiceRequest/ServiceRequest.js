@@ -110,6 +110,7 @@ const ServiceRequest = ({open2, setOpen2,editData}) => {
     RequestServiceAdd({
       department:departmentId,
       section:sectionsId,
+      id: editData?.id,
       assetType:assetTypesId,
       assetName:assetNameId,
       vendorName:vendorName,

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
-import { DialogContent, DialogContentText, DialogTitle ,IconButton} from '@mui/material';
+import { Button, DialogContent, DialogContentText, DialogTitle ,IconButton} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
-import CloseIcon from '@mui/icons-material/Close';
 
 const ServiceRequestView = ({ open, setOpen,  setRefresh , editData  }) => {
   const [rows, setRows]=useState([]);
@@ -49,12 +48,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData  }) => {
       maxWidth='lg'>
         <form>
           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-            {"Service Due"}
-            <div>
-              <IconButton onClick={handleClose} style={{marginLeft:'900px'}}type='reset'>
-                <CloseIcon />
-              </IconButton>
-            </div>
+            {"Service View"}
           </DialogTitle>
           <DialogContent>
             <Grid container spacing={2} style={{ marginTop: '20px'}}>
@@ -169,7 +163,7 @@ const ServiceRequestView = ({ open, setOpen,  setRefresh , editData  }) => {
               </Grid>
             </div>
             <div>
-              {/* <Button style={{marginLeft:'800px'}}type='reset' onClick={handleClose}>Cancel</Button> */}
+              <Button style={{marginLeft:'800px'}}type='reset' onClick={handleClose}>Cancel</Button>
             </div>
           </DialogContent>
         </form>

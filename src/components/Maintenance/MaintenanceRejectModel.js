@@ -17,6 +17,8 @@ import ImageList from '@mui/material/ImageList';
 import { FetchMaintenanceRejectedShowDataService } from '../../services/ApiServices';
 import MaintenanceDataTable from './MaintenanceDataTable';
 
+const URL = 'https://varmatrix.com/AssetManagement/AssetManagement';
+
 const MaintenanceRejectModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [rows, setRows] = useState([]);
     const [affectingMachines,setAffectingMachines]=useState('');
@@ -195,16 +197,16 @@ const MaintenanceRejectModel = ({ open, setOpen, isAdd, editData, setRefresh }) 
         <Typography>
         <ImageList sx={{ height: 200 }} cols={4} colHeight={100} rowHeight={164}>
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages1}`}
+                src={`${URL}${bpImages1}`}
               />
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages2}`}
+                src={`${URL}${bpImages2}`}
               />
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages3}`}
+                src={`${URL}${bpImages3}`}
               />
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages4}`}
+                src={`${URL}${bpImages4}`}
               />
           
        </ImageList>

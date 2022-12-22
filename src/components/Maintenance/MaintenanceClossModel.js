@@ -29,17 +29,18 @@ const MaintenanceClossModel = ({ open, setOpen, isAdd, editData, setRefresh }) =
     const [tempData , setTempData]= useState('');
     const [approvalUnitList, setApprovalUnitList] = useState([]);
     const [totalAmount, setTotalAmount]=useState(0);
+    const URL='https://varmatrix.com/AssetManagement/AssetManagement';
 
     useEffect(() => {
         var tenpAffectMachine= editData?.affectedMachine?.replaceAll('\\',' ');   
         setAffectingMachines(tenpAffectMachine|| '');
-        setUtilizationPlan(editData.shutdownOrUtilization || '');
-        setAffectingManHours(editData.timeFrom ||'' );
-        setUtilizationPlan2(editData.offOrUtilization || '');
-        setBpImages1(editData.bpImages1 || '');
-        setBpImages2(editData.bpImages2 || '');
-        setBpImages3(editData.bpImages3 || '');
-        setBpImages4(editData.bpImages4 || '');
+        setUtilizationPlan(editData?.shutdownOrUtilization || '');
+        setAffectingManHours(editData?.timeFrom ||'' );
+        setUtilizationPlan2(editData?.offOrUtilization || '');
+        setBpImages1(editData?.bpImages1 || '');
+        setBpImages2(editData?.bpImages2 || '');
+        setBpImages3(editData?.bpImages3 || '');
+        setBpImages4(editData?.bpImages4 || '');
         var tempDataSet = '';
         var tempList = [];
         tempDataSet = editData?.partsOrConsumable?.replaceAll('\\', '');
@@ -190,16 +191,16 @@ const MaintenanceClossModel = ({ open, setOpen, isAdd, editData, setRefresh }) =
         <Typography>
         <ImageList sx={{ height: 200 }} cols={4} colHeight={100} rowHeight={164}>
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages1}`}
+                src={`${URL}${bpImages1}`}
               />
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages2}`}
+                src={`${URL}${bpImages2}`}
               />
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages3}`}
+                src={`${URL}${bpImages3}`}
               />
               <img style={{width:'200px',height:'180px'}}
-                src={`https://varmatrix.com/AssetManagement${bpImages4}`}
+                src={`${URL}${bpImages4}`}
               />
           
        </ImageList>
