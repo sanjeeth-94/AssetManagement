@@ -140,7 +140,7 @@ const RenevalAmc = ({open , setOpen, editData }) => {
   const onSubmit=(e)=> 
   {
     e.preventDefault();
-    alert("hello ")
+    alert("AMC Renewal successfull ")
     AMCrenewalAmc({
       id:editData.id,
       servicePattern:servicePattern,
