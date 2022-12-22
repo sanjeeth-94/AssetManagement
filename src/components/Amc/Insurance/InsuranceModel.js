@@ -26,11 +26,11 @@ import { InsuranceAddService ,
 const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [vendorName, setVendorName] = useState('');
   const [vendorNameList, setVendorNameList] = useState([]);
-  const [venderAddress ,setVenderAddress]= useState();
+  const [venderAddress ,setVenderAddress]= useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailId, setEmailId] = useState('');
-  const [premiumCost ,setpremiumCost]= useState();
-  const [insuranceDoc,setinsuranceDoc]= useState();
+  const [premiumCost ,setpremiumCost]= useState('');
+  const [insuranceDoc,setinsuranceDoc]= useState('');
   const [department, setDepartment] = useState('');
   const [section, setSection] = useState('');
   const [sectionList, setSectionList] = useState([]);
@@ -40,6 +40,7 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [periodTo, setperiodTo] = useState('');
   const [assetList, setAssetList] = useState([]);
   const [asset, setAsset] = useState('');
+  const [assetName,setAssetName]=useState('');
   const [vendorData, setVendorData] = useState([]);
   const [assetNameList, setAssetNameList] = useState([]);
   const [openNotification, setNotification] = useState({
@@ -65,11 +66,38 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
     FetchVenderService(handleFetchVender, handleFetchVenderException);
+    setVendorName(editData?.vendorId || '');
+    setVenderAddress(editData?.venderAddress || '');
+    setPhoneNumber(editData?.phoneNumber || '');
+    setEmailId(editData?.emailId || '');
+    setpremiumCost(editData?.premiumCost || '');
+    setinsuranceDoc(editData?.insuranceDoc || '');
+    setDepartment(editData?.department || '');
+    setSection(editData?.sectionsId|| '');
+    setSectionList(editData?.sectionList || []);
+    setDepartmentList(editData?.departmentList || []);
+    setAssetType(editData?.assetTypesId|| '');
+    setperiodFrom(editData?.periodFrom || '');
+    setperiodTo(editData?.periodTo || '');
+    setAssetList(editData?.assetList || []);
+    setAsset(editData?.asset || '');
+    setVendorData(editData?.vendorData || '');
+    setAssetNameList(editData?.assetNameList|| []);
+    
+
   }, [editData]);
 
   const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
+    setDepartment(editData?.departmentId || '');
+    if(editData?.departmentId)
+    {
+      FetchSectionService({
+        id:editData?.departmentId 
+      }, handleFetchDepartmentSuccess, handleFetchDepartmentException);
+    }
   }
+  
 
   const handleFetchException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
@@ -77,6 +105,11 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleFetchVender = (dataObject) => {
     setVendorNameList(dataObject.data);
+    if(editData?.vendorId){
+      FetchVenderDataService({ id: editData?.vendorId }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
+
+    }
+
   }
 
   const handleFetchVenderException = (errorStaus, errorMessage) => {
@@ -92,6 +125,11 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleFetchDepartmentSuccess = (dataObject) => {
     setSectionList(dataObject.data);
+    if(editData?.sectionId){
+      FetchAssetTypeService({
+        id: editData?.sectionId
+      }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+    }
   }
 
   const handleFetchDepartmentException = (errorStaus, errorMessage) => {
@@ -107,7 +145,12 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
 
   const handleFetchAssetTypeServiceSuccess = (dataObject) => {
     setAssetList(dataObject.data);
-    
+    if(editData?.assetTypesId)
+    {
+      FetchAssetNameService({
+        id: editData?.assetTypesId
+      }, handleFetchAssetNameServiceSuccess, handleFetchAssetNameServiceException);
+    }
   }
   
   const handleFetchAssetTypeServiceException = (errorStaus, errorMessage) => {
@@ -324,6 +367,7 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <Grid item xs={12} sm={6} md={4} lg={4} xl={4} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                     <TextField 
                     fullWidth
+                    value={insuranceDoc}
                     onChange={(e) => {
                       if (e.target.files && e.target.files.length > 0) {
                         const reader = new FileReader();
@@ -352,8 +396,9 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={department}
                           onChange={(e) => onDepartmentChange(e)}>
-                            {departmentList.map((data, index) => {
+                            {departmentList?.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                               )
@@ -374,8 +419,9 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={section}
                           onChange={(e) => onSectionChange(e)}>
-                            {sectionList.map((data, index) => {
+                            {sectionList?.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
                               )
@@ -397,8 +443,9 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={assetType}
                           onChange={(e) => onAssetTypeChange(e)}>
-                            {assetList.map((data, index) => {
+                            {assetList?.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                               )
@@ -419,8 +466,9 @@ const InsuranceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label=""
+                          value={assetName}
                           onChange={(e) => onAssetChange(e)}>
-                            {assetNameList.map((data, index) => {
+                            {assetNameList?.map((data, index) => {
                               return (
                                 <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
                               )
