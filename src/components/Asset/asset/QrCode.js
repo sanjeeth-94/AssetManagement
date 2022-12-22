@@ -14,6 +14,7 @@ import { AssetShowLabelService } from '../../../services/ApiServices';
 
 const QrCode = ({open1, setOpen1,editData}) => {
   const [department,setDepartment]=useState('');
+  const [date,setDate]=useState('');
   const [section,setSection]=useState('');
   const [assetType, setAssetType]=useState('');
   const url=' https://varmatrix.com/AssetManagement/AssetManagement';
@@ -30,6 +31,7 @@ const QrCode = ({open1, setOpen1,editData}) => {
       setDepartment(editData?.department || '');
       setSection(editData?.selectSection || " ");
       setAssetType(editData?.selectAssetType || '');
+      setDate(editData?.date || '');
     },[editData])
 
     const handleAssetShowLabelService=(dataObject)=>{
@@ -50,51 +52,57 @@ const QrCode = ({open1, setOpen1,editData}) => {
                   {"Label"}
               </DialogTitle>
               <DialogContent>
-                  <DialogContentText>
-                  <AccordionDetails>     
-                  <Typography>
-                 
-                    <Grid container >
-                      <Grid item xs={10} sm={10} md={10} lg={10} xl={10}
-                        style={{alignSelf:'center'}}
-                      >
-                      <img style={{width:'200px',height:'150px',alignSelf:'center',alignItems:'center'}}
-                          src={`${url}${imgUrl}`}
-                        />
-                      </Grid>
+                <Grid container style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'nowrap',
+                  alignItems: 'center',
+                  marginTop:'20px',
+                  width:'500px',
+                  height:'150px',
+                }} >
+                  <Grid item 
+                    style={{alignSelf:'center'}}
+                  >
+                    <img style={{width:'150px',height:'150px',alignSelf:'center',alignItems:'center'}}
+                      src={`${url}${imgUrl}`}
+                    />
+                  </Grid>
+                  <Grid container style={{display:'block',maginTop:'10px',marginLeft:'10px'}}>
+                    <Grid item 
+                      style={{alignSelf:'center'}}
+                    >
+                        <label>Department :</label>  
+                        <label>{department}</label>
                     </Grid>
-                    <Grid container style={{maginTop:'10px',marginLeft:'10px'}}>
-                        <Grid item xs={10} sm={10} md={10} lg={10} xl={3}
-                          style={{alignSelf:'center'}}
-                        >
-                            <label>Department :</label>  
-                            <label>{department}</label>
-                        </Grid>
-                        <Grid item xs={10} sm={10} md={10} lg={10} xl={3}
-                          style={{alignSelf:'center'}}
-                        >
-                          <label>Section :</label>
-                          <label>{section}</label>
-                        </Grid>
-                        <Grid item xs={10} sm={10} md={10} lg={10} xl={3}
-                          style={{alignSelf:'center'}}
-                        >
-                          <label> Asset Type :</label>
-                          <label>{assetType}</label>
-                        </Grid>
+                    <Grid item 
+                      style={{alignSelf:'center'}}
+                    >
+                      <label>Section :</label>
+                      <label>{section}</label>
                     </Grid>
-                 
-                  </Typography>
-              </AccordionDetails>
-                </DialogContentText>
+                    <Grid item 
+                      style={{alignSelf:'center'}}
+                    >
+                      <label> Asset Type :</label>
+                      <label>{assetType}</label>
+                    </Grid>
+                    <Grid item 
+                      style={{alignSelf:'center'}}
+                    >
+                      <label> Date :</label>
+                      <label>{date}</label>
+                    </Grid>
+                  </Grid>   
+                </Grid>
               </DialogContent>
               <DialogActions>
-                  <div>
-                      <Button type='reset' onClick={handleClose}>Cancel</Button>
-                      <Button type='submit'>
-                          Download
-                      </Button>
-                  </div>
+                <div>
+                  <Button type='reset' onClick={handleClose}>Cancel</Button>
+                  <Button type='submit'>
+                    Download
+                  </Button>
+                </div>
               </DialogActions>
           </form>
         </Dialog>

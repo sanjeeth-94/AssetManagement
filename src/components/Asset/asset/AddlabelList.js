@@ -24,7 +24,7 @@ const AddlabelList = () => {
     });
 
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 40 },
+        { field: 'id', headerName: 'Serial No', width: 100 },
         { field: 'department', headerName: 'Department	', width: 100 },
         { field: 'selectSection', headerName: 'Section	', width: 120 },
         { field: 'selectAssetType', headerName: 'Asset Type	', width: 120 },
@@ -32,7 +32,7 @@ const AddlabelList = () => {
         { field: 'code', headerName: 'Code	', width: 120 },
         { field: 'date', headerName: 'Date', width: 120 },
         { field: 'selectAsset', headerName: '	Asset Name', width: 120 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        {field: 'action', headerName: 'Action', width: 200, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
