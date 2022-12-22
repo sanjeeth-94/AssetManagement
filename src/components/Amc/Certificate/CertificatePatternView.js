@@ -34,16 +34,16 @@ const CertificatePatternView = ({ open1, setOpen1,editData2}) => {
     setVendorName(editData2?.vendorName ||'');
     setPeriodFrom(editData2?.periodFrom   ||'');
     setPeriodTo(editData2?.periodTo || '');
-    setc1DateFrom(editData2?.c1DateFrom || '');
-    setc1DateTo(editData2?.c1DateTo || '');
-    setc2DateFrom(editData2?.c2DateFrom || '');
-    setc2DateTo(editData2?.c2DateTo || '');
-    setc3DateFrom(editData2?.c3DateFrom || '');
-    setc3DateTo(editData2?.c3DateTo || '');
-    setc4DateFrom(editData2?.c4DateFrom || '');
-    setc4DateTo(editData2?.c4DateTo || '');
-    setc5DateFrom(editData2?.c5DateFrom || '');
-    setc5DateTo(editData2?.c5DateTo || '');
+    setc1DateFrom(editData2?.inspectionList?.c1startDate || '');
+    setc1DateTo(editData2?.inspectionList?.c1endDate || '');
+    setc2DateFrom(editData2?.inspectionList?.c2startDate || '');
+    setc2DateTo(editData2?.inspectionList?.c2endDate  || '');
+    setc3DateFrom(editData2?.inspectionList?.c3startDate || '');
+    setc3DateTo(editData2?.inspectionList?.c3endDate || '');
+    setc4DateFrom(editData2?.inspectionList?.c4startDate || '');
+    setc4DateTo(editData2?.inspectionList?.c4endDate || '');
+    setc5DateFrom(editData2?.inspectionList?.c5startDate || '');
+    setc5DateTo(editData2?.inspectionList?.c5endDate || '');
     setCount(editData2?.inspectionPattern ||'0');
     console.log('data'+editData2?.lenght);
   },[editData2])
