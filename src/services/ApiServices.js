@@ -425,6 +425,7 @@ export const  ViewNotInuse = (successCallback, errorCallBack) => _fetchService('
 
 export const  ViewTransferDue = (successCallback, errorCallBack) => _fetchService('transferDue/showData', 'GET', {}, successCallback, errorCallBack);
 
+export const  ViewUntagAsset = (successCallback, errorCallBack) => _fetchService('untagAsset/showData', 'GET', {}, successCallback, errorCallBack);
 
 //////..........user Model.......////
 

@@ -35,6 +35,8 @@ import Scrap from './components/DashboardItems/Scrap';
 import UserAssetList from './components/UserModule/UserAssetList';
 import UserMangaeServiceList from './components/UserModule/UserMangaeServiceList';
 import UserReturnAssetList from './components/UserModule/UserReturnAssetList';
+import UntageAssetList from './components/DashboardItems/UntageAssetList';
+
 
 function App() {
   // const navigate = useNavigate();
@@ -96,6 +98,7 @@ function App() {
             <Route path='/userAssetList' element={<UserAssetList/>}/>
             <Route path='/UserManageServiceList' element={<UserMangaeServiceList/>}/>
             <Route path='/UserRetureAsset' element={<UserReturnAssetList/>}/>
+            <Route path='/UntageAssetList' element={<UntageAssetList/>}/>
           </Route> 
         </Route>
       </Routes> 
