@@ -8,6 +8,7 @@ import { FetchServiceRequestService } from '../../services/ApiServices';
 import HandymanIcon from '@mui/icons-material/Handyman';
 import ServiceRequest from './ServiceRequest';
 import ServiceStatusUpdate from './ServiceStatusUpdate';
+import { DownloadService } from '../../services/DownloadService';
 
 const ServiceRequestList = () => {
   const [open, setOpen] = useState(false);
@@ -105,6 +106,16 @@ const ServiceRequestList = () => {
     )
   }
 
+  const ServiceDownload = () =>{
+    DownloadService(handleDownloadService, handleDownloadServiceException);
+}
+
+const handleDownloadService =() => {
+}
+
+const handleDownloadServiceException =() =>{
+}
+
   return (
     <div >
       <h2>REQUESTED SERVICE</h2>
@@ -121,6 +132,8 @@ const ServiceRequestList = () => {
         rowsPerPageOptions={[5]}
         onRowAdd/>
       </form>
+
+      <Button style={{marginTop:'20px',marginLeft:'20px'}} variant="contained" onClick={ServiceDownload}>Export</Button>
 
       <ServiceRequestView
       open={open}

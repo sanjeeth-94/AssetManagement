@@ -500,11 +500,10 @@ const RenevalAmc = ({open , setOpen, editData }) => {
         </form>
       </Dialog>
       <NotificationBar
-                handleClose={handleCloseNotify}
-                notificationContent={openNotification.message}
-                openNotification={openNotification.status}
-                type={openNotification.type}
-            />
+      handleClose={handleCloseNotify}
+      notificationContent={openNotification.message}
+      openNotification={openNotification.status}
+      type={openNotification.type} />
     </div>
   )
 }

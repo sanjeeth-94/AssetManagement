@@ -363,13 +363,13 @@ export const  FetchScrapAssetShowDataService = (successCallback, errorCallBack) 
 
 export const  FetchServiceRequestService = (successCallback, errorCallBack) => _fetchService('requestService/showData', 'GET', {}, successCallback, errorCallBack);
 
-export const  ViewRequestService = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
+// export const  ViewRequestService = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
 
 export const RequestServiceAdd = (data, successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
 
-export const  ShowServiceRequest = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/updateServiceStatus`, 'GET', {}, successCallback, errorCallBack);
+export const UpdateServiceStatus = (data,successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/updateServiceStatus`, 'POST',  successCallback, errorCallBack);
 
-export const UpdateServiceStatus = (data, successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+export const ShowServiceRequest  = (data, successCallback, errorCallBack) => _fetchService(`requestService/${data.id}/showData1`, 'GET', {}, successCallback, errorCallBack);
 
 
 /////.......DashBord count..../////
@@ -444,5 +444,11 @@ export const  FetchUpdateReturnAssetService = (data,successCallback, errorCallBa
 
 export const  FetchUpdateSelfAssessmentService = (data,successCallback, errorCallBack) => _fetchService(`um/${data.id}/updateSelfAssessment`, 'POST', data, successCallback, errorCallBack);
 
+////////.......AMC........////
+
+
+export const UpdateAmc = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/updateServiceDate`, 'POST',  successCallback, errorCallBack);
+
+export const UpdateCertificate = (data,successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/updateInspectionDate`, 'POST',  successCallback, errorCallBack);
 
 

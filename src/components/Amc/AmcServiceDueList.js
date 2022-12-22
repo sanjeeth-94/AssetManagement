@@ -247,9 +247,7 @@ const AmcServiceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         </Grid>
         <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained">Export</Button>
       </div>
-    </form>
-    
-      
+    </form>   
   )
 }
 

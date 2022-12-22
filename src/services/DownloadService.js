@@ -112,3 +112,6 @@ export const DownloadTemplate=( successCallback, errorCallBack) => {
 
 
   
+export const DownloadService=( successCallback, errorCallBack) => {
+  return _fetchServiceDownloadCsvData('requestService/export', 'GET', {}, successCallback, errorCallBack);
+};

@@ -143,8 +143,8 @@ const InsuranceList = () => {
   return (
     <div>
     <div>
-        <div style={{display:'flex',}}>
-          <h3 style={{ marginLeft: '60px',marginBottom:'0px' }}>VENDER DETAILS</h3>
+       <div style={{display:'flex', marginLeft:'40px',}}>
+                <h3 style={{ marginLeft: '60px' }}> INSURANCE</h3>
           
           <Button style={{marginLeft:'70%',width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
               Add

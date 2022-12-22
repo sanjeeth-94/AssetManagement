@@ -29,6 +29,7 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
   const [tempData, setTempData] = useState('');
   const [approvalUnitList, setApprovalUnitList] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const URL='https://varmatrix.com/AssetManagement/AssetManagement'
 
   useEffect(() => {
     var tenpAffectMachine = editData?.affectedMachine?.replaceAll('\\', ' ');
@@ -188,16 +189,16 @@ const MaintenancePandingModel = ({ open, setOpen, isAdd, editData, setRefresh })
                       <Typography>
                         <ImageList  cols={4} colHeight={100} >
                           <img style={{width:'200px',height:'180px'}}
-                            src={`https://varmatrix.com/AssetManagement${bpImages1}`}
+                            src={`${URL}${bpImages1}`}
                           />
                           <img style={{width:'200px',height:'180px'}}
-                            src={`https://varmatrix.com/AssetManagement${bpImages2}`}
+                            src={`${URL}${bpImages2}`}
                           />
                           <img style={{width:'200px',height:'180px'}}
-                            src={`https://varmatrix.com/AssetManagement${bpImages3}`}
+                            src={`${URL}${bpImages3}`}
                           />
                           <img style={{width:'200px',height:'180px'}}
-                            src={`https://varmatrix.com/AssetManagement${bpImages4}`}
+                            src={`${URL}${bpImages4}`}
                           />
                         </ImageList>
                       </Typography>
