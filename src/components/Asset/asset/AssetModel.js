@@ -537,7 +537,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <TextField
                                         fullWidth
                                         id="AssetModel"
-                                        label="Asset Modelr"
+                                        label="Asset Model"
                                         variant="outlined"
                                         value={assetModel}
                                         onChange={(e) => { setAssetModel(e.target.value) }}/>

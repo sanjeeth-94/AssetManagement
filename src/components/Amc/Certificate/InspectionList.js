@@ -131,8 +131,8 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
   }
   
   const columns = [
-    { field: 'vendorName', headerName: 'Vendor Name', width: 200 },
-    { field: 'c1startDate', headerName: 'Inspection Date', width: 200 },
+    { field: 'vendorName', headerName: 'Vendor Name', width: 400 },
+    { field: 'c1startDate', headerName: 'Inspection Date', width: 500 },
     // { field: 'Action', headerName: 'Action', width: 240 },  
   ];
   
@@ -140,7 +140,7 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
     <form onSubmit={onSubmit}>
       <div>
         <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-          <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -161,7 +161,7 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Section:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -182,7 +182,9 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          </Grid>
+          <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -203,7 +205,7 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Name :</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >

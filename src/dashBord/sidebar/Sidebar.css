@@ -36,7 +36,6 @@
 }
 
 .icon{
-    
     color: aqua;
     border-radius: 3px;
     margin-bottom: 5px;
@@ -46,9 +45,10 @@
     margin-top: 15px;
     margin-left: 30px;   
 }
+
 .icon:hover{
     background-color:rgb(195, 210, 211)
- }
+}
 
 .sidebar__link > a {
     text-decoration: none;
@@ -86,10 +86,11 @@ li{
     align-items: center;
     padding: 5;
     cursor: pointer        
- }
- li:hover{
+}
+
+li:hover{
     background-color:rgb(198, 233, 235)
- }
+}
 
 
 

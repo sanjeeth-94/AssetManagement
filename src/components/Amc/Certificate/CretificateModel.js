@@ -174,6 +174,10 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   
   const handleFetchVender = (dataObject) => {
     setVendorNameList(dataObject.data);
+    if(editData?.vendorId){
+      FetchVenderDataService({ id: editData?.vendorId }, handleFetchVenderDataService, handleFetchVenderDataServiceException)
+
+    }
   }
   
   const handleFetchVenderException = (errorStaus, errorMessage) => {
@@ -189,6 +193,11 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   
   const handleFetchDepartmentSuccess = (dataObject) => {
     setSectionList(dataObject.data);
+    if(editData?.sectionId){
+      FetchAssetTypeService({
+        id: editData?.sectionId
+      }, handleFetchAssetTypeServiceSuccess, handleFetchAssetTypeServiceException);
+    }
     
   }
   
