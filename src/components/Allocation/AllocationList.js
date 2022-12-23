@@ -40,10 +40,6 @@ const AllocationList = () => {
         }
     ];
 
-    // useEffect(() => {
-      
-    // }, [refresh]);
-
     const handleClose = () => {
         setOpen(false)
         setNotification({
@@ -68,20 +64,23 @@ const AllocationList = () => {
            
         )
     }
-const onSubmitView =(e)=>{
-    e.preventDefault();
-    AlloctionViewService({fromDate:dateFrom,toDate:dateTo},handleViewService,handleViewServiceException)
-}
+    const onSubmitView =(e)=>{
+        e.preventDefault();
+        AlloctionViewService({fromDate:dateFrom,toDate:dateTo},handleViewService,handleViewServiceException)
+    }
 
-const handleViewService=(dataObject)=>{
-setRows(dataObject.data)
-}
-const handleViewServiceException=(errorObject, errorMessage) =>{
-    console.log(errorMessage);
-}
+    const handleViewService=(dataObject)=>{
+        setRows(dataObject.data)
+    }
+
+    const handleViewServiceException=(errorObject, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
     const deletUser = (id) => {
         UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
+
     const handleDeleteSuccess = (dataObject) =>{
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
@@ -91,6 +90,7 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
             message: dataObject.message,
         });
     }
+
     const handleDeleteException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
         setNotification({
@@ -99,93 +99,75 @@ const handleViewServiceException=(errorObject, errorMessage) =>{
             message:errorMessage,
         });
     }
+
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
     };
+
     const onClickExport=(e)=>{
         e.preventDefault();
         DownloadAlloction({fromDate:dateFrom,toDate:dateTo}, handleAlloctionExport,handleAlloctionExportException)
     }
+    
     const handleAlloctionExport = () => { 
+        
+    }
+    
+    const handleAlloctionExportException=()=>{  
 
-      }
-    const handleAlloctionExportException=()=>{   }
-
+    }
+    
     return (
         <div>
             <form onSubmit={onSubmitView}>
-            <Grid container spacing={2}>
-                <Grid item xs={6}
-                style={{
-                    alignSelf: 'center',
-                    textAlignLast: 'center'
-                }}>
-                    <h2 style={{marginLeft:'40px'}}>View Allocation</h2>
+                <Grid container spacing={2}>
+                    <Grid item xs={6} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                        <h2 style={{marginLeft:'40px'}}>View Allocation</h2>
+                    </Grid>
+                    <Grid item xs={6} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
+                        <Button  variant="contained" style={{height:'40px'}} onClick={handleModalOpen}>Add Alloction</Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6}
-                style={{
-                    alignSelf: 'center',
-                    textAlignLast: 'center'
-                }}>
-                    <Button  variant="contained" style={{height:'40px'}} onClick={handleModalOpen}>Add Alloction</Button>
+                <hr/>
+                <Grid container spacing={2}  style={{marginLeft:'20px', marginTop:'30px'}}>
+                    <Grid item xs={10} sm={4} md={1} lg={1} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                        <label >Date From :</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                        <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
+                    </Grid>
+                    <Grid item xs={10} sm={4} md={1} lg={1} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                        <label > To</label>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                        <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={3} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                        <Button style={{height:'40px', width:'100px'}} variant="contained" type='submit'>View</Button>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <hr/>
-            <Grid container spacing={2}  style={{marginLeft:'20px', marginTop:'30px'}}>               
-                <Grid item xs={10} sm={4} md={1} lg={1} xl={3}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center'
-                }}>
-                    <label >Date From :</label>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
-                </Grid>
-                <Grid item xs={10} sm={4} md={1} lg={1} xl={3}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center'
-                }}>
-                    <label > To</label>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center'
-                }}>
-                    <Button style={{height:'40px', width:'100px'}} variant="contained" type='submit'>View</Button>
-                </Grid>
-            </Grid>
-            <Grid container spacing={2} >
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                    style={{ height: '250px', marginTop: '10px' }}
-                >
-                    <DataGrid
+                <Grid container spacing={2} >
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ height: '250px', marginTop: '10px' }} >
+                        <DataGrid
                         rows={rows}
                         columns={columns} />
+                    </Grid>
+                    <Grid style={{marginTop:'10px',marginLeft:'20px'}}>
+                        <Button variant="contained" onClick={(e)=>{onClickExport(e)}}>Export</Button>
+                    </Grid>
                 </Grid>
-                <Grid style={{marginTop:'10px',marginLeft:'20px'}}>
-                     <Button variant="contained" onClick={(e)=>{onClickExport(e)}}>Export</Button>
-                </Grid>
-            </Grid>       
-            <AllocationModel
+                <AllocationModel
                 open={open}
                 setOpen={setOpen}
                 isAdd={isAdd}
                 editData={editData}
-                setRefresh={setRefresh}
-            />
-            <NotificationBar
+                setRefresh={setRefresh}/>
+                <NotificationBar
                 handleClose={handleClose}
                 notificationContent={openNotification.message}
                 openNotification={openNotification.status}
-                type={openNotification.type}
-            /> 
+                type={openNotification.type}/> 
             </form>
         </div>
     )
