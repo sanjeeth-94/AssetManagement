@@ -135,12 +135,14 @@ const AssetList = () => {
             </Grid>
             </Grid>
             <hr style={{ bottom: 'solid' }} />
-            <div style={{ height: 270, }}>
-                <DataGrid
-                loading={loading}
-                rows={rows}
-                columns={columns} />
-            </div>
+            <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+                <DataGrid 
+                    style={{ height: 270, }}
+                    loading={loading}
+                    rows={rows}
+                    columns={columns} 
+                />
+            </Grid>
             <AssetModel
                 open={open}
                 setOpen={setOpen}

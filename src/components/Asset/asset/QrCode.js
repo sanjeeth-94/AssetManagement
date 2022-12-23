@@ -30,7 +30,7 @@ const QrCode = ({open1, setOpen1,editData}) => {
       AssetShowLabelService({id:editData.id},handleAssetShowLabelService, handleAssetShowLabelException);
       setDepartment(editData?.department || '');
       setSection(editData?.selectSection || " ");
-      setAssetType(editData?.selectAssetType || '');
+      setAssetType(editData?.selectAsset || '');
       setDate(editData?.date || '');
     },[editData])
 
@@ -84,7 +84,7 @@ const QrCode = ({open1, setOpen1,editData}) => {
                     <Grid item 
                       style={{alignSelf:'center'}}
                     >
-                      <label> Asset Type :</label>
+                      <label> Asset Name :</label>
                       <label>{assetType}</label>
                     </Grid>
                     <Grid item 

@@ -36,15 +36,12 @@
 }
 
 .icon{
-    
     color: aqua;
-    border-radius: 3px;
     margin-bottom: 5px;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    margin-top: 15px;
-    margin-left: 30px;   
+    width: 30px;
+    height: 25px;
+    margin-top: 10px;
+    margin-left: 35%;   
 }
 .icon:hover{
     background-color:rgb(195, 210, 211)

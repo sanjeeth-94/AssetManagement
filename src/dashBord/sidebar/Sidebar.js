@@ -21,6 +21,7 @@ import ApplicationStore from '../../utils/ApplicationStore';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import ReplayIcon from '@mui/icons-material/Replay';
+import { Grid } from "@mui/material";
 
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
 const [user ,setUser]=useState(false);
@@ -92,79 +93,81 @@ const onFullScreen =()=>{
 
 
 return (
-<div className={sidebarOpen === false ? "sidebar_responsive" : " "} id="sidebar" style={{
-        height: '110vh', width: '11vh'
-}}>
-        <div className="sidebar__title"></div>
-        <div className="sidebar__menu">
-        <div className="sidebar__link active_menu_link">
+        <div 
+            style={{
+                height: '110vh', 
+                width: '11vh',
+                background:'#57595D',
+            }}
+        >    
+        <Grid container>
+           <Grid item xs={10} sm={10} style={{}}>
                 <FullscreenIcon onClick={onFullScreen} className='icon' />
-        </div>
-        <div className="sidebar__link">
+           </Grid>
+           <Grid item xs={10} sm={10}>
                 <Link to='/main'><PieChartIcon className='icon' /></Link>
-        </div>
-        {
-          user === true &&
-          <>
-        
-        <div className="sidebar__link">
+           </Grid>
+           {
+             user===true &&
+                <>
+                  <Grid item xs={10} sm={10}>
                 <Link to='/asset'><AddchartIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
+                  </Grid>
+                  <Grid item xs={10} sm={10}>
                 <Link to='/audit'><AssignmentIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
+                  </Grid>
+                  <Grid item xs={10} sm={10}>
                 <Link to='/Amc'><HandymanIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
+                  </Grid>
+                  <Grid item xs={10} sm={10}>
                 <Link to='/maintenanceschedule'><ManageAccountsIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
+                  </Grid>
+                  <Grid item xs={10} sm={10}>
                 <Link to='/maintainceaproval'><CheckCircleIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
+                  </Grid>
+                  <Grid item xs={10} sm={10}>
                 <Link to='/maintaincestatus'><QueryStatsIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
-                <Link to='/alloction'><AccountTreeIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
+                  </Grid>        
+                  <Grid item xs={10} sm={10}>
+                <Link to='/alloction'><AccountTreeIcon className='icon' /></Link> 
+                  </Grid>      
+                  <Grid item xs={10} sm={10}>
                 <Link to='/servicerequest'><SettingsIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
+                  </Grid>
+                  <Grid item xs={10} sm={10}>
                 <Link to='/vender'><GroupAddIcon className='icon' /></Link>
-        </div>
-        <div className="sidebar__link">
-                <Link to='/user'><PersonIcon className='icon' /></Link>
-        </div>
-        
-        </>
-        }
-        {
-          user !== true &&
-          <>
-                <div className="sidebar__link">
-                        <Link to='/userAssetList'><RemoveRedEyeIcon className='icon' /></Link>
-                </div>
-                <div className="sidebar__link">
-                        <Link to='/UserManageServiceList'><SettingsSuggestIcon className='icon' /></Link>
-                </div>
-                <div className="sidebar__link">
-                        <Link to='/UserRetureAsset'><ReplayIcon className='icon' /></Link>
-                </div>
-          </>
-        }
-        <div className="sidebar__link">
+                  </Grid>
+                  <Grid item xs={10} sm={10}>
+                <Link to='/user'><PersonIcon className='icon' /></Link>  
+                  </Grid>
+                </>
+           }
+           {
+            user !== true &&
+               <>
+                <Grid item xs={10} sm={10}>
+                  <Link to='/userAssetList'><RemoveRedEyeIcon className='icon' /></Link>
+                </Grid>
+                <Grid item xs={10} sm={10}>
+                  <Link to='/UserManageServiceList'><SettingsSuggestIcon className='icon' /></Link>
+                </Grid>
+                <Grid item xs={10} sm={10}>
+                  <Link to='/UserRetureAsset'><ReplayIcon className='icon' /></Link>
+                </Grid>
+               </>  
+           }
+           
+           <Grid item xs={10} sm={10}>
                 <LogoutIcon className='icon' onClick={onClickLogOut} />
-        </div>
-        </div>
+           </Grid>
+        </Grid>
         <NotificationBar
             handleClose={handleCloseNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
             type={openNotification.type}
            
-          />
+        />
 </div>
 )
 }

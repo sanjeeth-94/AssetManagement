@@ -194,7 +194,7 @@ export default function HorizontalLinearStepper() {
         FetchMaintenanceSchedule({ id: e.target.value },handleFetchMaintenanceSchedule,handleFetchMaintenanceScheduleExeption)
     }
     const handleFetchMaintenanceSchedule=(dataObject)=>{
-        setRows(dataObject.data);
+        setRows(dataObject?.data || []);
         setAmcStatus(dataObject?.data[0]?.amc);
         setWarrantyStatus(dataObject?.data[0]?.warranty);
         setWarrantyType(dataObject?.data[0]?.warrantyType);
@@ -279,7 +279,7 @@ export default function HorizontalLinearStepper() {
         setTimeTo('');
         setMachineDetails('');
         setSmanHoursDetails('');
-        setRows('');
+        setRows([]);
         
         setNotification({
             status: true,
@@ -322,7 +322,7 @@ export default function HorizontalLinearStepper() {
         setTimeTo('');
         setMachineDetails('');
         setSmanHoursDetails('');
-        setRows('');
+        setRows([]);
   }
 
   const handleCloseNotify = () => {
@@ -483,7 +483,7 @@ const onOptionChange=(e)=>{
                                 
                                 <Grid container spacing={2}   
                                 >
-                                    
+            
                                     <Grid item xs={12} sm={5} md={5} lg={2.5} xl={2.5}
                                         style={{
                                             alignSelf: 'center',
@@ -499,7 +499,7 @@ const onOptionChange=(e)=>{
                                                     label='Select Department'
                                                     value={department}
                                                 onChange={(e) => onDepartmentChange(e)}>
-                                                {departmentList.map((data, index) => {
+                                                {departmentList?.map((data, index) => {
                                                     return (
                                                         <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                                                     )
