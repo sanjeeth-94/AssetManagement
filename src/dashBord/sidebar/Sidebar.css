@@ -43,9 +43,10 @@
     margin-top: 10px;
     margin-left: 35%;   
 }
+
 .icon:hover{
     background-color:rgb(195, 210, 211)
- }
+}
 
 .sidebar__link > a {
     text-decoration: none;
@@ -83,10 +84,11 @@ li{
     align-items: center;
     padding: 5;
     cursor: pointer        
- }
- li:hover{
+}
+
+li:hover{
     background-color:rgb(198, 233, 235)
- }
+}
 
 
 

@@ -28,11 +28,10 @@ function TabPanel(props) {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
-  
-const RequestAssetReturnasset = () => {
-    const [value, setValue] = useState(0);
 
-  const handleChange = (e, newValue) => {
+  const RequestAssetReturnasset = () => {
+    const [value, setValue] = useState(0);
+    const handleChange = (e, newValue) => {
     setValue(newValue);
   };    
     
@@ -40,21 +39,20 @@ const RequestAssetReturnasset = () => {
     <div>
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label=" Requested Return Asset " {...a11yProps(0)} />
-          <Tab label="Return Asset" {...a11yProps(1)} />
-          
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <RequestReturnAssetList/>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ReturnAssetList/>
-      </TabPanel>
-    </Box>
-    </Grid>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+              <Tab label=" Requested Return Asset " {...a11yProps(0)} />
+              <Tab label="Return Asset" {...a11yProps(1)} />
+            </Tabs>
+          </Box>
+           <TabPanel value={value} index={0}>
+            <RequestReturnAssetList/>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <ReturnAssetList/>
+          </TabPanel>
+        </Box>
+      </Grid>
     </div>
   )
 }

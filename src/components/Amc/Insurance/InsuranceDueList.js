@@ -149,7 +149,7 @@ const InsuranceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             value={periodFrom}
             onChange={(e) => { handleChangeperiodFrom(e) }}/>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label > To </label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -163,7 +163,7 @@ const InsuranceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </Grid>
         </Grid>
         <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-          <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
@@ -184,7 +184,7 @@ const InsuranceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Section:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -205,7 +205,7 @@ const InsuranceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
               </FormControl>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={1} lg={1} xl={1}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type</label>
           </Grid>
           <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
@@ -227,7 +227,7 @@ const InsuranceDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </Box>
           </Grid>
         </Grid>
-        <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
+        <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
       </div>
       <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
         <div>

@@ -120,7 +120,7 @@ const WarrantyList = () => {
       <hr/>
       <Grid  container spacing={2} style={{ marginTop: '20px'}}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-        style={{ height: '200px',  marginTop: '20px' }}
+        style={{ height: '300px',  marginTop: '20px' }}
         >
         <DataGrid
           rows={rows}

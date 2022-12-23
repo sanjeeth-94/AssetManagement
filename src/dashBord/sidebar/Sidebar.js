@@ -26,7 +26,6 @@ import { Grid } from "@mui/material";
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
 const [user ,setUser]=useState(false);
 useEffect(()=>{
-        
         const {userDetails} = ApplicationStore().getStorage("userDetails");
         const {userRole} =userDetails;
         if(userRole==='Admin')

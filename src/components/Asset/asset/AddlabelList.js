@@ -27,7 +27,7 @@ const AddlabelList = () => {
         { field: 'id', headerName: 'Serial No', width: 100 },
         { field: 'department', headerName: 'Department	', width: 100 },
         { field: 'selectSection', headerName: 'Section	', width: 120 },
-        { field: 'selectAssetType', headerName: 'Asset Type	', width: 120 },
+        { field: 'selectAsset', headerName: 'Asset Type	', width: 120 },
         { field: 'selectAssetId', headerName: 'Asset Id	', width: 120 },
         { field: 'code', headerName: 'Code	', width: 120 },
         { field: 'date', headerName: 'Date', width: 120 },
