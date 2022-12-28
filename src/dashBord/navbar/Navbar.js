@@ -8,22 +8,24 @@ const Navbar = () => {
             height: '6vh',width:'98.2%'
         }}>
             <Grid container>
-                <Grid className="navbar__left" item xs={12} sm={12} md={12} lg={12} xl={12}>
+                <Grid item xs={0} sm={7} md={8} lg={8} xl={10}>
+                </Grid>
+                <Grid item xs={8} sm={4} md={3} lg={2.5} xl={1}>
                     <Typography variant="h5" gutterBottom
-                    style={{
-                        marginLeft:'50%',
-                        alignItems:'left',
-                        alignContent:'',
-                        color: 'aqua',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
+                        style={{
+                            alignContent:'',
+                            color: 'aqua',
+                            display: 'flex',
+                            alignItems: 'center',
+                            alignSelf:'left',
+                            textAlign:'left',
+                            justifyContent: 'space-between'
                     }}>
-                        <img src={img} style={{alignItems:'left',marginLeft:'62%'}}height="40px" width="40px"/>
-                        Asset Managment
+                         <img src={img} height="40px" width="40px"/>
+                            Asset Managment
                     </Typography>
                 </Grid>
-           </Grid>    
+            </Grid>    
         </nav>
     )
 }

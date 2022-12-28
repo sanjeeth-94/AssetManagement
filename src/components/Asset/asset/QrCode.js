@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef, forwardRef  } from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,15 +10,19 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { AccordionDetails, Grid, Typography } from '@mui/material';
 import { AssetShowLabelService } from '../../../services/ApiServices';
-
+import { toJpeg } from 'html-to-image';
 
 const QrCode = ({open1, setOpen1,editData}) => {
   const [department,setDepartment]=useState('');
   const [date,setDate]=useState('');
   const [section,setSection]=useState('');
   const [assetType, setAssetType]=useState('');
-  const url=' https://varmatrix.com/AssetManagement/AssetManagement';
-  const [imgUrl,setImgUrl]=useState('')
+  const url='https://varmatrix.com/AssetManagement/AssetManagement';
+  const [imgUrl,setImgUrl]=useState('');
+  const [myImg, setMyImg] = useState(
+    "https://avatars.githubusercontent.com/u/33056458?v=4"
+  );
+  const componentRef = useRef(null);
     const handleClose = () => {
         setOpen1(false);
     }
@@ -41,6 +45,82 @@ const QrCode = ({open1, setOpen1,editData}) => {
     const handleAssetShowLabelException=()=>{
 
     }
+    const ComponentToPrint = forwardRef((props, ref) => {
+      return(
+        <div ref={ref}>
+          <div 
+            // container 
+            style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            alignItems: 'center',
+            marginTop:'20px',
+            width:'500px',
+            height:'150px',
+          }} >
+            <div 
+            // item 
+              style={{alignSelf:'center'}}
+            >
+              <img style={{width:'150px',height:'150px',alignSelf:'center',alignItems:'center'}}
+                 src={`${url}${imgUrl}`}
+                // src={'https://cdn.carbuzz.com/gallery-images/1600/918000/100/918155.jpg'}
+                
+              />
+              
+            </div>
+            <div 
+              // container 
+              style={{display:'block',maginTop:'10px',marginLeft:'10px'}}>
+              <div 
+                // item 
+                style={{alignSelf:'center'}}
+              >
+                  <label>Department :</label>  
+                  <label>{department}</label>
+              </div>
+              <div 
+              // item 
+                style={{alignSelf:'center'}}
+              >
+                <label>Section :</label>
+                <label>{section}</label>
+              </div>
+              <div 
+              // item 
+                style={{alignSelf:'center'}}
+              >
+                <label> Asset Name :</label>
+                <label>{assetType}</label>
+              </div>
+              <div 
+              // item 
+                style={{alignSelf:'center'}}
+              >
+                <label> Date :</label>
+                <label>{date}</label>
+              </div>
+            </div>  
+          </div>
+        </div>
+      )
+    }) 
+    
+    const downloadPng = () => {
+    if(componentRef.current !== null){
+      toJpeg(componentRef.current, {cacheBust: true,})
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = 'testingImage.jpg';
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+    }
+  }
 
   return (
     <div>
@@ -52,7 +132,7 @@ const QrCode = ({open1, setOpen1,editData}) => {
                   {"Label"}
               </DialogTitle>
               <DialogContent>
-                <Grid container style={{
+                {/* <Grid container style={{
                   display: 'flex',
                   flexDirection: 'row',
                   flexWrap: 'nowrap',
@@ -93,15 +173,19 @@ const QrCode = ({open1, setOpen1,editData}) => {
                       <label> Date :</label>
                       <label>{date}</label>
                     </Grid>
-                  </Grid>   
-                </Grid>
+                  </Grid>  
+             
+                </Grid> */}
               </DialogContent>
               <DialogActions>
                 <div>
-                  <Button type='reset' onClick={handleClose}>Cancel</Button>
-                  <Button type='submit'>
-                    Download
-                  </Button>
+                    <ComponentToPrint ref={componentRef} />
+                    <Button  onClick={() => {
+                      console.log('Downloading..');
+                      // exportComponentAsPNG(componentRef);
+                      downloadPng();
+                    }}>Download</Button>
+                    <Button type='reset' onClick={handleClose}>Cancel</Button>
                 </div>
               </DialogActions>
           </form>

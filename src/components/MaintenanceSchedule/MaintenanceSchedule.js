@@ -99,9 +99,9 @@ export default function HorizontalLinearStepper() {
       });
 
     const columns = [
-        { field: 'amc', headerName: 'AMC Status', width: 320 },
-        { field: 'warranty', headerName: 'Warranty Status', width: 320 },
-        { field: 'warrantyType', headerName: 'Warranty Type', width: 380 },
+        { field: 'amc', headerName: 'AMC Status', width: 300 },
+        { field: 'warranty', headerName: 'Warranty Status', width: 300 },
+        { field: 'warrantyType', headerName: 'Warranty Type', width: 290 },
     ];
     
 
@@ -245,8 +245,7 @@ export default function HorizontalLinearStepper() {
        
     }, handleMaintenanceAddService,  handleMaintenanceAddServiceException)
 
-    }
-    
+        }
     };
     
     const handleMaintenanceAddService= (dataObject) => {
@@ -280,22 +279,21 @@ export default function HorizontalLinearStepper() {
         setMachineDetails('');
         setSmanHoursDetails('');
         setRows([]);
-        
         setNotification({
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleMaintenanceAddServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
         setNotification({
-      status: true,
-      type: 'error',
-      message: errorMessage,
-    });
-    setDepartment('');
+            status: true,
+            type: 'error',
+            message: errorMessage,
+        });
+        setDepartment('');
         setSection('');
         setAssetType('');
         setName('');
@@ -326,7 +324,6 @@ export default function HorizontalLinearStepper() {
   }
 
   const handleCloseNotify = () => {
-    
     setNotification({
       status: false,
       type: '',
@@ -438,15 +435,21 @@ const onOptionChange=(e)=>{
 
     return (
         <div>
-            <div>
-                <h2 style={{ marginLeft: '40px' }}>Maintenance Schedule</h2>
-            </div>
-            <form style={{ width: '95%', marginLeft: '30px' }}>
-                <div>
-                    <h3 style={{ marginLeft: '30px' }}>Create Maintenance Schedule</h3>
-                </div>
-                <hr />
-                <Box sx={{ width: '90%', marginLeft: '100px', marginTop: '10px' }}>
+            <Grid>
+            <h2 style={{ marginLeft: '40px' }}>Maintenance Schedule</h2>
+            </Grid>
+            <hr />
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                    style={{alignSelf:'center',textAlign:'center'}}
+                >
+                    <h3 >Create Maintenance Schedule</h3>
+                    
+                </Grid>
+                <Grid container spacing={2}
+                     style={{ marginLeft: '40px' }}
+                >
+                <Box sx={{ width: '85%', marginLeft: '80px', marginTop: '10px' }}>
                     <Stepper activeStep={activeStep}>
                         {steps.map((label, index) => {
                             const stepProps = {};
@@ -469,7 +472,7 @@ const onOptionChange=(e)=>{
                     {
                         activeStep === 0 &&
                         <>
-                            <Grid container spacing={2} >
+                            <Grid container spacing={2} style={{ marginLeft: '50px' }}>
                                 <Grid container item xs={12} sm={12} md={12} lg={12} xl={12}
                                 >
                                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
@@ -851,7 +854,7 @@ v                                       value={problemNote}
                                             >
                                                 <label>Name:</label>
                                             </Grid>
-                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
                                                 style={{
                                                     alignSelf: 'center',
 
@@ -876,7 +879,7 @@ v                                       value={problemNote}
                                             >
                                                 <label>Partid:</label>
                                             </Grid>
-                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                            <Grid item  xs={10} sm={10} md={6} lg={6} xl={6}
                                                 style={{
                                                     alignSelf: 'center',
 
@@ -900,7 +903,7 @@ v                                       value={problemNote}
                                             >
                                                 <label>Quantity:</label>
                                             </Grid>
-                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                            <Grid item  xs={10} sm={10} md={6} lg={6} xl={6}
                                                 style={{
                                                     alignSelf: 'center',
 
@@ -924,7 +927,7 @@ v                                       value={problemNote}
                                             >
                                                 <label>UOM:</label>
                                             </Grid>
-                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                            <Grid item  xs={10} sm={10} md={6} lg={6} xl={6}
                                                 style={{
                                                     alignSelf: 'center',
 
@@ -955,7 +958,7 @@ v                                       value={problemNote}
                                             >
                                                 <label>Unit price:</label>
                                             </Grid>
-                                            <Grid item xs={12} sm={12} md={6} lg={7} xl={7}
+                                            <Grid  xs={10} sm={10} md={6} lg={6} xl={6}
                                                 style={{
                                                     alignSelf: 'center',
 
@@ -975,9 +978,7 @@ v                                       value={problemNote}
                                                  {isAddUnit ? 'Add ' : 'Update '}
                                             </Button>
                                         </Grid>
-
                                     </Grid>
-
                                     <Grid container item xs={12} sm={12} md={6} lg={8} xl={8} style={{ display: 'inline', }} >
                                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
                                             style={{
@@ -998,7 +999,6 @@ v                                       value={problemNote}
                                                 }
                                         </Grid>
                                     </Grid>
-
                                 </Grid>
                             </form>
                         </>
@@ -1247,7 +1247,8 @@ v                                       value={problemNote}
                         </React.Fragment>
                     )}
                 </Box>
-            </form>
+                </Grid>
+            </Grid>
             <NotificationBar
                 handleClose={handleCloseNotify}
                 notificationContent={openNotification.message}

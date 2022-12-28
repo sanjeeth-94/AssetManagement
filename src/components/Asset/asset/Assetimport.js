@@ -15,8 +15,7 @@ export default function Assetimport() {
     message: '',
   });
 
-    const [importFile, setImportFile] = useState('');
-
+  const [importFile, setImportFile] = useState('');
   const onSubmit=(e)=>{
     e.preventDefault();
     AssetImportService({file:importFile},handleAssetImportService,handleAssetImportException);
@@ -36,7 +35,6 @@ const handleAssetImportException=(errorStastus, errorMessage)=>{
     type: 'error',
     message: errorMessage,
   });
-
 }
 
 const handleCloseNotify = () => {
@@ -69,31 +67,27 @@ const handleDownloadTemplateException=()=>{}
                 style={{
                 alignSelf: 'center',
                 textAlignLast: 'center'
-
-            }}
+              }}
               >
               <label > Import CSV File : </label>
-              
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                <TextField
-                    
-                    onChange={(e) => {
-                      if (e.target.files && e.target.files.length > 0) {
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          if (reader.readyState === 2) {
-                            setImportFile(reader.result);
-                          }
-                        };
-                        reader.readAsDataURL(e.target.files[0]);
-                      }
-                    }}
-                    InputLabelProps={{ shrink: true }}
-                    type="file"
-                  />
-              </Grid>
-                
+                  <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                  <TextField
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          const reader = new FileReader();
+                          reader.onload = () => {
+                            if (reader.readyState === 2) {
+                              setImportFile(reader.result);
+                            }
+                          };
+                          reader.readAsDataURL(e.target.files[0]);
+                        }
+                      }}
+                      InputLabelProps={{ shrink: true }}
+                      type="file"
+                    />
+                  </Grid>
                 </Grid>
                 <Grid container  style={{marginTop:'30px', marginBottom:'30px'}}>
               <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
@@ -104,12 +98,10 @@ const handleDownloadTemplateException=()=>{}
             }}
               >
               <Button variant="contained" onClick={onDownload} component="label">
-              Download Templete
+                Download Templete
               </Button>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                
-                >
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={6} >
                 <Button style={{marginLeft:'20px'}} type="submit" variant="contained">Import</Button>
               </Grid>
                 

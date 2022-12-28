@@ -180,12 +180,12 @@ const onClick=()=>{
             </Grid>
         </Grid>
         <Grid container style={{marginTop:'10px'}}>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+            <Grid item xs={10} sm={6} md={6} lg={6} xl={6}
             style={{ alignSelf: 'center',  textAlignLast: 'center'}}
             >
             <label>Department :</label>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={10} sm={4} md={4} lg={4} xl={4}>
             <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                         <Select
@@ -210,7 +210,7 @@ const onClick=()=>{
             >
             <label>Section:</label>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={10} sm={4} md={4} lg={4} xl={4}>
             <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select Section:</InputLabel>
                         <Select
@@ -236,7 +236,7 @@ const onClick=()=>{
             >
             <label>Asset Type :</label>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={10} sm={4} md={4} lg={4} xl={4}>
             <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select Asset Type :</InputLabel>
                         <Select
@@ -261,7 +261,7 @@ const onClick=()=>{
             style={{alignSelf: 'center',  textAlignLast: 'center'}}>
             <label>Asset Name :</label>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={10} sm={4} md={4} lg={4} xl={4}>
             <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select Asset Name :</InputLabel>
                         <Select
@@ -286,7 +286,7 @@ const onClick=()=>{
             >
             <label>Scrap Aproval Letter :</label>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={10} sm={4} md={4} lg={4} xl={4}>
             <TextField
                     fullWidth
                     label="Canceled Cheque"

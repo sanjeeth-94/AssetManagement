@@ -94,19 +94,15 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
   
     const onSubmit = (e) => {
         e.preventDefault();
-      
-       
-            AssetLabelAddService({
-                department:department,
-                selectSection:section,
-                assetType:assetType,
-                selectAssetType : redio,
-                selectAsset:assetName,
-                selectAssetId:assetId,
-                code : barCode,
-                
-            },handleSuccess, handleException)
-       
+        AssetLabelAddService({
+            department:department,
+            selectSection:section,
+            assetType:assetType,
+            selectAssetType : redio,
+            selectAsset:assetName,
+            selectAssetId:assetId,
+            code : barCode,   
+        },handleSuccess, handleException)
     }
   
     const handleSuccess = (dataObject) =>{
@@ -182,7 +178,7 @@ export default function Addlabel({ open, setOpen, isAdd, editData, setRefresh })
                 <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                     {"ADD Label"} 
                 </DialogTitle>  
-                <form onSubmit={onSubmit}>
+                 <form onSubmit={onSubmit}>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <div>

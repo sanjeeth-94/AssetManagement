@@ -137,7 +137,7 @@ const AssetList = () => {
             <hr style={{ bottom: 'solid' }} />
             <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
                 <DataGrid 
-                    style={{ height: 270, }}
+                    style={{ height: 270,width:'120%' }}
                     loading={loading}
                     rows={rows}
                     columns={columns} 

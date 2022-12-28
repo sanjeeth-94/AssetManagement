@@ -94,7 +94,7 @@ const onFullScreen =()=>{
 return (
         <div 
             style={{
-                height: '110vh', 
+                height: '12  0vh', 
                 width: '11vh',
                 background:'#57595D',
             }}

@@ -108,14 +108,14 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         {"ADD SECTION"}
                     </DialogTitle>
                     <div>
-                        <Grid container spacing={2} style={{marginTop:'20px'}}>
-                            <Grid item xs={12} sm={4} md={4} lg={4} xl={4}
-                             style={{alignSelf:'center', textAlign:'center'}}
+                        <Grid container spacing={2} style={{marginTop:'20px',marginLeft:'5px'}}>
+                            <Grid item xs={10} sm={4} md={4} lg={4} xl={4}
+                                style={{alignSelf:'center', textAlign:'center'}}
                             >
                             <label>Department:</label>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                              style={{alignSelf:'center', }}
+                            <Grid item xs={10} sm={5} md={5} lg={5} xl={5}
+                                style={{alignSelf:'center', }}
                             >
                             <FormControl 
                                     fullWidth>
@@ -133,23 +133,21 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                        </Grid>
-
-                        <Grid container spacing={2} style={{marginTop:'20px'}}>
-                            <Grid item xs={12} sm={4} md={4} lg={4} xl={4}
-                             style={{alignSelf:'center', textAlign:'center'}}
+                        </Grid>x
+                        <Grid container spacing={2} style={{marginTop:'20px',marginLeft:'5px'}}>
+                            <Grid item xs={10} sm={4} md={4} lg={4} xl={4}
+                                style={{alignSelf:'center', textAlign:'center'}}
                             >
                             <label >Section:</label>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                            <Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
                             <TextField
                                 fullWidth
                                 variant="outlined"
                                 value={section} 
                                 onChange={(e) => {setSection(e.target.value)}}/>
                             </Grid>
-                        </Grid>
-                    
+                        </Grid>           
                         <div style={{marginLeft:'70%',marginTop:'20px'}}>
                             <Button type='reset' onClick={handleClose}>Cancel</Button>
                             <Button type='submit'>

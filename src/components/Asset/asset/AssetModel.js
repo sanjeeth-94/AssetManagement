@@ -443,7 +443,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             <Select
                                             labelId="vendor"
                                             id="vendor"
-                                            label="Select Vendor"
+                                            label="Select Vendor Name"
                                             value={vendorName}
                                             onChange={(e) => onVenderChange(e)}>
                                                 {vendorNameList.map((data, index) => {
@@ -503,7 +503,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             <Select
                                                 labelId="Vendor Name"
                                                 id="Vendor-Name"
-                                                label="Asset Type"
+                                                label="Select Asset Type"
                                                 value={assetType}
                                                 onChange={(e) => onAssetTypeChange(e)}>
                                                 {assetTypeList.map((data, index) => {

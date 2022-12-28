@@ -33,12 +33,12 @@ const AddlabelList = () => {
         { field: 'date', headerName: 'Date', width: 120 },
         { field: 'selectAsset', headerName: '	Asset Name', width: 120 },
         {field: 'action', headerName: 'Action', width: 200, sortable: false,
-        cellClassname: 'actions',
-        type: 'actions',
-        getActions: (params) => [
-            <EditData selectedRow={params.row} />,
-            <DeleteData selectedRow={params.row} />,
-        ],
+            cellClassname: 'actions',
+            type: 'actions',
+            getActions: (params) => [
+                <EditData selectedRow={params.row} />,
+                <DeleteData selectedRow={params.row} />,
+            ],
         }
     ];
     
@@ -68,27 +68,25 @@ const AddlabelList = () => {
     function EditData({ selectedRow }) {
         return (
             <RemoveRedEyeIcon
-            className='prbuton'
-            variant="contained"
-            color='primary'
-            onClick={() => {      
+                className='prbuton'
+                variant="contained"
+                color='primary'
+                onClick={() => {      
                 setOpen1(true);
                 setEditData(selectedRow)
-            }}/>
-                
+            }}/>     
         )
     }
     
     function DeleteData({ selectedRow }) {
         return (
             <DeleteIcon
-            variant="contained"
-            color='primary'
-            onClick={() => {
+                variant="contained"
+                color='primary'
+                onClick={() => {
                 DeletAssetLabel(selectedRow.id)
                 }
-                }/>
-            
+            }/> 
         )
     }
     
@@ -98,9 +96,9 @@ const AddlabelList = () => {
 
     const handleDeleteSuccess = (dataObject) =>{
         console.log(dataObject);
-        setRefresh(oldValue => !oldValue);
-        setNotification({
-            status: true,
+            setRefresh(oldValue => !oldValue);
+            setNotification({
+                status: true,
             type: 'success',
             message: dataObject.message,
           });

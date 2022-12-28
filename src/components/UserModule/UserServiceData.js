@@ -17,7 +17,7 @@ const UserServiceData = ({open2, setOpen2, editData, setRefresh}) => {
     const [warrentyStatus,setWarrentyStatus]=useState('');
     const [insuranceStatus,setInsuranceStatus]=useState('');
     const [problemNote,setProblemNote]=useState('');
-
+    const url='https://varmatrix.com/AssetManagement/AssetManagement'
     useEffect(()=>{
         setBpImages1(editData?.image1 || '');
         setBpImages2(editData?.image2 ||'');
@@ -156,10 +156,10 @@ const onClickeCancel=()=>{
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop:'5px', }}>
         <ImageList style={{marginLeft:'20%'}} cols={4} colHeight={100} rowHeight={164}>
             <img style={{width:'200px',height:'180px'}}
-            src={`https://varmatrix.com/AssetManagement${bpImages1}`}
+            src={`${url}${bpImages1}`}
             />
             <img style={{width:'200px',height:'180px'}}
-            src={`https://varmatrix.com/AssetManagement${bpImages2}`}
+            src={`${url}${bpImages2}`}
         />
         </ImageList>
         </Grid>

@@ -1,5 +1,4 @@
-import React,{useState,useEffect} from 'react'
-import Box from '@mui/material/Box';
+import React,{useState,useEffect} from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -11,25 +10,21 @@ import {
         FetchAssetNameService,
         FetchAsstTransferService
      } from '../../services/ApiServices';
-import { MenuItem } from '@mui/material';
+import { Grid, MenuItem } from '@mui/material';
 import NotificationBar from '../../services/NotificationBar';
 
 const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     const [departmentList, setDepartmentList] = useState([]);
     const [sectionList,setSectionList] = useState([]);
-
     const [departmentListMove, setDepartmentListMove] = useState([]);
     const [sectionListMove,setSectionListMove] = useState([]);
     const [assetTypeListMove,setAssetTypeListMove] = useState([]);
-   
     const [assetNameList,setAssetNameList] = useState([]);
     const [assetName,setAssetName] = useState('');
-    
     const [department,setDepartment]=useState("");
     const [departmentMove,setDepartmentMove]=useState("");
     const [section,setSection]=useState("");
     const [sectionMove,setSectionMove]=useState("");
-
     const [assetTypeList,setAssetTypeList] = useState([]);
     const [assetType,setAssetType] = useState('');
     const [assetTypeMove,setAssetTypeMove] = useState('');
@@ -180,179 +175,230 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       }
 
     return(
-        <div style={{display:'flex'}}>
-            <div >
-                <form style={{width:'500px',border:'solid', borderColor:'whitesmoke'}} onSubmit={onSubmit}>
-                    <h2 style={{marginLeft:'200px'}}>From</h2>
-                    <hr />
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Department:</label>
-                        <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'28px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Select Department"
-                                value={department}
-                                onChange={(e) => onDepartmentChange(e)}>
-                                        {departmentList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                            )
-                                        })}
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Section:</label>
-                        <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'59px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
-                                <Select
-                                labelId="Select Section"
-                                id="Select Sectiont"
-                                label="Select Section"
-                                value={section}
-                                onChange={(e) => onSectionChange(e)}>
-                                        {sectionList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                                            )
-                                        })}
-                             
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Asset Type:</label>
-                        <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'34px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
-                                <Select
-                                labelId="Select Asset Type"
-                                id="Select Asset Type"
-                                label="Select Asset Type"
-                                value={assetType}
-                                onChange={(e) => onAssetTypeChange(e)}>
-                                {assetTypeList.map((data, index) => {
-                                    return (
-                                        <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
-                                    )
-                                })}
-
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'70vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Asset Name:</label>
-                        <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'27px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
-                                <Select
-                                labelId="Select Asset Name"
-                                id="Select Asset Name"
-                                value={assetName}
-                                label="Select Asset Name"
-                                onChange={(e) => onAssetNameChange(e)}>
-                                {assetNameList.map((data, index) => {
-                                    return (
-                                        <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
-                                    )
-                                })}
+        <div>
+            <form onSubmit={onSubmit}>
+                <Grid container spacing={2} style={{display:'flex'}}>
+                    <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
+                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'10px'}}
+                    >
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                        >
+                        <h3>From</h3>
+                        <hr />
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                                <label>Department:</label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Select Department"
+                                        value={department}
+                                        onChange={(e) => onDepartmentChange(e)}>
+                                                {departmentList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                    )
+                                                })}
+                                        </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                                <label>Section:</label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
+                            <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
+                                    <Select
+                                    labelId="Select Section"
+                                    id="Select Sectiont"
+                                    label="Select Section"
+                                    value={section}
+                                    onChange={(e) => onSectionChange(e)}>
+                                            {sectionList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                                )
+                                            })}
                                 
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <div style={{marginLeft:'150px', marginTop:'20px', marginBottom:'20px'}}>
-                        <Button
-                        
-                         variant="contained"
-                         type='submit'
-                        >Move</Button>
-                    </div>
-                </form>
-            </div>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                                    <label>Asset Type:</label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
+                                    <Select
+                                    labelId="Select Asset Type"
+                                    id="Select Asset Type"
+                                    label="Select Asset Type"
+                                    value={assetType}
+                                    onChange={(e) => onAssetTypeChange(e)}>
+                                    {assetTypeList.map((data, index) => {
+                                        return (
+                                            <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                        )
+                                    })}
 
-            <div>
-                <form style={{ marginLeft:'30px' ,width:'500px',border:'solid', borderColor:'whitesmoke'}}>
-                    <h2 style={{marginLeft:'200px'}}>To</h2>
-                    <hr/>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Department:</label>
-                        <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'22px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Select Department"
-                                value={departmentMove}
-                                onChange={(e) => onDepartmentMoveChange(e)}>
-                                        {departmentList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                            )
-                                        })}
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Section:</label>
-                        <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'52px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Select Section"
-                                value={sectionMove}
-                                onChange={(e) => onSectionMoveChange(e)}>
-                                        {sectionListMove.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                                            )
-                                        })}
-                             
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <div style={{marginTop:'20px',marginLeft:'5px', width:'150vh', display:'flex', alignItems:'center'}}>
-                        <label style={{marginLeft:'5px'}}>Asset Type:</label>
-                        <Box>
-                            <FormControl style={{width:'300px' ,marginLeft:'30px', marginBottom:'20px'}}>
-                                <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Select Asset Type"
-                                value={assetTypeMove}
-                                onChange={(e) => onAssetTypeMoveChange(e)}>
-                                {assetTypeListMove.map((data, index) => {
-                                    return (
-                                        <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
-                                    )
-                                })}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                                <label >Asset Name:</label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
+                                    <Select
+                                    labelId="Select Asset Name"
+                                    id="Select Asset Name"
+                                    value={assetName}
+                                    label="Select Asset Name"
+                                    onChange={(e) => onAssetNameChange(e)}>
+                                    {assetNameList.map((data, index) => {
+                                        return (
+                                            <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                                        )
+                                    })}
+                                    
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={10} sm={10} md={4} lg={4} xl={4}
+                            style={{marginTop:'10px',marginLeft:'10px', marginBottom:'10px'}}
+                            >
+                                <Button
+                                    variant="contained"
+                                    type='submit'>
+                                    Move
+                                </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
+                        style={{border:'solid',borderColor:'whitesmoke',marginLeft:'10px',marginTop:'20px'}}
+                    >
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                        >
+                            <h3>To</h3>
+                            <hr />
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                                <label>Department:</label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                    <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Select Department"
+                                    value={departmentMove}
+                                    onChange={(e) => onDepartmentMoveChange(e)}>
+                                            {departmentList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                )
+                                            })}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                                <label>Section:</label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
+                                    <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Select Section"
+                                    value={sectionMove}
+                                    onChange={(e) => onSectionMoveChange(e)}>
+                                            {sectionListMove.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                                )
+                                            })}
+                                
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                                    <label>Asset Type:</label>
+                            </Grid>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px',marginBotton:'10px'}}
+                            >
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
+                                    <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Select Asset Type"
+                                    value={assetTypeMove}
+                                    onChange={(e) => onAssetTypeMoveChange(e)}>
+                                    {assetTypeListMove.map((data, index) => {
+                                        return (
+                                            <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                        )
+                                    })}
 
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                </form>
-            </div>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </form> 
             <NotificationBar
                 handleClose={handleCloseNotify}
                 notificationContent={openNotification.message}
                 openNotification={openNotification.status}
                 type={openNotification.type}
-            />
-        </div>       
+            /> 
+        </div>     
     )
 }
 

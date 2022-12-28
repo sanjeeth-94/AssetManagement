@@ -151,11 +151,12 @@ const SectionList = () => {
       </Grid>
       <hr style={{ bottom: 'solid' }} />
      
-      <div className='adduser' style={{ height: 270, width: '90%',marginLeft:'30px' }}>
+      <div className='adduser' style={{ height: 350, width: '90%',marginLeft:'30px' }}>
         <DataGrid
-        loading={loading}
-        rows={rows}
-        columns={columns} />
+          loading={loading}
+          rows={rows}
+          columns={columns} 
+        />
       </div>
       <SectionModel
           open={open}
