@@ -230,7 +230,8 @@ const InspectionList = ({ open, setOpen, isAdd, editData, setRefresh,isService }
         <Grid item style={{
           textAlign: 'end', marginTop:'20px'
         }}>
-          <Button variant="contained" type='submit' >View</Button>
+          <Button style={{ marginBottom:'20px', marginTop:'20px',marginLeft:'50px',}}  type='submit' variant="contained" >View</Button>     
+          
         </Grid>
       </div>
       <form style={{border:'solid', borderColor:'whitesmoke'}}>

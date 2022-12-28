@@ -51,8 +51,7 @@ const ServiceStatusUpdate = ({open3, setOpen3,setRefresh , editData }) => {
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
-      <ViewData selectedRow={params.row} />,
-      
+      <ViewData selectedRow={params.row} />,     
     ],
     }     
   ]

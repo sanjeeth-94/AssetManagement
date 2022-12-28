@@ -99,9 +99,9 @@ export default function HorizontalLinearStepper() {
       });
 
     const columns = [
-        { field: 'amc', headerName: 'AMC Status', width: 320 },
-        { field: 'warranty', headerName: 'Warranty Status', width: 320 },
-        { field: 'warrantyType', headerName: 'Warranty Type', width: 380 },
+        { field: 'amc', headerName: 'AMC Status', width: 300 },
+        { field: 'warranty', headerName: 'Warranty Status', width: 300 },
+        { field: 'warrantyType', headerName: 'Warranty Type', width: 300 },
     ];
     
 

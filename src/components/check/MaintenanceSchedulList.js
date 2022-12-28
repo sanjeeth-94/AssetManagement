@@ -105,7 +105,7 @@ const MaintenanceSchedulList = () => {
                         }}>
                             
                             
-                            <Link to='/warrantyList'><BuildIcon  /></Link>
+                            <Link to='/WarrantyList'><BuildIcon  /></Link>
                             </div>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2.6} lg={2.8} xl={2.5}style={{

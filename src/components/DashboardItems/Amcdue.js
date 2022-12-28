@@ -28,6 +28,7 @@ const Amcdue = () => {
         setLoading(false);
         console.log(dataObject.data);
     }
+    
     const handleViewAmcDueError=(errorStaus, errorMessage)=>{
         console.log(errorMessage)
     }

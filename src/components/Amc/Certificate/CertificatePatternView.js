@@ -108,8 +108,7 @@ const CertificatePatternView = ({ open1, setOpen1,editData2}) => {
   }
 
   const handleSuccess = (dataObject) => {
-    console.log(dataObject);
-    
+    console.log(dataObject); 
     setNotification({
       status: true,
       type: 'success',
@@ -143,86 +142,81 @@ const CertificatePatternView = ({ open1, setOpen1,editData2}) => {
                 <Grid  container spacing={2} style={{ marginTop: '20px'}}>
                   <Grid xs={12} sm={6} md={1} lg={1} xl={1} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                     <label >Name: </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                      <TextField id="" 
-                        fullwidth
-                        label="" 
-                        variant="outlined" 
-                        value={vendorName} />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label >Date From: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                    <TextField id="" 
+                    fullwidth
+                    label=""
+                    variant="outlined" 
+                    value={vendorName} />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Date From: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                    <TextField id=""
+                    fullwidth
+                    label="" 
+                    variant="outlined" 
+                    value={periodFrom} />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Date To :</label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
+                    <TextField id="" 
+                    fullwidth
+                    label="" 
+                    variant="outlined" 
+                    value={periodTo} />
+                  </Grid>
+                </Grid>
+                {
+                  count >= 1 &&
+                  <>
+                  <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                    <Grid item  xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label>1 Inspection: FROM </label>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                      <TextField id="" 
-                        fullwidth
-                        label="" 
-                        variant="outlined" 
-                        value={periodFrom} 
-                      />
+                      <TextField
+                      fullWidth
+                      id=""
+                      variant="outlined"
+                      type='date'
+                      onChange={(e) => { handleChangec1DateFrom(e) }}
+                      value={c1DateFrom}/>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                      <label >Date To :</label>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                      <label>1 Inspection: To: </label>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                      <TextField id="" 
-                      fullwidth
-                      label="" 
-                      variant="outlined" 
-                      value={periodTo} />
+                      <TextField
+                      fullWidth
+                      id=""
+                      variant="outlined"
+                      type='date'
+                      onChange={(e) => { handleChangec1DateTo(e) }}
+                      value={c1DateTo}/>
                     </Grid>
                   </Grid>
-                  {
-                    count >= 1 &&
-                    <>
-                    <Grid container spacing={2} style={{ marginTop: '20px'}}>
-                      <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
-                      style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                        <label>1 Inspection: FROM </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                        <TextField
-                        fullWidth
-                        id=""
-                        variant="outlined"
-                        type='date'
-                        onChange={(e) => { handleChangec1DateFrom(e) }}
-                        value={c1DateFrom}/>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
-                        style={{ alignSelf: 'center', textAlignLast: 'center' }}>
-                        <label>1 Inspection: To: </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
-                        <TextField
-                        fullWidth
-                        id=""
-                        variant="outlined"
-                        type='date'
-                        onChange={(e) => { handleChangec1DateTo(e) }}
-                        value={c1DateTo}/>
-                    </Grid>
-                    
-                    </Grid>
-                    </>
-                  }
-                  {
-                    count >= 2 &&
-                    <>
-                    <Grid container spacing={2} style={{ marginTop: '20px'}}>
-                      <Grid item  xs={12} sm={6} md={2} lg={2} xl={2}
-                      style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                        <label>2 Inspection: From: </label>
+                  </>
+                }
+                {
+                  count >= 2 &&
+                  <>
+                  <Grid container spacing={2} style={{ marginTop: '20px'}}>
+                    <Grid item  xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                      <label>2 Inspection: From: </label>
                     </Grid>
                     <Grid item xs={12} sm={6}  md={2} lg={2} xl={2}  >
-                        <TextField
-                        fullWidth
-                        id=""
-                        variant="outlined"
-                        type='date'
-                        onChange={(e) => { handleChangec2DateFrom(e) }}
-                        value={c2DateFrom}/>
+                      <TextField
+                      fullWidth
+                      id=""
+                      variant="outlined"
+                      type='date'
+                      onChange={(e) => { handleChangec2DateFrom(e) }}
+                      value={c2DateFrom}/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2} lg={2} xl={2}
                         style={{ alignSelf: 'center', textAlignLast: 'center' }}>

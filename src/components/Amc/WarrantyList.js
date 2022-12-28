@@ -87,58 +87,51 @@ const WarrantyList = () => {
           <label>Date From:</label>
         </Grid>
         <Grid item xs={12} sm={6} md={2} xl={2} style={{alignSelf:'center', textAlignLast:'center'}}>
-        <TextField
-         fullWidth
-         id="Vendor-Address"
-         variant="outlined"
-         type='date'
-         value={warrantyStartDate}
-         onChange={(e) => { handleChangewarrantyStartDate(e) }}/>
+          <TextField
+          fullWidth
+          id="Vendor-Address"
+          variant="outlined"
+          type='date'
+          value={warrantyStartDate}
+          onChange={(e) => { handleChangewarrantyStartDate(e) }}/>
         </Grid>
         <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{alignSelf:'center',textAlignLast:'center'}}>
           <label>To:</label>
         </Grid>
         <Grid item xs={12} sm={6} md={2} xl={2} style={{alignSelf:'center', textAlignLast:'center'}}>
-        <TextField
-         fullWidth
-         id="Vendor-Address"
-         variant="outlined"
-         type='date'
-         value={warrantyEndDate}
-         onChange={(e) => { handleChangewarrantyEndDate(e) }}/>
+          <TextField
+          fullWidth
+          id="Vendor-Address"
+          variant="outlined"
+          type='date'
+          value={warrantyEndDate}
+          onChange={(e) => { handleChangewarrantyEndDate(e) }}/>
         </Grid>
         <Grid item xs={12} sm={6} md={2} xl={2} style={{alignSelf:'center', textAlignLast:'center'}}>
-        <Button style={{marginLeft:'50px', marginBottom:'20px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>       
+          <Button style={{marginLeft:'50px', marginBottom:'20px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>       
         </Grid>
       </Grid>
-
       <Grid  container spacing={2} style={{ marginTop: '20px'}}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <h3 >View Warranty</h3>
+          <h3 >View Warranty</h3>
         </Grid>
       </Grid>
       <hr/>
       <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-        style={{ height: '300px',  marginTop: '20px' }}
-        >
-        <DataGrid
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ height: '300px',  marginTop: '20px' }}>
+          <DataGrid
           rows={rows}
           columns={columns}/>
         </Grid>
       </Grid>
-
+      
       <WarrantyView
-     open={openView}
-     setOpen={setOpenView}
-     editData={editData}
-     setRefresh={setRefresh}/>
-
-
+      open={openView}
+      setOpen={setOpenView}
+      editData={editData}
+      setRefresh={setRefresh}/>
     </form>
   )
-  
- 
 }
 
 export default WarrantyList;

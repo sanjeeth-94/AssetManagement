@@ -26,12 +26,12 @@ const AssetList = () => {
         { field: 'departmentName', headerName: 'Department', width: 100 },
         { field: 'sectionName', headerName: 'Section', width: 100 },
         { field: 'assetName', headerName: 'Machine', width: 100 },
-        { field: 'assetTypeName', headerName: 'Asset Type', width: 120 },
-        { field: 'manufacturer', headerName: 'Manufacturer', width: 120 },
-        { field: 'assetModel', headerName: 'Asset Model', width: 120 },
-        { field: 'warrantyStartDate', headerName: 'Warranty Start Date', width: 120 },
-        { field: 'warrantyEndDate', headerName: 'Warranty End Date', width: 120 },
-        {field: 'action', headerName: 'Action', width: 200, sortable: false,
+        { field: 'assetTypeName', headerName: 'Asset Type', width: 100 },
+        { field: 'manufacturer', headerName: 'Manufacturer', width: 100 },
+        { field: 'assetModel', headerName: 'Asset Model', width: 100 },
+        { field: 'warrantyStartDate', headerName: 'Warranty Start Date', width: 100 },
+        { field: 'warrantyEndDate', headerName: 'Warranty End Date', width: 100 },
+        {field: 'action', headerName: 'Action', width: 120, sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -60,7 +60,7 @@ const AssetList = () => {
           type: '',
           message: '',
         });
-      };
+    };
     
     function EditData({ selectedRow }) {
         return (
@@ -84,11 +84,10 @@ const AssetList = () => {
             color='primary'
             onClick={() => {
                 deletAsset(selectedRow.id)
-                }
-                }/>
-         
+            }}/>       
         )
     }
+
     const deletAsset = (id) => {
         AssetDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
@@ -100,7 +99,7 @@ const AssetList = () => {
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleDeleteException = (errorObject, errorMessage) =>{
@@ -121,42 +120,35 @@ const AssetList = () => {
     return (
         <div style={{border:'solid',borderColor:'whitesmoke'}}>
             <Grid container>
-                <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
-                    style={{ alignSelf:'center', textAlign:'center' }}
-                >
-                <h3 > Asset</h3>
+                <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{ alignSelf:'center', textAlign:'center' }}  >
+                    <h3 > Asset</h3>
                 </Grid>
-            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
-                style={{ alignSelf:'center', textAlign:'center' }}
-            >  
-                <Button style={{width:'10%',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
-                    Add
-                </Button>
-            </Grid>
+                <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{ alignSelf:'center', textAlign:'center' }}>
+                    <Button style={{width:'10%',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
+                        Add
+                    </Button>
+                </Grid>
             </Grid>
             <hr style={{ bottom: 'solid' }} />
             <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
                 <DataGrid 
-                    style={{ height: 270, }}
-                    loading={loading}
-                    rows={rows}
-                    columns={columns} 
-                />
+                style={{ height: 270, }}
+                loading={loading}
+                rows={rows}
+                columns={columns} />
             </Grid>
             <AssetModel
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-                setRefresh={setRefresh}
-                refresh ={refresh}
-            />
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            editData={editData}
+            setRefresh={setRefresh}
+            refresh ={refresh}/>
             <NotificationBar
-                handleClose={handleClose}
-                notificationContent={openNotification.message}
-                openNotification={openNotification.status}
-                type={openNotification.type}
-            />
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
         </div>
     )
 }

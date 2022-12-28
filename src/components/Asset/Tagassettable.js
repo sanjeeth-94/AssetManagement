@@ -29,24 +29,22 @@ export default function Tagassettable() {
   const handleFetcTagAssetException =()=>{
     
   }
+  
   return ( 
     <div >
       <Grid contaner style={{marginTop:'40px'}}>
-        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}
-          style={{alignSelf:'center',textAlign:'center'}}
-        >
+        <Grid item xs={10} sm={10} md={10} lg={10} lx={10} style={{alignSelf:'center',textAlign:'center'}}>
           <h3>TAG ASSET</h3>
         </Grid>
       </Grid>
       <Grid container style={{marginTop:'20px' ,marginLeft:'1%'}}>
         <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
           <DataGrid style={{ height: 450, }}
-              rows={rows}
-              loading={loading}
-              columns={columns}
-              rowsPerPageOptions={[5]}
-              onRowAdd
-          />
+          rows={rows}
+          loading={loading}
+          columns={columns}
+          rowsPerPageOptions={[5]}
+          onRowAdd/>
         </Grid>
       </Grid>
     </div>
