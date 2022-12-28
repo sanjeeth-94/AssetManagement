@@ -8,8 +8,7 @@ const RenevalInsurance = ({open , setOpen, editData }) => {
   const [assetName,setassetName] = useState(0);
   const [amcStartDate,setamcStartDate] = useState('');
   const [amcEndDate,setamcEndDate] = useState('');
- 
-
+  
   useEffect(() => {
     setdepartment(editData.department || '');
     setassetName(editData.assetName || '');
@@ -34,81 +33,72 @@ const RenevalInsurance = ({open , setOpen, editData }) => {
   return (
     <div>
       <Dialog
-       open={open}
-       fullWidth
-       maxWidth='lg'>
-        <form>
-           <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
+      open={open}
+      fullWidth
+      maxWidth='lg'>
+        <form >
+          <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
             {"Renewal Certificate"}
-
-           </DialogTitle>
-           <DialogContent>
+          </DialogTitle>
+          <DialogContent>
             <DialogContentText>
               <form>
-              <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                 <label >Department: </label>
-             </Grid>
-             <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-             <TextField id="" 
-              fullwidth
-              label="" 
-              variant="outlined" 
-              value={department} />
-             </Grid>
-             <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-             <label >Machine: </label>
-             </Grid>
-             <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-             <TextField id="" 
-              fullwidth
-              label="" 
-              variant="outlined" 
-              value={assetName}/>
-             </Grid>
-             </Grid>
-
-                  <Grid  container spacing={2} style={{ marginTop: '20px'}}>
-             <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Department: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                    <TextField id="" 
+                    fullwidth
+                    label="" 
+                    variant="outlined" 
+                    value={department} />
+                  </Grid>
+                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label >Machine: </label>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+                    <TextField id="" 
+                    fullwidth
+                    label="" 
+                    variant="outlined" 
+                    value={assetName}/>
+                  </Grid>
+                </Grid>
+                <Grid  container spacing={2} style={{ marginTop: '20px'}}>
+                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
                     <label > AMC Start Date:</label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                  <TextField 
-                  fullWidth 
-                  id="Vendor-Address" 
-                  variant="outlined" 
-                  type='date'
-                  value={amcStartDate}
-                  onChange={(e) => { handleChangeamcStartDate(e) }}/>
-                </Grid>
-                  
-                <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
-                   <label > AMC End Date:</label>
+                    <TextField 
+                    fullWidth 
+                    id="Vendor-Address" 
+                    variant="outlined" 
+                    type='date'
+                    value={amcStartDate}
+                    onChange={(e) => { handleChangeamcStartDate(e) }}/>
+                  </Grid>
+                  <Grid xs={12} sm={6} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+                    <label > AMC End Date:</label>
                   </Grid>
                   <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
-                  <TextField 
-                  fullWidth 
-                  id="Vendor-Address" 
-                  variant="outlined" 
-                  type='date'
-                  value={amcEndDate}
-                  onChange={(e) => { handleChangeamcEndDate(e) }}/>
-                </Grid>
-                 
+                    <TextField 
+                    fullWidth 
+                    id="Vendor-Address" 
+                    variant="outlined" 
+                    type='date'
+                    value={amcEndDate}
+                    onChange={(e) => { handleChangeamcEndDate(e) }}/>
                   </Grid>
-                    
-                  
+                </Grid>
               </form>
             </DialogContentText>
-           </DialogContent>
-           <div>
-            <Button>Renew</Button>
+          </DialogContent>
+          <div>
+            <Button type="submit">Renew</Button>
             <Button onClick={handleClose}>close</Button>
-           </div>
-          
-       
-        </form>
-       
+          </div>
+        </form>     
       </Dialog>
     </div>
   )

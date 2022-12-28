@@ -224,8 +224,8 @@ const InspectionDueList = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             </Box>
           </Grid>
         </Grid>
-          <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-        
+        <Button style={{ marginBottom:'20px', marginTop:'20px',marginLeft:'50px',}}  type='submit' variant="contained" >View</Button>     
+          
           <Grid container spacing={2} style={{ marginTop: '20px'}}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <h3 >INSPECTION DUE DATE</h3>

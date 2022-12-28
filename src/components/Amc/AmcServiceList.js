@@ -57,8 +57,7 @@ const AmcServiceList = () => {
             onClick={() => {
                 setIsAdd(false);
                 setEditData(selectedRow);
-                setOpen(true);
-                
+                setOpen(true);             
             }}/>
         )
     }
@@ -83,14 +82,11 @@ const AmcServiceList = () => {
     function VisibilityData({ selectedRow }) {
         return (
             <Visibility 
-            onClick={() => {
-                
+            onClick={() => {               
                 setIsView(true);
                 setEditData(selectedRow);
-                setOpenView(true);
-                
-            }}
-            />
+                setOpenView(true);               
+            }}/>
         )
     }
 
@@ -112,8 +108,7 @@ const AmcServiceList = () => {
             message:errorMessage,
         });
     }
-    
-    
+        
     const deleteAmc = (id) => {
         AmcServiceDeleteService ({id}, handleDeleteSuccess, handleDeleteException);
     }
@@ -207,13 +202,13 @@ const AmcServiceList = () => {
             isView={isView} />  
             
             <AmcServiceModalView
-                open={openView}
-                setOpen={setOpenView}
-                isAdd={isAdd}
-                isService={isService}
-                editData={editData}
-                setRefresh={setRefresh}
-                isView={isView}/>
+            open={openView}
+            setOpen={setOpenView}
+            isAdd={isAdd}
+            isService={isService}
+            editData={editData}
+            setRefresh={setRefresh}
+            isView={isView}/>
            
             <NotificationBar
             handleClose={handleClose}

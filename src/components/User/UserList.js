@@ -63,7 +63,7 @@ const UserList = (props) => {
           type: '',
           message: '',
         });
-      };
+    };
 
     function EditData({ selectedRow }) {
         return (
@@ -75,8 +75,7 @@ const UserList = (props) => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}/>
-           
+            }}/>        
         )
     }
     
@@ -87,9 +86,7 @@ const UserList = (props) => {
             color='primary'
             onClick={() => {
                 deletUser(selectedRow.id)
-                }
-                }/>
-           
+            }}/>       
         )
     }
     
@@ -104,7 +101,7 @@ const UserList = (props) => {
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleDeleteException = (errorObject, errorMessage) =>{
@@ -113,66 +110,45 @@ const UserList = (props) => {
             status: true,
             type: 'error',
             message:errorMessage,
-          });
+        });
     }
 
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
-       
     };
 
     return (
         <div>
             <Grid container>
-                <Grid xs={12} sm={6} md={6} lg={6} xl={6}
-                     style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center',
-                        marginTop: '20px',
-                      }}
-                >
+                <Grid xs={12} sm={6} md={6} lg={6} xl={6} style={{ alignSelf: 'center', textAlignLast: 'center', marginTop: '20px', }} >
                     <h3 > Manage user</h3>
                 </Grid>
-                <Grid xs={12} sm={6} md={6} lg={6} xl={6}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center',
-                        marginTop: '20px',
-                      }}
-                >
-                <Button 
-                        style={{width:'120px',height:'30px'}} 
-                        variant="outlined" onClick={handleModalOpen}
-                >
-                Add
-            </Button>
+                <Grid xs={12} sm={6} md={6} lg={6} xl={6} style={{ alignSelf: 'center',  textAlignLast: 'center', marginTop: '20px',  }} >
+                    <Button style={{width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen} >
+                      Add
+                    </Button>
                 </Grid>
             </Grid>
-           
             <hr style={{ bottom: 'solid' }} />
-            
             <div style={{ height: '350px', width: '85%', marginLeft: '5%', marginTop: '20px' }}>
                 <DataGrid
-                    loading={loading}
-                    rows={rows}
-                    columns={columns} 
-            />
+                loading={loading}
+                rows={rows}
+                columns={columns} />
             </div>
             <UserModel 
-                open={open}
-                setOpen={setOpen}
-                isAdd={isAdd}
-                editData={editData}
-                setRefresh={setRefresh}
-                refresh={refresh}
-            />
-                 <NotificationBar
-                    handleClose={handleClose}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            editData={editData}
+            setRefresh={setRefresh}
+            refresh={refresh}/>
+            <NotificationBar
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
         </div>
     )
 }

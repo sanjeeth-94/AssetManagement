@@ -36,6 +36,7 @@ import UserAssetList from './components/UserModule/UserAssetList';
 import UserMangaeServiceList from './components/UserModule/UserMangaeServiceList';
 import UserReturnAssetList from './components/UserModule/UserReturnAssetList';
 import UntageAssetList from './components/DashboardItems/UntageAssetList';
+import WarrantyList from './components/Amc/WarrantyList';
 
 
 function App() {
@@ -99,6 +100,7 @@ function App() {
             <Route path='/UserManageServiceList' element={<UserMangaeServiceList/>}/>
             <Route path='/UserRetureAsset' element={<UserReturnAssetList/>}/>
             <Route path='/UntageAssetList' element={<UntageAssetList/>}/>
+            <Route path='/WarrantyList' element={<WarrantyList/>}/>
           </Route> 
         </Route>
       </Routes> 

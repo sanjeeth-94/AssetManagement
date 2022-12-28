@@ -65,4 +65,4 @@ const Certificate = () => {
   )
 }
 
-export default Certificate
+export default Certificate;

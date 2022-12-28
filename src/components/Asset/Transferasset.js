@@ -5,12 +5,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import {
-        FetchDepaertmentService,
-        FetchSectionService,
-        FetchAssetTypeService , 
-        FetchAssetNameService,
-        FetchAsstTransferService
-     } from '../../services/ApiServices';
+    FetchDepaertmentService,
+    FetchSectionService,
+    FetchAssetTypeService , 
+    FetchAssetNameService,
+    FetchAsstTransferService
+} from '../../services/ApiServices';
 import { MenuItem } from '@mui/material';
 import NotificationBar from '../../services/NotificationBar';
 
@@ -58,27 +58,29 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             id: e.target.value
         },handleFetchDepartmentSuccess, handleFetchDepartmentException);
     };
+
     const handleFetchDepartmentSuccess = (dataObject) =>{
         setSectionList(dataObject.data);
-
-      }
-      const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
+    }
+    
+    const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
-      }
-
-      const onSectionChange = (e) => {
+    }
+    
+    const onSectionChange = (e) => {
         setSection(e.target.value);
         FetchAssetTypeService ({
             id: e.target.value
         },handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
     };
+
     const handleFetchAssetTypeSuccess = (dataObject) =>{
         setAssetTypeList(dataObject.data);
-
-      }
-      const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
+    }
+    
+    const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
-      }
+    }
 
     const onAssetTypeChange = (e)=>{
         setAssetType(e.target.value);
@@ -86,69 +88,72 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             id: e.target.value
         },handleFetchAssetNameSuccess , handleFetchAssetNameException);
     };
+
     const handleFetchAssetNameSuccess = (dataObject) =>{
         setAssetNameList(dataObject.data);
-
-      }
-      const handleFetchAssetNameException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-      }
-        const onAssetNameChange = (e)=>{
-            setAssetName(e.target.value);
-        }
-  
-        const onDepartmentMoveChange = (e) => {
-            setDepartmentMove(e.target.value);
-            FetchSectionService ({
-                id: e.target.value
-            },handleFetchDepartmentMoveSuccess, handleFetchDepartmentMoveException);
-        };
-        const handleFetchDepartmentMoveSuccess = (dataObject) =>{
-            setSectionListMove(dataObject.data);
-    
-          }
-          const handleFetchDepartmentMoveException = (errorStaus, errorMessage) =>{
-            console.log(errorMessage);
-          }
-    
-          const onSectionMoveChange = (e) => {
-            setSectionMove(e.target.value);
-            FetchAssetTypeService ({
-                id: e.target.value
-            },handleFetchAssetTypeMoveSuccess, handleFetchAssetTypeMoveException);
-        };
-        const handleFetchAssetTypeMoveSuccess = (dataObject) =>{
-            setAssetTypeListMove(dataObject.data);
-    
-          }
-          const handleFetchAssetTypeMoveException = (errorStaus, errorMessage) =>{
-            console.log(errorMessage);
-          }
-    
-        const onAssetTypeMoveChange = (e)=>{
-            setAssetTypeMove(e.target.value);
-           
-        };
-        
-  const handleCloseNotify = () => {
-    setOpen(false);
-    setNotification({
-      status: false,
-      type: '',
-      message: '',
-    });
-  };
-        
-       
-  const onSubmit = (e) => {
-    e.preventDefault();
-    FetchAsstTransferService({
-       id:assetName ,
-       department:departmentMove,
-       section:sectionMove,
-       assetType:assetTypeMove,
-      },handleFetchAsstTransferServiceSuccess, handleFetchAsstTransferServiceException)
     }
+    
+    const handleFetchAssetNameException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onAssetNameChange = (e)=>{
+        setAssetName(e.target.value);
+    }
+    
+    const onDepartmentMoveChange = (e) => {
+        setDepartmentMove(e.target.value);
+        FetchSectionService ({
+            id: e.target.value
+        },handleFetchDepartmentMoveSuccess, handleFetchDepartmentMoveException);
+    };
+    
+    const handleFetchDepartmentMoveSuccess = (dataObject) =>{
+        setSectionListMove(dataObject.data);
+    }
+    
+    const handleFetchDepartmentMoveException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onSectionMoveChange = (e) => {
+        setSectionMove(e.target.value);
+        FetchAssetTypeService ({
+            id: e.target.value
+        },handleFetchAssetTypeMoveSuccess, handleFetchAssetTypeMoveException);
+    };
+    
+    const handleFetchAssetTypeMoveSuccess = (dataObject) =>{
+        setAssetTypeListMove(dataObject.data);
+    }
+    
+    const handleFetchAssetTypeMoveException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onAssetTypeMoveChange = (e)=>{
+        setAssetTypeMove(e.target.value);
+    };
+  
+    const handleCloseNotify = () => {
+        setOpen(false);
+        setNotification({
+            status: false,
+            type: '',
+            message: '',
+        });
+    };
+  
+    const onSubmit = (e) => {
+        e.preventDefault();
+        FetchAsstTransferService({
+            id:assetName ,
+            department:departmentMove,
+            section:sectionMove,
+            assetType:assetTypeMove,
+        },handleFetchAsstTransferServiceSuccess, handleFetchAsstTransferServiceException)
+    }
+
     const handleFetchAsstTransferServiceSuccess = (dataObject) =>{
         setAssetTypeMove('');
         setSectionMove('');
@@ -161,9 +166,10 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             status: true,
             type: 'success',
             message: dataObject.massage,
-          });
-      }
-      const handleFetchAsstTransferServiceException = (errorStaus, errorMessage) =>{
+        });
+    }
+    
+    const handleFetchAsstTransferServiceException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
         setNotification({
             status: true,
@@ -177,7 +183,7 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         setAssetName('');
         setSection('');
         setDepartment('');
-      }
+    }
 
     return(
         <div style={{display:'flex'}}>
@@ -196,11 +202,11 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 label="Select Department"
                                 value={department}
                                 onChange={(e) => onDepartmentChange(e)}>
-                                        {departmentList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                            )
-                                        })}
+                                    {departmentList.map((data, index) => {
+                                        return (
+                                            <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                        )
+                                    })}
                                 </Select>
                             </FormControl>
                         </Box>
@@ -216,12 +222,11 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 label="Select Section"
                                 value={section}
                                 onChange={(e) => onSectionChange(e)}>
-                                        {sectionList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                                            )
-                                        })}
-                             
+                                    {sectionList.map((data, index) => {
+                                        return (
+                                            <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                        )
+                                    })}                            
                                 </Select>
                             </FormControl>
                         </Box>
@@ -242,7 +247,6 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                                     )
                                 })}
-
                                 </Select>
                             </FormControl>
                         </Box>
@@ -262,22 +266,16 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                     return (
                                         <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
                                     )
-                                })}
-                                
+                                })}                              
                                 </Select>
                             </FormControl>
                         </Box>
                     </div>
                     <div style={{marginLeft:'150px', marginTop:'20px', marginBottom:'20px'}}>
-                        <Button
-                        
-                         variant="contained"
-                         type='submit'
-                        >Move</Button>
+                        <Button variant="contained" type='submit'>Move</Button>
                     </div>
                 </form>
             </div>
-
             <div>
                 <form style={{ marginLeft:'30px' ,width:'500px',border:'solid', borderColor:'whitesmoke'}}>
                     <h2 style={{marginLeft:'200px'}}>To</h2>
@@ -293,11 +291,11 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 label="Select Department"
                                 value={departmentMove}
                                 onChange={(e) => onDepartmentMoveChange(e)}>
-                                        {departmentList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                            )
-                                        })}
+                                    {departmentList.map((data, index) => {
+                                        return (
+                                            <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                        )
+                                    })}
                                 </Select>
                             </FormControl>
                         </Box>
@@ -313,12 +311,11 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 label="Select Section"
                                 value={sectionMove}
                                 onChange={(e) => onSectionMoveChange(e)}>
-                                        {sectionListMove.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                                            )
-                                        })}
-                             
+                                    {sectionListMove.map((data, index) => {
+                                        return (
+                                            <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                        )
+                                    })}                       
                                 </Select>
                             </FormControl>
                         </Box>
@@ -339,7 +336,6 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
                                     )
                                 })}
-
                                 </Select>
                             </FormControl>
                         </Box>
@@ -347,11 +343,10 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 </form>
             </div>
             <NotificationBar
-                handleClose={handleCloseNotify}
-                notificationContent={openNotification.message}
-                openNotification={openNotification.status}
-                type={openNotification.type}
-            />
+            handleClose={handleCloseNotify}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
         </div>       
     )
 }
