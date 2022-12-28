@@ -52,8 +52,8 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh,refresh }) => {
 
   const handleFetchSuccess = (dataObject) => {
     setDepartmentList(dataObject.data);
-
   }
+
   const handleFetchException = (errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
@@ -66,9 +66,9 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh,refresh }) => {
     else
     {
       setemployeeId(dataObject.data);
-    }
-    
+    } 
   }
+
   const handleFetchUserIdServiceException=(errorStaus, errorMessage) => {
     console.log(errorMessage);
   }
@@ -91,37 +91,34 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh,refresh }) => {
     setUserRole('');
   };
 
-
   const onSubmit = (e) => {
     e.preventDefault();
     isAdd === true ?
-      (
-
-        UserAddService({
-          employee_id: employeeId,
-          employee_name: employeeName,
-          department: department,
-          designation: designation,
-          mobile_number: mobile_number,
-          email: emailId,
-          user_name: userName,
-          password: password,
-          userType: userRole,
+    (
+      UserAddService({
+        employee_id: employeeId,
+        employee_name: employeeName,
+        department: department,
+        designation: designation,
+        mobile_number: mobile_number,
+        email: emailId,
+        user_name: userName,
+        password: password,
+        userType: userRole,
         }, handleSuccess, handleException)
-      ) : (
-
-        UserUpdateService({
-          id: editData.id,
-          employee_id: employeeId,
-          employee_name: employeeName,
-          department: department,
-          designation: designation,
-          mobile_number: mobile_number,
-          email: emailId,
-          user_name: userName,
-          password: password
-        }, handleSuccess, handleException)
-      );
+    ) : (
+      UserUpdateService({
+        id: editData.id,
+        employee_id: employeeId,
+        employee_name: employeeName,
+        department: department,
+        designation: designation,
+        mobile_number: mobile_number,
+        email: emailId,
+        user_name: userName,
+        password: password
+      }, handleSuccess, handleException)
+    );
   }
 
   const handleSuccess = (dataObject) => {
@@ -182,27 +179,23 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh,refresh }) => {
                   style={{
                     alignSelf: 'center',
                     textAlignLast: 'center'
-                  }}
-                >
+                  }}>
                   <label>Employee ID :</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3} >
                   <TextField fullWidth id="employeeId" label="Employee ID" variant="outlined"
-                   
-                    value={employeeId}
+                  value={employeeId}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
                   style={{
                     alignSelf: 'center',
-                    textAlignLast: 'center',
-                    
+                    textAlignLast: 'center',                
                   }}
                 >
                   <label >Employee Name :</label>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}
-                  
                 >
                   <TextField fullWidth id="employeeName" label="Employee Name" variant="outlined"
                     onChange={(e) => { setemployeeNamed(e.target.value) }}

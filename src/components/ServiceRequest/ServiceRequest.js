@@ -329,8 +329,7 @@ const ServiceRequest = ({open2, setOpen2,editData}) => {
                   label="Asset Name"
                   variant="outlined"
                   value={expectedDay}
-                  onChange={(e) => {setExpectedDay(e.target.value)}}
-                  />
+                  onChange={(e) => {setExpectedDay(e.target.value)}}/>
                 </Grid>
               </Grid>
               </>

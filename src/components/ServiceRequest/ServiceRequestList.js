@@ -108,21 +108,23 @@ const ServiceRequestList = () => {
 
   const ServiceDownload = () =>{
     DownloadService(handleDownloadService, handleDownloadServiceException);
-}
+  }
 
-const handleDownloadService =() => {
-}
+  const handleDownloadService =() => {
+    
+  }
 
-const handleDownloadServiceException =() =>{
-}
+  const handleDownloadServiceException =() =>{
+    
+  }
 
   return (
     <div >
-      <h2>REQUESTED SERVICE</h2>
+      <h2 style={{marginLeft:'60px'}}>REQUESTED SERVICE</h2>
       <hr/>
       <form style={{border:'solid', borderColor:'whitesmoke', width:'95%',marginTop:'20px',height:'500px', marginLeft:'30px'}}>
         <div style={{margin:'30px',marginTop:'20px', marginLeft:'30px'}}>
-          <h3>View Requested Service</h3>
+          <h3 style={{marginLeft:'40px'}}>View Requested Service</h3>
         </div>
         <hr/>
         <DataGrid style={{marginLeft:'20px', marginRight:'20px',marginTop:'20px',height:'400px'}}
@@ -132,7 +134,6 @@ const handleDownloadServiceException =() =>{
         rowsPerPageOptions={[5]}
         onRowAdd/>
       </form>
-
       <Button style={{marginTop:'20px',marginLeft:'20px'}} variant="contained" onClick={ServiceDownload}>Export</Button>
 
       <ServiceRequestView

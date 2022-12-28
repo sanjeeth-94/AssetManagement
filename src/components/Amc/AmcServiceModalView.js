@@ -126,15 +126,14 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
             onClose={handleClose}
             fullWidth
             maxWidth='lg'>
-                <form >
+                <form>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                           <div>
-                            <DataGrid style={{height:'200px', marginTop:'20px', RowHeight:'20px'}}
-                            loading={loading}
-                            rows={rows}
-                            columns={columns}/>
-                          
+                            <div>
+                                <DataGrid style={{height:'200px', marginTop:'20px', RowHeight:'20px'}}
+                                loading={loading}
+                                rows={rows}
+                                columns={columns}/>
                             </div>
                         </DialogContentText>
                     </DialogContent>
@@ -144,11 +143,10 @@ const AmcServiceModalView = ({ open, setOpen,  setRefresh , isView, editData}) =
                 </form>
             </Dialog>
             <AmcServicePatternView
-                open1={open1}
-                setOpen1={setOpen1}
-                editData2={editData2}
-                rows2={rows}
-            />
+            open1={open1}
+            setOpen1={setOpen1}
+            editData2={editData2}
+            rows2={rows}/>
         </div>
     ) 
 }

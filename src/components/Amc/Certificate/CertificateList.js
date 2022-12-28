@@ -189,17 +189,15 @@ const CertificateList = () => {
             editData={editData}
             setRefresh={setRefresh}
             isView={isView}/>
-
-                <CertificateModalView
-                open={openView}
-                setOpen={setOpenView}
-                isAdd={isAdd}
-                isService={isService}
-                editData={editData}
-                setRefresh={setRefresh}
-                isView={isView}
-
-            />
+            
+            <CertificateModalView
+            open={openView}
+            setOpen={setOpenView}
+            isAdd={isAdd}
+            isService={isService}
+            editData={editData}
+            setRefresh={setRefresh}
+            isView={isView}/>
 
             <NotificationBar
             handleClose={handleClose}

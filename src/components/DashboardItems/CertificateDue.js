@@ -24,22 +24,21 @@ const CertificateDue = () => {
 
 
     },[]);
+
     const handleViewCertificateDueResult=(dataObject)=>{
         setRows(dataObject.data);
         setLoading(false);
         console.log(dataObject.data);
-      }
+    }
     
-      const handleViewCertificateDueError=(errorStaus, errorMessage)=>{
+    const handleViewCertificateDueError=(errorStaus, errorMessage)=>{
         console.log(errorMessage)
-      }
- 
-  
+    }
+    
     return (
         <div >
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                style={{alignSelf:'center', textAlign:'center'}}>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{alignSelf:'center', textAlign:'center'}}>
                     <h3 >CERTIFICATE DUE</h3>
                 </Grid>
             </Grid>

@@ -24,71 +24,68 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import { Grid } from "@mui/material";
 
 const Sidebar = ({ toggleFunction, sidebarOpen }) => {
-const [user ,setUser]=useState(false);
-useEffect(()=>{
-        const {userDetails} = ApplicationStore().getStorage("userDetails");
-        const {userRole} =userDetails;
-        if(userRole==='Admin')
-        {
-            setUser(true);
-        }
-},[]);
+  const [user ,setUser]=useState(false);
+  useEffect(()=>{
+    const {userDetails} = ApplicationStore().getStorage("userDetails");
+    const {userRole} =userDetails;
+    if(userRole==='Admin')
+    {
+      setUser(true);
+    }
+  },[]);
 
-const [openNotification, setNotification] = useState({
-        status: false,
-        type: 'error',
-        message: '',
-        });
-            
-const [isFullscreen, setIsFullscreen] = useState(false);
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
 
-const onClickLogOut = (e) => {
-        e.preventDefault();
-        LogoutService(handleLogoutService, handleLogoutServiceExeption)
-}
-const handleLogoutService = (dataObject) => {
-        console.log(dataObject);
-        setNotification({
-                status: true,
-                type: 'success',
-                message: dataObject.message,
-              });
-        setTimeout(()=>{
-                sessionStorage.clear();
-                window.location.reload(true);
-        },3000);
-        
-}
-const handleLogoutServiceExeption = (errorObject, errorMessage) => {
-        console.log(errorMessage);
-        setNotification({
-                status: true,
-                type: 'error',
-                message: errorMessage,
-              });
-}
-const handleCloseNotify = () => {
-        
-        setNotification({
-          status: false,
-          type: '',
-          message: '',
-        });
-      };
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const onClickLogOut = (e) => {
+    e.preventDefault();
+    LogoutService(handleLogoutService, handleLogoutServiceExeption)
+  }
+  const handleLogoutService = (dataObject) => {
+    console.log(dataObject);
+    setNotification({
+      status: true,
+      type: 'success',
+      message: dataObject.message,
+    });
+    setTimeout(()=>{
+      sessionStorage.clear();
+      window.location.reload(true);
+    },3000);
+  }
 
+  const handleLogoutServiceExeption = (errorObject, errorMessage) => {
+    console.log(errorMessage);
+    setNotification({
+      status: true,
+      type: 'error',
+      message: errorMessage,
+    });
+  }
 
-    
-const onFullScreen =()=>{
-        // document.body.requestFullscreen(); 
-        if(isFullscreen === true){
-                document.body.requestFullscreen();
-                setIsFullscreen(false); 
-        }
-        if(isFullscreen === false){
-                document.exitFullscreen();
-                setIsFullscreen(true);
-        }
-}
+  const handleCloseNotify = () => {
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
+  const onFullScreen =()=>{
+    // document.body.requestFullscreen(); 
+    if(isFullscreen === true){
+      document.body.requestFullscreen();
+      setIsFullscreen(false); 
+    }
+    if(isFullscreen === false){
+      document.exitFullscreen();
+      setIsFullscreen(true);
+    }
+  }
 
 
 return (

@@ -181,125 +181,105 @@ const ViewAuditReport = () => {
       <hr/>
 
       <Grid container spacing={2} style={{marginTop:'15px'}}>
-        <Grid item xs={12} sm={6} md={3} lg={3} xl={3} 
-         style={{alignself:'center' , textAlign:'center'}}
-        >
-        <label>Audited Date From :</label>
+        <Grid item xs={12} sm={6} md={3} lg={3} xl={3} style={{alignself:'center' , textAlign:'center'}} >
+           <label>Audited Date From :</label>
         </Grid>
         <Grid item xs={12} sm={6} md={3} lg={3} xl={3} >
-        <TextField
-            fullWidth
-            id="Vendor-Address"
-            variant="outlined"
-            type='date'
-            value={fromDate}
-            onChange={(e) => { handleChangefromDate(e) }}/>
+          <TextField
+          fullWidth
+          id="Vendor-Address"
+          variant="outlined"
+          type='date'
+          value={fromDate}
+          onChange={(e) => { handleChangefromDate(e) }}/>
         </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={2} xl={2} 
-         style={{alignself:'center' , textAlign:'center'}}
-        >
-        <label > To</label>
+        <Grid item xs={12} sm={6} md={3} lg={2} xl={2} style={{alignself:'center' , textAlign:'center'}} >
+          <label > To</label>
         </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={3} xl={3} 
-        
-        >
-        <TextField
-            fullWidth
-            id="Vendor-Address"
-            variant="outlined"
-            type='date'
-            value={toDate}
-            onChange={(e) => { handleChangetoDate(e) }}/>
+        <Grid item xs={12} sm={6} md={3} lg={3} xl={3} >
+          <TextField
+          fullWidth
+          id="Vendor-Address"
+          variant="outlined"
+          type='date'
+          value={toDate}
+          onChange={(e) => { handleChangetoDate(e) }}/>
         </Grid>
       </Grid>
       <Grid container spacing={2} style={{ marginTop:'15px'}} >
-        <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2}
-          style={{alignSelf:'center', textAlign:'center'}}
-        >
-        <label>Department :</label>
+        <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2} style={{alignSelf:'center', textAlign:'center'}}>
+          <label>Department :</label>
         </Grid>
         <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
         <FormControl fullWidth>
-                <InputLabel id="departmentlabel">Select Department</InputLabel>
-                <Select
-              
-                label="Select Department"
-                onChange={(e) => onDepartmentChange(e)}>
-                  {departmentList.map((data, index) => {
-                    return (
-                      <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                    )
-                  })}
-                </Select>
-              </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={1} xl={1}
-        style={{alignSelf:'center', textAlign:'center'}}
-        >
-        <label>Section:</label>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
-        <FormControl fullWidth >
-                <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
-                <Select
-            
-                label="Select Section"
-                onChange={(e) => onSectionChange(e)}>
-                  {sectionList.map((data, index) => {
-                    return (
-                      <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                    )
-                  })}
-                </Select>
-              </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2}
-         style={{alignSelf:'center', textAlign:'center'}}
-        >
-        <label >Asset Type :</label>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
-        <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
-                <Select
-       
-                label="Select Asset Type "
-                onChange={(e) => onAssetTypeChange(e)}>
-                  {assetTypeList.map((data, index) => {
-                    return (
-                      <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
-                    )
-                  })}
-                </Select>
-              </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={1.5} xl={1.5}>
-        <Button style={{marginLeft:'50px', marginBottom:'30px'}} type='submit' variant="contained" onClick={onSubmit}>View</Button>
-
-        </Grid>
+          <InputLabel id="departmentlabel">Select Department</InputLabel>
+          <Select
+          label="Select Department"
+          onChange={(e) => onDepartmentChange(e)}>
+            {departmentList.map((data, index) => {
+              return (
+                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
       </Grid>
-
-      <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
-        <div>
-          <h3 style={{marginLeft:'30px'}}>AUDITED REPORT</h3>
-        </div>
-        <hr/>
-        <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-          <DataGrid
-          rows={rows}
-          columns={columns}/>
-        </div>
-        <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained" onClick={AuditDownload}>Export</Button>
-      </form>
-    
-     <ViewAuditViewModal
-      open={open}
-      setOpen={setOpen}
-      isAdd={isAdd}
-      editData={editData}
-      setRefresh={setRefresh}
-      
-      />
+      <Grid item xs={12} sm={6} md={3} lg={1} xl={1} style={{alignSelf:'center', textAlign:'center'}}>
+        <label>Section:</label>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+        <FormControl fullWidth >
+          <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
+          <Select
+          label="Select Section"
+          onChange={(e) => onSectionChange(e)}>
+            {sectionList.map((data, index) => {
+              return (
+                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
+      </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2} style={{alignSelf:'center', textAlign:'center'}}>
+          <label >Asset Type :</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
+          <Select
+          label="Select Asset Type "
+          onChange={(e) => onAssetTypeChange(e)}>
+            {assetTypeList.map((data, index) => {
+              return (
+                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3} lg={1.5} xl={1.5}>
+        <Button variant="contained" style={{marginLeft:'50px', marginBottom:'30px'}} type='submit'  onClick={onSubmit}>View</Button>
+      </Grid>
+    </Grid>
+    <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
+      <div>
+        <h3 style={{marginLeft:'30px'}}>AUDITED REPORT</h3>
+      </div>
+      <hr/>
+      <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
+        <DataGrid
+        rows={rows}
+        columns={columns}/>
+      </div>
+      <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained" onClick={AuditDownload}>Export</Button>
+    </form>
+    <ViewAuditViewModal
+    open={open}
+    setOpen={setOpen}
+    isAdd={isAdd}
+    editData={editData}
+    setRefresh={setRefresh}/>
     </div>
   )
 }

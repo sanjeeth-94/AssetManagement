@@ -21,6 +21,7 @@ import { CertificateAddService,
   FetchVenderDataService, 
   FetchAssetNameService,
 } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
 
 const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
   const [vendorName, setVendorName] = useState(editData?.vendorId || '');
@@ -776,6 +777,12 @@ const CretificateModel = ({open, setOpen, isAdd, editData, setRefresh }) => {
               </Button>
               <Button type='reset' onClick={handleClose}>Cancel</Button>
             </div>
+            <NotificationBar
+            handleClose={handleCloseNotify}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}
+          />
       
           </DialogActions>
         </form>

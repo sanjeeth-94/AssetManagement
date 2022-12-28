@@ -17,7 +17,7 @@ import {
     ScrapAssetAddService, 
 } from '../../services/ApiServices';
 
-import ScrapLog from '../Asset/ScrapLog'
+import ScrapLog from '../Asset/Scraplog'
 import NotificationBar from '../../services/NotificationBar';
 
 const ScrapAssetList = () => {

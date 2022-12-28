@@ -53,27 +53,29 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             id: e.target.value
         },handleFetchDepartmentSuccess, handleFetchDepartmentException);
     };
+
     const handleFetchDepartmentSuccess = (dataObject) =>{
         setSectionList(dataObject.data);
-
-      }
-      const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
+    }
+    
+    const handleFetchDepartmentException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
-      }
-
-      const onSectionChange = (e) => {
+    }
+    
+    const onSectionChange = (e) => {
         setSection(e.target.value);
         FetchAssetTypeService ({
             id: e.target.value
         },handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
     };
+
     const handleFetchAssetTypeSuccess = (dataObject) =>{
         setAssetTypeList(dataObject.data);
-
-      }
-      const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
+    }
+    
+    const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
-      }
+    }
 
     const onAssetTypeChange = (e)=>{
         setAssetType(e.target.value);
@@ -81,69 +83,72 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             id: e.target.value
         },handleFetchAssetNameSuccess , handleFetchAssetNameException);
     };
+
     const handleFetchAssetNameSuccess = (dataObject) =>{
         setAssetNameList(dataObject.data);
-
-      }
-      const handleFetchAssetNameException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-      }
-        const onAssetNameChange = (e)=>{
-            setAssetName(e.target.value);
-        }
-  
-        const onDepartmentMoveChange = (e) => {
-            setDepartmentMove(e.target.value);
-            FetchSectionService ({
-                id: e.target.value
-            },handleFetchDepartmentMoveSuccess, handleFetchDepartmentMoveException);
-        };
-        const handleFetchDepartmentMoveSuccess = (dataObject) =>{
-            setSectionListMove(dataObject.data);
-    
-          }
-          const handleFetchDepartmentMoveException = (errorStaus, errorMessage) =>{
-            console.log(errorMessage);
-          }
-    
-          const onSectionMoveChange = (e) => {
-            setSectionMove(e.target.value);
-            FetchAssetTypeService ({
-                id: e.target.value
-            },handleFetchAssetTypeMoveSuccess, handleFetchAssetTypeMoveException);
-        };
-        const handleFetchAssetTypeMoveSuccess = (dataObject) =>{
-            setAssetTypeListMove(dataObject.data);
-    
-          }
-          const handleFetchAssetTypeMoveException = (errorStaus, errorMessage) =>{
-            console.log(errorMessage);
-          }
-    
-        const onAssetTypeMoveChange = (e)=>{
-            setAssetTypeMove(e.target.value);
-           
-        };
-        
-  const handleCloseNotify = () => {
-    setOpen(false);
-    setNotification({
-      status: false,
-      type: '',
-      message: '',
-    });
-  };
-        
-       
-  const onSubmit = (e) => {
-    e.preventDefault();
-    FetchAsstTransferService({
-       id:assetName ,
-       department:departmentMove,
-       section:sectionMove,
-       assetType:assetTypeMove,
-      },handleFetchAsstTransferServiceSuccess, handleFetchAsstTransferServiceException)
     }
+    
+    const handleFetchAssetNameException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onAssetNameChange = (e)=>{
+        setAssetName(e.target.value);
+    }
+    
+    const onDepartmentMoveChange = (e) => {
+        setDepartmentMove(e.target.value);
+        FetchSectionService ({
+            id: e.target.value
+        },handleFetchDepartmentMoveSuccess, handleFetchDepartmentMoveException);
+    };
+    
+    const handleFetchDepartmentMoveSuccess = (dataObject) =>{
+        setSectionListMove(dataObject.data);
+    }
+    
+    const handleFetchDepartmentMoveException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onSectionMoveChange = (e) => {
+        setSectionMove(e.target.value);
+        FetchAssetTypeService ({
+            id: e.target.value
+        },handleFetchAssetTypeMoveSuccess, handleFetchAssetTypeMoveException);
+    };
+    
+    const handleFetchAssetTypeMoveSuccess = (dataObject) =>{
+        setAssetTypeListMove(dataObject.data);
+    }
+    
+    const handleFetchAssetTypeMoveException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+    const onAssetTypeMoveChange = (e)=>{
+        setAssetTypeMove(e.target.value);
+    };
+  
+    const handleCloseNotify = () => {
+        setOpen(false);
+        setNotification({
+            status: false,
+            type: '',
+            message: '',
+        });
+    };
+  
+    const onSubmit = (e) => {
+        e.preventDefault();
+        FetchAsstTransferService({
+            id:assetName ,
+            department:departmentMove,
+            section:sectionMove,
+            assetType:assetTypeMove,
+        },handleFetchAsstTransferServiceSuccess, handleFetchAsstTransferServiceException)
+    }
+
     const handleFetchAsstTransferServiceSuccess = (dataObject) =>{
         setAssetTypeMove('');
         setSectionMove('');
@@ -156,9 +161,10 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             status: true,
             type: 'success',
             message: dataObject.massage,
-          });
-      }
-      const handleFetchAsstTransferServiceException = (errorStaus, errorMessage) =>{
+        });
+    }
+    
+    const handleFetchAsstTransferServiceException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
         setNotification({
             status: true,
@@ -172,7 +178,7 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         setAssetName('');
         setSection('');
         setDepartment('');
-      }
+    }
 
     return(
         <div>

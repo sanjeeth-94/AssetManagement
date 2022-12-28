@@ -25,7 +25,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [ assetNameList, setAssetNameList] = useState([]);
   const [asset, setAsset] = useState('');
   const [rows ,setRows]=useState([]);
-  // const [loading,setLoading]=useState([]);
+  const [loading,setLoading]=useState(false);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -64,7 +64,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const handleSuccess = (dataObject) =>{
     console.log(dataObject);
     setRows(dataObject.data);
-    // setLoading(false);
+    setLoading(false);
    
   }
   
@@ -138,28 +138,26 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   
   return (
     <form onSubmit={onSubmit}>
-      <div >
+      <div>
         <Grid  container spacing={2} style={{ marginTop: '20px'}}>
           <Grid item xs={12} sm={6} md={6} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Department:</label>
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={3} xl={3} >
-           
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label"></InputLabel>
-                <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label=""
-                onChange={(e) => onDepartmentChange(e)}>
-                  {departmentList.map((data, index) => {
-                    return (
-                      <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                    )
-                  })}
-                </Select>
-              </FormControl>
-          
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label"></InputLabel>
+              <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label=""
+              onChange={(e) => onDepartmentChange(e)}>
+                {departmentList.map((data, index) => {
+                  return (
+                    <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Section:</label>
@@ -184,8 +182,7 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           </Grid>
         </Grid>
           <Grid  container spacing={2} style={{ marginTop: '10px'}}>
-
-          <Grid item xs={12} sm={6} md={6} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
+            <Grid item xs={12} sm={6} md={6} lg={2} xl={2}    style={{ alignSelf: 'center', textAlignLast: 'center'}}>
             <label>Asset Type</label>
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
@@ -233,19 +230,16 @@ const AmcService = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <Button variant="contained" type='submit' >View</Button>
         </Grid>
         </Grid>
-        
       </div>
       <Grid container spacing={2} style={{marginTop:'10px'}}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-          style={{ alignSelf: 'center', textAlignLast: 'center'}}
-        >
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ alignSelf: 'center', textAlignLast: 'center'}}>
           <h3>Service DATE</h3>
         </Grid>
       </Grid>
       <Grid container spacing={2} >
         <Grid item xs={12} sm={12} md={12} xl={12} style={{height:'200px',marginTop:'20px'}}>
           <DataGrid
-          // loading={loading}
+          loading={loading}
           rows={rows}
           columns={columns}
           rowsPerPageOptions={[5]}
